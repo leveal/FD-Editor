@@ -153,13 +153,15 @@ namespace FR_Operator
             {
                 LogHandle.ol(shift_state);
                 LogHandle.ol("Last fd: "+ KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY]);
-                if (_deviceVer == 1) /* прошивки С2 устройства с КЯ */
+                /*
+                 * настройка отключения печати считывается и сиспользуется то в _PrintDisableFlagSet и _PrintDisableFlagRestore
+                if (_deviceVer == 1) *//* прошивки С2 устройства с КЯ *//*
                 {
                     Driver.TableNumber = 1;
                     Driver.RowNumber = 1;
                     Driver.FieldNumber = 48;
                 }
-                else /*if(_deviceVer == 0) обычный штрих */
+                else *//*if(_deviceVer == 0) обычный штрих *//*
                 {
                     Driver.TableNumber = 17;
                     Driver.RowNumber = 1;
@@ -167,7 +169,7 @@ namespace FR_Operator
                 }
 
                 Driver.ReadTable();
-                _originalPrintDisableFlag = Driver.ValueOfFieldInteger;
+                _originalPrintDisableFlag = Driver.ValueOfFieldInteger;*/
 
                 Driver.GetDeviceMetrics();
                 KKMInfoTransmitter[FR_MODEL_KEY] = Driver.UDescription;
@@ -419,8 +421,9 @@ namespace FR_Operator
                 RezultMsg("Смена уже открыта");
                 return false;
             }
-            Driver.BeginDocument();
             _PrintDisableFlagSet();
+            Driver.BeginDocument();
+            
             int errorCode = Driver.FNBeginOpenSession();
             if (errorCode != NONE && errorCode != 94)
             {
@@ -597,17 +600,19 @@ namespace FR_Operator
                 }
             }
 
-            
 
+            _PrintDisableFlagSet();
             if (doc.Document == FD_DOCUMENT_NAME_CHEQUE)  
             {
                 bool p1 = _PerformChequeCommon(doc);
+                _PrintDisableFlagRestore();
                 ReadDeviceCondition();
                 return p1;
             }
             else if (doc.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE) //добавить метод пробития для старых прошивок
             {
                 bool p1 = _PerformCorrectionOptimal(doc);
+                _PrintDisableFlagRestore();
                 ReadDeviceCondition();
                 return p1;
             }
@@ -617,7 +622,6 @@ namespace FR_Operator
 
         private bool _PerformChequeCommon(FiscalCheque doc)
         {
-            _PrintDisableFlagSet();
             int errorCode = NONE;
             if (doc.CalculationSign == FD_CALCULATION_INCOME_LOC) Driver.CheckType = 0;
             else if (doc.CalculationSign == FD_CALCULATION_BACK_INCOME_LOC) Driver.CheckType = 2;
@@ -628,7 +632,7 @@ namespace FR_Operator
             {
                 RezultMsg("OpenCheck. Ошибка " + errorCode + " " + (Error_codes_dict.ContainsKey(errorCode) ? Error_codes_dict[errorCode] : Driver.ResultCodeDescription));
                 KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = Driver.ResultCodeDescription;
-                _PrintDisableFlagRestore();
+                //_PrintDisableFlagRestore();
                 return false;
             }
             errorCode = Driver.OpenCheck();
@@ -636,10 +640,44 @@ namespace FR_Operator
             {
                 RezultMsg("OpenCheck. Ошибка " + errorCode + " " + (Error_codes_dict.ContainsKey(errorCode) ? Error_codes_dict[errorCode] : Driver.ResultCodeDescription));
                 KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = Driver.ResultCodeDescription;
-                _PrintDisableFlagRestore();
+                //_PrintDisableFlagRestore();
                 //if(AppSettings.shtrihChequeMethod == AppSettings.ShtrihPerformChequeMethods.Buffereing)Driver.EndDocument();
                 return false;
             }
+            if (AppSettings.OverideRetailAddress && !string.IsNullOrEmpty(doc.RetailAddress))
+            {
+                LogHandle.ol("Перезапись адреса места установки " + doc.RetailAddress);
+                Driver.TagNumber = FTAG_RETAIL_PLACE_ADRRESS;
+                Driver.TagType = SI_ttString;
+                Driver.TagValueStr = doc.RetailAddress;
+                Driver.FNSendTag();
+            }
+            if (AppSettings.OverideRetailPlace && !string.IsNullOrEmpty(doc.RetailPlace))
+            {
+                LogHandle.ol("Перезапись места установки " + doc.RetailPlace);
+                Driver.TagNumber = FTAG_RETAIL_PLACE;
+                Driver.TagType = SI_ttString;
+                Driver.TagValueStr = doc.RetailPlace;
+                Driver.FNSendTag();
+            }
+            //1008 Телефон или электронный адрес покупателя
+            if (!string.IsNullOrEmpty(doc.EmailPhone))
+            {
+                Driver.TagType = SI_ttString;
+                Driver.TagNumber = FTAG_DESTINATION_EMAIL;
+                Driver.TagValueStr = doc.EmailPhone;
+                int r = Driver.FNSendTag();
+                LogHandle.ol(r+"  Добавляем электронный адрес " + doc.EmailPhone);
+            }
+            if (doc.InternetPayment)
+            {
+                LogHandle.ol("Добавляем признак расчета в интернет ");
+                Driver.TagType = SI_ttByte;
+                Driver.TagNumber = FTAG_INTERNET_PAYMENT;
+                Driver.TagValueInt = 1;
+                Driver.FNSendTag();
+            }
+
             if (doc.IsPropertiesData)
             {
                 Driver.TagNumber = FTAG_PROPERTIES_DATA;
@@ -675,7 +713,7 @@ namespace FR_Operator
                 if (!_RegisterItem(item, doc.CalculationSign, ref errorCode))
                 {
                     _CriticalCheqErrorServiceOperations(errorCode);
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
             }
@@ -792,15 +830,7 @@ namespace FR_Operator
             }
             
 
-            //1008 Телефон или электронный адрес покупателя
-            if (!string.IsNullOrEmpty(doc.EmailPhone))
-            {
-                LogHandle.ol("Добавляем электронный адрес " + doc.EmailPhone);
-                Driver.TagType = SI_ttString;
-                Driver.TagNumber = FTAG_DESTINATION_EMAIL;
-                Driver.TagValueStr = doc.EmailPhone;
-                Driver.FNSendTag();
-            }
+            
             int t = (int)Math.Round((itemsSumm - doc.TotalSum) * 100);
             
             if (AppSettings.ShtrihCloseCheckMethod == 0)
@@ -809,7 +839,7 @@ namespace FR_Operator
                 {
                     LogHandle.ol("Данный метод регистрации чека не поддерживает не округление итога");
                     _CriticalCheqErrorServiceOperations();
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     RezultMsg("Используется метод оформления чеков не поддерживающий округление итога");
                     return false;
                 }
@@ -817,7 +847,7 @@ namespace FR_Operator
                 {
                     LogHandle.ol("Данный метод регистрации чека не поддерживает авансы кредиты и ВП");
                     _CriticalCheqErrorServiceOperations();
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     RezultMsg("Используется метод оформления чеков не поддерживающий авансы кредиты и ВП");
                     return false;
                 }
@@ -847,7 +877,7 @@ namespace FR_Operator
                 if (errorCode != NONE)
                 {
                     _CriticalCheqErrorServiceOperations(errorCode);
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
             }
@@ -868,7 +898,7 @@ namespace FR_Operator
                 // восстановление флага отключения печати бессыленно т.к. без печати ошибки ошибки печати быть не может
                 return false;
             }
-            _PrintDisableFlagRestore();
+            //_PrintDisableFlagRestore();
             RezultMsg(SUCCESS_MSG);
             return true;
         }
@@ -1086,7 +1116,7 @@ namespace FR_Operator
                     RezultMsg("Добавление кода товара FNSendItemCodeData " + Driver.ResultCodeDescription);
                     LogHandle.ol("отменяем чек FNCancelDocument");
                     _CriticalCheqErrorServiceOperations(errorCode);
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
             }
@@ -1111,7 +1141,7 @@ namespace FR_Operator
         private bool _PerformCorrectionOptimal(FiscalCheque doc)
         {
             LogHandle.ol("Чек коррекции");
-            _PrintDisableFlagSet();
+            //_PrintDisableFlagSet();
 
             if (doc.CalculationSign == 1)
             {
@@ -1139,7 +1169,7 @@ namespace FR_Operator
                 {
                     RezultMsg(Driver.ResultCodeDescription);
                     KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = Driver.ResultCodeDescription;
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
             }
@@ -1152,7 +1182,7 @@ namespace FR_Operator
                 {
                     RezultMsg(Driver.ResultCodeDescription);
                     KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = Driver.ResultCodeDescription;
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
             }
@@ -1300,6 +1330,22 @@ namespace FR_Operator
                     LogHandle.ol(Driver.FNSendSTLVTag().ToString());
                 }
             }
+            if (AppSettings.OverideRetailAddress && !string.IsNullOrEmpty(doc.RetailAddress))
+            {
+                LogHandle.ol("Перезапись адреса места установки " + doc.RetailAddress);
+                Driver.TagNumber = FTAG_RETAIL_PLACE_ADRRESS;
+                Driver.TagType = SI_ttString;
+                Driver.TagValueStr = doc.RetailAddress;
+                Driver.FNSendTag();
+            }
+            if (AppSettings.OverideRetailPlace && !string.IsNullOrEmpty(doc.RetailPlace))
+            {
+                LogHandle.ol("Перезапись места установки " + doc.RetailPlace);
+                Driver.TagNumber = FTAG_RETAIL_PLACE;
+                Driver.TagType = SI_ttString;
+                Driver.TagValueStr = doc.RetailPlace;
+                Driver.FNSendTag();
+            }
             //1008 Телефон или электронный адрес покупателя
             if (!string.IsNullOrEmpty(doc.EmailPhone))
             {
@@ -1307,6 +1353,14 @@ namespace FR_Operator
                 Driver.TagType = SI_ttString;
                 Driver.TagNumber = FTAG_DESTINATION_EMAIL;
                 Driver.TagValueStr = doc.EmailPhone;
+                Driver.FNSendTag();
+            }
+            if (doc.InternetPayment)
+            {
+                LogHandle.ol("Добавляем признак расчета в интернет ");
+                Driver.TagType = SI_ttByte;
+                Driver.TagNumber = FTAG_INTERNET_PAYMENT;
+                Driver.TagValueInt = 1;
                 Driver.FNSendTag();
             }
 
@@ -1345,7 +1399,7 @@ namespace FR_Operator
                 {
                     //_CriticalCheqErrorServiceOperations();
                     _CriticalCheqErrorServiceOperations(errorCode);
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
             }
@@ -1422,7 +1476,7 @@ namespace FR_Operator
                     if (_oldDriver && !AppSettings.ShtrihIgnoreOldDriver)
                     {
                         _CriticalCheqErrorServiceOperations(SinExep_DRIVER_NEED_TO_UPDATE);    // синтетическая ошибка, отсутвие полей библиотеки перехватить try/catch не получается
-                        _PrintDisableFlagRestore();
+                        //_PrintDisableFlagRestore();
                         return false;
                     }
 
@@ -1456,13 +1510,13 @@ namespace FR_Operator
                         )
                     {
                         _CriticalCheqErrorServiceOperations(SinExep_BAD_SETTING_FOR_CORRECT_FD);    // синтетическая ошибка, используются новые НДС команда закрытия чека без новых ставок и отключен подсчет налогов прошивкой
-                        _PrintDisableFlagRestore();
+                        //_PrintDisableFlagRestore();
                         return false;
                     }
                     if (existsNewTaxes && firmwareBuild.Year < 2025 && !AppSettings.ShtrihIgnoreOldDriver)
                     {
                         _CriticalCheqErrorServiceOperations(SinExep_NOT_COMPATIBLE_FIRMWARE);    // Прошивка не подходит для новых ставок
-                        _PrintDisableFlagRestore();
+                        //_PrintDisableFlagRestore();
                         return false;
                     }
 
@@ -1551,7 +1605,7 @@ namespace FR_Operator
                 if (_oldDriver && !AppSettings.ShtrihIgnoreOldDriver)
                 {
                     _CriticalCheqErrorServiceOperations(SinExep_DRIVER_NEED_TO_UPDATE);    // синтетическая ошибка, перехватить try/catch не получается
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
                 Driver.TaxValue7 = (decimal)doc.Nds5;
@@ -1570,13 +1624,13 @@ namespace FR_Operator
                     )
                 {
                     _CriticalCheqErrorServiceOperations(SinExep_BAD_SETTING_FOR_CORRECT_FD);    // синтетическая ошибка, используются новые НДС команда закрытия чека без новых ставок и отключен подсчет налогов прошивкой
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
                 if (existsNewTaxes && firmwareBuild.Year < 2025 && !AppSettings.ShtrihIgnoreOldDriver)
                 {
                     _CriticalCheqErrorServiceOperations(SinExep_NOT_COMPATIBLE_FIRMWARE);    // Прошивка не подходит для новых ставок
-                    _PrintDisableFlagRestore();
+                    //_PrintDisableFlagRestore();
                     return false;
                 }
                 LogHandle.ol("Закрываем чек FNCloseCheckEx");
@@ -1585,7 +1639,7 @@ namespace FR_Operator
             if (errorCode != 0)
             {
                 _CriticalCheqErrorServiceOperations(errorCode);
-                _PrintDisableFlagRestore();
+                //_PrintDisableFlagRestore();
                 return false;
             }
             return true;
@@ -2221,10 +2275,10 @@ namespace FR_Operator
                 }
                 
                 Driver.ReadTable();
-                int notPrintSetting = Driver.ValueOfFieldInteger;
+                _originalPrintDisableFlag = Driver.ValueOfFieldInteger;
                 if (_deviceVer == 1)
                 {
-                    if(notPrintSetting==0 || notPrintSetting == 2)
+                    if(_originalPrintDisableFlag == 0 )
                     {
                         Driver.TableNumber = 1;
                         Driver.RowNumber = 1;
@@ -2236,7 +2290,7 @@ namespace FR_Operator
                 }
                 else
                 {
-                    if (notPrintSetting == 0)
+                    if (_originalPrintDisableFlag == 0)
                     {
                         Driver.TableNumber = 17;
                         Driver.RowNumber = 1;
@@ -2251,7 +2305,7 @@ namespace FR_Operator
         private void _PrintDisableFlagRestore()
         {
 
-            if( _dontPrint && _originalPrintDisableFlag != -1 )
+            if( _dontPrint && !(_originalPrintDisableFlag == 2 || _originalPrintDisableFlag == -1))
             {
                 if(_deviceVer == 1)
                 {

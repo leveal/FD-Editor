@@ -84,6 +84,9 @@
             this.radioButton_cs_usingSno = new System.Windows.Forms.RadioButton();
             this.radioButton_cs_dontUsingSno = new System.Windows.Forms.RadioButton();
             this.tabPage_fdProperties = new System.Windows.Forms.TabPage();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.checkBox_ovverrideRetailPlace = new System.Windows.Forms.CheckBox();
+            this.checkBox_ovverrideRetailAddress = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.checkBox_correctionOrderNumber_CorrectionOrderExistance = new System.Windows.Forms.CheckBox();
@@ -149,6 +152,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage_fdProperties.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -872,6 +876,7 @@
             // 
             // tabPage_fdProperties
             // 
+            this.tabPage_fdProperties.Controls.Add(this.groupBox13);
             this.tabPage_fdProperties.Controls.Add(this.label23);
             this.tabPage_fdProperties.Controls.Add(this.groupBox8);
             this.tabPage_fdProperties.Controls.Add(this.groupBox7);
@@ -883,6 +888,39 @@
             this.tabPage_fdProperties.TabIndex = 5;
             this.tabPage_fdProperties.Text = "Доп. реквизиты";
             this.tabPage_fdProperties.UseVisualStyleBackColor = true;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.checkBox_ovverrideRetailPlace);
+            this.groupBox13.Controls.Add(this.checkBox_ovverrideRetailAddress);
+            this.groupBox13.Location = new System.Drawing.Point(378, 11);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(420, 111);
+            this.groupBox13.TabIndex = 17;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "Адрес и место установки ККТ";
+            // 
+            // checkBox_ovverrideRetailPlace
+            // 
+            this.checkBox_ovverrideRetailPlace.AutoSize = true;
+            this.checkBox_ovverrideRetailPlace.Location = new System.Drawing.Point(7, 61);
+            this.checkBox_ovverrideRetailPlace.Name = "checkBox_ovverrideRetailPlace";
+            this.checkBox_ovverrideRetailPlace.Size = new System.Drawing.Size(278, 17);
+            this.checkBox_ovverrideRetailPlace.TabIndex = 1;
+            this.checkBox_ovverrideRetailPlace.Text = "(1187) Перезаписывать тег место установки ККТ";
+            this.checkBox_ovverrideRetailPlace.UseVisualStyleBackColor = true;
+            this.checkBox_ovverrideRetailPlace.CheckedChanged += new System.EventHandler(this.ChangingSettings);
+            // 
+            // checkBox_ovverrideRetailAddress
+            // 
+            this.checkBox_ovverrideRetailAddress.AutoSize = true;
+            this.checkBox_ovverrideRetailAddress.Location = new System.Drawing.Point(7, 20);
+            this.checkBox_ovverrideRetailAddress.Name = "checkBox_ovverrideRetailAddress";
+            this.checkBox_ovverrideRetailAddress.Size = new System.Drawing.Size(277, 17);
+            this.checkBox_ovverrideRetailAddress.TabIndex = 0;
+            this.checkBox_ovverrideRetailAddress.Text = "(1009) Перезаписывать тег адрес установки ККТ";
+            this.checkBox_ovverrideRetailAddress.UseVisualStyleBackColor = true;
+            this.checkBox_ovverrideRetailAddress.CheckedChanged += new System.EventHandler(this.ChangingSettings);
             // 
             // label23
             // 
@@ -1593,6 +1631,8 @@
             this.groupBox2.PerformLayout();
             this.tabPage_fdProperties.ResumeLayout(false);
             this.tabPage_fdProperties.PerformLayout();
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -1736,5 +1776,8 @@
         private System.Windows.Forms.CheckBox checkBox_correctionOrderNumber_CorrectionOrderExistance;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.CheckBox checkBox_ovverrideRetailPlace;
+        private System.Windows.Forms.CheckBox checkBox_ovverrideRetailAddress;
     }
 }

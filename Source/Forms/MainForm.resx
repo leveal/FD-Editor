@@ -120,6 +120,9 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="comboBox_task2ReadSeparator.ToolTip" xml:space="preserve">
     <value>Разница сторо-нестого при распознавании номеров:
 - нестрого допустимы повторы номеров и ошибки при вводе 
@@ -158,6 +161,18 @@
 3 Расход -&gt; 1 Приход
 4 Возврат расхода -&gt; 2 Возврат прихода</value>
   </data>
+  <metadata name="Total.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Cash.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ECash.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Date.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="Total.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -219,9 +234,9 @@
   <data name="button_cashOperation.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAGtJREFUOE+lkVEOgCAMQ3f/QxFPpEdAlmwEagOkvuSFD9cO1YI7lKmDUtFYIBWx
-        grQ0t7Bg+sS5vBGGVtIiNrhzejU2cGK/DXt44q+Cq9lhA6hv89P/ygccZk4bERZI6UZEDiZyMPEPJATN
-        XqW9i2nvzAg2AAAAAElFTkSuQmCC
+        vAAADrwBlbxySQAAAGtJREFUOE+lkVEKgDAMQ3f/Q4kn0iMoRTeytyClBh77aJN2W2uPjpeyLqEUpAGl
+        IJqVjc1ONClnZiOavrBBbMowXY3FLGMbFrL8CtjH/qboiGlxxq8sYrNjmkixWbETKZrSxq6ysSseqGS8
+        AaW9i2l6XLqWAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

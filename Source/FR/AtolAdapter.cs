@@ -341,7 +341,7 @@ namespace FR_Operator
         public override bool PerformFD(FiscalCheque doc)
         {
             LogHandle.ol("Отправляем документ в ФР" + Environment.NewLine + doc.ToString(FiscalCheque.FULL_INFO));
-            if (fptr ==null)
+            if (fptr == null)
             {
                 RezultMsg(NO_DRIVER_FOUNDED);
                 return false;
@@ -367,6 +367,22 @@ namespace FR_Operator
                     fptr.setParam(FTAG_CASHIER_INN, doc.CashierInn);
                 }
                 fptr.operatorLogin();
+            }
+            if (AppSettings.OverideRetailAddress && !string.IsNullOrEmpty(doc.RetailAddress))
+            {
+                fptr.setParam(FTAG_RETAIL_PLACE_ADRRESS, doc.RetailAddress);
+            }
+            if (AppSettings.OverideRetailPlace && !string.IsNullOrEmpty(doc.RetailPlace))
+            {
+                fptr.setParam(FTAG_RETAIL_PLACE, doc.RetailPlace);
+            }
+            if (!string.IsNullOrEmpty(doc.EmailPhone))
+            {
+                fptr.setParam(FTAG_DESTINATION_EMAIL, doc.EmailPhone);
+            }
+            if (doc.InternetPayment)
+            {
+                fptr.setParam(FTAG_INTERNET_PAYMENT, true);
             }
 
             if (doc.BuyerInformation /*&& doc.Document == FD_DOCUMENT_NAME_CHEQUE*/)    
@@ -1058,11 +1074,14 @@ namespace FR_Operator
                     {
                         cheque.EmailPhone = fptr.getParamString(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
+                    else if (tagNumber == FTAG_RETAIL_PLACE_ADRRESS)
+                    {
+                        cheque.RetailAddress = fptr.getParamString(Constants.LIBFPTR_PARAM_TAG_VALUE);
+                    }
                     else if(tagNumber == FTAG_DOC_FISCAL_SIGN)
                     {
                         if (docFiscalSign==null||docFiscalSign==""||docFiscalSign.Length<5)
                         {
-                            
                             byte[] bytes = fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE);
                             uint fs = 0;
                             int i = bytes.Length - 4;
@@ -1070,8 +1089,6 @@ namespace FR_Operator
                             {
                                 fs += (uint)(bytes[i] * Math.Pow(256, bytes.Length - i - 1));
                             }
-                            
-
                             docFiscalSign = fs.ToString("D10");
                         }
                     }
@@ -1158,75 +1175,83 @@ namespace FR_Operator
                     {
                         cheque.Nds10110 = 0.01 * fptr.getParamInt(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
-                    else if(tagNumber == FTAG_CORRECTION_TYPE)
+                    else if (tagNumber == FTAG_INTERNET_PAYMENT)
+                    {
+                        cheque.InternetPayment = fptr.getParamInt(Constants.LIBFPTR_PARAM_TAG_VALUE) > 0;
+                    }
+                    else if (tagNumber == FTAG_CORRECTION_TYPE)
                     {
                         cheque.CorrectionTypeNotFtag = (int)fptr.getParamInt(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
-                    else if(tagNumber == FTAG_CORRECTION_BASE)
+                    else if (tagNumber == FTAG_CORRECTION_BASE)
                     {
                         var correctionBase = parceStlvCorrectionBase(fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE));
-                        if(correctionBase.ContainsKey(FTAG_CORRECTION_DESCRIBER))
+                        if (correctionBase.ContainsKey(FTAG_CORRECTION_DESCRIBER))
                             cheque.CorrectionDocDescriber = (string)correctionBase[FTAG_CORRECTION_DESCRIBER];
-                        if(correctionBase.ContainsKey(FTAG_CORRECTION_DOC_DATE))
+                        if (correctionBase.ContainsKey(FTAG_CORRECTION_DOC_DATE))
                             cheque.CorrectionDocumentDate = (DateTime)correctionBase[FTAG_CORRECTION_DOC_DATE];
                         if (correctionBase.ContainsKey(FTAG_CORRECTION_ORDER_NUMBER))
                             cheque.CorrectionOrderNumber = (string)correctionBase[FTAG_CORRECTION_ORDER_NUMBER];
                     }
-                    else if(tagNumber == FTAG_CASHIER_INN)
+                    else if (tagNumber == FTAG_RETAIL_PLACE)
+                    {
+                        cheque.RetailPlace = fptr.getParamString(Constants.LIBFPTR_PARAM_TAG_VALUE);
+                    }
+                    else if (tagNumber == FTAG_CASHIER_INN)
                     {
                         cheque.CashierInn = fptr.getParamString(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
-                    else if(tagNumber == FTAG_PREPAID_TOTAL_SUM)
+                    else if (tagNumber == FTAG_PREPAID_TOTAL_SUM)
                     {
-                        cheque.Prepaid = 0.01* fptr.getParamInt(Constants.LIBFPTR_PARAM_TAG_VALUE);
+                        cheque.Prepaid = 0.01 * fptr.getParamInt(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
-                    else if(tagNumber == FTAG_CREDIT_TOTAL_SUM)
+                    else if (tagNumber == FTAG_CREDIT_TOTAL_SUM)
                     {
                         cheque.Credit = 0.01 * fptr.getParamInt(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
-                    else if(tagNumber == FTAG_PROVISION_TOTAL_SUM)
+                    else if (tagNumber == FTAG_PROVISION_TOTAL_SUM)
                     {
                         cheque.Provision = 0.01 * fptr.getParamInt(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
-                    else if(tagNumber == FTAG_BUYER_INFORMATION_BUYER)
+                    else if (tagNumber == FTAG_BUYER_INFORMATION_BUYER)
                     {
                         cheque.BuyerInformationBuyer = fptr.getParamString(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
-                    else if(tagNumber == FTAG_BUYER_INFORMATION_BUYER_INN)
+                    else if (tagNumber == FTAG_BUYER_INFORMATION_BUYER_INN)
                     {
                         cheque.BuyerInformationBuyerInn = fptr.getParamString(Constants.LIBFPTR_PARAM_TAG_VALUE);
                     }
-                    else if(tagNumber == FTAG_BUYER_INFORMATION)
+                    else if (tagNumber == FTAG_BUYER_INFORMATION)
                     {
-                        
+
                         List<FTag> biList = FTag.FTLVParcer.ParseStructure(fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE));
-                        foreach(FTag f in biList)
+                        foreach (FTag f in biList)
                         {
-                            if(f.TagNumber == FTAG_BUYER_INFORMATION_BUYER)
+                            if (f.TagNumber == FTAG_BUYER_INFORMATION_BUYER)
                             {
                                 cheque.BuyerInformationBuyer = f.ValueStr;
                             }
-                            else if(f.TagNumber == FTAG_BUYER_INFORMATION_BUYER_INN)
+                            else if (f.TagNumber == FTAG_BUYER_INFORMATION_BUYER_INN)
                             {
                                 cheque.BuyerInformationBuyerInn = f.ValueStr;
                             }
-                            else if(f.TagNumber == FTAG_BI_ADDRESS)
+                            else if (f.TagNumber == FTAG_BI_ADDRESS)
                             {
                                 cheque.BuyerInformationBuyerAddress = f.ValueStr;
                             }
-                            else if(f.TagNumber == FTAG_BI_BIRTHDAY)
+                            else if (f.TagNumber == FTAG_BI_BIRTHDAY)
                             {
                                 cheque.BuyerInformationBuyerBirthday = f.ValueStr;
                             }
-                            else if(f.TagNumber == FTAG_BI_DOCUMENT_CODE)
+                            else if (f.TagNumber == FTAG_BI_DOCUMENT_CODE)
                             {
                                 cheque.BuyerInformationBuyerDocumentCode = f.ValueStr;
                             }
-                            else if(f.TagNumber == FTAG_BI_DOCUMENT_DATA)
+                            else if (f.TagNumber == FTAG_BI_DOCUMENT_DATA)
                             {
                                 cheque.BuyerInformationBuyerDocumentData = f.ValueStr;
                             }
-                            else if(f.TagNumber == FTAG_BI_CITIZENSHIP)
+                            else if (f.TagNumber == FTAG_BI_CITIZENSHIP)
                             {
                                 cheque.BuyerInformationBuyerCitizenship = f.ValueStr;
                             }
@@ -1237,7 +1262,7 @@ namespace FR_Operator
                         List<FTag> newTaxSumms = FTag.FTLVParcer.ParseStructure(fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE));
                         uint taxType = 10000;
                         double taxAmount = 0;
-                        foreach(FTag t in newTaxSumms)
+                        foreach (FTag t in newTaxSumms)
                         {
                             if (t.Nested != null || t.Nested.Count != 0)
                             {
@@ -1263,14 +1288,14 @@ namespace FR_Operator
                                 }
                                 else
                                 {
-                                    LogHandle.ol("Ошибка в разборе сумм НДС чека "+t.ToString());
+                                    LogHandle.ol("Ошибка в разборе сумм НДС чека " + t.ToString());
                                 }
                             }
                             else
                             {
-                                LogHandle.ol("Проблема со структурой FTAG_AMOUNTS_RECEIPT_NDS 1115  "+t.ToString());
+                                LogHandle.ol("Проблема со структурой FTAG_AMOUNTS_RECEIPT_NDS 1115  " + t.ToString());
                             }
-                            
+
                         }
                     }
                     /*                  Строковое представление и  вывод в консоль документа

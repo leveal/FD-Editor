@@ -104,6 +104,8 @@ namespace FR_Operator
             FTAG_AMOUNTS_NDS = 1119,                        // Cуммы НДС чека
             FTAG_AMOUNTS_NDS_NDSSUM = 1120,                 // сумма НДС 
 
+            FTAG_INTERNET_PAYMENT = 1125,                      // признак расчета в интернет
+
             FTAG_ITEM_PRODUCT_CODE = 1162,                  // Код товара
             FTAG_ITEM_PRODUCT_CODE_NEW = 1163,              // Код товара ФФД 1.2
 
@@ -116,6 +118,7 @@ namespace FR_Operator
             FTAG_CORRECTION_DOC_DATE = 1178,                // Дата документа основания для коррекции Number UnixTime
             FTAG_CORRECTION_ORDER_NUMBER = 1179,            // Номер документа основания для коррекции
 
+            FTAG_RETAIL_PLACE = 1187,                       // Место расчетов
             FTAG_KKT_VERSION = 1188,                        // Версия ККТ
 
             FTAG_PROPERTIES_DATA = 1192,                    // Дополнительный реквизит чека (БСО)
@@ -257,13 +260,13 @@ namespace FR_Operator
             FD_DC_OK = 0,                                                                   // нет информации
             FD_DC_CRITICAL_ERROR_BF = 0b1,                                                  // невозможно оформить документ
             FD_DC_ERROR_NOT_ENOUTH_PAID_BF = 0b10,                                          // чек не оплачен
-            FD_DC_WARN_NDS_SUMS_BF = 0b100,                                                 // некорректны суммы НДС 
+            //FD_DC_WARN_NDS_SUMS_BF = 0b100,                                                 // некорректны суммы НДС 
             FD_DC_ERROR_BAD_ITEM_BF = 0b1000,                                               // некорректен предмет расчета
             FD_DC_WARN_WARNED_ITEM_BF = 0b10000,                                            // некритичная проблема с одним из предметов расчета
             FD_DC_ERROR_OVERPAID_CRITICAL_BF = 0b100000,                                    // критичная переплата в документе
             FD_DC_ERROR_OVERPAID_WITH_CHANGE_BF = 0b1000000,                                // переплата в документе со сдачей наличными
             FD_DC_PAID_EXACT_BF = 0b10000000,                                               // точная оплата документа
-            FD_DC_PAID_WRITE_DOWN_PENNIES_BF = 0b100000000,                                 // округление/списание копеек
+            //FD_DC_PAID_WRITE_DOWN_PENNIES_BF = 0b100000000,                                 // округление/списание копеек
 
             FD_CORRECTION_TYPE = 11310,                                                     // 1174 Основание для коррекции составной STLV
              FD_CORRECTION_TYPE_SELF_MADE = 11311, FD_CORRECTION_TYPE_SELF_LOC = 0,         // 1173 Тип коррекции самостоятельно
@@ -350,11 +353,11 @@ namespace FR_Operator
             [FD_DC_OK] = SUCCESS_MSG,
             [FD_DC_CRITICAL_ERROR_BF] = "Невозможно оформить документ",
             [FD_DC_ERROR_NOT_ENOUTH_PAID_BF] = "Документ не оплачен",
-            [FD_DC_WARN_NDS_SUMS_BF] = "Суммы НДС не сходятся",
+            //[FD_DC_WARN_NDS_SUMS_BF] = "Суммы НДС не сходятся",
             [FD_DC_ERROR_BAD_ITEM_BF] = "Некорректный предмет расчета",
             [FD_DC_WARN_WARNED_ITEM_BF] = "Некритичная проблема в предмете расчета",
             [FD_DC_ERROR_OVERPAID_CRITICAL_BF] = "Переплата в документе",
-            [FD_DC_PAID_WRITE_DOWN_PENNIES_BF] = "округление/списание копеек",
+            //[FD_DC_PAID_WRITE_DOWN_PENNIES_BF] = "округление/списание копеек",
             [FD_DC_ERROR_OVERPAID_WITH_CHANGE_BF] = "документ со сдачей"
         };
 
@@ -518,7 +521,7 @@ namespace FR_Operator
             SNO_USN_DOHOD = "УСНД",
             SNO_USN_DR = "УСНДР",
             SNO_ESHN = "ЕСХН",
-            SNO_PSN = "ЕСХН";
+            SNO_PSN = "ПСН";
 
         public static string UserConversion(string urlitso)
         {
@@ -974,6 +977,10 @@ namespace FR_Operator
                             case FTAG_DESTINATION_EMAIL:
                                 if(chequeRec)doc.Cheque.EmailPhone = tag.ValueStr;      //Скорей всего cheqRec лишнее
                                 break;
+
+                            case FTAG_RETAIL_PLACE_ADRRESS:
+                                if (chequeRec) doc.Cheque.RetailAddress = tag.ValueStr;
+                                break;
                             case FTAG_DATE_TIME:
                                 doc.Time = tag.ValueDT;
                                 break;
@@ -1341,7 +1348,9 @@ namespace FR_Operator
                                 }
                                 break;
 
-
+                            case FTAG_INTERNET_PAYMENT:
+                                if (chequeRec) doc.Cheque.InternetPayment = tag.ValueInt != 0;
+                                break;
                             case FTAG_CORRECTION_TYPE:
                                 doc.Cheque.CorrectionTypeNotFtag = (int)tag.ValueInt;
                                 break;
@@ -1360,6 +1369,10 @@ namespace FR_Operator
                                 if (!string.IsNullOrEmpty(describtion)) doc.Cheque.CorrectionDocDescriber = describtion;
                                 doc.Cheque.CorrectionOrderNumber = orderNum;
                                 if (corrDate > new DateTime(2017, 1, 1)) doc.Cheque.CorrectionDocumentDate = corrDate;
+                                break;
+
+                            case FTAG_RETAIL_PLACE:
+                                if (chequeRec) doc.Cheque.RetailPlace = tag.ValueStr;
                                 break;
                             case FTAG_CASHIER_INN:
                                 if (chequeRec) doc.Cheque.CashierInn = tag.ValueStr;
@@ -1431,9 +1444,9 @@ namespace FR_Operator
                                     && tn!= 1017
                                     && tn!= 1046
                                     && tn!= FTAG_USER
-                                    && tn!= FTAG_RETAIL_PLACE_ADRRESS
+                                    //&& tn!= FTAG_RETAIL_PLACE_ADRRESS
                                     && tn!= FTAG_SELLER_ADDRESS
-                                    && tn!= 1187
+                                    //&& tn!= 1187
                                     && tn!= 1207
                                     && tn!= 1193
                                     && tn!= 1126

@@ -623,6 +623,29 @@ namespace FR_Operator
             }
         }
 
+        // 1009 retailAddress
+        string _retailAddress = string.Empty;
+        public string RetailAddress
+        {
+            get => _retailAddress;
+            set => _retailAddress = value;
+        }
+
+        // 1187 retailPlace
+        string _retailPlace = string.Empty;
+        public string RetailPlace
+        {
+            get => _retailPlace;
+            set => _retailPlace = value;
+        }
+        // 1125 internetPayment
+        bool _internetPayment;
+        public bool InternetPayment
+        {
+            get => _internetPayment;
+            set => _internetPayment = value;
+        }
+
         bool _availableCommonTaxes = true;
         public bool AvailableCommonTaxes
         {
@@ -878,6 +901,18 @@ namespace FR_Operator
             {
                 s.AppendLine(ToString(NONE));
                 s.AppendLine("\tСНО:" + TaxSystem[Sno]);
+                if (AppSettings.OverideRetailAddress && !string.IsNullOrEmpty(_retailAddress))
+                {
+                    s.AppendLine("Адрес расчетов: " + _retailAddress);
+                }
+                if (AppSettings.OverideRetailPlace)
+                {
+                    s.AppendLine("Место расчетов: " + _retailPlace);
+                }
+                if (_internetPayment)
+                {
+                    s.AppendLine("Расчет в интернете");
+                }
                 if (IsPropertiesData)
                 {
                     s.AppendLine("1192-доп реквизит чека: "+_propertiesData);
@@ -939,7 +974,18 @@ namespace FR_Operator
                     s.Append("Чек коррекции ");
                 s.Append(FiscalOperationType[CalculationSign]);
                 s.AppendLine("\t\tСНО: " + TaxSystem[Sno]);
-
+                if (AppSettings.OverideRetailAddress && !string.IsNullOrEmpty(_retailAddress))
+                {
+                    s.AppendLine("Адрес расчетов: " + _retailAddress);
+                }
+                if (AppSettings.OverideRetailPlace && !string.IsNullOrEmpty(_retailPlace))
+                {
+                    s.AppendLine("Место расчетов: " + _retailPlace);
+                }
+                if (_internetPayment)
+                {
+                    s.AppendLine("Признак расчетов в интернет");
+                }
                 if (_documentName == FD_DOCUMENT_NAME_CORRECTION_CHEQUE)
                 {
                     s.AppendLine("Тип коррекции:" + (_correctionTypeNotFtag == 0 || _correctionTypeNotFtag == 11311 ? "0 Самостоятельно" : "1 По предписанию"));
@@ -1079,7 +1125,7 @@ namespace FR_Operator
                     s.Append(" Иной тип оплаты = ");
                     s.AppendLine(_sums[FD_SUMS_PAY_PROVISION_LOC].ToString());
                 }
-
+                
 
             }
             return s.ToString();
@@ -1128,6 +1174,14 @@ namespace FR_Operator
                 cloned.PropertiesPropertyName = _propertiesPropertyName;
             if(!string.IsNullOrEmpty(_propertiesPropertyValue))
                 cloned.PropertiesPropertyValue = _propertiesPropertyValue;
+            if(!string.IsNullOrEmpty(_retailAddress))
+                cloned.RetailAddress = _retailAddress;
+            if(!string.IsNullOrEmpty(_retailPlace))
+                cloned.RetailPlace = _retailPlace;
+            if (this._internetPayment)
+            {
+                cloned.InternetPayment = _internetPayment;
+            }
             cloned.Cash = this.Cash;
             cloned.ECash = this.ECash;
             cloned.Prepaid = this.Prepaid;
@@ -1395,38 +1449,49 @@ namespace FR_Operator
                 }
             }
             // 1117 sellerAddress
-            // 1125 Признак расчета в «Интернет»
-            // 1171 providerPhone
-            else if(tagNumber == FTAG_CORRECTION_TYPE)
+            // 1125 internetPayment
+            else if (tagNumber == FTAG_INTERNET_PAYMENT)
             {
-                
+                if (_internetPayment)
+                {
+                    try { f = new FTag(FTAG_INTERNET_PAYMENT, 1, true); } catch { }
+                    if (f != null)
+                    {
+                        l.Add(f);
+                    }
+                }
+            }
+            // 1171 providerPhone
+            else if (tagNumber == FTAG_CORRECTION_TYPE)
+            {
+
                 try { f = new FTag(FTAG_CORRECTION_TYPE, CorrectionTypeFtag, true); } catch { }
                 if (f != null)
                 {
                     l.Add(f);
                 }
             }
-            else if(tagNumber == FTAG_CORRECTION_BASE)
+            else if (tagNumber == FTAG_CORRECTION_BASE)
             {
                 try
                 {
-                    FTag fcorrdocdate = new FTag(FTAG_CORRECTION_DOC_DATE,CorrectionDocumentDate,true);
-                    
+                    FTag fcorrdocdate = new FTag(FTAG_CORRECTION_DOC_DATE, CorrectionDocumentDate, true);
+
                     FTag fcorrOrdNum = null;
-                    
+
                     if (!string.IsNullOrEmpty(_correctionOrderNumber))
                     {
-                        if(AppSettings.CorrectionOrderExistance == 1 && _correctionTypeFtag == 1
+                        if (AppSettings.CorrectionOrderExistance == 1 && _correctionTypeFtag == 1
                             || AppSettings.CorrectionOrderExistance == 0
                             )
                         {
                             fcorrOrdNum = new FTag(FTAG_CORRECTION_ORDER_NUMBER, _correctionOrderNumber, true);
                         }
-                        
+
                     }
                     List<FTag> cl = new List<FTag>();
                     cl.Add(fcorrdocdate);
-                    if(fcorrOrdNum!=null&& fcorrOrdNum.TagNumber > 0)
+                    if (fcorrOrdNum != null && fcorrOrdNum.TagNumber > 0)
                     {
                         cl.Add(fcorrOrdNum);
                     }
@@ -1539,6 +1604,24 @@ namespace FR_Operator
                     if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
                         l.Add(f);
                 }
+            }
+            else if (tagNumber == FTAG_RETAIL_PLACE_ADRRESS)
+            {
+                if (!string.IsNullOrEmpty(_retailAddress))
+                {
+                    try { f = new FTag(FTAG_RETAIL_PLACE_ADRRESS, _retailAddress, true); } catch { }
+                    if (f != null && f.TagNumber > 0)           
+                        l.Add(f);
+                }
+            }
+            else if (tagNumber == FTAG_RETAIL_PLACE)
+            {
+                if (!string.IsNullOrEmpty(_retailPlace))
+                {
+                    try { f = new FTag(FTAG_RETAIL_PLACE, _retailPlace, true); } catch { }
+                }
+                if (f != null && f.TagNumber > 0)           
+                    l.Add(f);
             }
             // 1261 industryReceiptDetails
             // 1270 operationalDetails

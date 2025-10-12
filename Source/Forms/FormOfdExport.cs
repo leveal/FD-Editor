@@ -21,6 +21,8 @@ namespace FR_Operator
         {
             InitializeComponent();
             this.Icon = Resources.fd_editpr_16_2;
+            _overrideAddressOriginal = AppSettings.OverideRetailAddress;
+            _overridePlaceOriginal = AppSettings.OverideRetailPlace;
             fiscalPrinter = kkt;
             form = this;
             log = richTextBox_log;
@@ -187,6 +189,8 @@ namespace FR_Operator
             comboBox_checkTax7.SelectedIndex = _pointer_checkTax_7;
             comboBox_checkTax5105.SelectedIndex = _pointer_checkTax_5105;
             comboBox_checkTax7107.SelectedIndex = _pointer_checkTax_7107;
+            comboBox_retailAddress.SelectedIndex = _pointer_retailAddress;
+            comboBox_retailPlace.SelectedIndex = _pointer_retailPlace;
 
             if (fiscalPrinter != null)
             {
@@ -272,8 +276,15 @@ namespace FR_Operator
             comboSet.Add(comboBox_checkTax5105);
             comboSet.Add(comboBox_checkTax7107);
             comboSet.Add(comboBox_snoDefault);
+            comboSet.Add(checkBox_allowEmptyPropertyData);
+            comboSet.Add(textBox_startFrom);
+            comboSet.Add(comboBox_retailAddress);
+            comboSet.Add(comboBox_retailPlace);
             MapPresetts();
         }
+        bool _overrideAddressOriginal = false;
+        bool _overridePlaceOriginal = false;
+
 
         List<Control> comboSet = new List<Control>();
 
@@ -281,7 +292,7 @@ namespace FR_Operator
         public FiscalPrinter fiscalPrinter;
 
         object[,] data = null;
-        int _startIndex = 13;
+        int _startIndex = 2;
         int _endIndex = 99999;
 
         int _pointer_checkId = 0;
@@ -349,7 +360,13 @@ namespace FR_Operator
         int _pointer_checkTax_7 = 0;
         int _pointer_checkTax_5105 = 0;
         int _pointer_checkTax_7107 = 0;
+        bool _allowEmptyPropertyData = false;
 
+        int _pointer_retailAddress = 0;
+        string _retailAddressDefalt = string.Empty;
+
+        int _pointer_retailPlace = 0;
+        string _retailPlaceDefalt = string.Empty;
 
         public static bool breakOperation = false; 
 
@@ -524,7 +541,7 @@ namespace FR_Operator
                 {
                     int operationTypeIndex = _pointer_operationTypeM5 - 4;
                     List<string> op_types = new List<string>();
-                    for (int i = _startIndex; i < data.GetUpperBound(0) && i < _endIndex; i++)
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
                     {
                         if (data[i, operationTypeIndex] == null)
                         {
@@ -617,6 +634,42 @@ namespace FR_Operator
             {
                 _pointer_itemsQuantity = comboBox_itemsQuantity.SelectedIndex;
             }
+            else if (sender == comboBox_retailAddress)
+            {
+                _pointer_retailAddress = comboBox_retailAddress.SelectedIndex;
+                if (_pointer_retailAddress > 0)
+                {
+                    AddMessage("Включаем настройку перезаписи адреса расчетов");
+                    AppSettings.OverideRetailAddress = true;
+                }
+                else
+                {
+                    AddMessage("Выключаем настройку перезаписи адреса расчетов");
+                    AppSettings.OverideRetailAddress = false;
+                }
+            }
+            else if (sender == comboBox_retailPlace)
+            {
+                _pointer_retailPlace = comboBox_retailPlace.SelectedIndex;
+                if (_pointer_retailPlace > 0)
+                {
+                    AddMessage("Включаем настройку перезаписи места расчетов");
+                    AppSettings.OverideRetailPlace = true;
+                }
+                else
+                {
+                    AddMessage("Выключаем настройку перезаписи места расчетов");
+                    AppSettings.OverideRetailPlace = false;
+                }
+            }
+            else if(sender == textBox_retailPlaceDefault)
+            {
+                _retailPlaceDefalt = textBox_retailPlaceDefault.Text;
+            }
+            else if (sender == textBox_retailAdressDefault)
+            {
+                _retailAddressDefalt = textBox_retailAdressDefault.Text;
+            }
             else if (sender == textBox_itemsQuantityDefault)
             {
                 if (double.TryParse(FiscalPrinter.ReplaceBadDecimalSeparatorPoint(textBox_itemsQuantityDefault.Text), out _itemsQuantityDefault))
@@ -652,13 +705,13 @@ namespace FR_Operator
             {
                 _pointer_itemsPaymentTypeSignM7 = comboBox_itemsPaymentTypeSign.SelectedIndex;
                 dataGridView_itemsPaymentTypeMap.Rows.Clear();
-                if (_pointer_itemsPaymentTypeSignM7 > 0 && _pointer_itemsPaymentTypeSignM7 <= data.GetUpperBound(1) )
+                if (_pointer_itemsPaymentTypeSignM7 > 0 && _pointer_itemsPaymentTypeSignM7 <= data.GetUpperBound(1))
                 {
                     List<string> ips = new List<string>();
                     int errors = 0;
-                    for (int i = _startIndex; i < data.GetUpperBound(0); i++)
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
                     {
-                        if (data[i, _pointer_itemsPaymentTypeSignM7]!=null )
+                        if (data[i, _pointer_itemsPaymentTypeSignM7] != null)
                         {
                             if (!ips.Contains(data[i, _pointer_itemsPaymentTypeSignM7].ToString()))
                                 ips.Add(data[i, _pointer_itemsPaymentTypeSignM7].ToString());
@@ -671,27 +724,27 @@ namespace FR_Operator
                         if (ips.Count > 25)
                         {
                             AddMessage("Найдено слишком много признаков расчета возможно выбран неправильный столбец");
-                            errors += 16; 
+                            errors += 16;
                         }
                         if (errors > 15)
                         {
                             AddMessage("Превышено количество неправильных значений проверка прервана.");
                             break;
-                        }   
+                        }
                     }
-                    if(errors <= 15)
+                    if (errors <= 15)
                     {
-                        foreach(string s in ips)
+                        foreach (string s in ips)
                         {
                             int t = -1;
                             int.TryParse(s, out t);
                             if (t > 0 && t <= 7)
                             {
-                                if(t == 1)
+                                if (t == 1)
                                 {
                                     dataGridView_itemsPaymentTypeMap.Rows.Add(s, "1 - Предоплата 100%");
                                 }
-                                else if(t == 2)
+                                else if (t == 2)
                                 {
                                     dataGridView_itemsPaymentTypeMap.Rows.Add(s, "2 - Частичная предоплата");
                                 }
@@ -732,11 +785,11 @@ namespace FR_Operator
             {
                 _pointer_itemsProductTypeM33 = comboBox_itemsProductType.SelectedIndex;
                 dataGridView_itemsProductTypeMap.Rows.Clear();
-                if(_pointer_itemsProductTypeM33>0 && _pointer_itemsProductTypeM33 <= data.GetUpperBound(1))
+                if (_pointer_itemsProductTypeM33 > 0 && _pointer_itemsProductTypeM33 <= data.GetUpperBound(1))
                 {
                     List<string> ipt = new List<string>();
                     int errors = 0;
-                    for (int i = _startIndex; i < data.GetUpperBound(0); i++)
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
                     {
                         if (data[i, _pointer_itemsProductTypeM33] != null)
                         {
@@ -759,14 +812,14 @@ namespace FR_Operator
                             break;
                         }
                     }
-                    if(errors<45&& ipt.Count < 45)
+                    if (errors < 45 && ipt.Count < 45)
                     {
-                        foreach(string s in ipt)
+                        foreach (string s in ipt)
                         {
                             dataGridView_itemsProductTypeMap.Rows.Add(s);
                         }
                     }
-                    
+
                 }
 
             }
@@ -1046,12 +1099,12 @@ namespace FR_Operator
                         {
                             t = s[0] - '0';
                         }
-                        else if(s[2] == '.')
+                        else if (s[2] == '.')
                         {
                             t = 10 * (s[0] - '0') + s[1] - '0';
                         }
 
-                        if(t > 0 || t < 33 || t != 28 || t != 29)
+                        if (t > 0 || t < 33 || t != 28 || t != 29)
                         {
                             _itemsProductTypeMap[key] = t;
                         }
@@ -1069,11 +1122,11 @@ namespace FR_Operator
                 FrEmulator emu = new FrEmulator(null, false);
 
                 bool checkOut;
-                if (checkBox_admissibilityErrors.Checked) 
+                if (checkBox_admissibilityErrors.Checked)
                 {
                     int errors = 0;
                     int.TryParse(textBox_errorsAllowed.Text, out errors);
-                    checkOut = ProcessingExcelReport(emu, 500, errors); 
+                    checkOut = ProcessingExcelReport(emu, 500, errors);
                 }
                 else
                 {
@@ -1081,15 +1134,15 @@ namespace FR_Operator
                 }
                 AddMessage("Результат проверки настроек " + checkOut);
                 emu.ReadDeviceCondition();
-                List<FiscalPrinter.FnReadedDocument> fds = new List<FiscalPrinter.FnReadedDocument> ();
-                for(int i = 3; i <= emu.LastFd; i++)
+                List<FiscalPrinter.FnReadedDocument> fds = new List<FiscalPrinter.FnReadedDocument>();
+                for (int i = 3; i <= emu.LastFd; i++)
                 {
-                    fds.Add(emu.ReadFD(i,true));
+                    fds.Add(emu.ReadFD(i, true));
                 }
                 textBox_perfomingInformation.Text = MainForm.ChequesCount(fds);
                 if (checkOut)
                 {
-                    if(fiscalPrinter!=null && fiscalPrinter.IsConnected)
+                    if (fiscalPrinter != null && fiscalPrinter.IsConnected)
                     {
                         button_performCorrections.Enabled = checkOut;
                     }
@@ -1134,7 +1187,7 @@ namespace FR_Operator
                     _snoDefault = 32;
                     AddMessage("СНО по умолчанию установлена: ПСН");
                 }
-                
+
             }
             else if (sender == comboBox_docTypeChooser)
             {
@@ -1144,18 +1197,22 @@ namespace FR_Operator
                 {
                     int errors = 0;
                     List<string> list = new List<string>();
-                    for(int i = _startIndex; i < _endIndex && i <= data.GetUpperBound(0); i++)
+                    for (int i = _startIndex; i < _endIndex && i <= data.GetUpperBound(0); i++)
                     {
                         try
                         {
-                            if (!list.Contains(data[i, _pointer_documentTypeM2-1].ToString()))
+                            if (data[i, _pointer_documentTypeM2 - 1] == null)
                             {
-                                list.Add(data[i, _pointer_documentTypeM2-1].ToString());
+                                throw new Exception("Пустое поле");
+                            }
+                            if (!list.Contains(data[i, _pointer_documentTypeM2 - 1].ToString()))
+                            {
+                                list.Add(data[i, _pointer_documentTypeM2 - 1].ToString());
                             }
                         }
                         catch (Exception exc)
-                        { 
-                            AddMessage("Строка "+i+" - "+exc.Message);
+                        {
+                            AddMessage("Строка " + i + " - " + exc.Message);
                             errors++;
                         }
                         if (errors > 15)
@@ -1164,7 +1221,7 @@ namespace FR_Operator
                             break;
                         }
                     }
-                    foreach(var s in list)
+                    foreach (var s in list)
                     {
                         dataGridView_documentTypeMap.Rows.Add(s);
                     }
@@ -1172,6 +1229,7 @@ namespace FR_Operator
             }
             else if (sender == button_presetsFirstOfd)
             {
+                textBox_startFrom.Text = "4";
                 comboBox_checkId.SelectedIndex = 3;
                 comboBox_operationType.SelectedIndex = 13;
                 comboBox_docTypeChooser.SelectedIndex = 10;
@@ -1185,10 +1243,9 @@ namespace FR_Operator
                 comboBox_itemsPaymentTypeSign.SelectedIndex = 13;
                 comboBox_checkPaidCash.SelectedIndex = 14;
                 comboBox_checkPaidEcash.SelectedIndex = 15;
-                textBox_startFrom.Text = "4";
                 comboBox_cashier.SelectedIndex = 6;
             }
-            else if(sender == button_performCorrections)
+            else if (sender == button_performCorrections)
             {
                 breakOperation = false;
                 int errorsAllowed = 10;
@@ -1205,36 +1262,36 @@ namespace FR_Operator
                     }).Start();
                 }
 
-                bool checkOut = ProcessingExcelReport(fiscalPrinter,5, errorsAllowed);
-                if (checkOut) 
+                bool checkOut = ProcessingExcelReport(fiscalPrinter, 5, errorsAllowed);
+                if (checkOut)
                 {
-                    AddMessage("Результат корректировки "+ checkOut);
+                    AddMessage("Результат корректировки " + checkOut);
                 }
-                if(pst!=null&& pst.Created)
+                if (pst != null && pst.Created)
                 {
                     pst.AllDone();
                 }
             }
-            else if(sender == checkBox_dontPrint)
+            else if (sender == checkBox_dontPrint)
             {
-                if(fiscalPrinter != null)
+                if (fiscalPrinter != null)
                 {
                     fiscalPrinter.DontPrint = checkBox_dontPrint.Checked;
                 }
             }
-            else if(sender == textBox_cashierDefault)
+            else if (sender == textBox_cashierDefault)
             {
                 _cashierDefault = textBox_cashierDefault.Text;
             }
-            else if(sender == comboBox_cashier)
+            else if (sender == comboBox_cashier)
             {
                 _pointer_cashier = comboBox_cashier.SelectedIndex;
             }
-            else if(sender == comboBox_selectedSno)
+            else if (sender == comboBox_selectedSno)
             {
                 _pointer_sno = comboBox_selectedSno.SelectedIndex;
             }
-            else if(sender == checkBox_enableManualTaxes)
+            else if (sender == checkBox_enableManualTaxes)
             {
                 _manualTaxes = checkBox_enableManualTaxes.Checked;
                 groupBox_manualTax.Enabled = _manualTaxes;
@@ -1298,13 +1355,13 @@ namespace FR_Operator
             {
                 _pointer_checkTax_7107 = comboBox_checkTax7107.SelectedIndex;
             }
-            else if(sender == button_savePreset)
+            else if (sender == button_savePreset)
             {
                 string settingName = textBox_presetName.Text.Trim();
                 bool badName = false;
-                foreach(Char c in settingName)
+                foreach (Char c in settingName)
                 {
-                    if(Char.IsLetterOrDigit(c) || c==' ' || c == '.')
+                    if (Char.IsLetterOrDigit(c) || c == ' ' || c == '.')
                     {
                         continue;
                     }
@@ -1313,7 +1370,7 @@ namespace FR_Operator
                         badName = true;
                     }
                 }
-                if(badName || settingName == "")
+                if (badName || settingName == "")
                 {
                     AddMessage("Некорректное название настройки(допустимы буквы, цифры, точка и пробел между вышеперечисленными)");
                     return;
@@ -1324,15 +1381,27 @@ namespace FR_Operator
                     AppSettings.OfdExportSet.Remove(settingName);
                 }
                 List<int> ints = new List<int>();
-                foreach(var control in comboSet)
+                foreach (var control in comboSet)
                 {
-                    if(control is CheckBox)
+                    if (control is CheckBox)
                     {
                         ints.Add((control as CheckBox).Checked ? 1 : 0);
                     }
-                    else if(control is System.Windows.Forms.ComboBox)
+                    else if (control is System.Windows.Forms.ComboBox)
                     {
                         ints.Add((control as System.Windows.Forms.ComboBox).SelectedIndex);
+                    }
+                    else if (sender is System.Windows.Forms.TextBox)
+                    {
+
+                        if (int.TryParse((sender as System.Windows.Forms.TextBox).Text, out int t))
+                        {
+                            ints.Add(t);
+                        }
+                        else
+                        {
+                            ints.Add(0);
+                        }
                     }
                 }
                 AppSettings.OfdExportSet[settingName] = ints.ToArray();
@@ -1340,11 +1409,13 @@ namespace FR_Operator
                 MapPresetts();
                 AddMessage("Настройки записаны в конфигурационный файл");
             }
-            else if(sender == listBox_presets)
+            else if (sender == listBox_presets)
             {
                 string settingName = listBox_presets.SelectedItem.ToString();
                 textBox_presetName.Text = settingName;
                 AddMessage("Загружаем настройки - " + settingName);
+
+
                 if (AppSettings.OfdExportSet.ContainsKey(settingName))
                 {
                     int[] setting = AppSettings.OfdExportSet[settingName];
@@ -1352,21 +1423,30 @@ namespace FR_Operator
                     {
                         AddMessage("Размер настроек отличается от количества элементов интерфейса, возможно сохрание другой версии программы");
                     }
+                    if (setting.Length >= 40)
+                    {
+                        // сразу устанавливаем первую строку откуда идем по файлу
+                        textBox_startFrom.Text = setting[40].ToString();
+                    }
                     for (int i = 0; i < setting.Length && i < comboSet.Count; i++)
                     {
                         if (comboSet[i] is CheckBox)
                         {
                             (comboSet[i] as CheckBox).Checked = setting[i] != 0;
                         }
-                        else if(comboSet[i] is System.Windows.Forms.ComboBox)
+                        else if (comboSet[i] is System.Windows.Forms.ComboBox)
                         {
                             System.Windows.Forms.ComboBox combo = comboSet[i] as System.Windows.Forms.ComboBox;
-                            if(setting[i] >= combo.Items.Count || setting[i] < 0)
+                            if (setting[i] >= combo.Items.Count || setting[i] < 0)
                             {
                                 AddMessage(combo.Name + " - настройка выходит за допустимый диапазон, пропускаем");
                             }
-                            else 
+                            else
                             { combo.SelectedIndex = setting[i]; }
+                        }
+                        else if (comboSet[i] is System.Windows.Forms.TextBox)
+                        {
+                            (comboSet[i] as System.Windows.Forms.TextBox).Text = setting[i].ToString();
                         }
                         else
                         {
@@ -1374,6 +1454,10 @@ namespace FR_Operator
                         }
                     }
                 }
+            }
+            else if (sender == checkBox_allowEmptyPropertyData)
+            {
+                _allowEmptyPropertyData = checkBox_allowEmptyPropertyData.Checked;
             }
         }
 
@@ -1585,6 +1669,16 @@ namespace FR_Operator
                         AddMessage("Указатель на НДС 7/107 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
+                    if (_pointer_retailAddress > cols - 1)
+                    {
+                        AddMessage("Указатель адрес расчетов выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_retailPlace > cols - 1)
+                    {
+                        AddMessage("Указатель места расчетов выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
                 }
                 
                 if (errorSettings)
@@ -1733,7 +1827,15 @@ namespace FR_Operator
                         subExtErr = "1192 propiertiesData ";
                         if (_pointer_PropiertyData > 0)
                         {
-                            check.PropertiesData = data[i, _pointer_PropiertyData].ToString();
+                            if (_allowEmptyPropertyData)
+                            {
+                                if(data[i, _pointer_PropiertyData]!=null&& data[i, _pointer_PropiertyData].ToString()!="")
+                                    check.PropertiesData = data[i, _pointer_PropiertyData].ToString();
+                            }
+                            else
+                            {
+                                check.PropertiesData = data[i, _pointer_PropiertyData].ToString();
+                            }
                         }
                         subExtErr = "СНО";
                         if (_pointer_sno == 0)
@@ -1743,6 +1845,42 @@ namespace FR_Operator
                         else
                         {
                             check.Sno = int.Parse(data[i, _pointer_sno].ToString());
+                        }
+                        subExtErr = "Адрес расчетов";
+                        if (_pointer_retailAddress > 0)
+                        {
+                            if(_pointer_retailAddress == 1)
+                            {
+                                if (!string.IsNullOrEmpty(_retailAddressDefalt))
+                                {
+                                    check.RetailAddress = _retailAddressDefalt;
+                                }
+                            }
+                            else if(_pointer_retailAddress > 1)
+                            {
+                                if (data[i, _pointer_retailAddress - 1] != null)
+                                {
+                                    check.RetailAddress = data[i, _pointer_retailAddress - 1].ToString();
+                                }
+                            }
+                        }
+                        subExtErr = "Место расчетов";
+                        if (_pointer_retailPlace > 0)
+                        {
+                            if (_pointer_retailPlace == 1)
+                            {
+                                if (!string.IsNullOrEmpty(_retailPlaceDefalt))
+                                {
+                                    check.RetailPlace = _retailPlaceDefalt;
+                                }
+                            }
+                            else if (_pointer_retailPlace > 1)
+                            {
+                                if (data[i, _pointer_retailPlace - 1] != null)
+                                {
+                                    check.RetailPlace = data[i, _pointer_retailPlace - 1].ToString();
+                                }
+                            }
                         }
                         // добавить разбор СНО
                         subExtErr = "Кассир"; 
@@ -2185,6 +2323,13 @@ namespace FR_Operator
                 System.IO.File.AppendAllText(logFile, msg + Environment.NewLine);
             if (lvl != 0)
                 AddMessage(msg);
+        }
+
+        private void FormOfdExport_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            AddMessage("Восстанавливаем оригинальные настройки перезаписи адреса и места");
+            AppSettings.OverideRetailAddress = _overrideAddressOriginal;
+            AppSettings.OverideRetailPlace = _overridePlaceOriginal;
         }
     }
 }

@@ -66,6 +66,8 @@ namespace FR_Operator
             comboBox_tetminalFn1115Method.SelectedIndex = _terminalFnTag1115Filling;
             checkBox_terminalSkipItemsInCoorectionFfd2.Checked = _tfnSkipItemsInCorrectionFfd2;
             checkBox_correctionOrderNumber_CorrectionOrderExistance.Checked = _corretion_order_number_existance == 1;
+            checkBox_ovverrideRetailAddress.Checked = _overideRetailAddress;
+            checkBox_ovverrideRetailPlace.Checked = _overideRetailPlace;
 
             if (_shtrihCloseCheckMethod == 0)
                 radioButton_shtrihCloseCheqMethodOld.Checked = true;
@@ -666,6 +668,20 @@ namespace FR_Operator
                                 }
                                 OfdExportSet[satName] = ints.ToArray();
                             }
+                            else if (parameter.StartsWith(OVERRIDE_RETAIL_ADRESS))
+                            {
+                                if (parameter.Substring(OVERRIDE_RETAIL_ADRESS.Length).ToLower() == "true")
+                                {
+                                    _overideRetailAddress = true;
+                                }
+                            }
+                            else if (parameter.StartsWith(OVERRIDE_RETAIL_PLACE))
+                            {
+                                if (parameter.Substring(OVERRIDE_RETAIL_PLACE.Length).ToLower() == "true")
+                                {
+                                    _overideRetailPlace = true;
+                                }
+                            }
                         }
                     }
                 }
@@ -757,7 +773,8 @@ namespace FR_Operator
                 sb.AppendLine(CASHIER_INN_DEFAULT_KEY + _cashierInnDefault);
             }
             sb.AppendLine(SEND_BI_DOC_INFO_IGNORE_BUYER_INN + _always_send_buyer_doc_data.ToString().ToLower());
-
+            sb.AppendLine(OVERRIDE_RETAIL_ADRESS+_overideRetailAddress);
+            sb.AppendLine(OVERRIDE_RETAIL_PLACE+_overideRetailPlace);
          
             
             sb.AppendLine();
@@ -1122,6 +1139,14 @@ namespace FR_Operator
             {
                 _corretion_order_number_existance = checkBox_correctionOrderNumber_CorrectionOrderExistance.Checked ? 1 : 0;
             }
+            else if(sender == checkBox_ovverrideRetailAddress)
+            {
+                _overideRetailAddress = checkBox_ovverrideRetailAddress.Checked;
+            }
+            else if (sender == checkBox_ovverrideRetailPlace)
+            {
+                _overideRetailPlace = checkBox_ovverrideRetailPlace.Checked;
+            }
             SaveSettings();
         }
 
@@ -1189,7 +1214,7 @@ namespace FR_Operator
         }
 
         private const string CORRECTION_ORDER_NUMBER_DEFAULT_KEY = "CorrectionOrderNumberDefault=";
-        private static string _correctionOrderNumberDefault = "б/н";
+        private static string _correctionOrderNumberDefault = "";
         public static string CorrectionOrderNumberDefault
         {
             get => _correctionOrderNumberDefault;
@@ -1291,6 +1316,22 @@ namespace FR_Operator
             CO_PAY_PROVISION = (int) 5,
         }
         public static CoPayMethods CoPayInterfaceDoc = CoPayMethods.CO_PAY_CASH;
+
+        private static bool _overideRetailAddress = false;
+        const string OVERRIDE_RETAIL_ADRESS = "Use_retail_address=";
+        public static bool OverideRetailAddress
+        {
+            get => _overideRetailAddress;
+            set => _overideRetailAddress = value;
+        }
+        private static bool _overideRetailPlace = false;
+        const string OVERRIDE_RETAIL_PLACE = "Use_retail_place=";
+        public static bool OverideRetailPlace
+        {
+            get => _overideRetailPlace;
+            set => _overideRetailPlace = value;
+        }
+
 
         // пресеты настроек выгрузок ОФД
         private const string OFD_EXP_SET = "ofd_export_set=";
@@ -1799,6 +1840,5 @@ namespace FR_Operator
 
             }
         }
-
     }
 }

@@ -25,7 +25,6 @@ namespace FR_Operator
         {
             InitializeComponent();
             this.Icon = Resources.fd_editpr_16_2;
-            
             Assembly assembly = Assembly.GetExecutingAssembly();
             System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
             string version = fvi.FileVersion;
@@ -35,6 +34,8 @@ namespace FR_Operator
             LogHandle.ol((Environment.Is64BitProcess ? "64bit" : "32Bit")+ " depth");
             TitleStr = "FD editor "+ version+ " [" + compileDate.ToString("dd.MM.yyyy] ") +  (Environment.Is64BitProcess ? "64bit":"32Bit");
             Text = TitleStr;
+            textBox_retailAddress.Enabled = AppSettings.OverideRetailAddress;
+            textBox_retailPlace.Enabled = AppSettings.OverideRetailPlace;
             comboBox_cheq_docName.SelectedIndex = 0;
             comboBox_cheq_operationSign.SelectedIndex = 0;
             comboBox_cheq_sno.SelectedIndex = 1;
@@ -104,8 +105,6 @@ namespace FR_Operator
 
             button_readjsonList.Enabled = AppSettings.jsonAvailable;
             radioButton_task2VariantReadJson.Enabled = AppSettings.jsonAvailable;
-            
-
 
             foreach (DataGridViewColumn column in dataGridView_jsonList.Columns)
             {
@@ -283,6 +282,20 @@ namespace FR_Operator
             else if(sender == textBox_cheque_orderNum)
             {
                 fFDoc.CorrectionOrderNumber = textBox_cheque_orderNum.Text;
+            }
+            else if(sender == checkBox_cheq_internetPayment)
+            {
+                fFDoc.InternetPayment = checkBox_cheq_internetPayment.Checked;
+            }
+            else if(sender == textBox_retailAddress)
+            {
+                if(AppSettings.OverideRetailAddress)
+                    fFDoc.RetailAddress = textBox_retailAddress.Text;
+            }
+            else if(sender == textBox_retailPlace)
+            {
+                if(AppSettings.OverideRetailPlace)
+                    fFDoc.RetailPlace = textBox_retailPlace.Text;
             }
         }
 
@@ -784,6 +797,8 @@ namespace FR_Operator
                 LogHandle.ol("Create new interface cheque");
                 fFDoc = new FiscalCheque();
             }
+
+
             // тег 1192
             fFDoc.PropertiesData = textBox_chequePropertiesData.Text;
             //1085
@@ -824,9 +839,9 @@ namespace FR_Operator
                 fFDoc.Sno = FR_SNO_PSN;
             }
             // отправка электнонного чека    
-            if (textBox_cheq_byyerEmail.Text != "")
+            if (true || textBox_cheq_byyerEmail.Text != "") // при непустом поле значение не очищается !!!
             {
-                fFDoc.EmailPhone = textBox_cheq_byyerEmail.Text;
+            fFDoc.EmailPhone = textBox_cheq_byyerEmail.Text;
             }
             // Кассир
             if (textBox_cheq_cashierName.Text != "")
@@ -856,7 +871,15 @@ namespace FR_Operator
             fFDoc.CorrectionDocDescriber = textBox_cheque_correctionDescribtion.Text;
             fFDoc.CorrectionOrderNumber = textBox_cheque_orderNum.Text;
             fFDoc.CorrectionDocumentDate = dateTimePicker_chequeCorrectionDate.Value;
-
+            if (AppSettings.OverideRetailAddress)
+            {
+                fFDoc.RetailAddress = textBox_retailAddress.Text;
+            }
+            if (AppSettings.OverideRetailPlace)
+            {
+                fFDoc.RetailPlace = textBox_retailPlace.Text;
+            }
+            fFDoc.InternetPayment = checkBox_cheq_internetPayment.Checked;
             // добавить доп реквизиты 
 
             // итог чека
@@ -1195,14 +1218,12 @@ namespace FR_Operator
             if(sender == button_openSettings)
             {
                 LogHandle.ol("Open settings");
-                // создаем новый поток
-                //Thread myThread = new Thread(new ThreadStart(_AppSettings));
-                //myThread.Start(); // запускаем поток
                 AppSettings setsWindow = new AppSettings();
                 setsWindow.FR = fiscalPrinter;
                 setsWindow.ShowDialog();
-                
                 AutoPayBoxesSet();
+                textBox_retailAddress.Enabled = AppSettings.OverideRetailAddress;
+                textBox_retailPlace.Enabled = AppSettings.OverideRetailPlace;
             }   //Настройки программы
             else if(sender == button_aboutWnd)
             {
@@ -3247,6 +3268,24 @@ namespace FR_Operator
                     break;
                 }
             }
+            if (!string.IsNullOrEmpty(fFDoc.RetailAddress) )
+            {
+                textBox_retailAddress.Text = fFDoc.RetailAddress;
+            }
+            else
+            {
+                textBox_retailAddress.Text = "";
+            }
+            if (!string.IsNullOrEmpty(fFDoc.RetailPlace) )
+            {
+                textBox_retailPlace.Text = fFDoc.RetailPlace;
+            }
+            else
+            {
+                textBox_retailPlace.Text = "";
+            }
+
+            checkBox_cheq_internetPayment.Checked = fFDoc.InternetPayment;
             _skipSaveUpReq = false;
         }
 
@@ -3517,6 +3556,7 @@ namespace FR_Operator
                             checkBox_efnTestRunNoCorrection.Visible = true;
                             textBox_efnTestRunCheques.Visible = true;
                             checkBox_noNewNds.Visible = true;
+                            checkBox_efnTestRunNoInternetSign.Visible = true;
                         }
                     }
             }
@@ -3739,7 +3779,9 @@ namespace FR_Operator
                 bool noExdueTmt = checkBox_testRun_noExDuTm.Checked;
                 bool noCorrection = checkBox_efnTestRunNoCorrection.Checked;
                 bool noNewNds = checkBox_noNewNds.Checked;
+                bool useInternetSign = !checkBox_efnTestRunNoInternetSign.Checked;
                 int sampleBuersLen = SAMPLE_BUYERS.GetUpperBound(0);
+                Random random = new Random();
                 //LogHandle.ol("Запуск самотестирование. Для корректного прогона ККТ должна быть обновлена до прошивок поддерживающих НДС 5,7,105,107 и зарегистрирована с признаком подакциз");
                 if (fiscalPrinter != null && fiscalPrinter.IsConnected)
                 {
@@ -3783,6 +3825,20 @@ namespace FR_Operator
                             cheque.BuyerInformationBuyerDocumentCode = SAMPLE_BUYERS[ bind % sampleBuersLen, 4];
                             cheque.BuyerInformationBuyerDocumentData = SAMPLE_BUYERS[ bind % sampleBuersLen, 5];
                             cheque.BuyerInformationBuyerAddress = SAMPLE_BUYERS[ bind % sampleBuersLen, 6];
+                        }
+
+                        if (i % 7 == 0)
+                        {
+                            if (i % 2 == 0)
+                            {
+                                cheque.EmailPhone = "+7" + random.Next(100000000, 2147483647).ToString();
+                            }
+                            else
+                            {
+                                cheque.EmailPhone = "abc" + random.Next(1000) + "@mail.i"+(char)('a'+i%22);
+                            }
+                            if(useInternetSign)
+                                cheque.InternetPayment = true;
                         }
 
                         double price = Math.Round(priceInitial - i * 1.11);
@@ -4065,7 +4121,6 @@ namespace FR_Operator
                             }
                         }
 
-
                         if (perfChq.Cheque == null)
                         {
                             LogHandle.ol("Не найдена пара для чека" + Environment.NewLine + ogigChq.ToString(FiscalCheque.FULL_INFO));
@@ -4083,7 +4138,21 @@ namespace FR_Operator
                                 LogHandle.ol("Чек не прочитан " + i + "\t" + fdNumFirst);
                                 continue;
                             }
+                            
+
                             StringBuilder sb = new StringBuilder();
+
+                            if (ogigChq.EmailPhone != perfChq.Cheque.EmailPhone)
+                            {
+                                sb.AppendLine("Расходится emale:\t" + ogigChq.EmailPhone + "\t-\t" + perfChq.Cheque.EmailPhone);
+                            }
+                            // Придумать проверку адреса и места установки
+
+                            if (ogigChq.InternetPayment != perfChq.Cheque.InternetPayment)
+                            {
+                                sb.AppendLine("Расходится internetPayment:\t" + ogigChq.InternetPayment + "\t-\t" + perfChq.Cheque.InternetPayment);
+                            }
+
                             if (ogigChq.Sno != perfChq.Cheque.Sno)
                             {
                                 sb.AppendLine("Расходится СНО:\t" + ogigChq.Sno + "\t-\t" + perfChq.Cheque.Sno);
