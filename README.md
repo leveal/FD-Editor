@@ -1,4 +1,7 @@
+# FD Editor
+
 Программа для формирования чеков коррекции.
+
 Поддерживается работа с ФР Атол, Штрих-М/POScenter и прямая работа с фискальным накопителем по интерфейсу UART
 
 Разработана для максимального сокращения времени для формирования коррекции по оформленным фискальным документам (считал -> поменял нужный реквизит -> оформил измененный ФД).
@@ -7,4 +10,6 @@
 
 Предусмотрены возможности обработки выгрузок из ОФД в формате Excel или приложения ФНС JSON
 
-документация https://docs.google.com/document/d/1iyOS7q8_ULj-dHfb7LYhAu0a19XmvymBdfMWLfGu1Xw/edit?tab=t.0#bookmark=id.gjdgxs
+Документация: https://docs.google.com/document/d/1iyOS7q8_ULj-dHfb7LYhAu0a19XmvymBdfMWLfGu1Xw/edit?tab=t.0#bookmark=id.gjdgxs
+
+Обсуждение: https://kkmcom.ru/index.php/topic,21028.0.html
