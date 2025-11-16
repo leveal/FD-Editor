@@ -21,6 +21,11 @@ namespace FR_Operator
         {
             InitializeComponent();
             this.Icon = Resources.fd_editpr_16_2;
+
+            if (!string.IsNullOrEmpty(AppSettings.ItemName))
+            {
+                _itemsNameDefault = AppSettings.ItemName;
+            }
             _overrideAddressOriginal = AppSettings.OverideRetailAddress;
             _overridePlaceOriginal = AppSettings.OverideRetailPlace;
             fiscalPrinter = kkt;
@@ -194,11 +199,17 @@ namespace FR_Operator
 
             if (fiscalPrinter != null)
             {
+                _originalDontPrintSign = fiscalPrinter.DontPrint;
                 // при закрытии формы восстановить знак ! ! !
                 checkBox_dontPrint.Checked = fiscalPrinter.DontPrint;
             }
-            skip_handle_sign = false;
             comboBox_operationType.SelectedIndex = _pointer_operationTypeM5;
+            comboBox_emailPhone.SelectedIndex = _pointer_emailPhone;
+
+
+            // дальнейшие установки будут обрабатываться в хандлере
+            skip_handle_sign = false;
+            
             if (kkt!=null&&FiscalPrinter.KKMInfoTransmitter!= null && FiscalPrinter.KKMInfoTransmitter.ContainsKey(FiscalPrinter.FR_REGISTERD_SNO_KEY))
             {
                 // устанавливаем сно по умолчанию
@@ -280,6 +291,7 @@ namespace FR_Operator
             comboSet.Add(textBox_startFrom);
             comboSet.Add(comboBox_retailAddress);
             comboSet.Add(comboBox_retailPlace);
+            comboSet.Add(comboBox_emailPhone);
             MapPresetts();
         }
         bool _overrideAddressOriginal = false;
@@ -293,7 +305,7 @@ namespace FR_Operator
 
         object[,] data = null;
         int _startIndex = 2;
-        int _endIndex = 99999;
+        int _endIndex = 999999;
 
         int _pointer_checkId = 0;
         
@@ -312,7 +324,7 @@ namespace FR_Operator
         string _correctionOrderNumberDefault = "Б/Н";
 
         int _pointer_itemsName = 0;
-        string _itemsNameDefault = "Корректировка";
+        string _itemsNameDefault = "Корректировка выручки";
 
         int _pointer_itemsQuantity = 0;
         double _itemsQuantityDefault = 1.0;
@@ -367,6 +379,9 @@ namespace FR_Operator
 
         int _pointer_retailPlace = 0;
         string _retailPlaceDefalt = string.Empty;
+
+        int _pointer_emailPhone = 0;
+        string _emailPhoneDefault = string.Empty;
 
         public static bool breakOperation = false; 
 
@@ -567,7 +582,7 @@ namespace FR_Operator
                             {
                                 opTypeFounded = "1 Приход";
                             }
-                            else if (opType == "2" || opType.ToLower() == "возврат")
+                            else if (opType == "2" || opType.ToLower() == "возврат" || opType.ToLower() == "возврат прихода")
                             {
                                 opTypeFounded = "2 Возврат прихода";
                             }
@@ -816,7 +831,135 @@ namespace FR_Operator
                     {
                         foreach (string s in ipt)
                         {
-                            dataGridView_itemsProductTypeMap.Rows.Add(s);
+                            if (s == "1")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "1. Товар" );
+                            }
+                            else if(s == "2")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "2. Подакцизный товар");
+                            }
+                            else if (s == "3")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "3. Работа");
+                            }
+                            else if (s == "4")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "4. Услуга");
+                            }
+                            else if (s == "5")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "5. Ставка азартной игры");
+                            }
+                            else if (s == "6")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "6. Выигрыш азартной игры");
+                            }
+                            else if (s == "7")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "7. Лотерейный билет");
+                            }
+                            else if (s == "8")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "8. Выигрыш лотереи");
+                            }
+                            else if (s == "9")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "9. Предоставление РИД");
+                            }
+                            else if (s == "10")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "10. Платеж");
+                            }
+                            else if (s == "11")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "11. Агеннтское вознаграждение");
+                            }
+                            else if (s == "12")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "12. Составной предмет расчета");
+                            }
+                            else if (s == "13")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "13. Иной предмет расчета");
+                            }
+                            else if (s == "14")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "14. Имущественное право");
+                            }
+                            else if (s == "15")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "15. Внереализационный доход");
+                            }
+                            else if (s == "16")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "16. Страховые взносы");
+                            }
+                            else if (s == "17")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "17. Торговый сбор");
+                            }
+                            else if (s == "18")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "18. Курортный сбор");
+                            }
+                            else if (s == "19")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "19. Залог");
+                            }
+                            else if (s == "20")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "20. Расход");
+                            }
+                            else if (s == "21")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "21. Взносы ОПС ИП");
+                            }
+                            else if (s == "22")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "22. Взносы ОПС");
+                            }
+                            else if (s == "23")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "23. Взносы ОМС ИП");
+                            }
+                            else if (s == "24")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "24. Взносы ОМС");
+                            }
+                            else if (s == "25")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "25. Взносы ОСС");
+                            }
+                            else if (s == "26")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "26. Платеж казино");
+                            }
+                            else if (s == "27")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "27. Выдача ДС");
+                            }
+                            else if (s == "30")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "30. АТНМ");
+                            }
+                            else if (s == "31")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "31. АТМ");
+                            }
+                            else if (s == "32")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "32. ТНМ");
+                            }
+                            else if (s == "33")
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s, "33. ТМ");
+                            }
+                            else
+                            {
+                                dataGridView_itemsProductTypeMap.Rows.Add(s);
+                            }
+                                
                         }
                     }
 
@@ -1261,8 +1404,27 @@ namespace FR_Operator
                         Application.Run(pst);
                     }).Start();
                 }
+                int closeShiftEvery = 0;
+                try
+                {
+                    string fdCounterToCloseShift = "";
+                    foreach (char c in comboBox_closeShiftEvery.Text)
+                    {
+                        if (char.IsDigit(c))
+                        {
+                            fdCounterToCloseShift += c;
+                        }
+                    }
 
-                bool checkOut = ProcessingExcelReport(fiscalPrinter, 5, errorsAllowed);
+                    closeShiftEvery = int.Parse(fdCounterToCloseShift);
+                }
+                catch
+                {
+                    AddMessage("Не удалось разобрать колчество оформленных ФД после которых закрывается смена, закрытие отключено");
+                    closeShiftEvery = 0;
+                }
+                fiscalPrinter.OpenShift();
+                bool checkOut = ProcessingExcelReport(fiscalPrinter, 5, errorsAllowed, comboBox_pauseAfterCheque.SelectedIndex * 1000, closeShiftEvery);
                 if (checkOut)
                 {
                     AddMessage("Результат корректировки " + checkOut);
@@ -1391,16 +1553,16 @@ namespace FR_Operator
                     {
                         ints.Add((control as System.Windows.Forms.ComboBox).SelectedIndex);
                     }
-                    else if (sender is System.Windows.Forms.TextBox)
+                    else if (control is System.Windows.Forms.TextBox)
                     {
 
-                        if (int.TryParse((sender as System.Windows.Forms.TextBox).Text, out int t))
+                        if (int.TryParse((control as System.Windows.Forms.TextBox).Text, out int t))
                         {
                             ints.Add(t);
                         }
                         else
                         {
-                            ints.Add(0);
+                            ints.Add(1);
                         }
                     }
                 }
@@ -1459,6 +1621,14 @@ namespace FR_Operator
             {
                 _allowEmptyPropertyData = checkBox_allowEmptyPropertyData.Checked;
             }
+            else if(sender == comboBox_emailPhone)
+            {
+                _pointer_emailPhone = comboBox_emailPhone.SelectedIndex;
+            }
+            else if(sender == textBox_emailPhone)
+            {
+                _emailPhoneDefault = textBox_emailPhone.Text;
+            }
         }
 
         void MapPresetts()
@@ -1477,7 +1647,7 @@ namespace FR_Operator
          * reportName = null или пустая не пишем отчет - переведено в поле
          */
 
-        private bool ProcessingExcelReport(FiscalPrinter fr, int statsOutOnLines = 500, /*string reportName = null,*/ int errorsAllowed = 0)
+        private bool ProcessingExcelReport(FiscalPrinter fr, int statsOutOnLines = 500, /*string reportName = null,*/ int errorsAllowed = 0, int pause = 0, int closeShiftEvery = 0)
         {
             errRows = new List<int>();
             if (statsOutOnLines == 0)
@@ -1679,6 +1849,11 @@ namespace FR_Operator
                         AddMessage("Указатель места расчетов выходит за диапазон таблицы");
                         errorSettings = true;
                     }
+                    if(_pointer_emailPhone > cols)
+                    {
+                        AddMessage("Указатель адрес покупателя выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
                 }
                 
                 if (errorSettings)
@@ -1691,6 +1866,7 @@ namespace FR_Operator
                     errRows = new List<int>();
                 }
                 fr.ReadDeviceCondition();
+                
                 int checkesPerformed = 0;
                 string lastCheckId = "";
                 DateTime startDt = DateTime.Now;
@@ -1710,7 +1886,6 @@ namespace FR_Operator
                         AddMessage("Превышен уровень ошибок обработка прервана на строке "+(i-1));
                         break;
                     }
-                    
 
                     // статистика и расчет времени
                     if (checkesPerformed >= 5 && i % statsOutOnLines == 0 && i - _startIndex > 0)
@@ -1730,7 +1905,7 @@ namespace FR_Operator
                             + Environment.NewLine + "Ошибок " + errorsOccured
                             + Environment.NewLine + "Оформлено чеков " + checkesPerformed
                             + Environment.NewLine + timeLeft;
-
+                        // добавить состояние ФР: последний ФД и к-во неотправленных/от
                         if(pst!=null&& pst.Created)
                         {
                             pst.Message(statistic, false);
@@ -1762,11 +1937,12 @@ namespace FR_Operator
 
                                 int lastFdNumber = fr.LastFd;
                                 AddReportLogMsg("\t" + check.ToString(FiscalCheque.SHORT_INFO));
-                                bool rez = fr.PerformFD(check);
-                                if (rez)
+                                bool rezultPerfoming = fr.PerformFD(check);
+                                if (rezultPerfoming)
                                 {
                                     AddReportLogMsg("\t\tOK");
                                     checkesPerformed++;
+                                    
                                 }
                                 else
                                 {
@@ -1798,8 +1974,8 @@ namespace FR_Operator
                                                 AddReportLogMsg("\tЗакрытие и открытие смены увеличило номер ФД", 1);
                                             }
                                             AddReportLogMsg("\t пытаемся пробить повторно");
-                                            rez = fr.PerformFD(check);
-                                            if (rez)
+                                            rezultPerfoming = fr.PerformFD(check);
+                                            if (rezultPerfoming)
                                             {
                                                 AddReportLogMsg("\t\t\tповторное оформление чека прошло без ошибок", 1);
                                                 checkesPerformed++;
@@ -1812,6 +1988,20 @@ namespace FR_Operator
                                         }
                                     }
                                 }
+                                if (rezultPerfoming) // оформился ФД
+                                {
+                                    if (pause > 0) 
+                                    {
+                                        // пауза для отправки чека в ОФД
+                                        Thread.Sleep(pause);
+                                    }
+                                    if (closeShiftEvery > 0 && checkesPerformed % closeShiftEvery == 0)
+                                    {
+                                        fr.CloseShift();
+                                        fr.OpenShift();
+                                    }
+                                }
+
                                 subExtErr = "";
 
                             }
@@ -1845,6 +2035,21 @@ namespace FR_Operator
                         else
                         {
                             check.Sno = int.Parse(data[i, _pointer_sno].ToString());
+                        }
+                        subExtErr = "Emal|Phone";
+                        if (_pointer_emailPhone == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_emailPhoneDefault))
+                            {
+                                check.EmailPhone = _emailPhoneDefault;
+                            }
+                        }
+                        else // emailPhone из таблицы
+                        {
+                            if (data[i, _pointer_emailPhone] != null)
+                            {
+                                check.EmailPhone = data[i, _pointer_emailPhone].ToString();
+                            }
                         }
                         subExtErr = "Адрес расчетов";
                         if (_pointer_retailAddress > 0)
@@ -2325,11 +2530,14 @@ namespace FR_Operator
                 AddMessage(msg);
         }
 
+        bool _originalDontPrintSign = false;
         private void FormOfdExport_FormClosing(object sender, FormClosingEventArgs e)
         {
+            fiscalPrinter.DontPrint = _originalDontPrintSign;
             AddMessage("Восстанавливаем оригинальные настройки перезаписи адреса и места");
             AppSettings.OverideRetailAddress = _overrideAddressOriginal;
             AppSettings.OverideRetailPlace = _overridePlaceOriginal;
         }
+
     }
 }

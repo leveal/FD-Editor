@@ -54,6 +54,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkId = new System.Windows.Forms.ComboBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.groupBox32 = new System.Windows.Forms.GroupBox();
+            this.textBox_retailPlaceDefault = new System.Windows.Forms.TextBox();
+            this.comboBox_retailPlace = new System.Windows.Forms.ComboBox();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.textBox_retailAdressDefault = new System.Windows.Forms.TextBox();
+            this.comboBox_retailAddress = new System.Windows.Forms.ComboBox();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -162,6 +168,13 @@
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkTax20 = new System.Windows.Forms.ComboBox();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.comboBox_closeShiftEvery = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.comboBox_pauseAfterCheque = new System.Windows.Forms.ComboBox();
+            this.groupBox33 = new System.Windows.Forms.GroupBox();
+            this.textBox_emailPhone = new System.Windows.Forms.TextBox();
+            this.comboBox_emailPhone = new System.Windows.Forms.ComboBox();
             this.checkBox_admissibilityErrors = new System.Windows.Forms.CheckBox();
             this.checkBox_dontPrint = new System.Windows.Forms.CheckBox();
             this.textBox_errorsAllowed = new System.Windows.Forms.TextBox();
@@ -173,12 +186,6 @@
             this.button_checkOutEmulatorRun = new System.Windows.Forms.Button();
             this.button_openExcel = new System.Windows.Forms.Button();
             this.richTextBox_log = new System.Windows.Forms.RichTextBox();
-            this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.groupBox32 = new System.Windows.Forms.GroupBox();
-            this.comboBox_retailAddress = new System.Windows.Forms.ComboBox();
-            this.comboBox_retailPlace = new System.Windows.Forms.ComboBox();
-            this.textBox_retailAdressDefault = new System.Windows.Forms.TextBox();
-            this.textBox_retailPlaceDefault = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -187,6 +194,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_operationTypeMap)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.groupBox32.SuspendLayout();
+            this.groupBox21.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_snoMap)).BeginInit();
@@ -227,8 +236,7 @@
             this.groupBox23.SuspendLayout();
             this.groupBox22.SuspendLayout();
             this.tabPage7.SuspendLayout();
-            this.groupBox21.SuspendLayout();
-            this.groupBox32.SuspendLayout();
+            this.groupBox33.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -361,6 +369,7 @@
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn1.HeaderText = "Значения таблицы";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
@@ -370,6 +379,7 @@
             this.dataGridViewComboBoxColumn1.Items.AddRange(new object[] {
             "3(4) Чек(БСО)",
             "31(41) Чек коррекции(БСО коррекции)"});
+            this.dataGridViewComboBoxColumn1.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
             this.dataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -481,6 +491,7 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.HeaderText = "Значения таблицы";
+            this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             // 
@@ -492,6 +503,7 @@
             "2 Возврат прихода",
             "3 Расход",
             "4 Возврат расхода"});
+            this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
             this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -690,6 +702,174 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Реквизиты чека";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // groupBox32
+            // 
+            this.groupBox32.Controls.Add(this.textBox_retailPlaceDefault);
+            this.groupBox32.Controls.Add(this.comboBox_retailPlace);
+            this.groupBox32.Location = new System.Drawing.Point(536, 278);
+            this.groupBox32.Name = "groupBox32";
+            this.groupBox32.Size = new System.Drawing.Size(377, 83);
+            this.groupBox32.TabIndex = 12;
+            this.groupBox32.TabStop = false;
+            this.groupBox32.Text = "Перезапись места установки 1187";
+            // 
+            // textBox_retailPlaceDefault
+            // 
+            this.textBox_retailPlaceDefault.Location = new System.Drawing.Point(6, 57);
+            this.textBox_retailPlaceDefault.Name = "textBox_retailPlaceDefault";
+            this.textBox_retailPlaceDefault.Size = new System.Drawing.Size(363, 20);
+            this.textBox_retailPlaceDefault.TabIndex = 6;
+            this.textBox_retailPlaceDefault.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // comboBox_retailPlace
+            // 
+            this.comboBox_retailPlace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_retailPlace.FormattingEnabled = true;
+            this.comboBox_retailPlace.Items.AddRange(new object[] {
+            "Нет",
+            "Использовать по умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_retailPlace.Location = new System.Drawing.Point(6, 19);
+            this.comboBox_retailPlace.Name = "comboBox_retailPlace";
+            this.comboBox_retailPlace.Size = new System.Drawing.Size(364, 21);
+            this.comboBox_retailPlace.TabIndex = 1;
+            this.comboBox_retailPlace.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // groupBox21
+            // 
+            this.groupBox21.Controls.Add(this.textBox_retailAdressDefault);
+            this.groupBox21.Controls.Add(this.comboBox_retailAddress);
+            this.groupBox21.Location = new System.Drawing.Point(536, 189);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Size = new System.Drawing.Size(377, 83);
+            this.groupBox21.TabIndex = 11;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "Перезапись адреса установки 1009";
+            // 
+            // textBox_retailAdressDefault
+            // 
+            this.textBox_retailAdressDefault.Location = new System.Drawing.Point(7, 51);
+            this.textBox_retailAdressDefault.Name = "textBox_retailAdressDefault";
+            this.textBox_retailAdressDefault.Size = new System.Drawing.Size(363, 20);
+            this.textBox_retailAdressDefault.TabIndex = 5;
+            this.textBox_retailAdressDefault.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // comboBox_retailAddress
+            // 
+            this.comboBox_retailAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_retailAddress.FormattingEnabled = true;
+            this.comboBox_retailAddress.Items.AddRange(new object[] {
+            "Нет",
+            "Использовать по умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_retailAddress.Location = new System.Drawing.Point(7, 19);
+            this.comboBox_retailAddress.Name = "comboBox_retailAddress";
+            this.comboBox_retailAddress.Size = new System.Drawing.Size(364, 21);
+            this.comboBox_retailAddress.TabIndex = 1;
+            this.comboBox_retailAddress.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
             // groupBox20
             // 
@@ -907,6 +1087,7 @@
             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn4.FillWeight = 80F;
             this.dataGridViewTextBoxColumn4.HeaderText = "Значения таблицы";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
@@ -920,6 +1101,7 @@
             "УСН Доход минус расход",
             "ЕСХН",
             "ПСН"});
+            this.dataGridViewComboBoxColumn4.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn4.Name = "dataGridViewComboBoxColumn4";
             this.dataGridViewComboBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -1456,6 +1638,7 @@
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn3.FillWeight = 80F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Значения таблицы";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
@@ -1495,6 +1678,7 @@
             "31. АТМ",
             "32. ТНМ",
             "33. ТМ"});
+            this.dataGridViewComboBoxColumn3.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn3.Name = "dataGridViewComboBoxColumn3";
             this.dataGridViewComboBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -1653,6 +1837,7 @@
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn2.FillWeight = 80F;
             this.dataGridViewTextBoxColumn2.HeaderText = "Значения таблицы";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
@@ -1668,6 +1853,7 @@
             "5 - Частичный расчет и кредит",
             "6 - Передача в кредит",
             "7 - Оплата куредита"});
+            this.dataGridViewComboBoxColumn2.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
             this.dataGridViewComboBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -2152,6 +2338,7 @@
             this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewTextBoxColumn5.FillWeight = 80F;
             this.dataGridViewTextBoxColumn5.HeaderText = "Значения таблицы";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
@@ -2184,6 +2371,7 @@
             "82 Гбайт",
             "83 Тбайт",
             "255 Если не подхдодят в предыдущие"});
+            this.dataGridViewComboBoxColumn5.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn5.Name = "dataGridViewComboBoxColumn5";
             this.dataGridViewComboBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -3604,6 +3792,11 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.label23);
+            this.tabPage7.Controls.Add(this.comboBox_closeShiftEvery);
+            this.tabPage7.Controls.Add(this.label22);
+            this.tabPage7.Controls.Add(this.comboBox_pauseAfterCheque);
+            this.tabPage7.Controls.Add(this.groupBox33);
             this.tabPage7.Controls.Add(this.checkBox_admissibilityErrors);
             this.tabPage7.Controls.Add(this.checkBox_dontPrint);
             this.tabPage7.Controls.Add(this.textBox_errorsAllowed);
@@ -3621,10 +3814,141 @@
             this.tabPage7.UseVisualStyleBackColor = true;
             this.tabPage7.Click += new System.EventHandler(this.EventHandler);
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(595, 382);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(163, 13);
+            this.label23.TabIndex = 16;
+            this.label23.Text = "Закрывать и открывать смену";
+            // 
+            // comboBox_closeShiftEvery
+            // 
+            this.comboBox_closeShiftEvery.FormattingEnabled = true;
+            this.comboBox_closeShiftEvery.Items.AddRange(new object[] {
+            "Нет",
+            "Каждые 1000 чеков",
+            "Каждые 2000 чеков",
+            "Каждые 4000 чеков",
+            "Каждые 8000 чеков",
+            "Каждые 10000 чеков"});
+            this.comboBox_closeShiftEvery.Location = new System.Drawing.Point(770, 379);
+            this.comboBox_closeShiftEvery.Name = "comboBox_closeShiftEvery";
+            this.comboBox_closeShiftEvery.Size = new System.Drawing.Size(233, 21);
+            this.comboBox_closeShiftEvery.TabIndex = 15;
+            this.comboBox_closeShiftEvery.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(595, 355);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(164, 13);
+            this.label22.TabIndex = 14;
+            this.label22.Text = "Пауза после оформления чека";
+            // 
+            // comboBox_pauseAfterCheque
+            // 
+            this.comboBox_pauseAfterCheque.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_pauseAfterCheque.FormattingEnabled = true;
+            this.comboBox_pauseAfterCheque.Items.AddRange(new object[] {
+            "Нет. (сразу оформляем слудущий)",
+            "1 секунда",
+            "2 секунды",
+            "3 секунды"});
+            this.comboBox_pauseAfterCheque.Location = new System.Drawing.Point(770, 352);
+            this.comboBox_pauseAfterCheque.Name = "comboBox_pauseAfterCheque";
+            this.comboBox_pauseAfterCheque.Size = new System.Drawing.Size(233, 21);
+            this.comboBox_pauseAfterCheque.TabIndex = 13;
+            // 
+            // groupBox33
+            // 
+            this.groupBox33.Controls.Add(this.textBox_emailPhone);
+            this.groupBox33.Controls.Add(this.comboBox_emailPhone);
+            this.groupBox33.Location = new System.Drawing.Point(160, 336);
+            this.groupBox33.Name = "groupBox33";
+            this.groupBox33.Size = new System.Drawing.Size(377, 67);
+            this.groupBox33.TabIndex = 12;
+            this.groupBox33.TabStop = false;
+            this.groupBox33.Text = "Эл. адрес получателя тег 1008";
+            // 
+            // textBox_emailPhone
+            // 
+            this.textBox_emailPhone.Location = new System.Drawing.Point(7, 41);
+            this.textBox_emailPhone.Name = "textBox_emailPhone";
+            this.textBox_emailPhone.Size = new System.Drawing.Size(363, 20);
+            this.textBox_emailPhone.TabIndex = 5;
+            this.textBox_emailPhone.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // comboBox_emailPhone
+            // 
+            this.comboBox_emailPhone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_emailPhone.FormattingEnabled = true;
+            this.comboBox_emailPhone.Items.AddRange(new object[] {
+            "Использовать по умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_emailPhone.Location = new System.Drawing.Point(7, 17);
+            this.comboBox_emailPhone.Name = "comboBox_emailPhone";
+            this.comboBox_emailPhone.Size = new System.Drawing.Size(364, 21);
+            this.comboBox_emailPhone.TabIndex = 1;
+            this.comboBox_emailPhone.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
             // checkBox_admissibilityErrors
             // 
             this.checkBox_admissibilityErrors.AutoSize = true;
-            this.checkBox_admissibilityErrors.Location = new System.Drawing.Point(561, 5);
+            this.checkBox_admissibilityErrors.Location = new System.Drawing.Point(556, 5);
             this.checkBox_admissibilityErrors.Name = "checkBox_admissibilityErrors";
             this.checkBox_admissibilityErrors.Size = new System.Drawing.Size(213, 17);
             this.checkBox_admissibilityErrors.TabIndex = 9;
@@ -3645,7 +3969,7 @@
             // 
             // textBox_errorsAllowed
             // 
-            this.textBox_errorsAllowed.Location = new System.Drawing.Point(963, 3);
+            this.textBox_errorsAllowed.Location = new System.Drawing.Point(955, 3);
             this.textBox_errorsAllowed.Name = "textBox_errorsAllowed";
             this.textBox_errorsAllowed.Size = new System.Drawing.Size(48, 20);
             this.textBox_errorsAllowed.TabIndex = 6;
@@ -3655,7 +3979,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(785, 6);
+            this.label12.Location = new System.Drawing.Point(778, 6);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(172, 13);
             this.label12.TabIndex = 5;
@@ -3686,11 +4010,11 @@
             // 
             this.textBox_perfomingInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_perfomingInformation.ForeColor = System.Drawing.Color.Black;
-            this.textBox_perfomingInformation.Location = new System.Drawing.Point(8, 67);
+            this.textBox_perfomingInformation.Location = new System.Drawing.Point(6, 67);
             this.textBox_perfomingInformation.Multiline = true;
             this.textBox_perfomingInformation.Name = "textBox_perfomingInformation";
             this.textBox_perfomingInformation.ReadOnly = true;
-            this.textBox_perfomingInformation.Size = new System.Drawing.Size(1006, 265);
+            this.textBox_perfomingInformation.Size = new System.Drawing.Size(1009, 265);
             this.textBox_perfomingInformation.TabIndex = 2;
             // 
             // button_performCorrections
@@ -3736,174 +4060,6 @@
             this.richTextBox_log.TabIndex = 1;
             this.richTextBox_log.Text = "";
             // 
-            // groupBox21
-            // 
-            this.groupBox21.Controls.Add(this.textBox_retailAdressDefault);
-            this.groupBox21.Controls.Add(this.comboBox_retailAddress);
-            this.groupBox21.Location = new System.Drawing.Point(536, 189);
-            this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(377, 83);
-            this.groupBox21.TabIndex = 11;
-            this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "Перезапись адреса установки 1009";
-            // 
-            // groupBox32
-            // 
-            this.groupBox32.Controls.Add(this.textBox_retailPlaceDefault);
-            this.groupBox32.Controls.Add(this.comboBox_retailPlace);
-            this.groupBox32.Location = new System.Drawing.Point(536, 278);
-            this.groupBox32.Name = "groupBox32";
-            this.groupBox32.Size = new System.Drawing.Size(377, 83);
-            this.groupBox32.TabIndex = 12;
-            this.groupBox32.TabStop = false;
-            this.groupBox32.Text = "Перезапись места установки 1187";
-            // 
-            // comboBox_retailAddress
-            // 
-            this.comboBox_retailAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_retailAddress.FormattingEnabled = true;
-            this.comboBox_retailAddress.Items.AddRange(new object[] {
-            "Нет",
-            "Использовать по умолчанию",
-            "A - 1",
-            "B - 2",
-            "C - 3",
-            "D - 4",
-            "E - 5",
-            "F - 6",
-            "G - 7",
-            "H - 8",
-            "I - 9",
-            "J - 10",
-            "K - 11",
-            "L - 12",
-            "M - 13",
-            "N - 14",
-            "O - 15",
-            "P - 16",
-            "Q - 17",
-            "R - 18",
-            "S - 19",
-            "T - 20",
-            "U - 21",
-            "V - 22",
-            "W - 23",
-            "X - 24",
-            "Y - 25",
-            "Z - 26",
-            "AA - 27",
-            "AB - 28",
-            "AC - 29",
-            "AD - 30",
-            "AE - 31",
-            "AF - 32",
-            "AG - 33",
-            "AH - 34",
-            "AI - 35",
-            "AJ - 36",
-            "AK - 37",
-            "AL - 38",
-            "AM - 39",
-            "AN - 40",
-            "AO - 41",
-            "AP - 42",
-            "AQ - 43",
-            "AR - 44",
-            "AS - 45",
-            "AT - 46",
-            "AU - 47",
-            "AV - 48",
-            "AW - 49",
-            "AX - 50",
-            "AY - 51",
-            "AZ - 52"});
-            this.comboBox_retailAddress.Location = new System.Drawing.Point(7, 19);
-            this.comboBox_retailAddress.Name = "comboBox_retailAddress";
-            this.comboBox_retailAddress.Size = new System.Drawing.Size(364, 21);
-            this.comboBox_retailAddress.TabIndex = 1;
-            this.comboBox_retailAddress.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
-            // 
-            // comboBox_retailPlace
-            // 
-            this.comboBox_retailPlace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_retailPlace.FormattingEnabled = true;
-            this.comboBox_retailPlace.Items.AddRange(new object[] {
-            "Нет",
-            "Использовать по умолчанию",
-            "A - 1",
-            "B - 2",
-            "C - 3",
-            "D - 4",
-            "E - 5",
-            "F - 6",
-            "G - 7",
-            "H - 8",
-            "I - 9",
-            "J - 10",
-            "K - 11",
-            "L - 12",
-            "M - 13",
-            "N - 14",
-            "O - 15",
-            "P - 16",
-            "Q - 17",
-            "R - 18",
-            "S - 19",
-            "T - 20",
-            "U - 21",
-            "V - 22",
-            "W - 23",
-            "X - 24",
-            "Y - 25",
-            "Z - 26",
-            "AA - 27",
-            "AB - 28",
-            "AC - 29",
-            "AD - 30",
-            "AE - 31",
-            "AF - 32",
-            "AG - 33",
-            "AH - 34",
-            "AI - 35",
-            "AJ - 36",
-            "AK - 37",
-            "AL - 38",
-            "AM - 39",
-            "AN - 40",
-            "AO - 41",
-            "AP - 42",
-            "AQ - 43",
-            "AR - 44",
-            "AS - 45",
-            "AT - 46",
-            "AU - 47",
-            "AV - 48",
-            "AW - 49",
-            "AX - 50",
-            "AY - 51",
-            "AZ - 52"});
-            this.comboBox_retailPlace.Location = new System.Drawing.Point(6, 19);
-            this.comboBox_retailPlace.Name = "comboBox_retailPlace";
-            this.comboBox_retailPlace.Size = new System.Drawing.Size(364, 21);
-            this.comboBox_retailPlace.TabIndex = 1;
-            this.comboBox_retailPlace.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
-            // 
-            // textBox_retailAdressDefault
-            // 
-            this.textBox_retailAdressDefault.Location = new System.Drawing.Point(7, 51);
-            this.textBox_retailAdressDefault.Name = "textBox_retailAdressDefault";
-            this.textBox_retailAdressDefault.Size = new System.Drawing.Size(363, 20);
-            this.textBox_retailAdressDefault.TabIndex = 5;
-            this.textBox_retailAdressDefault.TextChanged += new System.EventHandler(this.EventHandler);
-            // 
-            // textBox_retailPlaceDefault
-            // 
-            this.textBox_retailPlaceDefault.Location = new System.Drawing.Point(6, 57);
-            this.textBox_retailPlaceDefault.Name = "textBox_retailPlaceDefault";
-            this.textBox_retailPlaceDefault.Size = new System.Drawing.Size(363, 20);
-            this.textBox_retailPlaceDefault.TabIndex = 6;
-            this.textBox_retailPlaceDefault.TextChanged += new System.EventHandler(this.EventHandler);
-            // 
             // FormOfdExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3912,8 +4068,8 @@
             this.Controls.Add(this.richTextBox_log);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button_openExcel);
-            this.MaximumSize = new System.Drawing.Size(1066, 588);
-            this.MinimumSize = new System.Drawing.Size(1040, 560);
+            this.MaximumSize = new System.Drawing.Size(1065, 587);
+            this.MinimumSize = new System.Drawing.Size(1040, 558);
             this.Name = "FormOfdExport";
             this.Text = "FormOfdExport";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormOfdExport_FormClosing);
@@ -3926,6 +4082,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_operationTypeMap)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.groupBox32.ResumeLayout(false);
+            this.groupBox32.PerformLayout();
+            this.groupBox21.ResumeLayout(false);
+            this.groupBox21.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
             this.groupBox19.ResumeLayout(false);
@@ -3980,10 +4140,8 @@
             this.groupBox22.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
-            this.groupBox21.ResumeLayout(false);
-            this.groupBox21.PerformLayout();
-            this.groupBox32.ResumeLayout(false);
-            this.groupBox32.PerformLayout();
+            this.groupBox33.ResumeLayout(false);
+            this.groupBox33.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -4141,5 +4299,12 @@
         private System.Windows.Forms.GroupBox groupBox21;
         private System.Windows.Forms.TextBox textBox_retailAdressDefault;
         private System.Windows.Forms.ComboBox comboBox_retailAddress;
+        private System.Windows.Forms.GroupBox groupBox33;
+        private System.Windows.Forms.TextBox textBox_emailPhone;
+        private System.Windows.Forms.ComboBox comboBox_emailPhone;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.ComboBox comboBox_pauseAfterCheque;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox comboBox_closeShiftEvery;
     }
 }

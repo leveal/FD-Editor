@@ -49,6 +49,8 @@ namespace FR_Operator
         public override bool Connect()
         {
             LogHandle.ol("Establishing a connection to the device");
+
+
             if (fptr != null)
             {
                 int open = fptr.open();
@@ -653,9 +655,13 @@ namespace FR_Operator
                         if(AppSettings.AutoUnit120SetZero) fptr.setParam(FTAG_ITEM_UNIT_MEASURE_120, 0);
                     }
                 }
-                if (!string.IsNullOrEmpty(item.Code105))
+                if (!string.IsNullOrEmpty(item.Code105)&&_ffdVer< FR_FFD120) // 1162
                 {
                     fptr.setParam(FTAG_ITEM_PRODUCT_CODE, Encoding.ASCII.GetBytes(item.Code105));
+                }// добавить 1163 для ФФД 1.2
+                else
+                {
+                    fptr.setParam(1163, Encoding.ASCII.GetBytes(item.Code105));
                 }
                 if (!string.IsNullOrEmpty(item.ProviderInn))
                 {

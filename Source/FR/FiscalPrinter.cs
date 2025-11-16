@@ -1059,9 +1059,9 @@ namespace FR_Operator
                                  * 1162 Код товара 1.05
                                  * 1079 цена за единицу предмета расчета с учетомVLN    [0,281474976710655] 
                                  * 1197 единица ижмерения 1.05
-                                 * 1199 ставка НДС BYTE {1, 2, 3, 4, 5, 6}
+                                 * 1199 ставка НДС BYTE {1, 2, 3, 4, 5, 6, 8, 9, 10, 11}
                                  * 1200 сумма НДС за предмет расчета [0,281474976710655] 
-                                 * 1212 признак предмета расчета BYTE [1,33]
+                                 * 1212 признак предмета расчета BYTE [1,27][30,33]
                                  * 1214 признак способа расчета BYTE {1,2,3,4,5,6,7} признак  способа расчета
                                  * 1222 Признак агента по предмету расчета
                                  * 1226 ИНН поставщика
@@ -1194,6 +1194,10 @@ namespace FR_Operator
                                     }
                                     if ( (price >= 0 ||sum >= 0)&& quantity >= 0)
                                     {
+                                        if(paymentType == -1 || paymentType == 0)
+                                        {
+                                            paymentType = FD_ITEM_PAYMENT_TOTAL_CALC_LOC;
+                                        }
                                         ConsumptionItem item = new ConsumptionItem();
                                         item.Quantity = quantity;
                                         if (name != null) item.Name = name;
@@ -1203,7 +1207,7 @@ namespace FR_Operator
                                         if (ndsRate > 0) item.NdsRate = ndsRate;
                                         if (unitNnds > 0) item.UnitNnds = unitNnds;
                                         if (productType > 0) item.ProductType = productType;
-                                        if (paymentType > 0) item.PaymentType = paymentType;
+                                        if (paymentType > 0) { item.PaymentType = paymentType; }
                                         if (paymentAgentByProductType > 0) item.PaymentAgentByProductType = paymentAgentByProductType;
                                         if (providerInn != null) item.ProviderInn = providerInn;
                                         if (originalCountryCode != null) item.OriginalCountryCode = originalCountryCode;
@@ -1245,7 +1249,6 @@ namespace FR_Operator
                                         {
                                             item.ProviderName = providerName;
                                         }
-
 
                                         doc.Cheque.Items.Add(item);
                                     }

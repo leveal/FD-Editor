@@ -63,9 +63,9 @@ namespace FR_Operator
                 KKMInfoTransmitter[FR_TIME_KEY] = DateTime.Now.ToString(DEFAULT_DT_FORMAT);
                 KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY] = _lastFD.ToString();
                 KKMInfoTransmitter[FR_SERIAL_KEY] = "emu-0123456";
-                KKMInfoTransmitter[FR_FIRMWARE_KEY] = "emu-firmware-6";
+                KKMInfoTransmitter[FR_FIRMWARE_KEY] = "emu-v-7";
                 KKMInfoTransmitter[FR_FFDVER_KEY] = "1.2";
-                KKMInfoTransmitter[FR_REGISTERD_SNO_KEY] = "USN Dohod";
+                KKMInfoTransmitter[FR_REGISTERD_SNO_KEY] = "УСД";
                 KKMInfoTransmitter[FR_OWNER_ADDRESS_KEY] = "Moscow";
                 KKMInfoTransmitter[FR_OFD_EXCHANGE_STATUS_KEY] = "empty";
                 KKMInfoTransmitter[FR_STATUS_MODE_KEY] = "empty";
@@ -439,26 +439,52 @@ namespace FR_Operator
                 badMsg += "итог больше сумм предметов расчета\t";
                 badDocToPerfome = true;
             }
+            if (doc.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE && doc.Items.Count > 0)
+            {
+                //  количество предметов расчета больше нуля соответствует ФФД > 1.05
+                if(doc.TotalSum > itemsSum)
+                {
+                    badMsg += "итог больше сумм предметов расчета\t";
+                    badDocToPerfome = true;
+                }
+                else
+                {
+                    // итог меньше сумм предметов расчета
+                    double roundedItemsSum = (double)((int)(itemsSum));
+                    if (doc.TotalSum < roundedItemsSum - 0.001)
+                    {
+                        badMsg += "итог критично меньше сумм предметов расчета\t";
+                        badDocToPerfome = true;
+                    }
+                }
+            }
+
             if((doc.Document != FD_DOCUMENT_NAME_CORRECTION_CHEQUE && doc.Items.Count == 0) && doc.TotalSum < itemsSum &&  doc.TotalSum < Math.Round(itemsSum, 0))
             {
                 KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = "некорректен итог чека\t";
                 badDocToPerfome = true;
             }
-
-            if(doc.IsNotPaid||doc.IsOverPaid)
+            double paynentSumms = Math.Round(doc.Cash + doc.ECash + doc.Prepaid + doc.Credit + doc.Provision, 2);
+            if (doc.IsNotPaid||doc.IsOverPaid)
             {
-                if (doc.IsOverPaid||Math.Abs(doc.TotalSum-doc.Cash-doc.ECash-doc.Prepaid-doc.Credit-doc.Provision)>0.99) // возможно округлени
+                if (doc.IsOverPaid||Math.Abs(doc.TotalSum-paynentSumms)>0.99) // возможно округлени
                 {
                     badMsg += "некоректна оплата\t";
                     badDocToPerfome = true;
                 }
             }
-            if((doc.TotalSum - doc.Cash - doc.ECash - doc.Prepaid - doc.Credit - doc.Provision) >= 0.009)
+
+            if (doc.TotalSum - paynentSumms >= 0.009)
             {
                 badMsg += "Сумма оплат меньше итога чека";
                 badDocToPerfome = true;
             }
-            if(doc.Sno == 0 && _snoDefaul == 0)
+            if (doc.TotalSum - paynentSumms <= -0.009 && doc.Cash + 0.001 > paynentSumms - doc.TotalSum)
+            {
+                badMsg += "Сумма оплат больше итога чека";
+                badDocToPerfome = true;
+            }
+            if (doc.Sno == 0 && _snoDefaul == 0)
             {
                 badMsg += "Не выбрана СНО";
                 badDocToPerfome = true;

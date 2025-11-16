@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.kkminfo_label_connectionParams = new System.Windows.Forms.Label();
             this.conn_lb_driver_ver = new System.Windows.Forms.Label();
@@ -202,10 +202,7 @@
             this.textBox_efnTestRunCheques = new System.Windows.Forms.TextBox();
             this.checkBox_testRun_noExDuTm = new System.Windows.Forms.CheckBox();
             this.button_IEE_FOD = new System.Windows.Forms.Button();
-            this.button_testTerminalFnLib = new System.Windows.Forms.Button();
             this.textBox_cheque_correctionDescribtion = new System.Windows.Forms.TextBox();
-            this.checkBox_changeDate = new System.Windows.Forms.CheckBox();
-            this.button_testAction = new System.Windows.Forms.Button();
             this.button_MassActionCleanList = new System.Windows.Forms.Button();
             this.tabPage_GridCorrections = new System.Windows.Forms.TabPage();
             this.label72 = new System.Windows.Forms.Label();
@@ -823,6 +820,7 @@
             this.textBox_cheq_cashierName.Size = new System.Drawing.Size(259, 20);
             this.textBox_cheq_cashierName.TabIndex = 204;
             this.textBox_cheq_cashierName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBox_cheq_cashierName.TextChanged += new System.EventHandler(this.Control_upperReqvChanged);
             // 
             // label14
             // 
@@ -2465,11 +2463,8 @@
             // 
             this.tabPage4.Controls.Add(this.groupBox11);
             this.tabPage4.Controls.Add(this.button_IEE_FOD);
-            this.tabPage4.Controls.Add(this.button_testTerminalFnLib);
             this.tabPage4.Controls.Add(this.button_aboutWnd);
             this.tabPage4.Controls.Add(this.textBox_cheque_correctionDescribtion);
-            this.tabPage4.Controls.Add(this.checkBox_changeDate);
-            this.tabPage4.Controls.Add(this.button_testAction);
             this.tabPage4.Controls.Add(this.button_MassActionCleanList);
             this.tabPage4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabPage4.Location = new System.Drawing.Point(21, 4);
@@ -2569,16 +2564,6 @@
             this.button_IEE_FOD.UseVisualStyleBackColor = true;
             this.button_IEE_FOD.Click += new System.EventHandler(this.MassActionsOldVar);
             // 
-            // button_testTerminalFnLib
-            // 
-            this.button_testTerminalFnLib.Location = new System.Drawing.Point(69, 401);
-            this.button_testTerminalFnLib.Name = "button_testTerminalFnLib";
-            this.button_testTerminalFnLib.Size = new System.Drawing.Size(145, 23);
-            this.button_testTerminalFnLib.TabIndex = 304;
-            this.button_testTerminalFnLib.Text = "terminalFnLib";
-            this.button_testTerminalFnLib.UseVisualStyleBackColor = true;
-            this.button_testTerminalFnLib.Click += new System.EventHandler(this.MassActionsOldVar);
-            // 
             // textBox_cheque_correctionDescribtion
             // 
             this.textBox_cheque_correctionDescribtion.Enabled = false;
@@ -2588,31 +2573,6 @@
             this.textBox_cheque_correctionDescribtion.TabIndex = 303;
             this.textBox_cheque_correctionDescribtion.Text = "*";
             this.textBox_cheque_correctionDescribtion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // checkBox_changeDate
-            // 
-            this.checkBox_changeDate.AutoSize = true;
-            this.checkBox_changeDate.Enabled = false;
-            this.checkBox_changeDate.Location = new System.Drawing.Point(220, 379);
-            this.checkBox_changeDate.Name = "checkBox_changeDate";
-            this.checkBox_changeDate.Size = new System.Drawing.Size(89, 17);
-            this.checkBox_changeDate.TabIndex = 31;
-            this.checkBox_changeDate.Text = "Менять дату";
-            this.checkBox_changeDate.UseVisualStyleBackColor = true;
-            // 
-            // button_testAction
-            // 
-            this.button_testAction.Enabled = false;
-            this.button_testAction.Location = new System.Drawing.Point(69, 375);
-            this.button_testAction.Name = "button_testAction";
-            this.button_testAction.Size = new System.Drawing.Size(145, 23);
-            this.button_testAction.TabIndex = 27;
-            this.button_testAction.Text = "testing fill mgm only";
-            this.toolTip1.SetToolTip(this.button_testAction, "Пробиваем 10 чеков четный->нал нечетный->бн\r\nставка налога  20% и без ндс меняютс" +
-        "я\r\nесли стоит галочка то закрывается смена\r\nустанавливается +1 день и повторяетс" +
-        "я 10 раз");
-            this.button_testAction.UseVisualStyleBackColor = true;
-            this.button_testAction.Click += new System.EventHandler(this.MassActionsOldVar);
             // 
             // button_MassActionCleanList
             // 
@@ -3032,8 +2992,8 @@
             // 
             this.dataGridView_jsonList.AllowUserToAddRows = false;
             this.dataGridView_jsonList.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dataGridView_jsonList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridView_jsonList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_jsonList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_jsonList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column_fdName,
@@ -4981,7 +4941,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button button_fdReadedSelectAll;
         private System.Windows.Forms.Button button_fdReadedSelectNone;
-        private System.Windows.Forms.Button button_testAction;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.TextBox textBox_read2FdFirst;
@@ -5005,7 +4964,6 @@
         private System.Windows.Forms.CheckBox checkBox_read2Dates;
         private System.Windows.Forms.Button button_openSettings;
         private System.Windows.Forms.Button button_cancelDocument;
-        private System.Windows.Forms.CheckBox checkBox_changeDate;
         private System.Windows.Forms.TabPage tabPage_GridCorrections;
         private System.Windows.Forms.DataGridView dataGridView_task;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
@@ -5145,7 +5103,6 @@
         private System.Windows.Forms.Button button_task2SaveFdToJsonFiltrated;
         private System.Windows.Forms.Button button_task2SaveFdToJson;
         private System.Windows.Forms.TextBox textBox_macorRezult;
-        private System.Windows.Forms.Button button_testTerminalFnLib;
         private System.Windows.Forms.Button button_readjsonList;
         private System.Windows.Forms.CheckBox checkBox_cleanJsonCollection;
         private System.Windows.Forms.Button button_task2ReadJsonFiles;

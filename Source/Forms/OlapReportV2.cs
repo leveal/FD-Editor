@@ -43,6 +43,8 @@ namespace FR_Operator
             checkBox_olapDisablePrint.Checked = true;
             comboBox_FQ_precision.SelectedIndex = 5;
             comboBox_propertiesData.SelectedIndex = 12;
+            comboBox_buyerAddress.SelectedIndex = _ind_buyerAddress;
+            textBox_buyerAddressDefault.Text = _buyerAddressDefault;
             if (mainWindow.fiscalPrinter != null && mainWindow.fiscalPrinter is FrEmulator)
             {
                 groupBox_emuFrSetting.Visible = true;
@@ -624,6 +626,14 @@ namespace FR_Operator
             {
                 _ind_itemPropertieProductType = comboBox_itemPropertySource.SelectedIndex;
             }
+            else if(sender == comboBox_buyerAddress)
+            {
+                _ind_buyerAddress = comboBox_buyerAddress.SelectedIndex;
+            }
+            else if(sender == textBox_buyerAddressDefault)
+            {
+                _buyerAddressDefault = textBox_buyerAddressDefault.Text;
+            }
 
         }
 
@@ -721,6 +731,8 @@ namespace FR_Operator
         private bool _extendedReport = false;
         private bool _useCorrectionCheque = true;
         private bool _yarusNumbersQueue = true;
+        private int _ind_buyerAddress = 0;
+        private string _buyerAddressDefault = string.Empty;
 
         private bool _mainWindowDontPrintFlagOriginal = false;
 
@@ -817,6 +829,9 @@ namespace FR_Operator
             string userPropertiesPropertyNameLastLine = "";
             string userPropertiesPropertyValueCurrentLine = "";
             string userPropertiesPropertyValueLastLine = "";
+            string buyerAddressLastLine = string.Empty;
+            string buyerAddressCurrentLine = string.Empty;
+
 
             if (_startFrom > 6 && useTableCorrectionDate) 
             {
@@ -856,12 +871,31 @@ namespace FR_Operator
                         if (_table[i, _ind_itemSum] == null)
                             continue;
                     }
+                    subError = "Адрес покупателя";
+                    if(!string.IsNullOrEmpty(buyerAddressCurrentLine))
+                    {
+                        buyerAddressLastLine = buyerAddressCurrentLine;
+                    }
+                    buyerAddressCurrentLine = string.Empty;
+                    if (_ind_buyerAddress>0)
+                    {
+                        if (_table[i, _ind_buyerAddress] != null)
+                        {
+                            buyerAddressCurrentLine = _table[i,_ind_buyerAddress].ToString();
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(_buyerAddressDefault))
+                        {
+                            buyerAddressCurrentLine = _buyerAddressDefault;
+                        }
+                    }
 
                     subError = "1192 доп. реквизит чека";
                     if(!string.IsNullOrEmpty(propertiesDataCurrentLine))
                         propertiesDataLastLine = propertiesDataCurrentLine;
                     propertiesDataCurrentLine = null;
-                    
 
                     if (_ind_propertiesData > 0 && _table[i,_ind_propertiesData]!=null)
                     {
@@ -893,7 +927,6 @@ namespace FR_Operator
 
 
                     subError = "";
-                        
                     if (errorsInSession >= _errorsAllowed)
                     {
                         _interruptor = true;
@@ -1001,7 +1034,12 @@ namespace FR_Operator
                                     userPropertiesPropertyValueLastLine = string.Empty;
                                     userPropertiesPropertyNameLastLine = string.Empty;
                                 }
-
+                                if (!string.IsNullOrEmpty(buyerAddressCurrentLine))
+                                {
+                                    cheque.EmailPhone = buyerAddressCurrentLine;
+                                    buyerAddressCurrentLine = string.Empty;
+                                    buyerAddressLastLine = string.Empty;
+                                }
 
                             }
 
@@ -1010,6 +1048,12 @@ namespace FR_Operator
                                 cheque.PropertiesData = propertiesDataLastLine;
                                 propertiesDataLastLine = propertiesDataCurrentLine;
                                 propertiesDataCurrentLine = string.Empty;
+                            }
+                            if (!string.IsNullOrEmpty(buyerAddressLastLine))
+                            {
+                                cheque.EmailPhone = buyerAddressLastLine;
+                                buyerAddressLastLine = buyerAddressCurrentLine;
+                                buyerAddressCurrentLine = string.Empty;
                             }
                             if (!string.IsNullOrEmpty(userPropertiesPropertyNameLastLine) && !string.IsNullOrEmpty(userPropertiesPropertyValueLastLine))
                             {
@@ -1117,6 +1161,8 @@ namespace FR_Operator
                             paymentTypeLast = "";
                             propertiesDataLastLine = string.Empty;
                             propertiesDataCurrentLine = string.Empty;
+                            buyerAddressCurrentLine = string.Empty;
+                            buyerAddressLastLine = string.Empty;
                             userPropertiesPropertyNameCurrentLine = string.Empty;
                             userPropertiesPropertyNameLastLine = string.Empty;
                             userPropertiesPropertyValueCurrentLine = string.Empty;
@@ -1256,6 +1302,17 @@ namespace FR_Operator
                             {
                                 cheque.PropertiesData = propertiesDataLastLine;
                                 propertiesDataLastLine = string.Empty;
+                            }
+                            if (!string.IsNullOrEmpty(buyerAddressCurrentLine))
+                            {
+                                cheque.EmailPhone = buyerAddressCurrentLine;
+                                buyerAddressCurrentLine = string.Empty;
+                                buyerAddressLastLine = string.Empty;
+                            }
+                            if (!string.IsNullOrEmpty(buyerAddressLastLine))
+                            {
+                                cheque.EmailPhone = buyerAddressLastLine;
+                                buyerAddressLastLine = string.Empty ;
                             }
                             if (!string.IsNullOrEmpty(userPropertiesPropertyNameCurrentLine)&&!string.IsNullOrEmpty(userPropertiesPropertyValueCurrentLine))
                             {

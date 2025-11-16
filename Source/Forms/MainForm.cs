@@ -297,6 +297,10 @@ namespace FR_Operator
                 if(AppSettings.OverideRetailPlace)
                     fFDoc.RetailPlace = textBox_retailPlace.Text;
             }
+            else if(sender == textBox_cheq_cashierName)
+            {
+                KKMInfoTransmitter[FR_CASHIER_NAME_KEY] = textBox_cheq_cashierName.Text;
+            }
         }
 
         // соединение с ККТ
@@ -3547,10 +3551,6 @@ namespace FR_Operator
                         if (_unlockerMassActions == 15)
                         {
                             button_ofdFormat.Enabled = true;
-                            button_testAction.Enabled = true;
-                            checkBox_changeDate.Enabled = true;
-                            button_testTerminalFnLib.Enabled = true;
-                            button_testTerminalFnLib.Visible = true;
                             button_efnTestRun.Visible = true;
                             checkBox_testRun_noExDuTm.Visible = true;
                             checkBox_efnTestRunNoCorrection.Visible = true;
@@ -4362,68 +4362,6 @@ namespace FR_Operator
                     LogHandle.ol(CONNECTION_NOT_ESTABLISHED);
                 }
 
-            }
-            else if(sender == button_testAction)
-            {
-                // простое заполнение МГМ чеками 
-                if (!conn_ckb_connected.Checked)
-                {
-                    PushMessage(CONNECTION_NOT_ESTABLISHED);
-                    return;
-                }
-                int names = SAMLE_ITEMS.Length;
-                int sno = fiscalPrinter.ChosenSno;
-                List<FiscalCheque> cheques = new List<FiscalCheque>();
-                Random random = new Random();
-                int k;
-                int l = 0;
-                for (int i = 0; i < 10; i++)
-                {
-                    FiscalCheque fc = new FiscalCheque();
-                    fc.Sno = sno;
-                    k = random.Next(0, 11) + 1;
-                    for (int j = 0; j < k; j++)
-                    {
-                        ConsumptionItem item = new ConsumptionItem();
-                        item.Name = SAMLE_ITEMS[l++ % names];
-                        item.Price = i + 100;
-
-                        item.Quantity = 1;
-
-                        item.Sum = item.Price * item.Quantity;
-
-                        item.NdsRate = i % 2 == 0 ? NDS_TYPE_FREE_LOC : NDS_TYPE_20_LOC;
-                        item.PaymentType = FD_ITEM_PAYMENT_TOTAL_CALC_LOC;
-                        item.ProductType = i % 5 + 1;
-                        item.Control();
-                        if (fiscalPrinter.FfdVer >= 2)
-                        {
-                            int itemUnit = 0;
-                            int.TryParse(textBox_cheqItemMeasure105.Text, out itemUnit);
-                            item.Unit120 = itemUnit;
-                        }
-                        fc.AddItem(item);
-
-                    }
-
-                    fc.Control(true);
-                    if (i % 2 == 0) fc.Cash = fc.TotalSum;
-                    else fc.ECash = fc.TotalSum;
-
-                    cheques.Add(fc);
-                }
-                for (int i = 0; i < 6; i++)
-                {
-                    foreach (FiscalCheque fc in cheques)
-                        fiscalPrinter.PerformFD(fc);
-                    fiscalPrinter.CloseShift();
-                    if (checkBox_changeDate.Checked) fiscalPrinter.ChangeDate(1);
-                }
-            }
-            else if (sender == button_testTerminalFnLib)
-            {
-                TerminalFnExchange tfn = new TerminalFnExchange();
-                tfn.ShowSettings();
             }
             else if(sender == button_IEE_FOD)
             {
