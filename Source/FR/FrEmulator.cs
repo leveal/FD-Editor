@@ -442,7 +442,7 @@ namespace FR_Operator
             if (doc.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE && doc.Items.Count > 0)
             {
                 //  количество предметов расчета больше нуля соответствует ФФД > 1.05
-                if(doc.TotalSum > itemsSum)
+                if(doc.TotalSum > itemsSum + 0.001)
                 {
                     badMsg += "итог больше сумм предметов расчета\t";
                     badDocToPerfome = true;
@@ -573,3 +573,4 @@ namespace FR_Operator
         private Dictionary<int,FnReadedDocument> _fnMemory = new Dictionary<int, FnReadedDocument>();
     }
 }
+
