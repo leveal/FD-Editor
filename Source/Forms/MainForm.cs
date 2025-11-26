@@ -4042,7 +4042,7 @@ namespace FR_Operator
                         if (i % 3 == 0 && !noCorrection)
                         {
                             cheque.Document = FTAG_FISCAL_DOCUMENT_TYPE_RECEIPT_CORRECTION_CHEQUE;
-                            cheque.CorrectionDocumentDate = new DateTime(2024, 1, 1).AddDays(i);
+                            cheque.CorrectionDocumentDate = new DateTime(2024, 1, 1).AddDays(i/3);
                             if ((i / 30) % 2 == 1)
                             {
                                 cheque.CorrectionTypeFtag = 0;

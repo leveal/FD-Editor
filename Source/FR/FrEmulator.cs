@@ -433,6 +433,7 @@ namespace FR_Operator
                     break;
                 }
             }
+            itemsSum = Math.Round(itemsSum,2);
                 
             if (doc.TotalSum > itemsSum + 0.001 && doc.Document != FD_DOCUMENT_NAME_CORRECTION_CHEQUE)
             {
@@ -573,4 +574,3 @@ namespace FR_Operator
         private Dictionary<int,FnReadedDocument> _fnMemory = new Dictionary<int, FnReadedDocument>();
     }
 }
-

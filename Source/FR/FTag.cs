@@ -468,7 +468,7 @@ namespace FR_Operator
             }
             else if(_type == FDataType.Uint32)
             {
-                _rawData = new byte[4] { (byte)(_valueInt % 256), (byte)(_valueInt / 256 % 256), (byte)(_valueInt / 65536 % 256), (byte)(_valueInt / 16777261) };
+                _rawData = new byte[4] { (byte)(_valueInt % 256), (byte)(_valueInt / 256 % 256), (byte)(_valueInt / 65536 % 256), (byte)(_valueInt / 16777216) };
             }
             else if (_type == FDataType.VLN)
             {
@@ -487,7 +487,7 @@ namespace FR_Operator
             else if(_type == FDataType.U32UT)
             {
                 _valueInt = (uint)Math.Round((_valueDateTime - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
-                _rawData = new byte[4] { (byte)(_valueInt % 256), (byte)(_valueInt / 256 % 256), (byte)(_valueInt / 65536 % 256), (byte)(_valueInt / 16777261) };
+                _rawData = new byte[4] { (byte)(_valueInt % 256), (byte)(_valueInt / 256 % 256), (byte)(_valueInt / 65536 % 256), (byte)(_valueInt / 16777216) };
             }
             else if(_type == FDataType.Byte_ARRAY)
             {

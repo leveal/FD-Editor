@@ -1574,48 +1574,56 @@ namespace FR_Operator
             else if (sender == listBox_presets)
             {
                 string settingName = listBox_presets.SelectedItem.ToString();
-                textBox_presetName.Text = settingName;
-                AddMessage("Загружаем настройки - " + settingName);
-
-
-                if (AppSettings.OfdExportSet.ContainsKey(settingName))
+                if (settingName != null)
                 {
-                    int[] setting = AppSettings.OfdExportSet[settingName];
-                    if (setting.Length != comboSet.Count)
+                    textBox_presetName.Text = settingName;
+                    AddMessage("Загружаем настройки - " + settingName);
+
+
+                    if (AppSettings.OfdExportSet.ContainsKey(settingName))
                     {
-                        AddMessage("Размер настроек отличается от количества элементов интерфейса, возможно сохрание другой версии программы");
-                    }
-                    if (setting.Length >= 40)
-                    {
-                        // сразу устанавливаем первую строку откуда идем по файлу
-                        textBox_startFrom.Text = setting[40].ToString();
-                    }
-                    for (int i = 0; i < setting.Length && i < comboSet.Count; i++)
-                    {
-                        if (comboSet[i] is CheckBox)
+                        int[] setting = AppSettings.OfdExportSet[settingName];
+                        if (setting.Length != comboSet.Count)
                         {
-                            (comboSet[i] as CheckBox).Checked = setting[i] != 0;
+                            AddMessage("Размер настроек отличается от количества элементов интерфейса, возможно сохрание другой версии программы");
                         }
-                        else if (comboSet[i] is System.Windows.Forms.ComboBox)
+                        if (setting.Length >= 40)
                         {
-                            System.Windows.Forms.ComboBox combo = comboSet[i] as System.Windows.Forms.ComboBox;
-                            if (setting[i] >= combo.Items.Count || setting[i] < 0)
+                            // сразу устанавливаем первую строку откуда идем по файлу
+                            textBox_startFrom.Text = setting[40].ToString();
+                        }
+                        for (int i = 0; i < setting.Length && i < comboSet.Count; i++)
+                        {
+                            if (comboSet[i] is CheckBox)
                             {
-                                AddMessage(combo.Name + " - настройка выходит за допустимый диапазон, пропускаем");
+                                (comboSet[i] as CheckBox).Checked = setting[i] != 0;
+                            }
+                            else if (comboSet[i] is System.Windows.Forms.ComboBox)
+                            {
+                                System.Windows.Forms.ComboBox combo = comboSet[i] as System.Windows.Forms.ComboBox;
+                                if (setting[i] >= combo.Items.Count || setting[i] < 0)
+                                {
+                                    AddMessage(combo.Name + " - настройка выходит за допустимый диапазон, пропускаем");
+                                }
+                                else
+                                { combo.SelectedIndex = setting[i]; }
+                            }
+                            else if (comboSet[i] is System.Windows.Forms.TextBox)
+                            {
+                                (comboSet[i] as System.Windows.Forms.TextBox).Text = setting[i].ToString();
                             }
                             else
-                            { combo.SelectedIndex = setting[i]; }
-                        }
-                        else if (comboSet[i] is System.Windows.Forms.TextBox)
-                        {
-                            (comboSet[i] as System.Windows.Forms.TextBox).Text = setting[i].ToString();
-                        }
-                        else
-                        {
-                            AddMessage(comboSet[i].Name + " - некорректный элемент интерфейса, наcтройка пропущена");
+                            {
+                                AddMessage(comboSet[i].Name + " - некорректный элемент интерфейса, наcтройка пропущена");
+                            }
                         }
                     }
                 }
+                else
+                {
+                    AddMessage("Null settings");
+                }
+                
             }
             else if (sender == checkBox_allowEmptyPropertyData)
             {
