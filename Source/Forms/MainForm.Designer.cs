@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.kkminfo_label_connectionParams = new System.Windows.Forms.Label();
             this.conn_lb_driver_ver = new System.Windows.Forms.Label();
@@ -156,7 +156,6 @@
             this.comboBox_task2CorrectionType = new System.Windows.Forms.ComboBox();
             this.label69 = new System.Windows.Forms.Label();
             this.groupBox_task2CorrectionFinal = new System.Windows.Forms.GroupBox();
-            this.checkBox_task2excelImport = new System.Windows.Forms.CheckBox();
             this.comboBox_OperationSignChanged = new System.Windows.Forms.ComboBox();
             this.checkBox_task2OperationSignChanger = new System.Windows.Forms.CheckBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -264,6 +263,10 @@
             this.textBox_chequeDocCondition = new System.Windows.Forms.TextBox();
             this.button_cheqDeleteAllItems = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBox_taxPanelNds22 = new System.Windows.Forms.TextBox();
+            this.textBox_taxPanelNds22122 = new System.Windows.Forms.TextBox();
+            this.button_cheqNds22122Fill = new System.Windows.Forms.Button();
+            this.button_cheqNds22Fill = new System.Windows.Forms.Button();
             this.textBox_taxPanelNds5 = new System.Windows.Forms.TextBox();
             this.textBox_taxPanelNds7 = new System.Windows.Forms.TextBox();
             this.textBox_taxPanelNds5105 = new System.Windows.Forms.TextBox();
@@ -272,8 +275,6 @@
             this.button_cheqNds5105Fill = new System.Windows.Forms.Button();
             this.button_cheqNds7Fill = new System.Windows.Forms.Button();
             this.button_cheqNds5Fill = new System.Windows.Forms.Button();
-            this.label29 = new System.Windows.Forms.Label();
-            this.textBox_taxPanel_NDStotal = new System.Windows.Forms.TextBox();
             this.textBox_taxPanelNds10110 = new System.Windows.Forms.TextBox();
             this.button_cheqNds0Fill = new System.Windows.Forms.Button();
             this.textBox_taxPanelNds20120 = new System.Windows.Forms.TextBox();
@@ -286,6 +287,8 @@
             this.button_cheqNds10Fill = new System.Windows.Forms.Button();
             this.button_cheqNds20Fill = new System.Windows.Forms.Button();
             this.button_cheqNdsFreeFill = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.textBox_taxPanel_NDStotal = new System.Windows.Forms.TextBox();
             this.textBox_chequeTotalSum = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.groupBox_cheque_correctionProperties = new System.Windows.Forms.GroupBox();
@@ -388,6 +391,7 @@
             this.label50 = new System.Windows.Forms.Label();
             this.button_openSettings = new System.Windows.Forms.Button();
             this.button_cashOperation = new System.Windows.Forms.Button();
+            this.checkBox_testmode2026 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -996,7 +1000,7 @@
             this.pane_tabPage_frFdContent01.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.pane_tabPage_frFdContent01.Location = new System.Drawing.Point(1, 26);
             this.pane_tabPage_frFdContent01.Name = "pane_tabPage_frFdContent01";
-            this.pane_tabPage_frFdContent01.Size = new System.Drawing.Size(349, 531);
+            this.pane_tabPage_frFdContent01.Size = new System.Drawing.Size(349, 557);
             this.pane_tabPage_frFdContent01.TabIndex = 0;
             // 
             // button_fdReadedSelectAll
@@ -1903,7 +1907,6 @@
             // 
             // groupBox_task2CorrectionFinal
             // 
-            this.groupBox_task2CorrectionFinal.Controls.Add(this.checkBox_task2excelImport);
             this.groupBox_task2CorrectionFinal.Controls.Add(this.comboBox_OperationSignChanged);
             this.groupBox_task2CorrectionFinal.Controls.Add(this.checkBox_task2OperationSignChanger);
             this.groupBox_task2CorrectionFinal.Controls.Add(this.label25);
@@ -1937,18 +1940,6 @@
             this.groupBox_task2CorrectionFinal.Size = new System.Drawing.Size(321, 209);
             this.groupBox_task2CorrectionFinal.TabIndex = 3;
             this.groupBox_task2CorrectionFinal.TabStop = false;
-            // 
-            // checkBox_task2excelImport
-            // 
-            this.checkBox_task2excelImport.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox_task2excelImport.AutoSize = true;
-            this.checkBox_task2excelImport.Location = new System.Drawing.Point(216, 6);
-            this.checkBox_task2excelImport.Name = "checkBox_task2excelImport";
-            this.checkBox_task2excelImport.Size = new System.Drawing.Size(96, 23);
-            this.checkBox_task2excelImport.TabIndex = 526;
-            this.checkBox_task2excelImport.Text = "Импорт данных";
-            this.checkBox_task2excelImport.UseVisualStyleBackColor = true;
-            this.checkBox_task2excelImport.CheckedChanged += new System.EventHandler(this.Task2Actions);
             // 
             // comboBox_OperationSignChanged
             // 
@@ -2106,7 +2097,9 @@
             "НДС 5%",
             "НДС 7%",
             "НДС 5/105",
-            "НДС 7/107"});
+            "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122"});
             this.comboBox_task2taxType2Changed.Location = new System.Drawing.Point(205, 119);
             this.comboBox_task2taxType2Changed.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_task2taxType2Changed.Name = "comboBox_task2taxType2Changed";
@@ -2174,7 +2167,9 @@
             "НДС 5%",
             "НДС 7%",
             "НДС 5/105",
-            "НДС 7/107"});
+            "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122"});
             this.comboBox_task2taxType1Changed.Location = new System.Drawing.Point(205, 96);
             this.comboBox_task2taxType1Changed.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_task2taxType1Changed.Name = "comboBox_task2taxType1Changed";
@@ -2476,6 +2471,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.checkBox_testmode2026);
             this.groupBox11.Controls.Add(this.checkBox_efnTestRunNoInternetSign);
             this.groupBox11.Controls.Add(this.checkBox_noNewNds);
             this.groupBox11.Controls.Add(this.button_efnTestRun);
@@ -2722,7 +2718,9 @@
             "НДС 5%",
             "НДС 7%",
             "НДС 5/105",
-            "НДС 7/107"});
+            "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122"});
             this.comboBox_fastCorrectionsNds.Location = new System.Drawing.Point(111, 489);
             this.comboBox_fastCorrectionsNds.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_fastCorrectionsNds.Name = "comboBox_fastCorrectionsNds";
@@ -2754,7 +2752,7 @@
             this.textBox_fastCorrectionsDescribtion.Name = "textBox_fastCorrectionsDescribtion";
             this.textBox_fastCorrectionsDescribtion.Size = new System.Drawing.Size(227, 20);
             this.textBox_fastCorrectionsDescribtion.TabIndex = 17;
-            this.textBox_fastCorrectionsDescribtion.Text = "*";
+            this.textBox_fastCorrectionsDescribtion.Text = "Корректировка выручки";
             this.textBox_fastCorrectionsDescribtion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.textBox_fastCorrectionsDescribtion, "В ФФД 1.2 это поле идет в наименование номенклатуры");
             // 
@@ -2992,8 +2990,8 @@
             // 
             this.dataGridView_jsonList.AllowUserToAddRows = false;
             this.dataGridView_jsonList.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dataGridView_jsonList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dataGridView_jsonList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView_jsonList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_jsonList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column_fdName,
@@ -3184,7 +3182,7 @@
             // button_cheqExecute
             // 
             this.button_cheqExecute.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_cheqExecute.Location = new System.Drawing.Point(390, 459);
+            this.button_cheqExecute.Location = new System.Drawing.Point(390, 452);
             this.button_cheqExecute.Name = "button_cheqExecute";
             this.button_cheqExecute.Size = new System.Drawing.Size(99, 55);
             this.button_cheqExecute.TabIndex = 1125;
@@ -3196,13 +3194,13 @@
             // 
             this.textBox_chequeDocCondition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_chequeDocCondition.Font = new System.Drawing.Font("Segoe UI", 7F);
-            this.textBox_chequeDocCondition.Location = new System.Drawing.Point(171, 583);
+            this.textBox_chequeDocCondition.Location = new System.Drawing.Point(167, 583);
             this.textBox_chequeDocCondition.Margin = new System.Windows.Forms.Padding(1);
             this.textBox_chequeDocCondition.Multiline = true;
             this.textBox_chequeDocCondition.Name = "textBox_chequeDocCondition";
             this.textBox_chequeDocCondition.ReadOnly = true;
             this.textBox_chequeDocCondition.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_chequeDocCondition.Size = new System.Drawing.Size(318, 43);
+            this.textBox_chequeDocCondition.Size = new System.Drawing.Size(322, 43);
             this.textBox_chequeDocCondition.TabIndex = 19;
             // 
             // button_cheqDeleteAllItems
@@ -3218,6 +3216,10 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.textBox_taxPanelNds22);
+            this.groupBox5.Controls.Add(this.textBox_taxPanelNds22122);
+            this.groupBox5.Controls.Add(this.button_cheqNds22122Fill);
+            this.groupBox5.Controls.Add(this.button_cheqNds22Fill);
             this.groupBox5.Controls.Add(this.textBox_taxPanelNds5);
             this.groupBox5.Controls.Add(this.textBox_taxPanelNds7);
             this.groupBox5.Controls.Add(this.textBox_taxPanelNds5105);
@@ -3226,8 +3228,6 @@
             this.groupBox5.Controls.Add(this.button_cheqNds5105Fill);
             this.groupBox5.Controls.Add(this.button_cheqNds7Fill);
             this.groupBox5.Controls.Add(this.button_cheqNds5Fill);
-            this.groupBox5.Controls.Add(this.label29);
-            this.groupBox5.Controls.Add(this.textBox_taxPanel_NDStotal);
             this.groupBox5.Controls.Add(this.textBox_taxPanelNds10110);
             this.groupBox5.Controls.Add(this.button_cheqNds0Fill);
             this.groupBox5.Controls.Add(this.textBox_taxPanelNds20120);
@@ -3248,6 +3248,52 @@
             this.groupBox5.TabIndex = 17;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Налоги";
+            // 
+            // textBox_taxPanelNds22
+            // 
+            this.textBox_taxPanelNds22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_taxPanelNds22.Location = new System.Drawing.Point(175, 93);
+            this.textBox_taxPanelNds22.Name = "textBox_taxPanelNds22";
+            this.textBox_taxPanelNds22.ReadOnly = true;
+            this.textBox_taxPanelNds22.Size = new System.Drawing.Size(50, 20);
+            this.textBox_taxPanelNds22.TabIndex = 10020;
+            this.textBox_taxPanelNds22.Text = "0";
+            this.textBox_taxPanelNds22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox_taxPanelNds22122
+            // 
+            this.textBox_taxPanelNds22122.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_taxPanelNds22122.Location = new System.Drawing.Point(175, 113);
+            this.textBox_taxPanelNds22122.Name = "textBox_taxPanelNds22122";
+            this.textBox_taxPanelNds22122.ReadOnly = true;
+            this.textBox_taxPanelNds22122.Size = new System.Drawing.Size(50, 20);
+            this.textBox_taxPanelNds22122.TabIndex = 10019;
+            this.textBox_taxPanelNds22122.Text = "0";
+            this.textBox_taxPanelNds22122.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // button_cheqNds22122Fill
+            // 
+            this.button_cheqNds22122Fill.Location = new System.Drawing.Point(121, 113);
+            this.button_cheqNds22122Fill.Name = "button_cheqNds22122Fill";
+            this.button_cheqNds22122Fill.Size = new System.Drawing.Size(50, 20);
+            this.button_cheqNds22122Fill.TabIndex = 10018;
+            this.button_cheqNds22122Fill.Text = "22/122";
+            this.toolTip1.SetToolTip(this.button_cheqNds22122Fill, "Установить на предметы расчета \r\nв которых не указана ставка НДС \r\nвыбранную став" +
+        "ку");
+            this.button_cheqNds22122Fill.UseVisualStyleBackColor = true;
+            this.button_cheqNds22122Fill.Click += new System.EventHandler(this.ChangeChequeItemFiedls);
+            // 
+            // button_cheqNds22Fill
+            // 
+            this.button_cheqNds22Fill.Location = new System.Drawing.Point(121, 93);
+            this.button_cheqNds22Fill.Name = "button_cheqNds22Fill";
+            this.button_cheqNds22Fill.Size = new System.Drawing.Size(50, 20);
+            this.button_cheqNds22Fill.TabIndex = 10017;
+            this.button_cheqNds22Fill.Text = "22%";
+            this.toolTip1.SetToolTip(this.button_cheqNds22Fill, "Установить на предметы расчета \r\nв которых не указана ставка НДС \r\nвыбранную став" +
+        "ку");
+            this.button_cheqNds22Fill.UseVisualStyleBackColor = true;
+            this.button_cheqNds22Fill.Click += new System.EventHandler(this.ChangeChequeItemFiedls);
             // 
             // textBox_taxPanelNds5
             // 
@@ -3341,26 +3387,6 @@
             this.button_cheqNds5Fill.UseVisualStyleBackColor = true;
             this.button_cheqNds5Fill.Click += new System.EventHandler(this.ChangeChequeItemFiedls);
             // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(122, 100);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(37, 13);
-            this.label29.TabIndex = 28;
-            this.label29.Text = "Всего";
-            // 
-            // textBox_taxPanel_NDStotal
-            // 
-            this.textBox_taxPanel_NDStotal.Enabled = false;
-            this.textBox_taxPanel_NDStotal.Font = new System.Drawing.Font("Segoe UI", 11.5F, System.Drawing.FontStyle.Bold);
-            this.textBox_taxPanel_NDStotal.Location = new System.Drawing.Point(161, 94);
-            this.textBox_taxPanel_NDStotal.Name = "textBox_taxPanel_NDStotal";
-            this.textBox_taxPanel_NDStotal.Size = new System.Drawing.Size(64, 28);
-            this.textBox_taxPanel_NDStotal.TabIndex = 10008;
-            this.textBox_taxPanel_NDStotal.Text = "0";
-            this.textBox_taxPanel_NDStotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // textBox_taxPanelNds10110
             // 
             this.textBox_taxPanelNds10110.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -3437,7 +3463,7 @@
             // 
             this.textBox_taxPanelNdsFree.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_taxPanelNdsFree.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_taxPanelNdsFree.Location = new System.Drawing.Point(67, 13);
+            this.textBox_taxPanelNdsFree.Location = new System.Drawing.Point(67, 14);
             this.textBox_taxPanelNdsFree.Name = "textBox_taxPanelNdsFree";
             this.textBox_taxPanelNdsFree.ReadOnly = true;
             this.textBox_taxPanelNdsFree.Size = new System.Drawing.Size(50, 19);
@@ -3496,7 +3522,7 @@
             // 
             // button_cheqNdsFreeFill
             // 
-            this.button_cheqNdsFreeFill.Location = new System.Drawing.Point(2, 13);
+            this.button_cheqNdsFreeFill.Location = new System.Drawing.Point(2, 14);
             this.button_cheqNdsFreeFill.Name = "button_cheqNdsFreeFill";
             this.button_cheqNdsFreeFill.Size = new System.Drawing.Size(63, 20);
             this.button_cheqNdsFreeFill.TabIndex = 1115;
@@ -3505,6 +3531,26 @@
         "ку");
             this.button_cheqNdsFreeFill.UseVisualStyleBackColor = true;
             this.button_cheqNdsFreeFill.Click += new System.EventHandler(this.ChangeChequeItemFiedls);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(406, 537);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(64, 13);
+            this.label29.TabIndex = 28;
+            this.label29.Text = "Всего НДС";
+            // 
+            // textBox_taxPanel_NDStotal
+            // 
+            this.textBox_taxPanel_NDStotal.Enabled = false;
+            this.textBox_taxPanel_NDStotal.Font = new System.Drawing.Font("Segoe UI", 11.5F, System.Drawing.FontStyle.Bold);
+            this.textBox_taxPanel_NDStotal.Location = new System.Drawing.Point(394, 553);
+            this.textBox_taxPanel_NDStotal.Name = "textBox_taxPanel_NDStotal";
+            this.textBox_taxPanel_NDStotal.Size = new System.Drawing.Size(85, 28);
+            this.textBox_taxPanel_NDStotal.TabIndex = 10008;
+            this.textBox_taxPanel_NDStotal.Text = "0";
+            this.textBox_taxPanel_NDStotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox_chequeTotalSum
             // 
@@ -3884,7 +3930,9 @@
             "НДС 5%",
             "НДС 7%",
             "НДС 5/105",
-            "НДС 7/107"});
+            "НДС 7/107",
+            "НДС 22",
+            "НДС 22/122"});
             this.comboBox_cheqItemTaxRate.Location = new System.Drawing.Point(213, 56);
             this.comboBox_cheqItemTaxRate.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_cheqItemTaxRate.Name = "comboBox_cheqItemTaxRate";
@@ -4055,7 +4103,7 @@
             this.label21.TabIndex = 1;
             this.label21.Text = "Наим.";
             this.toolTip1.SetToolTip(this.label21, "Меняется если равно\r\n одному из значений\r\nпо умолчанию");
-            this.label21.Click += new System.EventHandler(this.label21_Click_randomSampleUnits);
+            this.label21.Click += new System.EventHandler(this.Label21_Click_randomSampleUnits);
             // 
             // comboBox_cheq_itemType
             // 
@@ -4304,7 +4352,9 @@
             this.panel1.Controls.Add(this.button_chequeLookPf);
             this.panel1.Controls.Add(this.checkBox_cheq_docType_locker);
             this.panel1.Controls.Add(this.checkBox_cheq_operationType_locker);
+            this.panel1.Controls.Add(this.label29);
             this.panel1.Controls.Add(this.checkBox_cheq_sno_locker);
+            this.panel1.Controls.Add(this.textBox_taxPanel_NDStotal);
             this.panel1.Controls.Add(this.button_cheqExecute);
             this.panel1.Controls.Add(this.textBox_chequeDocCondition);
             this.panel1.Controls.Add(this.textBox_cheque1086propertiesPropertyValue);
@@ -4374,7 +4424,7 @@
             // 
             // button_chequeLookPf
             // 
-            this.button_chequeLookPf.Location = new System.Drawing.Point(390, 517);
+            this.button_chequeLookPf.Location = new System.Drawing.Point(390, 509);
             this.button_chequeLookPf.Name = "button_chequeLookPf";
             this.button_chequeLookPf.Size = new System.Drawing.Size(99, 23);
             this.button_chequeLookPf.TabIndex = 10105;
@@ -4692,6 +4742,16 @@
             this.button_cashOperation.TabIndex = 25;
             this.button_cashOperation.UseVisualStyleBackColor = true;
             this.button_cashOperation.Click += new System.EventHandler(this.Button_frNoncheqOperation);
+            // 
+            // checkBox_testmode2026
+            // 
+            this.checkBox_testmode2026.AutoSize = true;
+            this.checkBox_testmode2026.Location = new System.Drawing.Point(180, 64);
+            this.checkBox_testmode2026.Name = "checkBox_testmode2026";
+            this.checkBox_testmode2026.Size = new System.Drawing.Size(88, 17);
+            this.checkBox_testmode2026.TabIndex = 311;
+            this.checkBox_testmode2026.Text = "Режим 2026";
+            this.checkBox_testmode2026.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -5132,7 +5192,6 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.CheckBox checkBox_noNewNds;
         private System.Windows.Forms.Button button_task2ReadJsonFolder;
-        private System.Windows.Forms.CheckBox checkBox_task2excelImport;
         private System.Windows.Forms.TextBox textBox_task2allowableErrors;
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.CheckBox checkBox_task2bypass235error;
@@ -5149,6 +5208,11 @@
         private System.Windows.Forms.TextBox textBox_retailPlace;
         private System.Windows.Forms.CheckBox checkBox_cheq_internetPayment;
         private System.Windows.Forms.CheckBox checkBox_efnTestRunNoInternetSign;
+        private System.Windows.Forms.TextBox textBox_taxPanelNds22;
+        private System.Windows.Forms.TextBox textBox_taxPanelNds22122;
+        private System.Windows.Forms.Button button_cheqNds22122Fill;
+        private System.Windows.Forms.Button button_cheqNds22Fill;
+        private System.Windows.Forms.CheckBox checkBox_testmode2026;
     }
 }
 

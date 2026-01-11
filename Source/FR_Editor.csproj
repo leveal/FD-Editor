@@ -95,7 +95,7 @@
   <ItemGroup>
     <Reference Include="Atol.Drivers10.Fptr, Version=10.10.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\#work\@АТОЛ\10.10.6.0\wrappers\csharp\Atol.Drivers10.Fptr.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\@ware\Atol\10.10.8.0\wrappers\csharp\Atol.Drivers10.Fptr.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
@@ -139,12 +139,6 @@
     <Compile Include="FR\ConsumptionItem.cs" />
     <Compile Include="FR\FiscalCheque.cs" />
     <Compile Include="FR\FiscalPrinter.cs" />
-    <Compile Include="Forms\FormImport.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormImport.Designer.cs">
-      <DependentUpon>FormImport.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormEnabled.cs" />
     <Compile Include="Forms\FormItemExtendedEditor.cs">
       <SubType>Form</SubType>
@@ -210,9 +204,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BuyerInformationWindow.resx">
       <DependentUpon>BuyerInformationWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormImport.resx">
-      <DependentUpon>FormImport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormItemExtendedEditor.resx">
       <DependentUpon>FormItemExtendedEditor.cs</DependentUpon>

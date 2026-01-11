@@ -1639,7 +1639,7 @@ namespace FR_Operator
                 public string DefaultData { get => _defaultRawdata; }
                 public bool Critical
                 {
-                    get => _tagCriticality == CRITICALITY_CRITICAL;
+                    get => _tagCriticality == CRITICALITY_CRITICAL; 
                 }
 
                 public static TFtagRule EMPTY_RULE = new TFtagRule(0,0,0,null);

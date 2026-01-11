@@ -940,6 +940,14 @@ namespace FR_Operator
             try { nds7107 = double.Parse(textBox_taxPanelNds7107.Text); } catch { }
             fFDoc.Nds7107 = nds7107;
 
+            double nds22 = 0;
+            try { nds22 = double.Parse(textBox_taxPanelNds22.Text); } catch { }
+            fFDoc.Nds22 = nds22;
+
+            double nds22122 = 0;
+            try { nds22122 = double.Parse(textBox_taxPanelNds22122.Text); } catch { }
+            fFDoc.Nds22122 = nds22122;
+
             // обсчет и проверка документа
             double totalSum = fFDoc.TotalSum;
             fFDoc.Control();
@@ -1081,13 +1089,13 @@ namespace FR_Operator
             ITEM_SUM_TEXTBOX = new Point(164, 24),
             ITEM_PRICE_TEXTBOX = new Point(62, 24),
             ITEM_DESIGN_MULTIPLE_SIGN_LABEL = new Point(54, 25),
-            ITEM_DESIGN_EQUAL_SIGN_LABEL = new Point(145, 20),
+            ITEM_DESIGN_EQUAL_SIGN_LABEL = new Point(142, 20),
             ITEM_QUANTITY_TEXTBOX = new Point(3, 24),
             ITEM_PRODUCT_TYPE_LABEL = new Point(28, 3),
             ITEM_MULTIP_LABEL = new Point(44, 24);
         static readonly Size ITEM_NAME_TB_SZ = new Size(270, 16),
             ITEM_QUANTITY_TB_SZ = new Size(43, 16),
-            ITEM_PRICE_SUM_TB_SZ = new Size(81, 16)
+            ITEM_PRICE_SUM_TB_SZ = new Size(76, 16)
             ;
         void AddSingleCItem(ConsumptionItem item, int itemIndex, bool checkScroll = false)
         {
@@ -1331,7 +1339,7 @@ namespace FR_Operator
             "Стейк из голубого тунца 180гр",
             "Ассорти овощное 300гр",
             "Бланшированный шпинат",
-            "Мидии в сливочно-сырном соусе ",
+            "Мидии в сливочно-сырном соусе",
             "Чай имбирный",
             "Глинтвейн 200 мл",
             "Картошка фри 150 гр",
@@ -1671,117 +1679,66 @@ namespace FR_Operator
                 }
                 else if(btn.Name.StartsWith("button_cheqNds")&& btn.Name.EndsWith("Fill"))
                 {
+                    int rate2fill = 0;
                     if (btn == button_cheqNds20Fill)
                     {
-                        foreach(var item in fFDoc.Items)
-                        {
-                            if(item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_20_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_20_LOC;
                     }
                     else if(btn == button_cheqNds10Fill)
                     {
-                        foreach (var item in fFDoc.Items)
-                        {
-                            if (item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_10_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_10_LOC;
                     }
                     else if (btn == button_cheqNds10110Fill)
                     {
-                        foreach (var item in fFDoc.Items)
-                        {
-                            if (item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_10110_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_10110_LOC;
                     }
                     else if (btn == button_cheqNds0Fill)
                     {
-                        foreach (var item in fFDoc.Items)
-                        {
-                            if (item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_0_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_0_LOC;
                     }
                     else if (btn == button_cheqNds20120Fill)
                     {
-                        foreach (var item in fFDoc.Items)
-                        {
-                            if (item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_20120_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_20120_LOC;
                     }
                     else if (btn == button_cheqNdsFreeFill)
                     {
-                        foreach (var item in fFDoc.Items)
-                        {
-                            if (item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_FREE_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_FREE_LOC;
                     }
                     else if (btn == button_cheqNds5Fill)
                     {
-                        foreach (var item in fFDoc.Items)
-                        {
-                            if (item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_5_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_5_LOC;
                     }
                     else if (btn == button_cheqNds7Fill)
                     {
-                        foreach (var item in fFDoc.Items)
-                        {
-                            if (item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_7_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_7_LOC;
                     }
                     else if (btn == button_cheqNds5105Fill)
                     {
-                        foreach (var item in fFDoc.Items)
-                        {
-                            if (item.NdsRate == NONE)
-                            {
-                                item.NdsRate = NDS_TYPE_5105_LOC;
-                                item.Control();
-                            }
-                        }
+                        rate2fill = NDS_TYPE_5105_LOC;
                     }
                     else if (btn == button_cheqNds7107Fill)
+                    {
+                        rate2fill = NDS_TYPE_7107_LOC;
+                    }
+                    else if (btn == button_cheqNds22Fill)
+                    {
+                        rate2fill = NDS_TYPE_22_LOC;
+                    }
+                    else if (btn == button_cheqNds22122Fill)
+                    {
+                        rate2fill = NDS_TYPE_22122_LOC;
+                    }
+                    if (rate2fill > 0)
                     {
                         foreach (var item in fFDoc.Items)
                         {
                             if (item.NdsRate == NONE)
                             {
-                                item.NdsRate = NDS_TYPE_7107_LOC;
+                                item.NdsRate = rate2fill;
                                 item.Control();
                             }
                         }
                     }
-
 
                     fFDoc.Control(true);
                     MapFormFiscalDocument();
@@ -1795,6 +1752,8 @@ namespace FR_Operator
                     button_cheqNds7Fill.Enabled = false;
                     button_cheqNds5105Fill.Enabled = false;
                     button_cheqNds7107Fill.Enabled = false;
+                    button_cheqNds22122Fill.Enabled = false;
+                    button_cheqNds22Fill.Enabled = false;
                 }
             }
             else if (sender == comboBox_cheqItemMeasureType)
@@ -2386,7 +2345,7 @@ namespace FR_Operator
                     if (smoSnoChange >= 8) smoSnoChange *= 2;
                     AppSettings.UsingCustomSno = true;
                 }
-                bool importData = checkBox_task2excelImport.Checked;
+
                 bool closeShiftOnErrror = checkBox_task2bypass235error.Checked;
                 int fdPerformedCounter = 0;
                 if (KKMInfoTransmitter[FR_SHIFT_STATE_KEY]=="Смена закрыта")
@@ -2399,10 +2358,7 @@ namespace FR_Operator
                 int xi = 0;
                 for (; xi < _fdFiltrated.Count; xi++)
                 {
-                    if(importData && FormImport.RequirementData && (FormImport.table ==null || FormImport.CurrentRow > FormImport.table.GetUpperBound(0)))
-                    {
-                        break;
-                    }
+
 
                     noSkipError = true;
                     var fd = _fdFiltrated[xi];
@@ -2664,80 +2620,6 @@ namespace FR_Operator
                             fd.Cheque.TotalSum = oldTotal;
                         }
 
-                        // здесь обрабатываем данные импорта
-                        
-                        if (importData && FormImport.table != null)
-                        {
-                            int row = FormImport.CurrentRow;
-                            if (FormImport.table.GetUpperBound(0) >= row)
-                            {
-                                if (FormImport.index_buyerName > 0 && 
-                                    FormImport.table[row, FormImport.index_buyerName] != null && 
-                                    FormImport.table[row, FormImport.index_buyerName].ToString() != "")
-                                {
-                                    fd.Cheque.BuyerInformationBuyer = FormImport.table[row, FormImport.index_buyerName].ToString();
-                                }
-                                if (FormImport.index_buyerInn > 0 &&
-                                    FormImport.table[row, FormImport.index_buyerInn] != null &&
-                                    FormImport.table[row, FormImport.index_buyerInn].ToString() != "")
-                                {
-                                    fd.Cheque.BuyerInformationBuyerInn = FormImport.table[row, FormImport.index_buyerInn].ToString();
-                                }
-                                if (FormImport.index_buyerBirthDate > 0 &&
-                                    FormImport.table[row, FormImport.index_buyerBirthDate]!=null &&
-                                    FormImport.table[row, FormImport.index_buyerBirthDate].ToString() != "")
-                                {
-                                    fd.Cheque.BuyerInformationBuyerBirthday = FormImport.table[row, FormImport.index_buyerBirthDate].ToString();
-                                }
-                                if (FormImport.index_buyerCitizenship > 0 &&
-                                    FormImport.table[row, FormImport.index_buyerCitizenship] != null &&
-                                    FormImport.table[row, FormImport.index_buyerCitizenship].ToString() != "")
-                                {
-                                    fd.Cheque.BuyerInformationBuyerCitizenship = FormImport.table[row, FormImport.index_buyerCitizenship].ToString();
-                                }
-                                if (FormImport.index_buyerDocumentCode > 0 &&
-                                    FormImport.table[row, FormImport.index_buyerDocumentCode] != null &&
-                                    FormImport.table[row, FormImport.index_buyerDocumentCode].ToString() != "")
-                                {
-                                    fd.Cheque.BuyerInformationBuyerDocumentCode = FormImport.table[row, FormImport.index_buyerDocumentCode].ToString();
-                                }
-                                if (FormImport.index_buyerDocumentData > 0 &&
-                                    FormImport.table[row, FormImport.index_buyerDocumentData] != null &&
-                                    FormImport.table[row, FormImport.index_buyerDocumentData].ToString() != "")
-                                {
-                                    fd.Cheque.BuyerInformationBuyerDocumentData = FormImport.table[row, FormImport.index_buyerDocumentData].ToString();
-                                }
-                                if (FormImport.index_buyerAddress > 0 &&
-                                    FormImport.table[row, FormImport.index_buyerAddress] != null &&
-                                    FormImport.table[row, FormImport.index_buyerAddress].ToString() != "")
-                                {
-                                    fd.Cheque.BuyerInformationBuyerAddress = FormImport.table[row, FormImport.index_buyerAddress].ToString();
-                                }
-                            }
-                            if (FormImport.ChangeServiceToPaymentCasino)
-                            {
-                                foreach(var itemCh in fd.Cheque.Items)
-                                {
-                                    if(itemCh.ProductType == 4)
-                                    {
-                                        itemCh.ProductType = 26;
-                                    }
-                                }
-                            }
-                            if (FormImport.Change1ToPaymentCasino)
-                            {
-                                foreach (var itemCh in fd.Cheque.Items)
-                                {
-                                    if (itemCh.ProductType == 1)
-                                    {
-                                        itemCh.ProductType = 26;
-                                    }
-                                }
-                            }
-
-                            FormImport.CurrentRow++;
-
-                        }
 
                         fiscalPrinter.ReadDeviceCondition();
                         int lastFdBeforePerformFdStright = fiscalPrinter.LastFd;
@@ -3131,15 +3013,6 @@ namespace FR_Operator
                         PushMessage("Чеков сохранено " + fdCounder);
 
                     }
-
-                }
-            }
-            else if(sender == checkBox_task2excelImport)
-            {
-                if (checkBox_task2excelImport.Checked)
-                {
-                    FormImport form1 = new FormImport();
-                    form1.ShowDialog();
                 }
             }
             else if(sender == button_ofdFormat)
@@ -3155,7 +3028,7 @@ namespace FR_Operator
         private List<FnReadedDocument> _fdReaded = new List<FnReadedDocument>();
         private List<FnReadedDocument> _fdFiltrated = new List<FnReadedDocument>();
 
-        private void label21_Click_randomSampleUnits(object sender, EventArgs e)
+        private void Label21_Click_randomSampleUnits(object sender, EventArgs e)
         {
             if(SAMLE_ITEMS.Contains(textBox_cheqItemName.Text)) textBox_cheqItemName.Text = SAMLE_ITEMS[new Random().Next(0, SAMLE_ITEMS.Length - 1)];
         }
@@ -3184,8 +3057,10 @@ namespace FR_Operator
             textBox_taxPanelNds7.Text = fFDoc.Nds7.ToString();
             textBox_taxPanelNds5105.Text = fFDoc.Nds5105.ToString();
             textBox_taxPanelNds7107.Text = fFDoc.Nds7107.ToString();
+            textBox_taxPanelNds22.Text = fFDoc.Nds22.ToString();
+            textBox_taxPanelNds22122.Text = fFDoc.Nds22122.ToString();
 
-            textBox_taxPanel_NDStotal.Text = Math.Round((fFDoc.Nds10 + fFDoc.Nds20 + fFDoc.Nds10110 + fFDoc.Nds20120 + fFDoc.Nds5 + fFDoc.Nds7 + fFDoc.Nds5105+fFDoc.Nds7107), 2).ToString();
+            textBox_taxPanel_NDStotal.Text = Math.Round((fFDoc.Nds10 + fFDoc.Nds20 + fFDoc.Nds10110 + fFDoc.Nds20120 + fFDoc.Nds5 + fFDoc.Nds7 + fFDoc.Nds5105+fFDoc.Nds7107 + fFDoc.Nds22 + fFDoc.Nds22122), 2).ToString();
             textBox_chequeDocCondition.Text = fFDoc.Condition();
 
             if (fFDoc.IsNotPaid)
@@ -3217,6 +3092,8 @@ namespace FR_Operator
             button_cheqNds7107Fill.Enabled = manualTaxes;
             button_cheqNds7Fill.Enabled = manualTaxes;
             button_cheqNds5Fill.Enabled = manualTaxes;
+            button_cheqNds22Fill.Enabled = manualTaxes;
+            button_cheqNds22122Fill.Enabled = manualTaxes;
         }
 
         private void MapFormFiscalDocument()
@@ -3776,6 +3653,7 @@ namespace FR_Operator
             {
                 //Тестовое пробитие чеков чтение сверка и вывод результатов расхождений сверки в лог
                 int a = 1;
+                bool mode2026 = checkBox_testmode2026.Checked;
                 bool noExdueTmt = checkBox_testRun_noExDuTm.Checked;
                 bool noCorrection = checkBox_efnTestRunNoCorrection.Checked;
                 bool noNewNds = checkBox_noNewNds.Checked;
@@ -3791,6 +3669,7 @@ namespace FR_Operator
                     _testRunChequesPerfomed.Clear();
                     _errorsOnTR.Clear();
                     FiscalCheque cheque = null;
+                    
                     int lastFdBeforeRun = fiscalPrinter.LastFd;
                     int chequesToRun = 225;
                     int.TryParse(textBox_efnTestRunCheques.Text, out chequesToRun);
@@ -3799,7 +3678,10 @@ namespace FR_Operator
                     for (int i = 0; i < chequesToRun; i++)
                     {
                         cheque = new FiscalCheque();
-
+                        if (mode2026)
+                        {
+                            cheque.EmailPhone = "test@test.te";
+                        }
                         sno *= 2;
                         if (sno == 8)
                         {
@@ -3868,6 +3750,13 @@ namespace FR_Operator
                         }
                         int ndsRate = (i + 3) % 10;
                         ndsRate++;
+                        if (mode2026)
+                        {
+                            if (ndsRate == NDS_TYPE_20_LOC)
+                                ndsRate = NDS_TYPE_22_LOC;
+                            if(ndsRate == NDS_TYPE_20120_LOC)
+                                ndsRate = NDS_TYPE_22122_LOC;
+                        }
                         if (noNewNds&& ndsRate>6)
                         {
                             ndsRate /= 2; 
@@ -3983,6 +3872,13 @@ namespace FR_Operator
                             }
                             ndsRate = (i + 4) % 10;
                             ndsRate++;
+                            if (mode2026)
+                            {
+                                if (ndsRate == NDS_TYPE_20_LOC)
+                                    ndsRate = NDS_TYPE_22_LOC;
+                                if (ndsRate == NDS_TYPE_20120_LOC)
+                                    ndsRate = NDS_TYPE_22122_LOC;
+                            }
                             if (noNewNds && ndsRate > 6)
                             {
                                 ndsRate /= 2;
@@ -4265,6 +4161,14 @@ namespace FR_Operator
                             {
                                 sb.AppendLine("Расхождение 7107");
                             }
+                            if (Math.Abs(ogigChq.Nds22 - perfChq.Cheque.Nds22) > 0.009)
+                            {
+                                sb.AppendLine("Расхождение nds22");
+                            }
+                            if (Math.Abs(ogigChq.Nds22122 - perfChq.Cheque.Nds22122) > 0.009)
+                            {
+                                sb.AppendLine("Расхождение nds22122");
+                            }
                             if (ogigChq.BuyerInformation||perfChq.Cheque.BuyerInformation)
                             {
                                 if(ogigChq.BuyerInformationBuyer != perfChq.Cheque.BuyerInformationBuyer)
@@ -4275,23 +4179,23 @@ namespace FR_Operator
                                 {
                                     sb.AppendLine("Расходится ИНН покупателя");
                                 }
-                                if (ogigChq.BuyerInformationBuyerBirthday != perfChq.Cheque.BuyerInformationBuyerBirthday)
+                                if (ogigChq.BuyerInformationBuyerBirthday != perfChq.Cheque.BuyerInformationBuyerBirthday && ffd == 4)
                                 {
                                     sb.AppendLine("Расходится Birthday покупателя");
                                 }
-                                if (ogigChq.BuyerInformationBuyerCitizenship != perfChq.Cheque.BuyerInformationBuyerCitizenship)
+                                if (ogigChq.BuyerInformationBuyerCitizenship != perfChq.Cheque.BuyerInformationBuyerCitizenship && ffd == 4)
                                 {
                                     sb.AppendLine("Расходится Citizenship покупателя");
                                 }
-                                if (ogigChq.BuyerInformationBuyerDocumentCode != perfChq.Cheque.BuyerInformationBuyerDocumentCode)
+                                if (ogigChq.BuyerInformationBuyerDocumentCode != perfChq.Cheque.BuyerInformationBuyerDocumentCode && ffd == 4)
                                 {
                                     sb.AppendLine("Расходится DocCode покупателя");
                                 }
-                                if (ogigChq.BuyerInformationBuyerDocumentData != perfChq.Cheque.BuyerInformationBuyerDocumentData)
+                                if (ogigChq.BuyerInformationBuyerDocumentData != perfChq.Cheque.BuyerInformationBuyerDocumentData && ffd == 4)
                                 {
                                     sb.AppendLine("Расходится DocData покупателя");
                                 }
-                                if (ogigChq.BuyerInformationBuyerAddress != perfChq.Cheque.BuyerInformationBuyerAddress)
+                                if (ogigChq.BuyerInformationBuyerAddress != perfChq.Cheque.BuyerInformationBuyerAddress && ffd == 4)
                                 {
                                     sb.AppendLine("Расходится адрес покупателя");
                                 }
@@ -4336,7 +4240,7 @@ namespace FR_Operator
 
                             if (sb.Length > 0)
                             {
-                                LogHandle.ol("Расхожденеие ! ! ! ! ! !" + Environment.NewLine +
+                                LogHandle.ol("Расхождение ! ! ! ! ! !" + Environment.NewLine +
                                     "Оригинал:" +
                                     ogigChq.ToString(FiscalCheque.FULL_INFO) +
                                     Environment.NewLine + Environment.NewLine +
@@ -4698,7 +4602,10 @@ namespace FR_Operator
                         doc.Cheque.Nds5 + 
                         doc.Cheque.Nds7 + 
                         doc.Cheque.Nds5105 + 
-                        doc.Cheque.Nds7107;
+                        doc.Cheque.Nds7107 +                
+                        doc.Cheque.Nds22 +                     
+                        doc.Cheque.Nds22122                       
+                        ;
                     cashSumm += doc.Cheque.Cash;
                     ecashSum += doc.Cheque.ECash;
                     noNDS += doc.Cheque.NdsFree;
@@ -4715,7 +4622,10 @@ namespace FR_Operator
                             doc.Cheque.Nds5 +
                             doc.Cheque.Nds7 +
                             doc.Cheque.Nds5105 +
-                            doc.Cheque.Nds7107;
+                            doc.Cheque.Nds7107 +
+                            doc.Cheque.Nds22 +
+                            doc.Cheque.Nds22122
+                        ;
                     }
                     else if (doc.Cheque.CalculationSign == 2)
                     {
@@ -4729,7 +4639,10 @@ namespace FR_Operator
                             doc.Cheque.Nds5 +
                             doc.Cheque.Nds7 +
                             doc.Cheque.Nds5105 +
-                            doc.Cheque.Nds7107;
+                            doc.Cheque.Nds7107 +
+                            doc.Cheque.Nds22 +
+                            doc.Cheque.Nds22122
+                        ;
                     }
                     else if (doc.Cheque.CalculationSign == 3)
                     {
@@ -4743,7 +4656,10 @@ namespace FR_Operator
                             doc.Cheque.Nds5 +
                             doc.Cheque.Nds7 +
                             doc.Cheque.Nds5105 +
-                            doc.Cheque.Nds7107;
+                            doc.Cheque.Nds7107 +
+                            doc.Cheque.Nds22 +
+                            doc.Cheque.Nds22122
+                        ;
                     }
                     else if(doc.Cheque.CalculationSign == 4)
                     {
@@ -4757,7 +4673,10 @@ namespace FR_Operator
                             doc.Cheque.Nds5 +
                             doc.Cheque.Nds7 +
                             doc.Cheque.Nds5105 +
-                            doc.Cheque.Nds7107;
+                            doc.Cheque.Nds7107 +
+                            doc.Cheque.Nds22 +
+                            doc.Cheque.Nds22122
+                        ;
                     }
                 }
             }

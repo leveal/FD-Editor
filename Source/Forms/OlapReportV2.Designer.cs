@@ -42,6 +42,11 @@
             this.button_olap2ExcelOpenFile = new System.Windows.Forms.Button();
             this.button_goTo2_date = new System.Windows.Forms.Button();
             this.tabPage2_correctionProps = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBox_buyerAddressDefault = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboBox_buyerAddress = new System.Windows.Forms.ComboBox();
             this.comboBox_userPropertiesPropertyValue1086 = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.comboBox_userPropertiesPropertyName1085 = new System.Windows.Forms.ComboBox();
@@ -141,15 +146,11 @@
             this.textBox_precalculateTable = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.comboBox_buyerAddress = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.textBox_buyerAddressDefault = new System.Windows.Forms.TextBox();
             this.tabControl_steps.SuspendLayout();
             this.tabPage1_file.SuspendLayout();
             this.groupBox_emuFrSetting.SuspendLayout();
             this.tabPage2_correctionProps.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox_cheque_correctionProperties.SuspendLayout();
             this.tabPage3_chequeNumber.SuspendLayout();
             this.tabPage4_payment.SuspendLayout();
@@ -165,7 +166,6 @@
             this.tabPage8_itemSum.SuspendLayout();
             this.tabPage9_itemTaxRate.SuspendLayout();
             this.tabPage10_processing.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl_steps
@@ -346,6 +346,73 @@
             this.tabPage2_correctionProps.TabIndex = 1;
             this.tabPage2_correctionProps.Text = "Тип(реквизиты) корректировки";
             this.tabPage2_correctionProps.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.textBox_buyerAddressDefault);
+            this.groupBox5.Controls.Add(this.label30);
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.comboBox_buyerAddress);
+            this.groupBox5.Location = new System.Drawing.Point(12, 368);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(512, 100);
+            this.groupBox5.TabIndex = 316;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Электронный адрес получателя(в штрихах необходим для отключения печати)";
+            // 
+            // textBox_buyerAddressDefault
+            // 
+            this.textBox_buyerAddressDefault.Location = new System.Drawing.Point(164, 55);
+            this.textBox_buyerAddressDefault.Name = "textBox_buyerAddressDefault";
+            this.textBox_buyerAddressDefault.Size = new System.Drawing.Size(328, 20);
+            this.textBox_buyerAddressDefault.TabIndex = 317;
+            this.textBox_buyerAddressDefault.TextChanged += new System.EventHandler(this.ActionControls);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(8, 55);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(129, 13);
+            this.label30.TabIndex = 316;
+            this.label30.Text = "Значение по умолчанию";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(8, 22);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(145, 13);
+            this.label12.TabIndex = 315;
+            this.label12.Text = "Адрес получателя столбец:";
+            // 
+            // comboBox_buyerAddress
+            // 
+            this.comboBox_buyerAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_buyerAddress.Enabled = false;
+            this.comboBox_buyerAddress.FormattingEnabled = true;
+            this.comboBox_buyerAddress.Items.AddRange(new object[] {
+            "Использовать по умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15"});
+            this.comboBox_buyerAddress.Location = new System.Drawing.Point(274, 19);
+            this.comboBox_buyerAddress.Name = "comboBox_buyerAddress";
+            this.comboBox_buyerAddress.Size = new System.Drawing.Size(218, 21);
+            this.comboBox_buyerAddress.TabIndex = 314;
+            this.comboBox_buyerAddress.SelectedIndexChanged += new System.EventHandler(this.ActionControls);
             // 
             // comboBox_userPropertiesPropertyValue1086
             // 
@@ -1538,7 +1605,9 @@
             "Установить 7 НДС 5%",
             "Установить 8 НДС 7%",
             "Установить 9 НДС 5/105",
-            "Установить 10 НДС 7/107"});
+            "Установить 10 НДС 7/107",
+            "Установить 11 НДС 22%",
+            "Установить 12 НДС 22/122"});
             this.comboBox_itemNdsSum.Location = new System.Drawing.Point(150, 30);
             this.comboBox_itemNdsSum.Name = "comboBox_itemNdsSum";
             this.comboBox_itemNdsSum.Size = new System.Drawing.Size(234, 21);
@@ -1718,73 +1787,6 @@
             this.button1.Text = "Далее";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.textBox_buyerAddressDefault);
-            this.groupBox5.Controls.Add(this.label30);
-            this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Controls.Add(this.comboBox_buyerAddress);
-            this.groupBox5.Location = new System.Drawing.Point(12, 368);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(512, 100);
-            this.groupBox5.TabIndex = 316;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Электронный адрес получателя(в штрихах необходим для отключения печати)";
-            // 
-            // comboBox_buyerAddress
-            // 
-            this.comboBox_buyerAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_buyerAddress.Enabled = false;
-            this.comboBox_buyerAddress.FormattingEnabled = true;
-            this.comboBox_buyerAddress.Items.AddRange(new object[] {
-            "Использовать по умолчанию",
-            "A - 1",
-            "B - 2",
-            "C - 3",
-            "D - 4",
-            "E - 5",
-            "F - 6",
-            "G - 7",
-            "H - 8",
-            "I - 9",
-            "J - 10",
-            "K - 11",
-            "L - 12",
-            "M - 13",
-            "N - 14",
-            "O - 15"});
-            this.comboBox_buyerAddress.Location = new System.Drawing.Point(274, 19);
-            this.comboBox_buyerAddress.Name = "comboBox_buyerAddress";
-            this.comboBox_buyerAddress.Size = new System.Drawing.Size(218, 21);
-            this.comboBox_buyerAddress.TabIndex = 314;
-            this.comboBox_buyerAddress.SelectedIndexChanged += new System.EventHandler(this.ActionControls);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 22);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(145, 13);
-            this.label12.TabIndex = 315;
-            this.label12.Text = "Адрес получателя столбец:";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(8, 55);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(129, 13);
-            this.label30.TabIndex = 316;
-            this.label30.Text = "Значение по умолчанию";
-            // 
-            // textBox_buyerAddressDefault
-            // 
-            this.textBox_buyerAddressDefault.Location = new System.Drawing.Point(164, 55);
-            this.textBox_buyerAddressDefault.Name = "textBox_buyerAddressDefault";
-            this.textBox_buyerAddressDefault.Size = new System.Drawing.Size(328, 20);
-            this.textBox_buyerAddressDefault.TabIndex = 317;
-            this.textBox_buyerAddressDefault.TextChanged += new System.EventHandler(this.ActionControls);
-            // 
             // OlapReportV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1805,6 +1807,8 @@
             this.groupBox_emuFrSetting.PerformLayout();
             this.tabPage2_correctionProps.ResumeLayout(false);
             this.tabPage2_correctionProps.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox_cheque_correctionProperties.ResumeLayout(false);
             this.groupBox_cheque_correctionProperties.PerformLayout();
             this.tabPage3_chequeNumber.ResumeLayout(false);
@@ -1833,8 +1837,6 @@
             this.tabPage9_itemTaxRate.PerformLayout();
             this.tabPage10_processing.ResumeLayout(false);
             this.tabPage10_processing.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }

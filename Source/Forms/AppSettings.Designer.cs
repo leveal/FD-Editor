@@ -107,6 +107,12 @@
             this.tabPage_shtrih = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.radioButton_shtrihCloseCheckEx4 = new System.Windows.Forms.RadioButton();
             this.radioButton_shtrihCloseCheckEx3 = new System.Windows.Forms.RadioButton();
             this.radioButton_shtrihCloseCheckEx2 = new System.Windows.Forms.RadioButton();
             this.radioButton_shtrihCloseCheqMethodOld = new System.Windows.Forms.RadioButton();
@@ -738,7 +744,9 @@
             "НДС 5%",
             "НДС 7%",
             "НДС 5/105",
-            "НДС 7/107"});
+            "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122"});
             this.comboBox_settingsItemTaxRateDefault.Location = new System.Drawing.Point(241, 62);
             this.comboBox_settingsItemTaxRateDefault.Name = "comboBox_settingsItemTaxRateDefault";
             this.comboBox_settingsItemTaxRateDefault.Size = new System.Drawing.Size(217, 21);
@@ -1148,28 +1156,104 @@
             this.groupBox1.Controls.Add(this.groupBox11);
             this.groupBox1.Location = new System.Drawing.Point(9, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(471, 175);
+            this.groupBox1.Size = new System.Drawing.Size(471, 329);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Формирование ФД";
             // 
             // groupBox12
             // 
+            this.groupBox12.Controls.Add(this.radioButton1);
+            this.groupBox12.Controls.Add(this.label33);
+            this.groupBox12.Controls.Add(this.label32);
+            this.groupBox12.Controls.Add(this.label31);
+            this.groupBox12.Controls.Add(this.label30);
+            this.groupBox12.Controls.Add(this.radioButton_shtrihCloseCheckEx4);
             this.groupBox12.Controls.Add(this.radioButton_shtrihCloseCheckEx3);
             this.groupBox12.Controls.Add(this.radioButton_shtrihCloseCheckEx2);
             this.groupBox12.Controls.Add(this.radioButton_shtrihCloseCheqMethodOld);
             this.groupBox12.Location = new System.Drawing.Point(6, 92);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(459, 60);
+            this.groupBox12.Size = new System.Drawing.Size(459, 231);
             this.groupBox12.TabIndex = 1;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Закрытие ФД";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Enabled = false;
+            this.radioButton1.Location = new System.Drawing.Point(6, 187);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(191, 23);
+            this.radioButton1.TabIndex = 10;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Автовыбор метода закрытия чека";
+            this.radioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(200, 147);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(252, 26);
+            this.label33.TabIndex = 9;
+            this.label33.Text = "Поддерживается драйверами 5.21 и выше\r\nЗаполняются ставки 20, 10, 0, Без НДС, 5, " +
+    "7, 22";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(200, 105);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(234, 26);
+            this.label32.TabIndex = 8;
+            this.label32.Text = "Поддерживается драйверами 5.18 и выше\r\nЗаполняются ставки 20, 10, 0, Без НДС, 5, " +
+    "7";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(200, 65);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(210, 26);
+            this.label31.TabIndex = 7;
+            this.label31.Text = "Поддерживается всеми драйверами\r\nЗаполняются ставки 20, 10, 0, Без НДС";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Enabled = false;
+            this.label30.Location = new System.Drawing.Point(200, 31);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(223, 13);
+            this.label30.TabIndex = 6;
+            this.label30.Text = "Только для старых драйверов 5.17 и ниже";
+            // 
+            // radioButton_shtrihCloseCheckEx4
+            // 
+            this.radioButton_shtrihCloseCheckEx4.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_shtrihCloseCheckEx4.AutoSize = true;
+            this.radioButton_shtrihCloseCheckEx4.Location = new System.Drawing.Point(6, 145);
+            this.radioButton_shtrihCloseCheckEx4.Name = "radioButton_shtrihCloseCheckEx4";
+            this.radioButton_shtrihCloseCheckEx4.Size = new System.Drawing.Size(179, 36);
+            this.radioButton_shtrihCloseCheckEx4.TabIndex = 5;
+            this.radioButton_shtrihCloseCheckEx4.TabStop = true;
+            this.radioButton_shtrihCloseCheckEx4.Text = "Закрытие чека расширенное v4\r\nFNCloseCheckEx4";
+            this.radioButton_shtrihCloseCheckEx4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.radioButton_shtrihCloseCheckEx4, "Поддерживается только драйверами 5.21 и выше, прошивками от 12.2025г \r\nНа драйвер" +
+        "ах версиях ниже вызовет ошибку библиотеки драйвера - будьте внимательны!\r\nДля ЧК" +
+        " в ФФД 1.05\r\nFNBuildCorrectionReceipt4");
+            this.radioButton_shtrihCloseCheckEx4.UseVisualStyleBackColor = true;
+            this.radioButton_shtrihCloseCheckEx4.CheckedChanged += new System.EventHandler(this.ChangingSettings);
             // 
             // radioButton_shtrihCloseCheckEx3
             // 
             this.radioButton_shtrihCloseCheckEx3.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_shtrihCloseCheckEx3.AutoSize = true;
-            this.radioButton_shtrihCloseCheckEx3.Location = new System.Drawing.Point(274, 19);
+            this.radioButton_shtrihCloseCheckEx3.Location = new System.Drawing.Point(6, 103);
             this.radioButton_shtrihCloseCheckEx3.Name = "radioButton_shtrihCloseCheckEx3";
             this.radioButton_shtrihCloseCheckEx3.Size = new System.Drawing.Size(179, 36);
             this.radioButton_shtrihCloseCheckEx3.TabIndex = 4;
@@ -1186,7 +1270,7 @@
             // 
             this.radioButton_shtrihCloseCheckEx2.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_shtrihCloseCheckEx2.AutoSize = true;
-            this.radioButton_shtrihCloseCheckEx2.Location = new System.Drawing.Point(91, 19);
+            this.radioButton_shtrihCloseCheckEx2.Location = new System.Drawing.Point(6, 61);
             this.radioButton_shtrihCloseCheckEx2.Name = "radioButton_shtrihCloseCheckEx2";
             this.radioButton_shtrihCloseCheckEx2.Size = new System.Drawing.Size(179, 36);
             this.radioButton_shtrihCloseCheckEx2.TabIndex = 3;
@@ -1206,10 +1290,11 @@
             this.radioButton_shtrihCloseCheqMethodOld.Enabled = false;
             this.radioButton_shtrihCloseCheqMethodOld.Location = new System.Drawing.Point(6, 19);
             this.radioButton_shtrihCloseCheqMethodOld.Name = "radioButton_shtrihCloseCheqMethodOld";
-            this.radioButton_shtrihCloseCheqMethodOld.Size = new System.Drawing.Size(81, 36);
+            this.radioButton_shtrihCloseCheqMethodOld.Size = new System.Drawing.Size(179, 36);
             this.radioButton_shtrihCloseCheqMethodOld.TabIndex = 2;
             this.radioButton_shtrihCloseCheqMethodOld.TabStop = true;
-            this.radioButton_shtrihCloseCheqMethodOld.Text = "Закрыть чек\r\nCloseCheck";
+            this.radioButton_shtrihCloseCheqMethodOld.Text = "Закрыть чек                        \r\n                  CloseCheck                " +
+    " ";
             this.radioButton_shtrihCloseCheqMethodOld.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.toolTip1.SetToolTip(this.radioButton_shtrihCloseCheqMethodOld, "Для старых прошивок и драйверов\r\nИспользовать только с автоподсчетом налогов ФРом" +
         "!\r\nНе поддерживается округление итога чека");
@@ -1265,9 +1350,9 @@
             this.groupBox_shtrihDeviceSettings.Controls.Add(this.groupBox10);
             this.groupBox_shtrihDeviceSettings.Controls.Add(this.groupBox_taxSettings);
             this.groupBox_shtrihDeviceSettings.Enabled = false;
-            this.groupBox_shtrihDeviceSettings.Location = new System.Drawing.Point(9, 197);
+            this.groupBox_shtrihDeviceSettings.Location = new System.Drawing.Point(491, 159);
             this.groupBox_shtrihDeviceSettings.Name = "groupBox_shtrihDeviceSettings";
-            this.groupBox_shtrihDeviceSettings.Size = new System.Drawing.Size(337, 152);
+            this.groupBox_shtrihDeviceSettings.Size = new System.Drawing.Size(303, 152);
             this.groupBox_shtrihDeviceSettings.TabIndex = 7;
             this.groupBox_shtrihDeviceSettings.TabStop = false;
             this.groupBox_shtrihDeviceSettings.Text = "Настройки ФРа (для прошивок C.1,C.3,D.3)";
@@ -1289,7 +1374,7 @@
             this.groupBox10.Location = new System.Drawing.Point(6, 76);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox10.Size = new System.Drawing.Size(325, 54);
+            this.groupBox10.Size = new System.Drawing.Size(288, 54);
             this.groupBox10.TabIndex = 1;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Печать";
@@ -1307,7 +1392,7 @@
             // 
             this.radioButton_shtrihSwichPrintingOn.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_shtrihSwichPrintingOn.AutoSize = true;
-            this.radioButton_shtrihSwichPrintingOn.Location = new System.Drawing.Point(252, 28);
+            this.radioButton_shtrihSwichPrintingOn.Location = new System.Drawing.Point(217, 25);
             this.radioButton_shtrihSwichPrintingOn.Name = "radioButton_shtrihSwichPrintingOn";
             this.radioButton_shtrihSwichPrintingOn.Size = new System.Drawing.Size(67, 23);
             this.radioButton_shtrihSwichPrintingOn.TabIndex = 1;
@@ -1339,7 +1424,7 @@
             this.groupBox_taxSettings.Location = new System.Drawing.Point(6, 17);
             this.groupBox_taxSettings.Name = "groupBox_taxSettings";
             this.groupBox_taxSettings.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.groupBox_taxSettings.Size = new System.Drawing.Size(325, 54);
+            this.groupBox_taxSettings.Size = new System.Drawing.Size(288, 54);
             this.groupBox_taxSettings.TabIndex = 0;
             this.groupBox_taxSettings.TabStop = false;
             this.groupBox_taxSettings.Text = "Подсчет налогов чека";
@@ -1357,7 +1442,7 @@
             // 
             this.radioButton_shtrihSwichFwTaxesOff.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_shtrihSwichFwTaxesOff.AutoSize = true;
-            this.radioButton_shtrihSwichFwTaxesOff.Location = new System.Drawing.Point(199, 28);
+            this.radioButton_shtrihSwichFwTaxesOff.Location = new System.Drawing.Point(164, 28);
             this.radioButton_shtrihSwichFwTaxesOff.Name = "radioButton_shtrihSwichFwTaxesOff";
             this.radioButton_shtrihSwichFwTaxesOff.Size = new System.Drawing.Size(120, 23);
             this.radioButton_shtrihSwichFwTaxesOff.TabIndex = 1;
@@ -1779,5 +1864,11 @@
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.CheckBox checkBox_ovverrideRetailPlace;
         private System.Windows.Forms.CheckBox checkBox_ovverrideRetailAddress;
+        private System.Windows.Forms.RadioButton radioButton_shtrihCloseCheckEx4;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

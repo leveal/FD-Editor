@@ -426,9 +426,9 @@ namespace FR_Operator
                     badDocToPerfome = true;
                     break;
                 }
-                if (item.NdsRate < 0 || item.NdsRate > 10)
+                if (item.NdsRate < 0 || item.NdsRate > 12)
                 {
-                    badMsg = "Некорректная ставка НДС[1-10]= " + item.NdsRate;
+                    badMsg = "Некорректная ставка НДС[1-12]= " + item.NdsRate;
                     badDocToPerfome = true;
                     break;
                 }

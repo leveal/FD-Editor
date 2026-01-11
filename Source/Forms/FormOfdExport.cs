@@ -194,6 +194,8 @@ namespace FR_Operator
             comboBox_checkTax7.SelectedIndex = _pointer_checkTax_7;
             comboBox_checkTax5105.SelectedIndex = _pointer_checkTax_5105;
             comboBox_checkTax7107.SelectedIndex = _pointer_checkTax_7107;
+            comboBox_checkTax22.SelectedIndex = _pointer_checkTax_22;
+            comboBox_checkTax22122.SelectedIndex = _pointer_checkTax_22122;
             comboBox_retailAddress.SelectedIndex = _pointer_retailAddress;
             comboBox_retailPlace.SelectedIndex = _pointer_retailPlace;
 
@@ -206,6 +208,18 @@ namespace FR_Operator
             comboBox_operationType.SelectedIndex = _pointer_operationTypeM5;
             comboBox_emailPhone.SelectedIndex = _pointer_emailPhone;
 
+            comboBox_items_agent_1222.SelectedIndex = _pointer_items_agent_1222;
+            comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.SelectedIndex = _pointer_itemsPaymentAgentDataTransferOperatorInn_1016;
+            comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.SelectedIndex = _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075;
+            comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.SelectedIndex = _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005;
+            comboBox_itemsPaymentAgentDataTransferOperatorName_1026.SelectedIndex = _pointer_itemsPaymentAgentDataTransferOperatorName_1026;
+            comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.SelectedIndex = _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074;
+            comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.SelectedIndex = _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044;
+            comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.SelectedIndex = _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073;
+            comboBox_itemsProviderInn_1226.SelectedIndex = _pointer_itemsProviderInn_1226;
+            comboBox_itemsProviderDataProviderName_1225.SelectedIndex = _pointer_itemsProviderDataProviderName_1225;
+            comboBox_itemsProviderDataProviderPhone_1171.SelectedIndex = _pointer_itemsProviderDataProviderPhone_1171;
+            comboBox_itemsCustomEntryNum_1231.SelectedIndex = _pointer_itemsCustomEntryNum_1231;
 
             // дальнейшие установки будут обрабатываться в хандлере
             skip_handle_sign = false;
@@ -247,6 +261,7 @@ namespace FR_Operator
                 }
                 
             }
+
 
             comboSet.Add(comboBox_checkId);
             comboSet.Add(comboBox_operationType);
@@ -292,6 +307,20 @@ namespace FR_Operator
             comboSet.Add(comboBox_retailAddress);
             comboSet.Add(comboBox_retailPlace);
             comboSet.Add(comboBox_emailPhone);
+            comboSet.Add(comboBox_items_agent_1222);
+            comboSet.Add(comboBox_itemsPaymentAgentDataTransferOperatorInn_1016);
+            comboSet.Add(comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075);
+            comboSet.Add(comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005);
+            comboSet.Add(comboBox_itemsPaymentAgentDataTransferOperatorName_1026);
+            comboSet.Add(comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074);
+            comboSet.Add(comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044);
+            comboSet.Add(comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073);
+            comboSet.Add(comboBox_itemsProviderInn_1226);
+            comboSet.Add(comboBox_itemsProviderDataProviderName_1225);
+            comboSet.Add(comboBox_itemsProviderDataProviderPhone_1171);
+            comboSet.Add(comboBox_itemsCustomEntryNum_1231);
+            comboSet.Add(comboBox_checkTax22);
+            comboSet.Add(comboBox_checkTax22122);
             MapPresetts();
         }
         bool _overrideAddressOriginal = false;
@@ -372,6 +401,9 @@ namespace FR_Operator
         int _pointer_checkTax_7 = 0;
         int _pointer_checkTax_5105 = 0;
         int _pointer_checkTax_7107 = 0;
+        int _pointer_checkTax_22 = 0;
+        int _pointer_checkTax_22122 = 0;
+
         bool _allowEmptyPropertyData = false;
 
         int _pointer_retailAddress = 0;
@@ -383,8 +415,43 @@ namespace FR_Operator
         int _pointer_emailPhone = 0;
         string _emailPhoneDefault = string.Empty;
 
-        public static bool breakOperation = false; 
+        int _pointer_items_agent_1222 = 0;
+        string _items_agent_1222_default = string.Empty;
 
+        int _pointer_itemsPaymentAgentDataTransferOperatorInn_1016 = 0;
+        string _itemsPaymentAgentDataTransferOperatorInn_1016_default = string.Empty;
+
+        int _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075 = 0;
+        string _itemsPaymentAgentDataTransferOperatorPhone_1075_default = string.Empty;
+
+        int _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005 = 0;
+        string _itemsPaymentAgentDataTransferOperatorAddress_1005_default = string.Empty;
+
+        int _pointer_itemsPaymentAgentDataTransferOperatorName_1026 = 0;
+        string _itemsPaymentAgentDataTransferOperatorName_1026_default = string.Empty;
+
+        int _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074 = 0;
+        string _itemsPaymentAgentDataPaymentOperatorPhone_1074_default = string.Empty;
+
+        int _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044 = 0;
+        string _itemsPaymentAgentDataPpaymentAgentOperation_1044_default = string.Empty;
+
+        int _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073 = 0;
+        string _itemsPaymentAgentDataPaymentAgentPhone_1073_default = string.Empty;
+
+        int _pointer_itemsProviderInn_1226 = 0;
+        string _itemsProviderInn_1226_default = string.Empty;
+
+        int _pointer_itemsProviderDataProviderName_1225 = 0;
+        string _itemsProviderDataProviderName_1225_default = string.Empty;
+
+        int _pointer_itemsProviderDataProviderPhone_1171 = 0;
+        string _itemsProviderDataProviderPhone_1171_default = string.Empty;
+
+        int _pointer_itemsCustomEntryNum_1231 = 0;
+        string _itemsCustomEntryNum_1231_default = string.Empty;
+
+        public static bool breakOperation = false; 
         bool skip_handle_sign = false;
         private void EventHandler(object sender, EventArgs e)
         {
@@ -677,7 +744,7 @@ namespace FR_Operator
                     AppSettings.OverideRetailPlace = false;
                 }
             }
-            else if(sender == textBox_retailPlaceDefault)
+            else if (sender == textBox_retailPlaceDefault)
             {
                 _retailPlaceDefalt = textBox_retailPlaceDefault.Text;
             }
@@ -1090,7 +1157,7 @@ namespace FR_Operator
             {
                 _pointer_checkPaidEcash = comboBox_checkPaidEcash.SelectedIndex;
             }
-            else if (sender == comboBox_checkPaidCash)
+            else if (sender == comboBox_checkPaidPrepaid)
             {
                 _pointer_checkPaidPrepaid = comboBox_checkPaidPrepaid.SelectedIndex;
             }
@@ -1469,8 +1536,9 @@ namespace FR_Operator
                     comboBox_checkTax7.SelectedIndex = 0;
                     comboBox_checkTax5105.SelectedIndex = 0;
                     comboBox_checkTax7107.SelectedIndex = 0;
+                    comboBox_checkTax22.SelectedIndex = 0;
+                    comboBox_checkTax22122.SelectedIndex = 0;
                     AddMessage("Включен подсчет сумм налогов программой");
-
                 }
                 else
                 {
@@ -1516,6 +1584,14 @@ namespace FR_Operator
             else if (sender == comboBox_checkTax7107)
             {
                 _pointer_checkTax_7107 = comboBox_checkTax7107.SelectedIndex;
+            }
+            else if (sender == comboBox_checkTax22)
+            {
+                _pointer_checkTax_22 = comboBox_checkTax22.SelectedIndex;
+            }
+            else if (sender == comboBox_checkTax22122)
+            {
+                _pointer_checkTax_22122 = comboBox_checkTax22122.SelectedIndex;
             }
             else if (sender == button_savePreset)
             {
@@ -1573,6 +1649,11 @@ namespace FR_Operator
             }
             else if (sender == listBox_presets)
             {
+                if (listBox_presets.SelectedItem == null)
+                {
+                    AddMessage("Не выбраны никакие настройки");
+                    return;
+                }
                 string settingName = listBox_presets.SelectedItem.ToString();
                 if (settingName != null)
                 {
@@ -1623,19 +1704,115 @@ namespace FR_Operator
                 {
                     AddMessage("Null settings");
                 }
-                
+
             }
             else if (sender == checkBox_allowEmptyPropertyData)
             {
                 _allowEmptyPropertyData = checkBox_allowEmptyPropertyData.Checked;
             }
-            else if(sender == comboBox_emailPhone)
+            else if (sender == comboBox_emailPhone)
             {
                 _pointer_emailPhone = comboBox_emailPhone.SelectedIndex;
             }
-            else if(sender == textBox_emailPhone)
+            else if (sender == textBox_emailPhone)
             {
                 _emailPhoneDefault = textBox_emailPhone.Text;
+            }
+            else if (sender == comboBox_items_agent_1222)
+            {
+                _pointer_items_agent_1222 = comboBox_items_agent_1222.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsPaymentAgentDataTransferOperatorInn_1016)
+            {
+                _pointer_itemsPaymentAgentDataTransferOperatorInn_1016 = comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075)
+            {
+                _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075 = comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005)
+            {
+                _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005 = comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsPaymentAgentDataTransferOperatorName_1026)
+            {
+                _pointer_itemsPaymentAgentDataTransferOperatorName_1026 = comboBox_itemsPaymentAgentDataTransferOperatorName_1026.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074)
+            {
+                _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074 = comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044)
+            {
+                _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044 = comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073)
+            {
+                _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073 = comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsProviderInn_1226)
+            {
+                _pointer_itemsProviderInn_1226 = comboBox_itemsProviderInn_1226.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsProviderDataProviderName_1225)
+            {
+                _pointer_itemsProviderDataProviderName_1225 = comboBox_itemsProviderDataProviderName_1225.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsProviderDataProviderPhone_1171)
+            {
+                _pointer_itemsProviderDataProviderPhone_1171 = comboBox_itemsProviderDataProviderPhone_1171.SelectedIndex;
+            }
+            else if (sender == comboBox_itemsCustomEntryNum_1231)
+            {
+                _pointer_itemsCustomEntryNum_1231 = comboBox_itemsCustomEntryNum_1231.SelectedIndex;
+            }
+            else if (sender == textBox__items_agent_1222_defailt)
+            {
+                _items_agent_1222_default = textBox__items_agent_1222_defailt.Text;
+            }
+            else if (sender == textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default)
+            {
+                _itemsPaymentAgentDataTransferOperatorInn_1016_default = textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default.Text;
+            }
+            else if (sender == textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default)
+            {
+                _itemsPaymentAgentDataTransferOperatorPhone_1075_default = textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default.Text;
+            }
+            else if (sender == textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default)
+            {
+                _itemsPaymentAgentDataTransferOperatorAddress_1005_default = textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default.Text;
+            }
+            else if (sender == textBox_itemsPaymentAgentDataTransferOperatorName_1026_default)
+            {
+                _itemsPaymentAgentDataTransferOperatorName_1026_default = textBox_itemsPaymentAgentDataTransferOperatorName_1026_default.Text;
+            }
+            else if (sender == textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default)
+            {
+                _itemsPaymentAgentDataPaymentOperatorPhone_1074_default = textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default.Text;
+            }
+            else if (sender == textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default)
+            {
+                _itemsPaymentAgentDataPpaymentAgentOperation_1044_default = textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default.Text;
+            }
+            else if (sender == textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default)
+            {
+                _itemsPaymentAgentDataPaymentAgentPhone_1073_default = textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default.Text;
+            }
+            else if (sender == textBox_itemsProviderInn_1226_default)
+            {
+                _itemsProviderInn_1226_default = textBox_itemsProviderInn_1226_default.Text;
+            }
+            else if (sender == textBox_itemsProviderDataProviderName_1225_default)
+            {
+                _itemsProviderDataProviderName_1225_default = textBox_itemsProviderDataProviderName_1225_default.Text;
+            }
+            else if (sender == textBox_itemsProviderDataProviderPhone_1171_default)
+            {
+                _itemsProviderDataProviderPhone_1171_default = textBox_itemsProviderDataProviderPhone_1171_default.Text;
+            }
+            else if (sender == textBox_itemsCustomEntryNum_1231_default)
+            {
+                _itemsCustomEntryNum_1231_default = textBox_itemsCustomEntryNum_1231_default.Text;
             }
         }
 
@@ -1698,8 +1875,6 @@ namespace FR_Operator
                         errorSettings = true;
                         // добавить проверку за заполненность таблицы
                     }
-
-
                     if (_pointer_documentTypeM2 - 1 > cols || _pointer_documentTypeM2 < 0)
                     {
                         AddMessage("Указатель на тип документа некорректен");
@@ -1862,6 +2037,66 @@ namespace FR_Operator
                         AddMessage("Указатель адрес покупателя выходит за диапазон таблицы");
                         errorSettings = true;
                     }
+                    if (_pointer_items_agent_1222 > cols)
+                    {
+                        AddMessage("Указвтель items_agent_1222 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsPaymentAgentDataTransferOperatorInn_1016 > cols)
+                    {
+                        AddMessage("Указвтель itemsPaymentAgentDataTransferOperatorInn_1016 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsPaymentAgentDataTransferOperatorPhone_1075 > cols)
+                    {
+                        AddMessage("Указвтель itemsPaymentAgentDataTransferOperatorPhone_1075 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsPaymentAgentDataTransferOperatorAddress_1005 > cols)
+                    {
+                        AddMessage("Указвтель itemsPaymentAgentDataTransferOperatorAddress_1005 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsPaymentAgentDataTransferOperatorName_1026 > cols)
+                    {
+                        AddMessage("Указвтель itemsPaymentAgentDataTransferOperatorName_1026 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074 > cols)
+                    {
+                        AddMessage("Указвтель itemsPaymentAgentDataPaymentOperatorPhone_1074 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044 > cols)
+                    {
+                        AddMessage("Указвтель itemsPaymentAgentDataPpaymentAgentOperation_1044 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsPaymentAgentDataPaymentAgentPhone_1073 > cols)
+                    {
+                        AddMessage("Указвтель itemsPaymentAgentDataPaymentAgentPhone_1073 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsProviderInn_1226 > cols)
+                    {
+                        AddMessage("Указвтель itemsProviderInn_1226 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsProviderDataProviderName_1225 > cols)
+                    {
+                        AddMessage("Указвтель itemsProviderDataProviderName_1225 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsProviderDataProviderPhone_1171 > cols)
+                    {
+                        AddMessage("Указвтель itemsProviderDataProviderPhone_1171 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_itemsCustomEntryNum_1231 > cols)
+                    {
+                        AddMessage("Указвтель itemsCustomEntryNum_1231 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
                 }
                 
                 if (errorSettings)
@@ -1902,7 +2137,9 @@ namespace FR_Operator
                         double secondsLeft = Math.Round((stop - i) * secondsPassed / (i - _startIndex));
                         int minsLeft = ((int)(secondsLeft / 60)) % 60;
                         int hoursLeft = ((int)(secondsLeft / 3600)) % 24;
+                        int daysLeft = ((int)(secondsLeft / 3600 / 24));
                         string timeLeft = "Примерно осталось: ";
+                        if (daysLeft > 0) timeLeft += daysLeft + " д, ";
                         if (hoursLeft > 0) timeLeft += hoursLeft + " ч, ";
                         if (minsLeft > 0 || hoursLeft > 0) timeLeft += minsLeft + "мин, ";
                         timeLeft += secondsLeft % 60 + " сек";
@@ -2323,20 +2560,209 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if (_pointer_itemsUnit120 == 0)
+                            if (_pointer_itemsUnit120 > 0)
                             {
-                                if (data[i, _pointer_itemsUnit120] is int || data[i, _pointer_itemsUnit120] is uint)
+                                 item.Unit120 = int.Parse(data[i, _pointer_itemsUnit120].ToString());
+                            }
+                        }
+                        // agents
+                        subExtErr = "item.PaymentAgentByProductType";
+                        if (_pointer_items_agent_1222 == 0)
+                        {
+                            if(!string.IsNullOrEmpty(_items_agent_1222_default) && int.TryParse(_items_agent_1222_default, out int t))
+                            {
+                                if (t > 0)
                                 {
-                                    item.Unit120 = (int)data[i, _pointer_itemsUnit120];
-                                }
-                                else
-                                {
-                                    item.Unit120 = int.Parse(data[i, _pointer_itemsUnit120].ToString());
+                                    item.PaymentAgentByProductType = t;
                                 }
                             }
                         }
-                        check.Items.Add(item);
+                        else
+                        {
+                            if (_pointer_items_agent_1222 > 0 && data[i, _pointer_items_agent_1222] != null)
+                            {
+                                if(int.TryParse((data[i, _pointer_items_agent_1222]).ToString(), out int t))
+                                {
+                                    item.PaymentAgentByProductType = t;
+                                }
+                            }
+                        }
+                        subExtErr = "item.TransferOperatorInn";
+                        if (_pointer_itemsPaymentAgentDataTransferOperatorInn_1016 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsPaymentAgentDataTransferOperatorInn_1016_default))
+                            {
+                                item.TransferOperatorInn = _itemsPaymentAgentDataTransferOperatorInn_1016_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsPaymentAgentDataTransferOperatorInn_1016>0 && data[i, _pointer_itemsPaymentAgentDataTransferOperatorInn_1016] != null)
+                            {
+                                item.TransferOperatorInn = data[i, _pointer_itemsPaymentAgentDataTransferOperatorInn_1016].ToString();
+                            }
+                        }
+                        subExtErr = "item.TransferOperatorPhone";
+                        if (_pointer_itemsPaymentAgentDataTransferOperatorPhone_1075 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsPaymentAgentDataTransferOperatorPhone_1075_default))
+                            {
+                                item.TransferOperatorPhone = _itemsPaymentAgentDataTransferOperatorPhone_1075_default;
+                            }
+                        }
+                        else
+                        {
+                            if (_pointer_itemsPaymentAgentDataTransferOperatorPhone_1075 > 0 && data[i, _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075] != null)
+                            {
+                                item.TransferOperatorPhone = data[i, _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075].ToString();
+                            }
+                        }
 
+                        subExtErr = "item.TransferOperatorAddress";
+                        if (_pointer_itemsPaymentAgentDataTransferOperatorAddress_1005 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsPaymentAgentDataTransferOperatorAddress_1005_default))
+                            {
+                                item.TransferOperatorAddress = _itemsPaymentAgentDataTransferOperatorAddress_1005_default;
+                            }
+                        }
+                        else
+                        {
+                            if (_pointer_itemsPaymentAgentDataTransferOperatorAddress_1005 > 0 && data[i, _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005]!=null)
+                            {
+                                item.TransferOperatorAddress = data[i, _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005].ToString();
+                            }
+                        }
+
+                        subExtErr = "item.TransferOperatorName";
+                        if (_pointer_itemsPaymentAgentDataTransferOperatorName_1026 == 0) 
+                        {
+                            if (!string.IsNullOrEmpty(_itemsPaymentAgentDataTransferOperatorName_1026_default))
+                            {
+                                item.TransferOperatorName = _itemsPaymentAgentDataTransferOperatorName_1026_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsPaymentAgentDataTransferOperatorName_1026 > 0 && data[i, _pointer_itemsPaymentAgentDataTransferOperatorName_1026] != null)
+                            {
+                                item.TransferOperatorName = data[i, _pointer_itemsPaymentAgentDataTransferOperatorName_1026].ToString();
+                            }
+                        }
+
+                        subExtErr = "tem.PaymentOperatorPhone";
+                        if (_pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsPaymentAgentDataPaymentOperatorPhone_1074_default))
+                            {
+                                item.PaymentOperatorPhone = _itemsPaymentAgentDataPaymentOperatorPhone_1074_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074>0 && data[i, _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074] != null)
+                            {
+                                item.PaymentOperatorPhone = data[i, _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074].ToString();
+                            }
+                        }
+
+                        subExtErr = "item.PaymentAgentOperation";
+                        if (_pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsPaymentAgentDataPpaymentAgentOperation_1044_default))
+                            {
+                                item.PaymentAgentOperation = _itemsPaymentAgentDataPpaymentAgentOperation_1044_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044 > 0 && data[i, _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044] != null)
+                            {
+                                item.PaymentAgentOperation = data[i, _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044].ToString();
+                            }
+                        }
+
+                        subExtErr = "item.PaymentAgentPhone";
+                        if (_pointer_itemsPaymentAgentDataPaymentAgentPhone_1073 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsPaymentAgentDataPaymentAgentPhone_1073_default))
+                            {
+                                item.PaymentAgentPhone = _itemsPaymentAgentDataPaymentAgentPhone_1073_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsPaymentAgentDataPaymentAgentPhone_1073>0 && data[i, _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073] != null)
+                            {
+                                item.PaymentAgentPhone = data[i, _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073].ToString();
+                            }
+                        }
+
+                        subExtErr = "item.ProviderInn";
+                        if (_pointer_itemsProviderInn_1226 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsProviderInn_1226_default))
+                            {
+                                item.ProviderInn = _itemsProviderInn_1226_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsProviderInn_1226>0 && data[i, _pointer_itemsProviderInn_1226] != null)
+                            {
+                                item.ProviderInn = data[i, _pointer_itemsProviderInn_1226].ToString();
+                            }
+                        }
+
+                        subExtErr = "item.ProviderName";
+                        if (_pointer_itemsProviderDataProviderName_1225 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsProviderDataProviderName_1225_default))
+                            {
+                                item.ProviderName = _itemsProviderDataProviderName_1225_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsProviderDataProviderName_1225>0 && data[i, _pointer_itemsProviderDataProviderName_1225] != null)
+                            {
+                                item.ProviderName = data[i, _pointer_itemsProviderDataProviderName_1225].ToString();
+                            }
+                        }
+
+                        subExtErr = "item.ProviderPhone";
+                        if (_pointer_itemsProviderDataProviderPhone_1171 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsProviderDataProviderPhone_1171_default))
+                            {
+                                item.ProviderPhone = _itemsProviderDataProviderPhone_1171_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsProviderDataProviderPhone_1171>0 && data[i, _pointer_itemsProviderDataProviderPhone_1171] != null)
+                            {
+                                item.ProviderPhone = data[i, _pointer_itemsProviderDataProviderPhone_1171].ToString();
+                            }
+                        }
+
+                        subExtErr = "item.CustomEntryNum";
+                        if (_pointer_itemsCustomEntryNum_1231 == 0)
+                        {
+                            if (!string.IsNullOrEmpty(_itemsCustomEntryNum_1231_default))
+                            {
+                                item.CustomEntryNum = _itemsCustomEntryNum_1231_default;
+                            }
+                        }
+                        else
+                        {
+                            if(_pointer_itemsCustomEntryNum_1231>0 && data[i, _pointer_itemsCustomEntryNum_1231] != null)
+                            {
+                                item.CustomEntryNum = data[i, _pointer_itemsCustomEntryNum_1231].ToString();
+                            }
+                        }
+
+                        check.Items.Add(item);
                         
                         subExtErr = "Оплата чека";
                         /*
@@ -2456,6 +2882,16 @@ namespace FR_Operator
                             {
                                 check.Nds7107 = Math.Round(double.Parse(data[i, _pointer_checkTax_7107].ToString()), 2);
                             }
+                            subExtErr = "НДС 22 чека";
+                            if (_pointer_checkTax_22 > 0)
+                            {
+                                check.Nds22 = Math.Round(double.Parse(data[i, _pointer_checkTax_22].ToString()), 2);
+                            }
+                            subExtErr = "НДС 22|122 чека";
+                            if (_pointer_checkTax_22122 > 0)
+                            {
+                                check.Nds22122 = Math.Round(double.Parse(data[i, _pointer_checkTax_22122].ToString()), 2);
+                            }
                         }
 
 
@@ -2541,8 +2977,9 @@ namespace FR_Operator
         bool _originalDontPrintSign = false;
         private void FormOfdExport_FormClosing(object sender, FormClosingEventArgs e)
         {
-            fiscalPrinter.DontPrint = _originalDontPrintSign;
-            AddMessage("Восстанавливаем оригинальные настройки перезаписи адреса и места");
+            if(fiscalPrinter != null)
+                fiscalPrinter.DontPrint = _originalDontPrintSign;
+            LogHandle.ol("Восстанавливаем оригинальные настройки перезаписи адреса и места");
             AppSettings.OverideRetailAddress = _overrideAddressOriginal;
             AppSettings.OverideRetailPlace = _overridePlaceOriginal;
         }

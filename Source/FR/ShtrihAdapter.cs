@@ -421,7 +421,7 @@ namespace FR_Operator
                 RezultMsg("Смена уже открыта");
                 return false;
             }
-            _PrintDisableFlagSet();
+            PrintDisableFlagSet();
             Driver.BeginDocument();
             
             int errorCode = Driver.FNBeginOpenSession();
@@ -450,7 +450,7 @@ namespace FR_Operator
             {
                 LogHandle.ol("FNOpenSession");
                 RezultMsg("Ошибка " + errorCode + " " + (Error_codes_dict.ContainsKey(errorCode) ? Error_codes_dict[errorCode] : Driver.ErrorDescription));
-                _PrintDisableFlagRestore();
+                PrintDisableFlagRestore();
                 return false;
             }
             Driver.EndDocument();
@@ -480,7 +480,7 @@ namespace FR_Operator
                 RezultMsg("Смена уже закрыта");
                 return false;
             }
-            _PrintDisableFlagSet();
+            PrintDisableFlagSet();
             int errorCode = Driver.BeginDocument();
             LogHandle.ol("BeginDocument " + errorCode);
             errorCode = Driver.FNBeginCloseSession();
@@ -488,7 +488,7 @@ namespace FR_Operator
             {
                 LogHandle.ol("FNBeginCloseSession");
                 RezultMsg("Ошибка " + errorCode + " " + (Error_codes_dict.ContainsKey(errorCode) ? Error_codes_dict[errorCode] : Driver.ErrorDescription));
-                _PrintDisableFlagRestore();
+                PrintDisableFlagRestore();
                 return false;
             }
             if (!string.IsNullOrEmpty(KKMInfoTransmitter[FR_CASHIER_NAME_KEY]))
@@ -510,7 +510,7 @@ namespace FR_Operator
             {
                 LogHandle.ol("FNCloseSession");
                 RezultMsg("Ошибка " + errorCode + " " + (Error_codes_dict.ContainsKey(errorCode) ? Error_codes_dict[errorCode] : Driver.ErrorDescription));
-                _PrintDisableFlagRestore();
+                PrintDisableFlagRestore();
                 return false;
             }
             Driver.EndDocument();
@@ -601,18 +601,18 @@ namespace FR_Operator
             }
 
 
-            _PrintDisableFlagSet();
+            PrintDisableFlagSet();
             if (doc.Document == FD_DOCUMENT_NAME_CHEQUE)  
             {
-                bool p1 = _PerformChequeCommon(doc);
-                _PrintDisableFlagRestore();
+                bool p1 = PerformChequeCommon(doc);
+                PrintDisableFlagRestore();
                 ReadDeviceCondition();
                 return p1;
             }
             else if (doc.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE) //добавить метод пробития для старых прошивок
             {
-                bool p1 = _PerformCorrectionOptimal(doc);
-                _PrintDisableFlagRestore();
+                bool p1 = PerformCorrectionOptimal(doc);
+                PrintDisableFlagRestore();
                 ReadDeviceCondition();
                 return p1;
             }
@@ -620,7 +620,7 @@ namespace FR_Operator
             return false;
         }
 
-        private bool _PerformChequeCommon(FiscalCheque doc)
+        private bool PerformChequeCommon(FiscalCheque doc)
         {
             int errorCode = NONE;
             if (doc.CalculationSign == FD_CALCULATION_INCOME_LOC) Driver.CheckType = 0;
@@ -710,9 +710,9 @@ namespace FR_Operator
             {
                 itemsSumm += item.Sum;
                 if (doc.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE && _ffdVer <= FR_FFD105) continue; // в чеках коррекции 1.05 нет предметов расчета
-                if (!_RegisterItem(item, doc.CalculationSign, ref errorCode))
+                if (!RegisterItem(item, doc.CalculationSign, ref errorCode))
                 {
-                    _CriticalCheqErrorServiceOperations(errorCode);
+                    CriticalCheqErrorServiceOperations(errorCode);
                     //_PrintDisableFlagRestore();
                     return false;
                 }
@@ -838,7 +838,7 @@ namespace FR_Operator
                 if (t > 0)
                 {
                     LogHandle.ol("Данный метод регистрации чека не поддерживает не округление итога");
-                    _CriticalCheqErrorServiceOperations();
+                    CriticalCheqErrorServiceOperations();
                     //_PrintDisableFlagRestore();
                     RezultMsg("Используется метод оформления чеков не поддерживающий округление итога");
                     return false;
@@ -846,7 +846,7 @@ namespace FR_Operator
                 if (doc.Prepaid + doc.Credit + doc.Provision > 0.0099)
                 {
                     LogHandle.ol("Данный метод регистрации чека не поддерживает авансы кредиты и ВП");
-                    _CriticalCheqErrorServiceOperations();
+                    CriticalCheqErrorServiceOperations();
                     //_PrintDisableFlagRestore();
                     RezultMsg("Используется метод оформления чеков не поддерживающий авансы кредиты и ВП");
                     return false;
@@ -876,14 +876,14 @@ namespace FR_Operator
                 errorCode = Driver.CloseCheck();
                 if (errorCode != NONE)
                 {
-                    _CriticalCheqErrorServiceOperations(errorCode);
+                    CriticalCheqErrorServiceOperations(errorCode);
                     //_PrintDisableFlagRestore();
                     return false;
                 }
             }
             else
             {
-                if (!_CloseCheckCM(doc, itemsSumm, ref errorCode))
+                if (!CloseCheckCM(doc, itemsSumm, ref errorCode))
                 {
                     return false;
                 }
@@ -905,7 +905,7 @@ namespace FR_Operator
 
 
         bool strictCode1162Work = false;
-        bool _RegisterItem(ConsumptionItem item, int sign, ref int errorCode)
+        private bool RegisterItem(ConsumptionItem item, int sign, ref int errorCode)
         {
             //int errorCode = 0;
             LogHandle.ol(item.ToString());
@@ -934,6 +934,10 @@ namespace FR_Operator
                 Driver.Tax1 = SI_TAX_5105;
             else if (item.NdsRate == NDS_TYPE_7107_LOC)
                 Driver.Tax1 = SI_TAX_7107;
+            else if (item.NdsRate == NDS_TYPE_22_LOC)
+                Driver.Tax1 = SI_TAX_22;
+            else if (item.NdsRate == NDS_TYPE_22122_LOC)
+                Driver.Tax1 = SI_TAX_22122;
 
             Driver.Department = 0;
             if (AppSettings.ShtrihRegisterItemMethod==1)
@@ -1115,7 +1119,7 @@ namespace FR_Operator
                 {
                     RezultMsg("Добавление кода товара FNSendItemCodeData " + Driver.ResultCodeDescription);
                     LogHandle.ol("отменяем чек FNCancelDocument");
-                    _CriticalCheqErrorServiceOperations(errorCode);
+                    CriticalCheqErrorServiceOperations(errorCode);
                     //_PrintDisableFlagRestore();
                     return false;
                 }
@@ -1124,7 +1128,7 @@ namespace FR_Operator
             return true;
         }
 
-        private void _CriticalCheqErrorServiceOperations(int errorCode = NONE)
+        private void CriticalCheqErrorServiceOperations(int errorCode = NONE)
         {
             RezultMsg("Ошибка " + errorCode + " " + (Error_codes_dict.ContainsKey(errorCode) ? Error_codes_dict[errorCode] : Driver.ResultCodeDescription));
             KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = Driver.ResultCodeDescription;
@@ -1138,7 +1142,7 @@ namespace FR_Operator
             
         }
 
-        private bool _PerformCorrectionOptimal(FiscalCheque doc)
+        private bool PerformCorrectionOptimal(FiscalCheque doc)
         {
             LogHandle.ol("Чек коррекции");
             //_PrintDisableFlagSet();
@@ -1395,10 +1399,10 @@ namespace FR_Operator
             {
                 itemsSumm += item.Sum;
                 if (_ffdVer <= FR_FFD105) continue;
-                if (!_RegisterItem(item, doc.CalculationSign, ref errorCode))
+                if (!RegisterItem(item, doc.CalculationSign, ref errorCode))
                 {
                     //_CriticalCheqErrorServiceOperations();
-                    _CriticalCheqErrorServiceOperations(errorCode);
+                    CriticalCheqErrorServiceOperations(errorCode);
                     //_PrintDisableFlagRestore();
                     return false;
                 }
@@ -1471,11 +1475,42 @@ namespace FR_Operator
                 Driver.Summ12 = (decimal)doc.Nds10110;
                 if (AppSettings.UsingCustomSno)
                     Driver.TaxType = doc.Sno;
-                if (AppSettings.ShtrihCloseCheckMethod == 2 /*|| AppSettings.ShtrihCloseCheckMethod ==0*/) // ShtrihCloseCheckMethod == 0 запрещен
+                if (AppSettings.ShtrihCloseCheckMethod == 3)
+                {
+                    if (driverVerSub < 21 && !AppSettings.ShtrihIgnoreOldDriver)
+                    {
+                        CriticalCheqErrorServiceOperations(SinExep_DRIVER_NEED_TO_UPDATE);    // синтетическая ошибка, используются новые НДС 22  не поддерживается драйвером
+                        return false;
+                    }
+                    Driver.Summ13 = (decimal)doc.Nds5;
+                    Driver.Summ14 = (decimal)doc.Nds7;
+                    Driver.Summ15 = (decimal)doc.Nds5105;
+                    Driver.Summ16 = (decimal)doc.Nds7107;
+                    Driver.Summ17 = (decimal)doc.Nds22;
+                    Driver.Summ18 = (decimal)doc.Nds22122;
+                    if (AppSettings.UsingCustomSno)
+                        Driver.TaxType = doc.Sno;
+                    LogHandle.ol("FNBuildCorrectionReceipt4");
+                    // добавить проверку на старую прошивку
+
+                    if (Driver.FNBuildCorrectionReceipt4() != 0)
+                    {
+                        errorCode = NONE;
+                        RezultMsg(Driver.ResultCodeDescription);
+                        LogHandle.ol("отменяем чек FNCancelDocument");
+                        errorCode = Driver.FNCancelDocument();
+                        LogHandle.ol(Error_codes_dict.ContainsKey(errorCode) ? Error_codes_dict[errorCode] : Driver.ErrorDescription);
+                        LogHandle.ol("отменяем чек SysAdminCancelCheck");
+                        errorCode = Driver.SysAdminCancelCheck();
+                        LogHandle.ol(Error_codes_dict.ContainsKey(errorCode) ? Error_codes_dict[errorCode] : Driver.ResultCodeDescription);
+                        return false;
+                    }
+                }
+                else if (AppSettings.ShtrihCloseCheckMethod == 2 /*|| AppSettings.ShtrihCloseCheckMethod ==0*/) // ShtrihCloseCheckMethod == 0 запрещен
                 {
                     if (_oldDriver && !AppSettings.ShtrihIgnoreOldDriver)
                     {
-                        _CriticalCheqErrorServiceOperations(SinExep_DRIVER_NEED_TO_UPDATE);    // синтетическая ошибка, отсутвие полей библиотеки перехватить try/catch не получается
+                        CriticalCheqErrorServiceOperations(SinExep_DRIVER_NEED_TO_UPDATE);    // синтетическая ошибка, отсутвие полей библиотеки перехватить try/catch не получается
                         //_PrintDisableFlagRestore();
                         return false;
                     }
@@ -1487,6 +1522,16 @@ namespace FR_Operator
                     if (AppSettings.UsingCustomSno)
                         Driver.TaxType = doc.Sno;
                     LogHandle.ol("FNBuildCorrectionReceipt3");
+                    bool exists22 = doc.Nds22 + doc.Nds22122 > 0.009;
+                    if(
+                        (exists22 /*&& _taxesFillFirmware == 1*/ && !AppSettings.ShtrihIgnoreOldDriver)
+                        || (exists22 && (driverVerSub < 21 && !AppSettings.ShtrihIgnoreOldDriver))
+                        )
+                    {
+                        CriticalCheqErrorServiceOperations(SinExep_BAD_SETTING_FOR_CORRECT_FD);    // синтетическая ошибка, используются новые НДС команда закрытия чека без новых ставок и отключен подсчет налогов прошивкой
+                        return false;
+                    }
+
                     if (Driver.FNBuildCorrectionReceipt3() != 0)
                     {
                         errorCode = NONE;
@@ -1503,19 +1548,19 @@ namespace FR_Operator
                 else if(AppSettings.ShtrihCloseCheckMethod == 1)
                 {
                     LogHandle.ol("FNBuildCorrectionReceipt2");
-                    bool existsNewTaxes = doc.Nds5 + doc.Nds5105 + doc.Nds7 + doc.Nds7107 > 0.009;
+                    bool existsNewTaxes = doc.Nds5 + doc.Nds5105 + doc.Nds7 + doc.Nds7107 + doc.Nds22 + doc.Nds22122> 0.009;
                     if (
                         (existsNewTaxes /*&& _taxesFillFirmware == 1*/ && !AppSettings.ShtrihIgnoreOldDriver) // новые ставки НДС/// *НДС считает верхнее ПО* --- настройка _taxesFillFirmware == 1 не поможет при отсутствии предметов расчета
                         || (existsNewTaxes && (_oldDriver && !AppSettings.ShtrihIgnoreOldDriver)) // новые ставки не пропустит старый драйвер и не игнорировать старый драйвер 
                         )
                     {
-                        _CriticalCheqErrorServiceOperations(SinExep_BAD_SETTING_FOR_CORRECT_FD);    // синтетическая ошибка, используются новые НДС команда закрытия чека без новых ставок и отключен подсчет налогов прошивкой
+                        CriticalCheqErrorServiceOperations(SinExep_BAD_SETTING_FOR_CORRECT_FD);    // синтетическая ошибка, используются новые НДС команда закрытия чека без новых ставок и отключен подсчет налогов прошивкой
                         //_PrintDisableFlagRestore();
                         return false;
                     }
                     if (existsNewTaxes && firmwareBuild.Year < 2025 && !AppSettings.ShtrihIgnoreOldDriver)
                     {
-                        _CriticalCheqErrorServiceOperations(SinExep_NOT_COMPATIBLE_FIRMWARE);    // Прошивка не подходит для новых ставок
+                        CriticalCheqErrorServiceOperations(SinExep_NOT_COMPATIBLE_FIRMWARE);    // Прошивка не подходит для новых ставок
                         //_PrintDisableFlagRestore();
                         return false;
                     }
@@ -1538,7 +1583,7 @@ namespace FR_Operator
             }
             else
             {
-                if(!_CloseCheckCM(doc,itemsSumm,ref errorCode))
+                if(!CloseCheckCM(doc,itemsSumm,ref errorCode))
                 {
                     return false;
                 }
@@ -1555,7 +1600,7 @@ namespace FR_Operator
         }
 
 
-        bool _CloseCheckCM(FiscalCheque doc,double itemsSumm, ref int errorCode)
+        bool CloseCheckCM(FiscalCheque doc,double itemsSumm, ref int errorCode)
         {
             if (AppSettings.UsingCustomSno)
             {
@@ -1600,11 +1645,11 @@ namespace FR_Operator
             Driver.TaxValue5 = (decimal)doc.Nds20120;
             Driver.TaxValue6 = (decimal)doc.Nds10110;
             Driver.TaxValue4 = (decimal)doc.NdsFree;
-            if (AppSettings.ShtrihCloseCheckMethod == 2)
+            if ((AppSettings.ShtrihCloseCheckMethod == 3))
             {
-                if (_oldDriver && !AppSettings.ShtrihIgnoreOldDriver)
+                if (driverVerSub < 21 && !AppSettings.ShtrihIgnoreOldDriver)
                 {
-                    _CriticalCheqErrorServiceOperations(SinExep_DRIVER_NEED_TO_UPDATE);    // синтетическая ошибка, перехватить try/catch не получается
+                    CriticalCheqErrorServiceOperations(SinExep_DRIVER_NEED_TO_UPDATE);    // синтетическая ошибка, перехватить try/catch не получается 
                     //_PrintDisableFlagRestore();
                     return false;
                 }
@@ -1612,7 +1657,24 @@ namespace FR_Operator
                 Driver.TaxValue8 = (decimal)doc.Nds7;
                 Driver.TaxValue9 = (decimal)doc.Nds5105;
                 Driver.TaxValue10 = (decimal)doc.Nds7107;
-                LogHandle.ol("Закрываем чек FNCloseCheckEx");
+                Driver.TaxValue11 = (decimal)doc.Nds22;
+                Driver.TaxValue12 = (decimal)doc.Nds22122;
+                LogHandle.ol("Закрываем чек FNCloseCheckEx4");
+                errorCode = Driver.FNCloseCheckEx4();
+            }
+            if (AppSettings.ShtrihCloseCheckMethod == 2)
+            {
+                if (_oldDriver && !AppSettings.ShtrihIgnoreOldDriver)
+                {
+                    CriticalCheqErrorServiceOperations(SinExep_DRIVER_NEED_TO_UPDATE);    // синтетическая ошибка, перехватить try/catch не получается
+                    //_PrintDisableFlagRestore();
+                    return false;
+                }
+                Driver.TaxValue7 = (decimal)doc.Nds5;
+                Driver.TaxValue8 = (decimal)doc.Nds7;
+                Driver.TaxValue9 = (decimal)doc.Nds5105;
+                Driver.TaxValue10 = (decimal)doc.Nds7107;
+                LogHandle.ol("Закрываем чек FNCloseCheckEx3");
                 errorCode = Driver.FNCloseCheckEx3();
             }
             else if (AppSettings.ShtrihCloseCheckMethod == 1)
@@ -1623,13 +1685,13 @@ namespace FR_Operator
                     || (existsNewTaxes && (_oldDriver && !AppSettings.ShtrihIgnoreOldDriver)) // новые ставки не пропустит старый драйвер и не игнорировать старый драйвер 
                     )
                 {
-                    _CriticalCheqErrorServiceOperations(SinExep_BAD_SETTING_FOR_CORRECT_FD);    // синтетическая ошибка, используются новые НДС команда закрытия чека без новых ставок и отключен подсчет налогов прошивкой
+                    CriticalCheqErrorServiceOperations(SinExep_BAD_SETTING_FOR_CORRECT_FD);    // синтетическая ошибка, используются новые НДС команда закрытия чека без новых ставок и отключен подсчет налогов прошивкой
                     //_PrintDisableFlagRestore();
                     return false;
                 }
                 if (existsNewTaxes && firmwareBuild.Year < 2025 && !AppSettings.ShtrihIgnoreOldDriver)
                 {
-                    _CriticalCheqErrorServiceOperations(SinExep_NOT_COMPATIBLE_FIRMWARE);    // Прошивка не подходит для новых ставок
+                    CriticalCheqErrorServiceOperations(SinExep_NOT_COMPATIBLE_FIRMWARE);    // Прошивка не подходит для новых ставок
                     //_PrintDisableFlagRestore();
                     return false;
                 }
@@ -1638,7 +1700,7 @@ namespace FR_Operator
             }
             if (errorCode != 0)
             {
-                _CriticalCheqErrorServiceOperations(errorCode);
+                CriticalCheqErrorServiceOperations(errorCode);
                 //_PrintDisableFlagRestore();
                 return false;
             }
@@ -1708,28 +1770,6 @@ namespace FR_Operator
                         frd2.FiscalSign = frd.FiscalSign;  // !!!!! заплатка переделать парсинг ТЛВ структуры - пофиксено оставлено при условии некоррекного ФП
 
                     frd2.RebuildPrezentation();
-                    // данный блок реализован в вызываемом методе TranslateFtagsList
-                    /*if(frd2.Cheque != null)
-                    {
-                        if (AppSettings.AppendFiscalSignAsPropertyData *//*&& frd2.Cheque != null /*&& !string.IsNullOrEmpty(frd2.FiscalSign) && string.IsNullOrEmpty(frd2.Cheque.PropertiesData)*//*)
-                        {
-                            if (AppSettings.OverridePropertyData)
-                                frd2.Cheque.PropertiesData = frd2.FiscalSign;
-                            else
-                            {
-                                if (!frd2.Cheque.IsPropertiesData)
-                                    frd2.Cheque.PropertiesData = frd2.FiscalSign;
-                            }
-                        }
-                        if (AppSettings.OverrideCorrectionOrderNumber)
-                        {
-                            frd2.Cheque.CorrectionOrderNumber = AppSettings.CorrectionOrderNumberDefault;
-                        }
-                        if (AppSettings.OverrideCorrectionDocumentDate)
-                        {
-                            frd2.Cheque.CorrectionDocumentDate = frd2.Time;
-                        }
-                    }*/
 
                     return frd2;
                 }
@@ -2252,12 +2292,15 @@ namespace FR_Operator
             SI_TAX_5 = 7,       //. НДС 10/110
             SI_TAX_7 = 8,       //. НДС 10/110
             SI_TAX_5105 = 9,    //. НДС 10/110
-            SI_TAX_7107 = 10;   //. НДС 10/110
+            SI_TAX_7107 = 10,   //. НДС 10/110
+
+            SI_TAX_22 = 11,     //. НДС 10/110
+            SI_TAX_22122 = 12;  //. НДС 10/110
             
 
 
         private static int _originalPrintDisableFlag = -1;
-        private void _PrintDisableFlagSet()
+        private void PrintDisableFlagSet()
         {
             if(_dontPrint)
             {
@@ -2302,7 +2345,7 @@ namespace FR_Operator
                 
             }
         }
-        private void _PrintDisableFlagRestore()
+        private void PrintDisableFlagRestore()
         {
 
             if( _dontPrint && !(_originalPrintDisableFlag == 2 || _originalPrintDisableFlag == -1))
@@ -2384,11 +2427,11 @@ namespace FR_Operator
 
         public override bool CashRefill(double sum, bool income = true)
         {
-            _PrintDisableFlagSet();
+            PrintDisableFlagSet();
             Driver.Summ1 = (decimal)sum;
             int result = income ? Driver.CashIncome() : Driver.CashOutcome();
             RezultMsg(Error_codes_dict.ContainsKey(result) ? Error_codes_dict[result] : Driver.ErrorDescription);
-            _PrintDisableFlagRestore();
+            PrintDisableFlagRestore();
             return result == NONE;
         }
 

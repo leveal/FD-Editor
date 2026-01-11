@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage_fd = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.button_savePreset = new System.Windows.Forms.Button();
@@ -53,7 +53,7 @@
             this.textBox_startFrom = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkId = new System.Windows.Forms.ComboBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage_ch_r = new System.Windows.Forms.TabPage();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.textBox_retailPlaceDefault = new System.Windows.Forms.TextBox();
             this.comboBox_retailPlace = new System.Windows.Forms.ComboBox();
@@ -78,7 +78,7 @@
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.checkBox_allowEmptyPropertyData = new System.Windows.Forms.CheckBox();
             this.comboBox_propertiesData = new System.Windows.Forms.ComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage_cor_r = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.textBox_correctionOrderNumber = new System.Windows.Forms.TextBox();
             this.comboBox_correctionOrderNumber = new System.Windows.Forms.ComboBox();
@@ -91,7 +91,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePicker_defaultCorrectionDate = new System.Windows.Forms.DateTimePicker();
             this.comboBox_correctionDate = new System.Windows.Forms.ComboBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage_ci1 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.dataGridView_itemsProductTypeMap = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -118,7 +118,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox_itemsNameDefault = new System.Windows.Forms.TextBox();
             this.comboBox_itemsName = new System.Windows.Forms.ComboBox();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage_ci2 = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.dataGridView_itemsUnitQuantityMeasure = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -132,7 +132,58 @@
             this.label10 = new System.Windows.Forms.Label();
             this.comboBox_itemsNdsRateDefault = new System.Windows.Forms.ComboBox();
             this.comboBox_itemsNdsRate = new System.Windows.Forms.ComboBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage_ci_ap = new System.Windows.Forms.TabPage();
+            this.label47 = new System.Windows.Forms.Label();
+            this.comboBox_itemsCustomEntryNum_1231 = new System.Windows.Forms.ComboBox();
+            this.textBox_itemsCustomEntryNum_1231_default = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.groupBox34 = new System.Windows.Forms.GroupBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.comboBox_itemsProviderDataProviderPhone_1171 = new System.Windows.Forms.ComboBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.comboBox_itemsProviderDataProviderName_1225 = new System.Windows.Forms.ComboBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.comboBox_itemsProviderInn_1226 = new System.Windows.Forms.ComboBox();
+            this.textBox_itemsProviderDataProviderName_1225_default = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.textBox_itemsProviderDataProviderPhone_1171_default = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textBox_itemsProviderInn_1226_default = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.groupBox35 = new System.Windows.Forms.GroupBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073 = new System.Windows.Forms.ComboBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044 = new System.Windows.Forms.ComboBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074 = new System.Windows.Forms.ComboBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026 = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005 = new System.Windows.Forms.ComboBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075 = new System.Windows.Forms.ComboBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016 = new System.Windows.Forms.ComboBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.comboBox_items_agent_1222 = new System.Windows.Forms.ComboBox();
+            this.textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.textBox_itemsPaymentAgentDataTransferOperatorName_1026_default = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default = new System.Windows.Forms.TextBox();
+            this.textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.textBox__items_agent_1222_defailt = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.tabPage_payment = new System.Windows.Forms.TabPage();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkPaidProvision = new System.Windows.Forms.ComboBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -143,10 +194,14 @@
             this.comboBox_checkPaidEcash = new System.Windows.Forms.ComboBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkPaidCash = new System.Windows.Forms.ComboBox();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.tabPage_taxes = new System.Windows.Forms.TabPage();
             this.label21 = new System.Windows.Forms.Label();
             this.checkBox_enableManualTaxes = new System.Windows.Forms.CheckBox();
             this.groupBox_manualTax = new System.Windows.Forms.GroupBox();
+            this.groupBox37 = new System.Windows.Forms.GroupBox();
+            this.comboBox_checkTax22122 = new System.Windows.Forms.ComboBox();
+            this.groupBox36 = new System.Windows.Forms.GroupBox();
+            this.comboBox_checkTax22 = new System.Windows.Forms.ComboBox();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkTax7107 = new System.Windows.Forms.ComboBox();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
@@ -167,7 +222,7 @@
             this.comboBox_checkTax10 = new System.Windows.Forms.ComboBox();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkTax20 = new System.Windows.Forms.ComboBox();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage_perform = new System.Windows.Forms.TabPage();
             this.label23 = new System.Windows.Forms.Label();
             this.comboBox_closeShiftEvery = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -187,24 +242,24 @@
             this.button_openExcel = new System.Windows.Forms.Button();
             this.richTextBox_log = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPage_fd.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_documentTypeMap)).BeginInit();
             this.groupBox_operationType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_operationTypeMap)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tabPage_ch_r.SuspendLayout();
             this.groupBox32.SuspendLayout();
             this.groupBox21.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_snoMap)).BeginInit();
             this.groupBox18.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPage_cor_r.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabPage_ci1.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_itemsProductTypeMap)).BeginInit();
             this.groupBox9.SuspendLayout();
@@ -213,18 +268,23 @@
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox_itemsName.SuspendLayout();
-            this.tabPage6.SuspendLayout();
+            this.tabPage_ci2.SuspendLayout();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_itemsUnitQuantityMeasure)).BeginInit();
             this.groupBox12.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tabPage_ci_ap.SuspendLayout();
+            this.groupBox34.SuspendLayout();
+            this.groupBox35.SuspendLayout();
+            this.tabPage_payment.SuspendLayout();
             this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            this.tabPage8.SuspendLayout();
+            this.tabPage_taxes.SuspendLayout();
             this.groupBox_manualTax.SuspendLayout();
+            this.groupBox37.SuspendLayout();
+            this.groupBox36.SuspendLayout();
             this.groupBox30.SuspendLayout();
             this.groupBox31.SuspendLayout();
             this.groupBox26.SuspendLayout();
@@ -235,52 +295,53 @@
             this.groupBox24.SuspendLayout();
             this.groupBox23.SuspendLayout();
             this.groupBox22.SuspendLayout();
-            this.tabPage7.SuspendLayout();
+            this.tabPage_perform.SuspendLayout();
             this.groupBox33.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage8);
-            this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Controls.Add(this.tabPage_fd);
+            this.tabControl1.Controls.Add(this.tabPage_ch_r);
+            this.tabControl1.Controls.Add(this.tabPage_cor_r);
+            this.tabControl1.Controls.Add(this.tabPage_ci1);
+            this.tabControl1.Controls.Add(this.tabPage_ci2);
+            this.tabControl1.Controls.Add(this.tabPage_ci_ap);
+            this.tabControl1.Controls.Add(this.tabPage_payment);
+            this.tabControl1.Controls.Add(this.tabPage_taxes);
+            this.tabControl1.Controls.Add(this.tabPage_perform);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1030, 437);
+            this.tabControl1.Size = new System.Drawing.Size(1096, 437);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
+            // tabPage_fd
             // 
-            this.tabPage1.Controls.Add(this.label20);
-            this.tabPage1.Controls.Add(this.label15);
-            this.tabPage1.Controls.Add(this.button_savePreset);
-            this.tabPage1.Controls.Add(this.textBox_presetName);
-            this.tabPage1.Controls.Add(this.listBox_presets);
-            this.tabPage1.Controls.Add(this.button_presetsTaxcom);
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Controls.Add(this.button_presetsFirstOfd);
-            this.tabPage1.Controls.Add(this.groupBox_operationType);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.textBox_lastReportLine);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.textBox_startFrom);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1022, 408);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Документ";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage_fd.Controls.Add(this.label20);
+            this.tabPage_fd.Controls.Add(this.label15);
+            this.tabPage_fd.Controls.Add(this.button_savePreset);
+            this.tabPage_fd.Controls.Add(this.textBox_presetName);
+            this.tabPage_fd.Controls.Add(this.listBox_presets);
+            this.tabPage_fd.Controls.Add(this.button_presetsTaxcom);
+            this.tabPage_fd.Controls.Add(this.groupBox3);
+            this.tabPage_fd.Controls.Add(this.button_presetsFirstOfd);
+            this.tabPage_fd.Controls.Add(this.groupBox_operationType);
+            this.tabPage_fd.Controls.Add(this.label2);
+            this.tabPage_fd.Controls.Add(this.textBox_lastReportLine);
+            this.tabPage_fd.Controls.Add(this.label1);
+            this.tabPage_fd.Controls.Add(this.textBox_startFrom);
+            this.tabPage_fd.Controls.Add(this.groupBox1);
+            this.tabPage_fd.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_fd.Name = "tabPage_fd";
+            this.tabPage_fd.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_fd.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_fd.TabIndex = 0;
+            this.tabPage_fd.Text = "Документ";
+            this.tabPage_fd.UseVisualStyleBackColor = true;
             // 
             // label20
             // 
@@ -689,19 +750,19 @@
             this.comboBox_checkId.TabIndex = 0;
             this.comboBox_checkId.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // tabPage5
+            // tabPage_ch_r
             // 
-            this.tabPage5.Controls.Add(this.groupBox32);
-            this.tabPage5.Controls.Add(this.groupBox21);
-            this.tabPage5.Controls.Add(this.groupBox20);
-            this.tabPage5.Controls.Add(this.groupBox19);
-            this.tabPage5.Controls.Add(this.groupBox18);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1022, 408);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Реквизиты чека";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabPage_ch_r.Controls.Add(this.groupBox32);
+            this.tabPage_ch_r.Controls.Add(this.groupBox21);
+            this.tabPage_ch_r.Controls.Add(this.groupBox20);
+            this.tabPage_ch_r.Controls.Add(this.groupBox19);
+            this.tabPage_ch_r.Controls.Add(this.groupBox18);
+            this.tabPage_ch_r.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_ch_r.Name = "tabPage_ch_r";
+            this.tabPage_ch_r.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_ch_r.TabIndex = 4;
+            this.tabPage_ch_r.Text = "Реквизиты чека";
+            this.tabPage_ch_r.UseVisualStyleBackColor = true;
             // 
             // groupBox32
             // 
@@ -1291,18 +1352,18 @@
             this.comboBox_propertiesData.TabIndex = 0;
             this.comboBox_propertiesData.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // tabPage2
+            // tabPage_cor_r
             // 
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1022, 408);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Реквизиты коррекции";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage_cor_r.Controls.Add(this.groupBox5);
+            this.tabPage_cor_r.Controls.Add(this.groupBox4);
+            this.tabPage_cor_r.Controls.Add(this.groupBox2);
+            this.tabPage_cor_r.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_cor_r.Name = "tabPage_cor_r";
+            this.tabPage_cor_r.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_cor_r.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_cor_r.TabIndex = 1;
+            this.tabPage_cor_r.Text = "Реквизиты коррекции";
+            this.tabPage_cor_r.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
@@ -1589,20 +1650,20 @@
             this.comboBox_correctionDate.TabIndex = 0;
             this.comboBox_correctionDate.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // tabPage3
+            // tabPage_ci1
             // 
-            this.tabPage3.Controls.Add(this.groupBox10);
-            this.tabPage3.Controls.Add(this.groupBox9);
-            this.tabPage3.Controls.Add(this.groupBox8);
-            this.tabPage3.Controls.Add(this.groupBox7);
-            this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Controls.Add(this.groupBox_itemsName);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1022, 408);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Предмет расчета - 1";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage_ci1.Controls.Add(this.groupBox10);
+            this.tabPage_ci1.Controls.Add(this.groupBox9);
+            this.tabPage_ci1.Controls.Add(this.groupBox8);
+            this.tabPage_ci1.Controls.Add(this.groupBox7);
+            this.tabPage_ci1.Controls.Add(this.groupBox6);
+            this.tabPage_ci1.Controls.Add(this.groupBox_itemsName);
+            this.tabPage_ci1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_ci1.Name = "tabPage_ci1";
+            this.tabPage_ci1.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_ci1.TabIndex = 2;
+            this.tabPage_ci1.Text = "Предмет расчета 1";
+            this.tabPage_ci1.UseVisualStyleBackColor = true;
             // 
             // groupBox10
             // 
@@ -2290,16 +2351,16 @@
             this.comboBox_itemsName.TabIndex = 0;
             this.comboBox_itemsName.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // tabPage6
+            // tabPage_ci2
             // 
-            this.tabPage6.Controls.Add(this.groupBox11);
-            this.tabPage6.Controls.Add(this.groupBox12);
-            this.tabPage6.Location = new System.Drawing.Point(4, 25);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1022, 408);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Предмет расчета - 2";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabPage_ci2.Controls.Add(this.groupBox11);
+            this.tabPage_ci2.Controls.Add(this.groupBox12);
+            this.tabPage_ci2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_ci2.Name = "tabPage_ci2";
+            this.tabPage_ci2.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_ci2.TabIndex = 5;
+            this.tabPage_ci2.Text = "Предмет расчета 2";
+            this.tabPage_ci2.UseVisualStyleBackColor = true;
             // 
             // groupBox11
             // 
@@ -2310,7 +2371,7 @@
             this.groupBox11.Controls.Add(this.comboBox_itemsUnit120);
             this.groupBox11.Location = new System.Drawing.Point(411, 14);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(377, 268);
+            this.groupBox11.Size = new System.Drawing.Size(377, 145);
             this.groupBox11.TabIndex = 11;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Мера предмета расчета(для ФФД 1.2)";
@@ -2326,10 +2387,10 @@
             this.dataGridViewComboBoxColumn5});
             this.dataGridView_itemsUnitQuantityMeasure.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView_itemsUnitQuantityMeasure.Enabled = false;
-            this.dataGridView_itemsUnitQuantityMeasure.Location = new System.Drawing.Point(8, 116);
+            this.dataGridView_itemsUnitQuantityMeasure.Location = new System.Drawing.Point(8, 104);
             this.dataGridView_itemsUnitQuantityMeasure.Name = "dataGridView_itemsUnitQuantityMeasure";
             this.dataGridView_itemsUnitQuantityMeasure.RowHeadersWidth = 4;
-            this.dataGridView_itemsUnitQuantityMeasure.Size = new System.Drawing.Size(364, 87);
+            this.dataGridView_itemsUnitQuantityMeasure.Size = new System.Drawing.Size(364, 33);
             this.dataGridView_itemsUnitQuantityMeasure.TabIndex = 515;
             this.dataGridView_itemsUnitQuantityMeasure.Visible = false;
             // 
@@ -2380,7 +2441,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(7, 76);
+            this.label18.Location = new System.Drawing.Point(7, 73);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(237, 26);
             this.label18.TabIndex = 512;
@@ -2503,7 +2564,7 @@
             this.groupBox12.Controls.Add(this.comboBox_itemsNdsRate);
             this.groupBox12.Location = new System.Drawing.Point(8, 14);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(377, 137);
+            this.groupBox12.Size = new System.Drawing.Size(377, 145);
             this.groupBox12.TabIndex = 12;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Ставка НДС предмета расчета";
@@ -2541,7 +2602,9 @@
             "НДС 5%",
             "НДС 7%",
             "НДС 5/105",
-            "НДС 7/107"});
+            "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122"});
             this.comboBox_itemsNdsRateDefault.Location = new System.Drawing.Point(96, 50);
             this.comboBox_itemsNdsRateDefault.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_itemsNdsRateDefault.Name = "comboBox_itemsNdsRateDefault";
@@ -2613,19 +2676,1176 @@
             this.comboBox_itemsNdsRate.TabIndex = 0;
             this.comboBox_itemsNdsRate.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // tabPage4
+            // tabPage_ci_ap
             // 
-            this.tabPage4.Controls.Add(this.groupBox17);
-            this.tabPage4.Controls.Add(this.groupBox16);
-            this.tabPage4.Controls.Add(this.groupBox15);
-            this.tabPage4.Controls.Add(this.groupBox14);
-            this.tabPage4.Controls.Add(this.groupBox13);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1022, 408);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Оплата";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage_ci_ap.Controls.Add(this.label47);
+            this.tabPage_ci_ap.Controls.Add(this.comboBox_itemsCustomEntryNum_1231);
+            this.tabPage_ci_ap.Controls.Add(this.textBox_itemsCustomEntryNum_1231_default);
+            this.tabPage_ci_ap.Controls.Add(this.label24);
+            this.tabPage_ci_ap.Controls.Add(this.groupBox34);
+            this.tabPage_ci_ap.Controls.Add(this.groupBox35);
+            this.tabPage_ci_ap.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_ci_ap.Name = "tabPage_ci_ap";
+            this.tabPage_ci_ap.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_ci_ap.TabIndex = 8;
+            this.tabPage_ci_ap.Text = "Предмет расчета(агенты, поставщики)";
+            this.tabPage_ci_ap.UseVisualStyleBackColor = true;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(631, 379);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(80, 13);
+            this.label47.TabIndex = 526;
+            this.label47.Text = "По умолчанию";
+            // 
+            // comboBox_itemsCustomEntryNum_1231
+            // 
+            this.comboBox_itemsCustomEntryNum_1231.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsCustomEntryNum_1231.FormattingEnabled = true;
+            this.comboBox_itemsCustomEntryNum_1231.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsCustomEntryNum_1231.Location = new System.Drawing.Point(333, 376);
+            this.comboBox_itemsCustomEntryNum_1231.Name = "comboBox_itemsCustomEntryNum_1231";
+            this.comboBox_itemsCustomEntryNum_1231.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsCustomEntryNum_1231.TabIndex = 525;
+            this.comboBox_itemsCustomEntryNum_1231.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // textBox_itemsCustomEntryNum_1231_default
+            // 
+            this.textBox_itemsCustomEntryNum_1231_default.Location = new System.Drawing.Point(737, 376);
+            this.textBox_itemsCustomEntryNum_1231_default.Name = "textBox_itemsCustomEntryNum_1231_default";
+            this.textBox_itemsCustomEntryNum_1231_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsCustomEntryNum_1231_default.TabIndex = 524;
+            this.textBox_itemsCustomEntryNum_1231_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(47, 381);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(203, 13);
+            this.label24.TabIndex = 523;
+            this.label24.Text = "1231 - Номер таможенной декларации";
+            // 
+            // groupBox34
+            // 
+            this.groupBox34.Controls.Add(this.label46);
+            this.groupBox34.Controls.Add(this.comboBox_itemsProviderDataProviderPhone_1171);
+            this.groupBox34.Controls.Add(this.label45);
+            this.groupBox34.Controls.Add(this.comboBox_itemsProviderDataProviderName_1225);
+            this.groupBox34.Controls.Add(this.label44);
+            this.groupBox34.Controls.Add(this.comboBox_itemsProviderInn_1226);
+            this.groupBox34.Controls.Add(this.textBox_itemsProviderDataProviderName_1225_default);
+            this.groupBox34.Controls.Add(this.label25);
+            this.groupBox34.Controls.Add(this.textBox_itemsProviderDataProviderPhone_1171_default);
+            this.groupBox34.Controls.Add(this.label26);
+            this.groupBox34.Controls.Add(this.textBox_itemsProviderInn_1226_default);
+            this.groupBox34.Controls.Add(this.label27);
+            this.groupBox34.Location = new System.Drawing.Point(38, 267);
+            this.groupBox34.Name = "groupBox34";
+            this.groupBox34.Size = new System.Drawing.Size(919, 103);
+            this.groupBox34.TabIndex = 522;
+            this.groupBox34.TabStop = false;
+            this.groupBox34.Text = "Поставщик";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(593, 73);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(80, 13);
+            this.label46.TabIndex = 518;
+            this.label46.Text = "По умолчанию";
+            // 
+            // comboBox_itemsProviderDataProviderPhone_1171
+            // 
+            this.comboBox_itemsProviderDataProviderPhone_1171.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsProviderDataProviderPhone_1171.FormattingEnabled = true;
+            this.comboBox_itemsProviderDataProviderPhone_1171.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsProviderDataProviderPhone_1171.Location = new System.Drawing.Point(295, 70);
+            this.comboBox_itemsProviderDataProviderPhone_1171.Name = "comboBox_itemsProviderDataProviderPhone_1171";
+            this.comboBox_itemsProviderDataProviderPhone_1171.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsProviderDataProviderPhone_1171.TabIndex = 517;
+            this.comboBox_itemsProviderDataProviderPhone_1171.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(593, 45);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(80, 13);
+            this.label45.TabIndex = 516;
+            this.label45.Text = "По умолчанию";
+            // 
+            // comboBox_itemsProviderDataProviderName_1225
+            // 
+            this.comboBox_itemsProviderDataProviderName_1225.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsProviderDataProviderName_1225.FormattingEnabled = true;
+            this.comboBox_itemsProviderDataProviderName_1225.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsProviderDataProviderName_1225.Location = new System.Drawing.Point(295, 42);
+            this.comboBox_itemsProviderDataProviderName_1225.Name = "comboBox_itemsProviderDataProviderName_1225";
+            this.comboBox_itemsProviderDataProviderName_1225.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsProviderDataProviderName_1225.TabIndex = 515;
+            this.comboBox_itemsProviderDataProviderName_1225.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(593, 18);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(80, 13);
+            this.label44.TabIndex = 514;
+            this.label44.Text = "По умолчанию";
+            // 
+            // comboBox_itemsProviderInn_1226
+            // 
+            this.comboBox_itemsProviderInn_1226.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsProviderInn_1226.FormattingEnabled = true;
+            this.comboBox_itemsProviderInn_1226.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsProviderInn_1226.Location = new System.Drawing.Point(295, 15);
+            this.comboBox_itemsProviderInn_1226.Name = "comboBox_itemsProviderInn_1226";
+            this.comboBox_itemsProviderInn_1226.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsProviderInn_1226.TabIndex = 513;
+            this.comboBox_itemsProviderInn_1226.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // textBox_itemsProviderDataProviderName_1225_default
+            // 
+            this.textBox_itemsProviderDataProviderName_1225_default.Location = new System.Drawing.Point(699, 42);
+            this.textBox_itemsProviderDataProviderName_1225_default.Name = "textBox_itemsProviderDataProviderName_1225_default";
+            this.textBox_itemsProviderDataProviderName_1225_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsProviderDataProviderName_1225_default.TabIndex = 21;
+            this.textBox_itemsProviderDataProviderName_1225_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(9, 50);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(179, 13);
+            this.label25.TabIndex = 20;
+            this.label25.Text = "1225 - наименование поставщика";
+            // 
+            // textBox_itemsProviderDataProviderPhone_1171_default
+            // 
+            this.textBox_itemsProviderDataProviderPhone_1171_default.Location = new System.Drawing.Point(699, 70);
+            this.textBox_itemsProviderDataProviderPhone_1171_default.Name = "textBox_itemsProviderDataProviderPhone_1171_default";
+            this.textBox_itemsProviderDataProviderPhone_1171_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsProviderDataProviderPhone_1171_default.TabIndex = 19;
+            this.textBox_itemsProviderDataProviderPhone_1171_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(9, 78);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(148, 13);
+            this.label26.TabIndex = 18;
+            this.label26.Text = "1171 - телефон поставщика";
+            // 
+            // textBox_itemsProviderInn_1226_default
+            // 
+            this.textBox_itemsProviderInn_1226_default.Location = new System.Drawing.Point(699, 15);
+            this.textBox_itemsProviderInn_1226_default.Name = "textBox_itemsProviderInn_1226_default";
+            this.textBox_itemsProviderInn_1226_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsProviderInn_1226_default.TabIndex = 17;
+            this.textBox_itemsProviderInn_1226_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(9, 22);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(131, 13);
+            this.label27.TabIndex = 16;
+            this.label27.Text = "1226 - ИНН Поставщика";
+            // 
+            // groupBox35
+            // 
+            this.groupBox35.Controls.Add(this.label43);
+            this.groupBox35.Controls.Add(this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073);
+            this.groupBox35.Controls.Add(this.label42);
+            this.groupBox35.Controls.Add(this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044);
+            this.groupBox35.Controls.Add(this.label41);
+            this.groupBox35.Controls.Add(this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074);
+            this.groupBox35.Controls.Add(this.label40);
+            this.groupBox35.Controls.Add(this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026);
+            this.groupBox35.Controls.Add(this.label39);
+            this.groupBox35.Controls.Add(this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005);
+            this.groupBox35.Controls.Add(this.label38);
+            this.groupBox35.Controls.Add(this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075);
+            this.groupBox35.Controls.Add(this.label37);
+            this.groupBox35.Controls.Add(this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016);
+            this.groupBox35.Controls.Add(this.label36);
+            this.groupBox35.Controls.Add(this.comboBox_items_agent_1222);
+            this.groupBox35.Controls.Add(this.textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default);
+            this.groupBox35.Controls.Add(this.label28);
+            this.groupBox35.Controls.Add(this.textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default);
+            this.groupBox35.Controls.Add(this.label29);
+            this.groupBox35.Controls.Add(this.textBox_itemsPaymentAgentDataTransferOperatorName_1026_default);
+            this.groupBox35.Controls.Add(this.label30);
+            this.groupBox35.Controls.Add(this.textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default);
+            this.groupBox35.Controls.Add(this.label31);
+            this.groupBox35.Controls.Add(this.textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default);
+            this.groupBox35.Controls.Add(this.label32);
+            this.groupBox35.Controls.Add(this.textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default);
+            this.groupBox35.Controls.Add(this.textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default);
+            this.groupBox35.Controls.Add(this.label33);
+            this.groupBox35.Controls.Add(this.label34);
+            this.groupBox35.Controls.Add(this.textBox__items_agent_1222_defailt);
+            this.groupBox35.Controls.Add(this.label35);
+            this.groupBox35.Location = new System.Drawing.Point(38, 19);
+            this.groupBox35.Name = "groupBox35";
+            this.groupBox35.Size = new System.Drawing.Size(919, 242);
+            this.groupBox35.TabIndex = 521;
+            this.groupBox35.TabStop = false;
+            this.groupBox35.Text = "Агент";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(593, 204);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(80, 13);
+            this.label43.TabIndex = 526;
+            this.label43.Text = "По умолчанию";
+            // 
+            // comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073
+            // 
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.FormattingEnabled = true;
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.Location = new System.Drawing.Point(295, 201);
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.Name = "comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073";
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.TabIndex = 525;
+            this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(593, 177);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(80, 13);
+            this.label42.TabIndex = 524;
+            this.label42.Text = "По умолчанию";
+            // 
+            // comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044
+            // 
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.FormattingEnabled = true;
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.Location = new System.Drawing.Point(295, 174);
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.Name = "comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044";
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.TabIndex = 523;
+            this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(593, 150);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(80, 13);
+            this.label41.TabIndex = 522;
+            this.label41.Text = "По умолчанию";
+            // 
+            // comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074
+            // 
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.FormattingEnabled = true;
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.Location = new System.Drawing.Point(295, 147);
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.Name = "comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074";
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.TabIndex = 521;
+            this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(593, 123);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(80, 13);
+            this.label40.TabIndex = 520;
+            this.label40.Text = "По умолчанию";
+            // 
+            // comboBox_itemsPaymentAgentDataTransferOperatorName_1026
+            // 
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.FormattingEnabled = true;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.Location = new System.Drawing.Point(295, 120);
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.Name = "comboBox_itemsPaymentAgentDataTransferOperatorName_1026";
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.TabIndex = 519;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(593, 96);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(80, 13);
+            this.label39.TabIndex = 518;
+            this.label39.Text = "По умолчанию";
+            // 
+            // comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005
+            // 
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.FormattingEnabled = true;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.Location = new System.Drawing.Point(295, 93);
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.Name = "comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005";
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.TabIndex = 517;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(593, 69);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(80, 13);
+            this.label38.TabIndex = 516;
+            this.label38.Text = "По умолчанию";
+            // 
+            // comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075
+            // 
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.FormattingEnabled = true;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.Location = new System.Drawing.Point(295, 66);
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.Name = "comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075";
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.TabIndex = 515;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(593, 42);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(80, 13);
+            this.label37.TabIndex = 514;
+            this.label37.Text = "По умолчанию";
+            // 
+            // comboBox_itemsPaymentAgentDataTransferOperatorInn_1016
+            // 
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.FormattingEnabled = true;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.Location = new System.Drawing.Point(295, 39);
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.Name = "comboBox_itemsPaymentAgentDataTransferOperatorInn_1016";
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.TabIndex = 513;
+            this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(593, 15);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(80, 13);
+            this.label36.TabIndex = 512;
+            this.label36.Text = "По умолчанию";
+            // 
+            // comboBox_items_agent_1222
+            // 
+            this.comboBox_items_agent_1222.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_items_agent_1222.FormattingEnabled = true;
+            this.comboBox_items_agent_1222.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_items_agent_1222.Location = new System.Drawing.Point(295, 12);
+            this.comboBox_items_agent_1222.Name = "comboBox_items_agent_1222";
+            this.comboBox_items_agent_1222.Size = new System.Drawing.Size(278, 21);
+            this.comboBox_items_agent_1222.TabIndex = 16;
+            this.comboBox_items_agent_1222.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default
+            // 
+            this.textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default.Location = new System.Drawing.Point(699, 39);
+            this.textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default.Name = "textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default";
+            this.textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default.TabIndex = 15;
+            this.textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(12, 42);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(171, 13);
+            this.label28.TabIndex = 14;
+            this.label28.Text = "1016 - ИНН оператора перевода";
+            // 
+            // textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default
+            // 
+            this.textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default.Location = new System.Drawing.Point(699, 93);
+            this.textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default.Name = "textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default";
+            this.textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default.TabIndex = 13;
+            this.textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(12, 96);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(177, 13);
+            this.label29.TabIndex = 12;
+            this.label29.Text = "1005 - адрес оператора перевода";
+            // 
+            // textBox_itemsPaymentAgentDataTransferOperatorName_1026_default
+            // 
+            this.textBox_itemsPaymentAgentDataTransferOperatorName_1026_default.Location = new System.Drawing.Point(699, 120);
+            this.textBox_itemsPaymentAgentDataTransferOperatorName_1026_default.Name = "textBox_itemsPaymentAgentDataTransferOperatorName_1026_default";
+            this.textBox_itemsPaymentAgentDataTransferOperatorName_1026_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsPaymentAgentDataTransferOperatorName_1026_default.TabIndex = 11;
+            this.textBox_itemsPaymentAgentDataTransferOperatorName_1026_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(12, 123);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(221, 13);
+            this.label30.TabIndex = 10;
+            this.label30.Text = "1026 - наименование оператора перевода";
+            // 
+            // textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default
+            // 
+            this.textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default.Location = new System.Drawing.Point(699, 147);
+            this.textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default.Name = "textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default";
+            this.textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default.TabIndex = 9;
+            this.textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(12, 150);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(246, 13);
+            this.label31.TabIndex = 8;
+            this.label31.Text = "1074 - телефон оператора по приему платежей";
+            // 
+            // textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default
+            // 
+            this.textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default.Location = new System.Drawing.Point(699, 201);
+            this.textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default.Name = "textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default";
+            this.textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default.TabIndex = 7;
+            this.textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(12, 205);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(183, 13);
+            this.label32.TabIndex = 6;
+            this.label32.Text = "1073 - телефон платежного агента";
+            // 
+            // textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default
+            // 
+            this.textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default.Location = new System.Drawing.Point(699, 66);
+            this.textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default.Name = "textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default";
+            this.textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default.TabIndex = 5;
+            this.textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default
+            // 
+            this.textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default.Location = new System.Drawing.Point(699, 174);
+            this.textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default.Name = "textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default";
+            this.textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default.Size = new System.Drawing.Size(196, 20);
+            this.textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default.TabIndex = 4;
+            this.textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(12, 177);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(188, 13);
+            this.label33.TabIndex = 3;
+            this.label33.Text = "1044 - операция платежного агента";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(12, 69);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(190, 13);
+            this.label34.TabIndex = 2;
+            this.label34.Text = "1075 - телефон оператора перевода";
+            // 
+            // textBox__items_agent_1222_defailt
+            // 
+            this.textBox__items_agent_1222_defailt.Location = new System.Drawing.Point(699, 12);
+            this.textBox__items_agent_1222_defailt.Name = "textBox__items_agent_1222_defailt";
+            this.textBox__items_agent_1222_defailt.Size = new System.Drawing.Size(196, 20);
+            this.textBox__items_agent_1222_defailt.TabIndex = 1;
+            this.textBox__items_agent_1222_defailt.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(12, 15);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(115, 13);
+            this.label35.TabIndex = 0;
+            this.label35.Text = "1222-Признак агента";
+            // 
+            // tabPage_payment
+            // 
+            this.tabPage_payment.Controls.Add(this.groupBox17);
+            this.tabPage_payment.Controls.Add(this.groupBox16);
+            this.tabPage_payment.Controls.Add(this.groupBox15);
+            this.tabPage_payment.Controls.Add(this.groupBox14);
+            this.tabPage_payment.Controls.Add(this.groupBox13);
+            this.tabPage_payment.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_payment.Name = "tabPage_payment";
+            this.tabPage_payment.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_payment.TabIndex = 3;
+            this.tabPage_payment.Text = "Оплата";
+            this.tabPage_payment.UseVisualStyleBackColor = true;
             // 
             // groupBox17
             // 
@@ -2997,17 +4217,17 @@
             this.comboBox_checkPaidCash.TabIndex = 0;
             this.comboBox_checkPaidCash.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // tabPage8
+            // tabPage_taxes
             // 
-            this.tabPage8.Controls.Add(this.label21);
-            this.tabPage8.Controls.Add(this.checkBox_enableManualTaxes);
-            this.tabPage8.Controls.Add(this.groupBox_manualTax);
-            this.tabPage8.Location = new System.Drawing.Point(4, 25);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(1022, 408);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "Ручной ввод налогов";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.tabPage_taxes.Controls.Add(this.label21);
+            this.tabPage_taxes.Controls.Add(this.checkBox_enableManualTaxes);
+            this.tabPage_taxes.Controls.Add(this.groupBox_manualTax);
+            this.tabPage_taxes.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_taxes.Name = "tabPage_taxes";
+            this.tabPage_taxes.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_taxes.TabIndex = 7;
+            this.tabPage_taxes.Text = "Ручной ввод налогов";
+            this.tabPage_taxes.UseVisualStyleBackColor = true;
             // 
             // label21
             // 
@@ -3032,6 +4252,8 @@
             // 
             // groupBox_manualTax
             // 
+            this.groupBox_manualTax.Controls.Add(this.groupBox37);
+            this.groupBox_manualTax.Controls.Add(this.groupBox36);
             this.groupBox_manualTax.Controls.Add(this.groupBox30);
             this.groupBox_manualTax.Controls.Add(this.groupBox31);
             this.groupBox_manualTax.Controls.Add(this.groupBox26);
@@ -3049,6 +4271,154 @@
             this.groupBox_manualTax.TabIndex = 0;
             this.groupBox_manualTax.TabStop = false;
             this.groupBox_manualTax.Text = "Суммы налогов чека";
+            // 
+            // groupBox37
+            // 
+            this.groupBox37.Controls.Add(this.comboBox_checkTax22122);
+            this.groupBox37.Location = new System.Drawing.Point(390, 304);
+            this.groupBox37.Name = "groupBox37";
+            this.groupBox37.Size = new System.Drawing.Size(377, 51);
+            this.groupBox37.TabIndex = 20;
+            this.groupBox37.TabStop = false;
+            this.groupBox37.Text = "22/122";
+            // 
+            // comboBox_checkTax22122
+            // 
+            this.comboBox_checkTax22122.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_checkTax22122.FormattingEnabled = true;
+            this.comboBox_checkTax22122.Items.AddRange(new object[] {
+            "Нет",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_checkTax22122.Location = new System.Drawing.Point(7, 20);
+            this.comboBox_checkTax22122.Name = "comboBox_checkTax22122";
+            this.comboBox_checkTax22122.Size = new System.Drawing.Size(364, 21);
+            this.comboBox_checkTax22122.TabIndex = 0;
+            this.comboBox_checkTax22122.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // groupBox36
+            // 
+            this.groupBox36.Controls.Add(this.comboBox_checkTax22);
+            this.groupBox36.Location = new System.Drawing.Point(7, 305);
+            this.groupBox36.Name = "groupBox36";
+            this.groupBox36.Size = new System.Drawing.Size(377, 51);
+            this.groupBox36.TabIndex = 19;
+            this.groupBox36.TabStop = false;
+            this.groupBox36.Text = "22%";
+            // 
+            // comboBox_checkTax22
+            // 
+            this.comboBox_checkTax22.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_checkTax22.FormattingEnabled = true;
+            this.comboBox_checkTax22.Items.AddRange(new object[] {
+            "Нет",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52"});
+            this.comboBox_checkTax22.Location = new System.Drawing.Point(7, 20);
+            this.comboBox_checkTax22.Name = "comboBox_checkTax22";
+            this.comboBox_checkTax22.Size = new System.Drawing.Size(364, 21);
+            this.comboBox_checkTax22.TabIndex = 0;
+            this.comboBox_checkTax22.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
             // groupBox30
             // 
@@ -3790,29 +5160,29 @@
             this.comboBox_checkTax20.TabIndex = 0;
             this.comboBox_checkTax20.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // tabPage7
+            // tabPage_perform
             // 
-            this.tabPage7.Controls.Add(this.label23);
-            this.tabPage7.Controls.Add(this.comboBox_closeShiftEvery);
-            this.tabPage7.Controls.Add(this.label22);
-            this.tabPage7.Controls.Add(this.comboBox_pauseAfterCheque);
-            this.tabPage7.Controls.Add(this.groupBox33);
-            this.tabPage7.Controls.Add(this.checkBox_admissibilityErrors);
-            this.tabPage7.Controls.Add(this.checkBox_dontPrint);
-            this.tabPage7.Controls.Add(this.textBox_errorsAllowed);
-            this.tabPage7.Controls.Add(this.label12);
-            this.tabPage7.Controls.Add(this.button2);
-            this.tabPage7.Controls.Add(this.checkBox_closeShiftSign);
-            this.tabPage7.Controls.Add(this.textBox_perfomingInformation);
-            this.tabPage7.Controls.Add(this.button_performCorrections);
-            this.tabPage7.Controls.Add(this.button_checkOutEmulatorRun);
-            this.tabPage7.Location = new System.Drawing.Point(4, 25);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(1022, 408);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Выполнение";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            this.tabPage7.Click += new System.EventHandler(this.EventHandler);
+            this.tabPage_perform.Controls.Add(this.label23);
+            this.tabPage_perform.Controls.Add(this.comboBox_closeShiftEvery);
+            this.tabPage_perform.Controls.Add(this.label22);
+            this.tabPage_perform.Controls.Add(this.comboBox_pauseAfterCheque);
+            this.tabPage_perform.Controls.Add(this.groupBox33);
+            this.tabPage_perform.Controls.Add(this.checkBox_admissibilityErrors);
+            this.tabPage_perform.Controls.Add(this.checkBox_dontPrint);
+            this.tabPage_perform.Controls.Add(this.textBox_errorsAllowed);
+            this.tabPage_perform.Controls.Add(this.label12);
+            this.tabPage_perform.Controls.Add(this.button2);
+            this.tabPage_perform.Controls.Add(this.checkBox_closeShiftSign);
+            this.tabPage_perform.Controls.Add(this.textBox_perfomingInformation);
+            this.tabPage_perform.Controls.Add(this.button_performCorrections);
+            this.tabPage_perform.Controls.Add(this.button_checkOutEmulatorRun);
+            this.tabPage_perform.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_perform.Name = "tabPage_perform";
+            this.tabPage_perform.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_perform.TabIndex = 6;
+            this.tabPage_perform.Text = "Выполнение";
+            this.tabPage_perform.UseVisualStyleBackColor = true;
+            this.tabPage_perform.Click += new System.EventHandler(this.EventHandler);
             // 
             // label23
             // 
@@ -4053,7 +5423,7 @@
             this.richTextBox_log.BackColor = System.Drawing.Color.White;
             this.richTextBox_log.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox_log.Dock = System.Windows.Forms.DockStyle.Right;
-            this.richTextBox_log.Location = new System.Drawing.Point(150, 437);
+            this.richTextBox_log.Location = new System.Drawing.Point(216, 437);
             this.richTextBox_log.Name = "richTextBox_log";
             this.richTextBox_log.ReadOnly = true;
             this.richTextBox_log.Size = new System.Drawing.Size(880, 92);
@@ -4064,24 +5434,24 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1030, 529);
+            this.ClientSize = new System.Drawing.Size(1096, 529);
             this.Controls.Add(this.richTextBox_log);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button_openExcel);
-            this.MaximumSize = new System.Drawing.Size(1065, 587);
-            this.MinimumSize = new System.Drawing.Size(1040, 558);
+            this.MaximumSize = new System.Drawing.Size(1174, 586);
+            this.MinimumSize = new System.Drawing.Size(1040, 557);
             this.Name = "FormOfdExport";
             this.Text = "FormOfdExport";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormOfdExport_FormClosing);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPage_fd.ResumeLayout(false);
+            this.tabPage_fd.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_documentTypeMap)).EndInit();
             this.groupBox_operationType.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_operationTypeMap)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
+            this.tabPage_ch_r.ResumeLayout(false);
             this.groupBox32.ResumeLayout(false);
             this.groupBox32.PerformLayout();
             this.groupBox21.ResumeLayout(false);
@@ -4093,14 +5463,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_snoMap)).EndInit();
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
+            this.tabPage_cor_r.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
+            this.tabPage_ci1.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_itemsProductTypeMap)).EndInit();
@@ -4113,21 +5483,29 @@
             this.groupBox6.PerformLayout();
             this.groupBox_itemsName.ResumeLayout(false);
             this.groupBox_itemsName.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
+            this.tabPage_ci2.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_itemsUnitQuantityMeasure)).EndInit();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
+            this.tabPage_ci_ap.ResumeLayout(false);
+            this.tabPage_ci_ap.PerformLayout();
+            this.groupBox34.ResumeLayout(false);
+            this.groupBox34.PerformLayout();
+            this.groupBox35.ResumeLayout(false);
+            this.groupBox35.PerformLayout();
+            this.tabPage_payment.ResumeLayout(false);
             this.groupBox17.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
+            this.tabPage_taxes.ResumeLayout(false);
+            this.tabPage_taxes.PerformLayout();
             this.groupBox_manualTax.ResumeLayout(false);
+            this.groupBox37.ResumeLayout(false);
+            this.groupBox36.ResumeLayout(false);
             this.groupBox30.ResumeLayout(false);
             this.groupBox31.ResumeLayout(false);
             this.groupBox26.ResumeLayout(false);
@@ -4138,8 +5516,8 @@
             this.groupBox24.ResumeLayout(false);
             this.groupBox23.ResumeLayout(false);
             this.groupBox22.ResumeLayout(false);
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
+            this.tabPage_perform.ResumeLayout(false);
+            this.tabPage_perform.PerformLayout();
             this.groupBox33.ResumeLayout(false);
             this.groupBox33.PerformLayout();
             this.ResumeLayout(false);
@@ -4149,8 +5527,8 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage_fd;
+        private System.Windows.Forms.TabPage tabPage_cor_r;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboBox_checkId;
         private System.Windows.Forms.Button button_openExcel;
@@ -4179,7 +5557,7 @@
         private System.Windows.Forms.ComboBox comboBox_correctionOrderNumber;
         private System.Windows.Forms.TextBox textBox_correctionOrderNumber;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage_ci1;
         private System.Windows.Forms.GroupBox groupBox_itemsName;
         private System.Windows.Forms.TextBox textBox_itemsNameDefault;
         private System.Windows.Forms.ComboBox comboBox_itemsName;
@@ -4207,7 +5585,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBox_itemsNdsRateDefault;
         private System.Windows.Forms.ComboBox comboBox_itemsNdsRate;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage_payment;
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.ComboBox comboBox_checkPaidEcash;
         private System.Windows.Forms.GroupBox groupBox13;
@@ -4218,12 +5596,12 @@
         private System.Windows.Forms.ComboBox comboBox_checkPaidCredit;
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.ComboBox comboBox_checkPaidPrepaid;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabPage tabPage_ch_r;
+        private System.Windows.Forms.TabPage tabPage_ci2;
         private System.Windows.Forms.TextBox textBox_itemsQuantityDefault;
         private System.Windows.Forms.GroupBox groupBox18;
         private System.Windows.Forms.ComboBox comboBox_propertiesData;
-        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage_perform;
         private System.Windows.Forms.Button button_checkOutEmulatorRun;
         private System.Windows.Forms.Button button_performCorrections;
         private System.Windows.Forms.TextBox textBox_perfomingInformation;
@@ -4263,7 +5641,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.TabPage tabPage_taxes;
         private System.Windows.Forms.CheckBox checkBox_enableManualTaxes;
         private System.Windows.Forms.GroupBox groupBox_manualTax;
         private System.Windows.Forms.GroupBox groupBox26;
@@ -4306,5 +5684,60 @@
         private System.Windows.Forms.ComboBox comboBox_pauseAfterCheque;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.ComboBox comboBox_closeShiftEvery;
+        private System.Windows.Forms.TabPage tabPage_ci_ap;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.GroupBox groupBox34;
+        private System.Windows.Forms.TextBox textBox_itemsProviderDataProviderName_1225_default;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox textBox_itemsProviderDataProviderPhone_1171_default;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textBox_itemsProviderInn_1226_default;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.GroupBox groupBox35;
+        private System.Windows.Forms.TextBox textBox_itemsPaymentAgentDataTransferOperatorInn_1016_default;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox textBox_itemsPaymentAgentDataTransferOperatorAddress_1005_default;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox textBox_itemsPaymentAgentDataTransferOperatorName_1026_default;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox textBox_itemsPaymentAgentDataPaymentOperatorPhone_1074_default;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox textBox_itemsPaymentAgentDataPaymentAgentPhone_1073_default;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox textBox_itemsPaymentAgentDataTransferOperatorPhone_1075_default;
+        private System.Windows.Forms.TextBox textBox_itemsPaymentAgentDataPpaymentAgentOperation_1044_default;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox textBox__items_agent_1222_defailt;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.ComboBox comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox comboBox_itemsPaymentAgentDataTransferOperatorInn_1016;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.ComboBox comboBox_items_agent_1222;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.ComboBox comboBox_itemsProviderDataProviderPhone_1171;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.ComboBox comboBox_itemsProviderDataProviderName_1225;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.ComboBox comboBox_itemsProviderInn_1226;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.ComboBox comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ComboBox comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.ComboBox comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.ComboBox comboBox_itemsPaymentAgentDataTransferOperatorName_1026;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.ComboBox comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.ComboBox comboBox_itemsCustomEntryNum_1231;
+        private System.Windows.Forms.TextBox textBox_itemsCustomEntryNum_1231_default;
+        private System.Windows.Forms.GroupBox groupBox37;
+        private System.Windows.Forms.ComboBox comboBox_checkTax22122;
+        private System.Windows.Forms.GroupBox groupBox36;
+        private System.Windows.Forms.ComboBox comboBox_checkTax22;
     }
 }

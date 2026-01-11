@@ -159,7 +159,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(116, 65);
+            this.label5.Location = new System.Drawing.Point(116, 55);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 13);
             this.label5.TabIndex = 9;
@@ -204,7 +204,7 @@
             "31. АТМ",
             "32. ТНМ",
             "33. ТМ"});
-            this.comboBox_itemsProductType.Location = new System.Drawing.Point(213, 62);
+            this.comboBox_itemsProductType.Location = new System.Drawing.Point(213, 52);
             this.comboBox_itemsProductType.Name = "comboBox_itemsProductType";
             this.comboBox_itemsProductType.Size = new System.Drawing.Size(231, 21);
             this.comboBox_itemsProductType.TabIndex = 509;
@@ -213,7 +213,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(472, 65);
+            this.label6.Location = new System.Drawing.Point(472, 55);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 13);
             this.label6.TabIndex = 510;
@@ -232,7 +232,7 @@
             "5 - Частичный расчет и кредит",
             "6 - Передача в кредит",
             "7 - Оплата куредита"});
-            this.comboBox_itemsPaymentType.Location = new System.Drawing.Point(572, 62);
+            this.comboBox_itemsPaymentType.Location = new System.Drawing.Point(572, 52);
             this.comboBox_itemsPaymentType.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_itemsPaymentType.Name = "comboBox_itemsPaymentType";
             this.comboBox_itemsPaymentType.Size = new System.Drawing.Size(226, 21);
@@ -262,7 +262,9 @@
             "НДС 5%",
             "НДС 7%",
             "НДС 5/105",
-            "НДС 7/107"});
+            "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122"});
             this.comboBox_itemsTaxRate.Location = new System.Drawing.Point(656, 2);
             this.comboBox_itemsTaxRate.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_itemsTaxRate.Name = "comboBox_itemsTaxRate";
@@ -288,7 +290,7 @@
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.textBox_itemsPaymentAgentByProductType);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Location = new System.Drawing.Point(105, 83);
+            this.groupBox1.Location = new System.Drawing.Point(105, 73);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(464, 176);
             this.groupBox1.TabIndex = 514;
@@ -441,7 +443,7 @@
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.textBox_itemsProviderInn);
             this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Location = new System.Drawing.Point(105, 261);
+            this.groupBox2.Location = new System.Drawing.Point(105, 251);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(464, 75);
             this.groupBox2.TabIndex = 515;
@@ -450,7 +452,7 @@
             // 
             // textBox_itemsProviderDataProviderName
             // 
-            this.textBox_itemsProviderDataProviderName.Location = new System.Drawing.Point(262, 32);
+            this.textBox_itemsProviderDataProviderName.Location = new System.Drawing.Point(262, 31);
             this.textBox_itemsProviderDataProviderName.Name = "textBox_itemsProviderDataProviderName";
             this.textBox_itemsProviderDataProviderName.Size = new System.Drawing.Size(196, 20);
             this.textBox_itemsProviderDataProviderName.TabIndex = 21;
@@ -467,7 +469,7 @@
             // 
             // textBox_itemsProviderDataProviderPhone
             // 
-            this.textBox_itemsProviderDataProviderPhone.Location = new System.Drawing.Point(262, 52);
+            this.textBox_itemsProviderDataProviderPhone.Location = new System.Drawing.Point(262, 51);
             this.textBox_itemsProviderDataProviderPhone.Name = "textBox_itemsProviderDataProviderPhone";
             this.textBox_itemsProviderDataProviderPhone.Size = new System.Drawing.Size(196, 20);
             this.textBox_itemsProviderDataProviderPhone.TabIndex = 19;
@@ -502,7 +504,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(574, 94);
+            this.label19.Location = new System.Drawing.Point(574, 84);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(184, 13);
             this.label19.TabIndex = 516;
@@ -510,7 +512,7 @@
             // 
             // textBox_unitMeasure105
             // 
-            this.textBox_unitMeasure105.Location = new System.Drawing.Point(572, 110);
+            this.textBox_unitMeasure105.Location = new System.Drawing.Point(572, 100);
             this.textBox_unitMeasure105.Name = "textBox_unitMeasure105";
             this.textBox_unitMeasure105.Size = new System.Drawing.Size(226, 20);
             this.textBox_unitMeasure105.TabIndex = 517;
@@ -519,7 +521,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(574, 143);
+            this.label20.Location = new System.Drawing.Point(574, 133);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(157, 13);
             this.label20.TabIndex = 518;
@@ -554,7 +556,7 @@
             "82 Гбайт",
             "83 Тбайт",
             "255 Если не подхдодят в предыдущие"});
-            this.comboBox_unitMasure120.Location = new System.Drawing.Point(572, 159);
+            this.comboBox_unitMasure120.Location = new System.Drawing.Point(572, 149);
             this.comboBox_unitMasure120.Name = "comboBox_unitMasure120";
             this.comboBox_unitMasure120.Size = new System.Drawing.Size(226, 21);
             this.comboBox_unitMasure120.TabIndex = 519;
@@ -563,7 +565,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(113, 342);
+            this.label21.Location = new System.Drawing.Point(113, 333);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(203, 13);
             this.label21.TabIndex = 520;
@@ -571,7 +573,7 @@
             // 
             // textBox_itemsCustomEntryNum
             // 
-            this.textBox_itemsCustomEntryNum.Location = new System.Drawing.Point(322, 339);
+            this.textBox_itemsCustomEntryNum.Location = new System.Drawing.Point(322, 329);
             this.textBox_itemsCustomEntryNum.Name = "textBox_itemsCustomEntryNum";
             this.textBox_itemsCustomEntryNum.Size = new System.Drawing.Size(241, 20);
             this.textBox_itemsCustomEntryNum.TabIndex = 521;
@@ -580,7 +582,7 @@
             // textBox_itemsExciseDuty
             // 
             this.textBox_itemsExciseDuty.Enabled = false;
-            this.textBox_itemsExciseDuty.Location = new System.Drawing.Point(656, 200);
+            this.textBox_itemsExciseDuty.Location = new System.Drawing.Point(656, 181);
             this.textBox_itemsExciseDuty.Name = "textBox_itemsExciseDuty";
             this.textBox_itemsExciseDuty.Size = new System.Drawing.Size(142, 20);
             this.textBox_itemsExciseDuty.TabIndex = 523;
@@ -590,7 +592,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Enabled = false;
-            this.label22.Location = new System.Drawing.Point(576, 203);
+            this.label22.Location = new System.Drawing.Point(576, 184);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(71, 13);
             this.label22.TabIndex = 522;
@@ -641,6 +643,7 @@
             // 
             this.Items.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Items.HeaderText = "Список 1059-items";
+            this.Items.MinimumWidth = 6;
             this.Items.Name = "Items";
             this.Items.ReadOnly = true;
             this.Items.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -692,7 +695,7 @@
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(810, 455);
+            this.MinimumSize = new System.Drawing.Size(810, 453);
             this.Name = "FormItemExtendedEditor";
             this.Text = "Расширенный редактор предмета расчета";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormItemExtendedEditor_FormClosing);

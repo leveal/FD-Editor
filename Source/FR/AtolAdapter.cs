@@ -481,23 +481,6 @@ namespace FR_Operator
                         corrInfoFtags.Add(new FTag(FTAG_CORRECTION_ORDER_NUMBER, doc.CorrectionOrderNumber,true));
                 }
                 string fw = KKMInfoTransmitter[FR_FIRMWARE_KEY];
-                
-                /*if (_ffdVer < FR_FFD120
-                    && (
-                    fw.StartsWith("3.")
-                    //|| fw.StartsWith("12-8")
-                    || fw.StartsWith("10-8")
-                    || fw.StartsWith("10-7")
-                    || fw.StartsWith("5.3.")
-                    || fw.StartsWith("5.3.")
-                    || fw.StartsWith("5.4.")
-                    || fw.StartsWith("5.5.")
-                    || fw.StartsWith("5.6.")
-                    //|| fw.StartsWith("5.7.0")
-                    //|| fw.StartsWith("5.7.0")
-                    )
-                    && AppSettings.AtolUseCorrectionDescriber)
-                    this.fptr.setParam(1177, doc.CorrectionDocDescriber);*/
 
                 byte[] correctionInfo = new FTag(FTAG_CORRECTION_BASE, corrInfoFtags, true).RawData;//fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE);
                 LogHandle.ol(BitConverter.ToString(correctionInfo));
@@ -541,7 +524,7 @@ namespace FR_Operator
                 tags.Add(new FTag(FTAG_PROPERTIES_PROPERTY_VALUE, doc.PropertiesPropertyValue, true));
                 FTag tag1084 = new FTag(FTAG_PRORERTIES_1084, tags, true);
                 fptr.setParam(FTAG_PRORERTIES_1084, tag1084.RawData);
-                LogHandle.ol("Add tag 1084"/*+fptr.setParam(FTAG_PRORERTIES_1084, tag1084.RawData)*/);
+                LogHandle.ol("Add tag 1084  ");
             }
 
             // добавить проверку на отсутсвие в настиройках СНО по умолчанию
@@ -638,6 +621,10 @@ namespace FR_Operator
                         fptr.setParam(Constants.LIBFPTR_PARAM_TAX_TYPE, Constants.LIBFPTR_TAX_VAT105);
                     else if (item.NdsRate == NDS_TYPE_7107_LOC)
                         fptr.setParam(Constants.LIBFPTR_PARAM_TAX_TYPE, Constants.LIBFPTR_TAX_VAT107);
+                    else if (item.NdsRate == NDS_TYPE_22_LOC)
+                        fptr.setParam(Constants.LIBFPTR_PARAM_TAX_TYPE, Constants.LIBFPTR_TAX_VAT22);
+                    else if (item.NdsRate == NDS_TYPE_22122_LOC)
+                        fptr.setParam(Constants.LIBFPTR_PARAM_TAX_TYPE, Constants.LIBFPTR_TAX_VAT122);
                 }
 
                 if (!string.IsNullOrEmpty(item.Unit105))
@@ -777,7 +764,7 @@ namespace FR_Operator
             }
 
             /*
-             * добавсяем новые ставки
+             * добавсяем новые ставки 2025
              */
             if (doc.Nds5 > 0.0099)
             {
@@ -839,6 +826,39 @@ namespace FR_Operator
                     return false;
                 }
             }
+            // 22 - 2026г
+            if (doc.Nds22 > 0.0099)
+            {
+                LogHandle.ol(string.Format("Регистрируем {0} НДС 22% receiptTax", doc.Nds22));
+                fptr.setParam(Constants.LIBFPTR_PARAM_TAX_TYPE, Constants.LIBFPTR_TAX_VAT22);
+                fptr.setParam(Constants.LIBFPTR_PARAM_TAX_SUM, doc.Nds22);
+                if (fptr.receiptTax() != 0)
+                {
+                    RezultMsg(fptr.errorDescription());
+                    KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = fptr.errorDescription();
+                    LogHandle.ol("Отменяем чек cancelReceipt");
+                    fptr.cancelReceipt();
+                    LogHandle.ol(fptr.errorDescription());
+                    return false;
+                }
+            }
+            if (doc.Nds22122 > 0.0099)
+            {
+                LogHandle.ol(string.Format("Регистрируем {0} НДС 22/122 receiptTax", doc.Nds22122));
+                fptr.setParam(Constants.LIBFPTR_PARAM_TAX_TYPE, Constants.LIBFPTR_TAX_VAT122);
+                fptr.setParam(Constants.LIBFPTR_PARAM_TAX_SUM, doc.Nds22122);
+                if (fptr.receiptTax() != 0)
+                {
+                    RezultMsg(fptr.errorDescription());
+                    KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = fptr.errorDescription();
+                    LogHandle.ol("Отменяем чек cancelReceipt");
+                    fptr.cancelReceipt();
+                    LogHandle.ol(fptr.errorDescription());
+                    return false;
+                }
+            }
+
+
             /*
              * добавсяем нулевые ставки
              */
@@ -937,9 +957,6 @@ namespace FR_Operator
             }
             
 
-
-
-            
             if (doc.ECash > 0.0099)
             {
                 LogHandle.ol(string.Format("Регистрируем оплату безналичными {0} payment", doc.ECash));
@@ -1191,7 +1208,7 @@ namespace FR_Operator
                     }
                     else if (tagNumber == FTAG_CORRECTION_BASE)
                     {
-                        var correctionBase = parceStlvCorrectionBase(fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE));
+                        var correctionBase = ParceStlvCorrectionBase(fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE));
                         if (correctionBase.ContainsKey(FTAG_CORRECTION_DESCRIBER))
                             cheque.CorrectionDocDescriber = (string)correctionBase[FTAG_CORRECTION_DESCRIBER];
                         if (correctionBase.ContainsKey(FTAG_CORRECTION_DOC_DATE))
@@ -1291,6 +1308,10 @@ namespace FR_Operator
                                         cheque.Nds5105 = taxAmount;
                                     else if (taxType == NDS_TYPE_7107_LOC)
                                         cheque.Nds7107 = taxAmount;
+                                    else if (taxType == NDS_TYPE_22_LOC)
+                                        cheque.Nds22 = taxAmount;
+                                    else if (taxType == NDS_TYPE_22122_LOC)
+                                        cheque.Nds22122 = taxAmount;
                                 }
                                 else
                                 {
@@ -1628,15 +1649,11 @@ namespace FR_Operator
             {
                 item.ProviderName = providerName;
             }
-
-
             item.Control();
-
-
             return item;
         }
 
-        private Dictionary<int, object> parceStlvCorrectionBase(byte[] val)
+        private Dictionary<int, object> ParceStlvCorrectionBase(byte[] val)
         {
             Dictionary<int, object> retval = new Dictionary<int, object>();
             fptr.setParam(Constants.LIBFPTR_PARAM_RECORDS_TYPE, Constants.LIBFPTR_RT_PARSE_COMPLEX_ATTR);

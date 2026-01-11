@@ -14,6 +14,6 @@
     <StartArguments>external_log=c:\tmp\</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <StartArguments>external_log=c:\tmp\ term</StartArguments>
+    <StartArguments>external_log=c:\tmp\</StartArguments>
   </PropertyGroup>
 </Project>

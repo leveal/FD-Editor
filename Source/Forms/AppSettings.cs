@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using static FR_Operator.FTag;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace FR_Operator
@@ -79,12 +80,16 @@ namespace FR_Operator
             {
                 radioButton_shtrihCloseCheckEx3.Checked = true;
             }
+            else if(_shtrihCloseCheckMethod == 3)
+            {
+                radioButton_shtrihCloseCheckEx4.Checked = true;
+            }
 
-            if(_shtrihRegisterItemMethod == 0)
+            if (_shtrihRegisterItemMethod == 0)
             {
                 radioButton_shtrihRegRuleMain.Checked = true;
             }
-            else if(_shtrihRegisterItemMethod == 1)
+            else if (_shtrihRegisterItemMethod == 1)
             {
                 radioButton_shtrihRegRuleOld.Checked = true;
             }
@@ -391,6 +396,7 @@ namespace FR_Operator
 
         public static void LoadSettings()
         {
+            FTag.LoadTFNRules();
             LogHandle.ol("Загружаем настройки");
             try
             {
@@ -672,14 +678,14 @@ namespace FR_Operator
                             {
                                 if (parameter.Substring(OVERRIDE_RETAIL_ADRESS.Length).ToLower() == "true")
                                 {
-                                    _overideRetailAddress = true;
+                                    OverideRetailAddress = true;
                                 }
                             }
                             else if (parameter.StartsWith(OVERRIDE_RETAIL_PLACE))
                             {
                                 if (parameter.Substring(OVERRIDE_RETAIL_PLACE.Length).ToLower() == "true")
                                 {
-                                    _overideRetailPlace = true;
+                                    OverideRetailPlace = true;
                                 }
                             }
                         }
@@ -695,7 +701,7 @@ namespace FR_Operator
                 }
             }
             catch(Exception e) { LogHandle.ol("При чтении настроек произошла ошибка; "+e.Message); }
-            FTag.LoadTFNRules();
+            
         }
         public static void SaveSettings() 
         { 
@@ -1091,6 +1097,10 @@ namespace FR_Operator
             {
                 _shtrihCloseCheckMethod = 2;
             }
+            else if (sender == radioButton_shtrihCloseCheckEx4 && radioButton_shtrihCloseCheckEx4.Checked)
+            {
+                _shtrihCloseCheckMethod = 3;
+            }
             else if (sender == radioButton_shtrihRegRuleOld && radioButton_shtrihRegRuleOld.Checked)
             {
                 _shtrihRegisterItemMethod = 1;
@@ -1141,11 +1151,11 @@ namespace FR_Operator
             }
             else if(sender == checkBox_ovverrideRetailAddress)
             {
-                _overideRetailAddress = checkBox_ovverrideRetailAddress.Checked;
+                OverideRetailAddress = checkBox_ovverrideRetailAddress.Checked;
             }
             else if (sender == checkBox_ovverrideRetailPlace)
             {
-                _overideRetailPlace = checkBox_ovverrideRetailPlace.Checked;
+                OverideRetailPlace = checkBox_ovverrideRetailPlace.Checked;
             }
             SaveSettings();
         }
@@ -1322,14 +1332,96 @@ namespace FR_Operator
         public static bool OverideRetailAddress
         {
             get => _overideRetailAddress;
-            set => _overideRetailAddress = value;
+            set
+            { 
+                _overideRetailAddress = value;
+                int[] keys = new int[] { 3 + 65536 * 2, 3 + 65536 * 3, 3 + 65536 * 4, 31 + 65536 * 2, 31 + 65536 * 3, 31 + 65536 * 4 };
+                foreach (int key in keys)
+                {
+                    if (FTag.TFNCommonRules.ContainsKey(key) || FTag.TFNCommonRules[key].Rules.Count > 0)
+                    {
+                        int k = -1;
+                        for(int i = 0; i < FTag.TFNCommonRules[key].Rules.Count; i++)
+                        {
+                            if(FTag.TFNCommonRules[key].Rules[i].TagNumber == FiscalPrinter.FTAG_RETAIL_PLACE_ADRRESS)
+                            {
+                                k = i;
+                                break;
+                            }
+                        }
+                        if (k > 0)
+                        {
+                            var tlvRule = FTag.TFNCommonRules[key].Rules[k];
+                            int tlvNumber = tlvRule.TagNumber;
+                            bool criticality = tlvRule.Critical;
+                            int sourceData = tlvRule.DataSource;
+                            string defData = tlvRule.DefaultData;
+
+                            if (value && sourceData == TFTagRuleSet.RSOURCE_REG_PARAM)
+                            {
+                                // включена настройка перезапись адреса и источник данных для тега из параметров регистрации
+                                FTag.TFNCommonRules[key].Rules.RemoveAt(k);
+                                FTag.TFNCommonRules[key].Rules.Add(new TFTagRuleSet.TFtagRule(tlvNumber,(criticality ? 1 : 0), TFTagRuleSet.RSOURCE_INCLASS, defData));
+                            }
+                            if (!value && sourceData == TFTagRuleSet.RSOURCE_INCLASS)
+                            {
+                                // выключена настройка перезапись адреса и источник данных для тега из чека
+                                // в принципе этот блок необязателен возможно удалю позже
+                                FTag.TFNCommonRules[key].Rules.RemoveAt(k);
+                                FTag.TFNCommonRules[key].Rules.Add(new TFTagRuleSet.TFtagRule(tlvNumber, (criticality ? 1 : 0), TFTagRuleSet.RSOURCE_REG_PARAM, defData));
+                            }
+                        }
+                    }
+                }
+            }
         }
+
         private static bool _overideRetailPlace = false;
         const string OVERRIDE_RETAIL_PLACE = "Use_retail_place=";
         public static bool OverideRetailPlace
         {
             get => _overideRetailPlace;
-            set => _overideRetailPlace = value;
+            set 
+            { 
+                _overideRetailPlace = value;
+                int[] keys = new int[] { 3 + 65536 * 2, 3 + 65536 * 3, 3 + 65536 * 4, 31 + 65536 * 2, 31 + 65536 * 3, 31 + 65536 * 4 };
+                foreach (int key in keys)
+                {
+                    if (FTag.TFNCommonRules.ContainsKey(key) || FTag.TFNCommonRules[key].Rules.Count > 0)
+                    {
+                        int k = -1;
+                        for (int i = 0; i < FTag.TFNCommonRules[key].Rules.Count; i++)
+                        {
+                            if (FTag.TFNCommonRules[key].Rules[i].TagNumber == FiscalPrinter.FTAG_RETAIL_PLACE)
+                            {
+                                k = i;
+                                break;
+                            }
+                        }
+                        if (k > 0)
+                        {
+                            var tlvRule = FTag.TFNCommonRules[key].Rules[k];
+                            int tlvNumber = tlvRule.TagNumber;
+                            bool criticality = tlvRule.Critical;
+                            int sourceData = tlvRule.DataSource;
+                            string defData = tlvRule.DefaultData;
+                            // TFTagRuleSet.RSOURCE_REG_PARAM // TFTagRuleSet.RSOURCE_INCLASS
+                            if (value && sourceData == TFTagRuleSet.RSOURCE_REG_PARAM)
+                            {
+                                // включена настройка перезапись места и источник данных для тега из параметров регистрации
+                                FTag.TFNCommonRules[key].Rules.RemoveAt(k);
+                                FTag.TFNCommonRules[key].Rules.Add(new TFTagRuleSet.TFtagRule(tlvNumber, (criticality ? 1 : 0), TFTagRuleSet.RSOURCE_INCLASS, defData));
+                            }
+                            if (!value && sourceData == TFTagRuleSet.RSOURCE_INCLASS)
+                            {
+                                // выключена настройка перезапись места и источник данных для тега из чека
+                                FTag.TFNCommonRules[key].Rules.RemoveAt(k);
+                                FTag.TFNCommonRules[key].Rules.Add(new TFTagRuleSet.TFtagRule(tlvNumber, (criticality ? 1 : 0), TFTagRuleSet.RSOURCE_REG_PARAM, defData));
+                            }
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -1538,12 +1630,10 @@ namespace FR_Operator
                                         if (xtagrule.Name == "tag")
                                         {
                                             int number = -1000000;
-                                            string type = string.Empty;
-                                            string userFriendlyName = string.Empty;
                                             var xtNumber = xtagrule.GetAttribute("number");
-                                            type = xtagrule.GetAttribute("type");
+                                            string type = xtagrule.GetAttribute("type");
                                             int.TryParse(xtNumber, out number);
-                                            userFriendlyName = xtagrule.InnerText;
+                                            string userFriendlyName = xtagrule.InnerText;
                                             if (number >= -1 && !string.IsNullOrEmpty(type))
                                             {
                                                 tagRules.Add(new object[] { number, type, userFriendlyName });
@@ -1569,11 +1659,10 @@ namespace FR_Operator
                                         {
                                             int number = -1000000;
                                             //string type = string.Empty;
-                                            string fnstoken = string.Empty;
                                             var xtNumber = xtoken.GetAttribute("number");
                                             //type = xtoken.GetAttribute("type");
                                             int.TryParse(xtNumber, out number);
-                                            fnstoken = xtoken.InnerText;
+                                            string fnstoken = xtoken.InnerText;
                                             if (number >= -1 && !string.IsNullOrEmpty(fnstoken))
                                             {
                                                 tokensRule.Add(new object[] { number, fnstoken });

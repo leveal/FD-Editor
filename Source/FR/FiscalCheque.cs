@@ -458,7 +458,7 @@ namespace FR_Operator
             _items.Add(item);
         }
 
-        private double[] _sums = new double[16];    // итоговые суммы чека
+        private double[] _sums = new double[18];    // итоговые суммы чека
         
         //          оплата
         // 1020 ИТОГ
@@ -622,6 +622,24 @@ namespace FR_Operator
                     _sums[FD_SUMS_NDS_7107_LOC] = value;
             }
         }
+        public double Nds22
+        {
+            get { return _sums[FD_SUMS_NDS_22_LOC]; }
+            set
+            {
+                if (value >= 0)
+                    _sums[FD_SUMS_NDS_22_LOC] = value;
+            }
+        }
+        public double Nds22122
+        {
+            get { return _sums[FD_SUMS_NDS_22122_LOC]; }
+            set
+            {
+                if (value >= 0)
+                    _sums[FD_SUMS_NDS_22122_LOC] = value;
+            }
+        }
 
         // 1009 retailAddress
         string _retailAddress = string.Empty;
@@ -699,6 +717,8 @@ namespace FR_Operator
                 _sums[FD_SUMS_NDS_7_LOC] = 0;
                 _sums[FD_SUMS_NDS_5105_LOC] = 0;
                 _sums[FD_SUMS_NDS_7107_LOC] = 0;
+                _sums[FD_SUMS_NDS_22_LOC] = 0;
+                _sums[FD_SUMS_NDS_22122_LOC] = 0;
                 _availableCommonTaxes = true;
                 double noTaxesSum = 0;
                 foreach (ConsumptionItem item in _items)
@@ -782,14 +802,18 @@ namespace FR_Operator
         public string ToString(int type = NONE)
         {
             
-            double taxSum = Math.Round(_sums[FD_SUMS_NDS_20_LOC] +
+            double taxSum = Math.Round(
+                    _sums[FD_SUMS_NDS_20_LOC] +
                     _sums[FD_SUMS_NDS_20120_LOC] +
                     _sums[FD_SUMS_NDS_10_LOC] +
                     _sums[FD_SUMS_NDS_10110_LOC]+
                     _sums[FD_SUMS_NDS_5_LOC]+
                     _sums[FD_SUMS_NDS_5105_LOC]+
                     _sums[FD_SUMS_NDS_7_LOC]+
-                    _sums[FD_SUMS_NDS_7107_LOC],2) ;
+                    _sums[FD_SUMS_NDS_7107_LOC] +
+                    _sums[FD_SUMS_NDS_22_LOC] +
+                    _sums[FD_SUMS_NDS_22122_LOC]
+                    ,2);
             StringBuilder s = new StringBuilder();
 
             if ( type == NONE)
@@ -832,11 +856,6 @@ namespace FR_Operator
                     s.Append(" ВП=");
                     s.Append(_sums[FD_SUMS_PAY_PROVISION_LOC]);
                 }
-                /*double tax = Nds10 + Nds10110 + Nds20 + Nds20120 + Nds5 + Nds7 + Nds5105 + Nds7107;
-                if (tax > 0.0099)
-                {
-                    s.Append(" в т.ч. НДС=" + Math.Round(tax, 2));
-                }*/
                 
             }
             if(type == SHORT_INFO)
@@ -890,10 +909,10 @@ namespace FR_Operator
                     s.Append(" В=");
                     s.Append(Provision);
                 }
-                double tax = Nds10 + Nds10110 + Nds20 + Nds20120 + Nds5 + Nds7 + Nds5105 + Nds7107;
-                if (tax > 0.0099)
+                
+                if (taxSum > 0.0099)
                 {
-                    s.Append(" НДС=" + Math.Round(tax, 2));
+                    s.Append(" НДС=" + Math.Round(taxSum, 2));
                 }
                 s.Append('}');
             }
@@ -1093,6 +1112,16 @@ namespace FR_Operator
                     s.AppendLine(" Сумма НДС по ставке НДС 7/107: " + _sums[FD_SUMS_NDS_7107_LOC]);
                     taxIncluded++;
                 }
+                if (_sums[FD_SUMS_NDS_22_LOC] > 0.009)
+                {
+                    s.AppendLine(" Сумма НДС по ставке НДС 22: " + _sums[FD_SUMS_NDS_22_LOC]);
+                    taxIncluded++;
+                }
+                if (_sums[FD_SUMS_NDS_22122_LOC] > 0.009)
+                {
+                    s.AppendLine(" Сумма НДС по ставке НДС 22/122: " + _sums[FD_SUMS_NDS_22122_LOC]);
+                    taxIncluded++;
+                }
                 if (taxSum > 0.0099 && taxIncluded>1)
                 {
                     s.Append(" Общая сумма НДС в чеке = ");
@@ -1197,6 +1226,8 @@ namespace FR_Operator
             cloned.Nds7 = this.Nds7;
             cloned.Nds5105 = this.Nds5105;
             cloned.Nds7107 = this.Nds7107;
+            cloned.Nds22 = this.Nds22;
+            cloned.Nds22122 = this.Nds22122;
             cloned.TotalSum = this.TotalSum;
 
             return cloned;
@@ -1354,7 +1385,7 @@ namespace FR_Operator
             //1108 internetSign
             else if(tagNumber == FTAG_AMOUNTS_RECEIPT_NDS) // 1115
             {
-                if (AppSettings.TFNFillTagNdsAmountsMethod == 0) // метод ЧК штриха добавить настройки
+                if (AppSettings.TFNFillTagNdsAmountsMethod == 0) // добавляем все суммыы
                 {
                     FTag nds5vln = new FTag(FTAG_AMOUNTS_NDS_NDSSUM,(int)Math.Round(Nds5*100.0),true);
                     FTag nds5st = new FTag(FTAG_ITEM_NDS_RATE, NDS_TYPE_5_LOC, true);
@@ -1384,16 +1415,32 @@ namespace FR_Operator
                     nest7107.Add(nds7107st);
                     FTag amountNds7107 = new FTag(FTAG_AMOUNTS_NDS, nest7107, true);
 
+                    FTag nds22vln = new FTag(FTAG_AMOUNTS_NDS_NDSSUM, (int)Math.Round(Nds22 * 100.0), true);
+                    FTag nds22st = new FTag(FTAG_ITEM_NDS_RATE, NDS_TYPE_22_LOC, true);
+                    List<FTag> nest22 = new List<FTag>();
+                    nest22.Add(nds22vln);
+                    nest22.Add(nds22st);
+                    FTag amountNds22 = new FTag(FTAG_AMOUNTS_NDS, nest22, true);
+
+                    FTag nds22122vln = new FTag(FTAG_AMOUNTS_NDS_NDSSUM, (int)Math.Round(Nds22122 * 100.0), true);
+                    FTag nds22122st = new FTag(FTAG_ITEM_NDS_RATE, NDS_TYPE_22122_LOC, true);
+                    List<FTag> nest22122 = new List<FTag>();
+                    nest22.Add(nds22122vln);
+                    nest22.Add(nds22122st);
+                    FTag amountNds22122 = new FTag(FTAG_AMOUNTS_NDS, nest22122, true);
+
                     List<FTag> amountsNdsSums = new List<FTag>();
                     amountsNdsSums.Add(amountNds5);
                     amountsNdsSums.Add(amountNds7);
                     amountsNdsSums.Add(amountNds5105);
                     amountsNdsSums.Add(amountNds7107);
+                    amountsNdsSums.Add(amountNds22);
+                    amountsNdsSums.Add(amountNds22122);
                     FTag famountsNdsSums = new FTag(FTAG_AMOUNTS_RECEIPT_NDS, amountsNdsSums, true);
                     l = new List<FTag>();
                     l.Add(famountsNdsSums);
                 }
-                else   // метод атола
+                else   // добавляем только ненулевые
                 {
                     
                     FTag famountsNdsSums = new FTag(FTAG_AMOUNTS_RECEIPT_NDS, new List<FTag>(), true);
@@ -1439,6 +1486,28 @@ namespace FR_Operator
                         nest7107.Add(nds7107st);
                         FTag amountNds7107 = new FTag(FTAG_AMOUNTS_NDS, nest7107, true);
                         famountsNdsSums.Nested.Add(amountNds7107);
+                    }
+
+                    if (Nds22 > 0.009)
+                    {
+                        FTag nds22vln = new FTag(FTAG_AMOUNTS_NDS_NDSSUM, (int)Math.Round(Nds22 * 100.0), true);
+                        FTag nds22st = new FTag(FTAG_ITEM_NDS_RATE, NDS_TYPE_22_LOC, true);
+                        List<FTag> nest22 = new List<FTag>();
+                        nest22.Add(nds22vln);
+                        nest22.Add(nds22st);
+                        FTag amountNds22 = new FTag(FTAG_AMOUNTS_NDS, nest22, true);
+                        famountsNdsSums.Nested.Add(amountNds22);
+                    }
+
+                    if (Nds22122 > 0.009)
+                    {
+                        FTag nds22122vln = new FTag(FTAG_AMOUNTS_NDS_NDSSUM, (int)Math.Round(Nds22122 * 100.0), true);
+                        FTag nds22122st = new FTag(FTAG_ITEM_NDS_RATE, NDS_TYPE_22122_LOC, true);
+                        List<FTag> nest22122 = new List<FTag>();
+                        nest22122.Add(nds22122vln);
+                        nest22122.Add(nds22122st);
+                        FTag amountNds22122 = new FTag(FTAG_AMOUNTS_NDS, nest22122, true);
+                        famountsNdsSums.Nested.Add(amountNds22122);
                     }
                     if (famountsNdsSums.Nested.Count > 0)
                     {

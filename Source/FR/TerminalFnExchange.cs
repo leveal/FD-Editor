@@ -360,55 +360,16 @@ namespace FR_Operator
         private DateTime _minAvailableTimeFd = new DateTime(2024,01,01);
         bool _dtErrorSet = false;
 
-        
-        /*
-         * Данный блок неактуален позже проверить и удалить
-         * основной источник времени _timeSource
-         * 0 - текущее время 
-         * 1 - настраивамое абсолютное значение
-         * 2 - смещение относительно последнего ФД
-         * _shiftLaunched был ли произведен запуск времени
-         *      
-         *      _timeSource = 0 
-         *      => возвращается текущее время все остальные настройки игнорируются
-         *      
-         *      _timeSource = 1  _shiftLaunched = false
-         *      =>  возвращается _shiftedAbsTime
-         *    при запуске времени производится расчет _spanShiftAbs = (DateTime.Now-_shiftedAbsTime) и устанавливается _shiftLaunched true
-         *      _timeSource = 1  _shiftLaunched = true
-         *      => возвращается DateTime.Now - _spanShiftAbs
-         *      
-         *      
-         *      _timeSource = 2 
-         *     *!!Возможность активации данного значения должно зависеть от наличия в памяти данных о последнем ФД
-         *
-         *      _timeSource = 2 _shiftLaunched = false
-         *      =>  возвращается данные из запроса статуса дата последнего ФД + _fdPlusMins
-         *    при запуске времени производится расчет _spanShiftAbs = (DateTime.Now-lastFd.Time) и устанавливается _shiftLaunched true
-         *      _timeSource = 2 _shiftLaunched = true
-         *      => возвращается DateTime.Now - _spanShiftAbs
-         *      
-         *      При смене настройки _shiftLaunched => false
-         *      
-         *      стоит сделать вложенный класс ? *
-         */
         int _timeSource = 0;
         public int TimeSource { get => _timeSource; }
         bool _shiftLaunched = false;
-        //public bool ShiftLaunched { get => _shiftLaunched; }
         
         TimeSpan _spanShiftAbs = TimeSpan.Zero;
         DateTime _shiftedAbsTime = DateTime.Now;
-        //public DateTime ShifAbsTime { get => _shiftedAbsTime; }
         
         DateTime _lastFdTime = DateTime.MinValue;
         
         int _fdPlusMins = 0;
-        /*
-         *   публичные методы выше удалить, реализовано без них
-         */
-
-
 
         public int PlusMin { get => _fdPlusMins; }
 
@@ -1281,7 +1242,6 @@ namespace FR_Operator
 
         
         TaskCompletionSource<bool> tcs_levell_0 = null;
-        //bool _badExchangeLevel_0 = false;
 
 
         void PortDataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -2179,8 +2139,6 @@ namespace FR_Operator
             return RECEVING_DATA_ERROR;
         } 
 
-
-        //private DateTime _lastPortCheckAvailability = DateTime.MinValue;
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
             _deviceAvailable = true;
@@ -2333,10 +2291,7 @@ namespace FR_Operator
         /*
          *  tfn_ir - требуется ли реакция интерфейса ТФН
          *  Данная команда чаще всего будет посылаться в виде начала последовательности комманд 
-         *  и реакция интерфейса будет замедлять обмен
-         *  
-         *  
-         *  
+         *  и реакция интерфейса будет замедлять обмен 
          */
         internal async Task<int> GetShiftParamsAsync(bool tfn_ir = false)
         {
@@ -2808,8 +2763,6 @@ namespace FR_Operator
                 }
 
             }
-
-
             return null;
         }
 
@@ -3323,22 +3276,20 @@ namespace FR_Operator
             foreach (var tlvRule in FTag.TFNCommonRules[key].Rules)
             {
                 int tlvNumber = tlvRule.TagNumber;
-                //if(tlvNumber == 1084) 
-                //    LogHandle.ol("debug 1084");
                 int sourceData = tlvRule.DataSource;
                 string defData = tlvRule.DefaultData;
                 List<FTag> l = null;
                 FTag f = null;
-                if(tlvNumber == FTAG_ITEM)
+                if (tlvNumber == FTAG_ITEM)
                 {
-                    foreach(ConsumptionItem i in doc.Items)
+                    foreach (ConsumptionItem i in doc.Items)
                     {
                         if (FfdFtagFormat == 2 && doc.DocumentNameFtagType == FTAG_FISCAL_DOCUMENT_TYPE_RECEIPT_CORRECTION_CHEQUE && AppSettings.TFN_SkipItemsInCoorectionFfd2)
                         {
                             // в чеках коррекции ПР не обязательны
                             continue;
                         }
-                            
+
                         List<FTag> item = i.GetItemFtag(_ffdFtagFormat);    // тут переделать на key
                         operation = Task.Run(async () => await SendTlvData(item)).Result;
                         if (operation != OK)
@@ -3367,13 +3318,25 @@ namespace FR_Operator
                     else if (sourceData == TFTagRuleSet.RSOURCE_INCLASS)
                     {
                         l = doc.GetFtagList(tlvNumber);
-                        if(tlvNumber == FTAG_APPLIED_TAXATION_TYPE)
+                        if (tlvNumber == FTAG_APPLIED_TAXATION_TYPE)
                         {
                             if (l == null || l.Count == 0 || l[0].ValueInt == 0)
                             {
                                 FTag sno = GetFtagIc(FTAG_APPLIED_TAXATION_TYPE);
                                 l = new List<FTag>();
                                 l.Add(sno);
+                            }
+                        }
+                        else if( tlvNumber == FTAG_RETAIL_PLACE_ADRRESS || tlvNumber == FTAG_RETAIL_PLACE )
+                        {
+                            if(l == null || l.Count == 0)
+                            {
+                                f = GetRegFtag(tlvNumber);
+                                if (f != null && f.TagNumber > 0)
+                                {
+                                    l = new List<FTag>();
+                                    l.Add(f);
+                                }
                             }
                         }
 

@@ -234,6 +234,8 @@ namespace FR_Operator
              NDS_TYPE_7_LOC = 8,                                // Ставка НДС 7
              NDS_TYPE_5105_LOC = 9,                                // Ставка НДС 5106
              NDS_TYPE_7107_LOC = 10,                                // Ставка НДС 7107
+             NDS_TYPE_22_LOC = 11,                                // Ставка НДС 22
+             NDS_TYPE_22122_LOC = 12,                                // Ставка НДС 22/122
 
              /* Оплата чека*/
              FD_SUMS_TOTAL_SUM_LOC = 0,                            // 1020 Итог 
@@ -249,10 +251,12 @@ namespace FR_Operator
              FD_SUMS_NDS_10110_LOC = 9,                        // 1142 сумма НДС 10/110 в чеке  
              FD_SUMS_NDS_0_LOC = 10,                               // 1143 сумма НДС 0 в чеке  
              FD_SUMS_NDS_FREE_LOC = 11,                         // 1183 сумма без НДС  в чеке  
-             FD_SUMS_NDS_5_LOC = 12,
+             FD_SUMS_NDS_5_LOC = 12,                            // входит в реквизит 1115
              FD_SUMS_NDS_7_LOC = 13,
              FD_SUMS_NDS_5105_LOC = 14,
              FD_SUMS_NDS_7107_LOC = 15,
+             FD_SUMS_NDS_22_LOC = 16,
+             FD_SUMS_NDS_22122_LOC = 17,
 
 
 
@@ -260,13 +264,11 @@ namespace FR_Operator
             FD_DC_OK = 0,                                                                   // нет информации
             FD_DC_CRITICAL_ERROR_BF = 0b1,                                                  // невозможно оформить документ
             FD_DC_ERROR_NOT_ENOUTH_PAID_BF = 0b10,                                          // чек не оплачен
-            //FD_DC_WARN_NDS_SUMS_BF = 0b100,                                                 // некорректны суммы НДС 
             FD_DC_ERROR_BAD_ITEM_BF = 0b1000,                                               // некорректен предмет расчета
             FD_DC_WARN_WARNED_ITEM_BF = 0b10000,                                            // некритичная проблема с одним из предметов расчета
             FD_DC_ERROR_OVERPAID_CRITICAL_BF = 0b100000,                                    // критичная переплата в документе
             FD_DC_ERROR_OVERPAID_WITH_CHANGE_BF = 0b1000000,                                // переплата в документе со сдачей наличными
             FD_DC_PAID_EXACT_BF = 0b10000000,                                               // точная оплата документа
-            //FD_DC_PAID_WRITE_DOWN_PENNIES_BF = 0b100000000,                                 // округление/списание копеек
 
             FD_CORRECTION_TYPE = 11310,                                                     // 1174 Основание для коррекции составной STLV
              FD_CORRECTION_TYPE_SELF_MADE = 11311, FD_CORRECTION_TYPE_SELF_LOC = 0,         // 1173 Тип коррекции самостоятельно
@@ -353,11 +355,9 @@ namespace FR_Operator
             [FD_DC_OK] = SUCCESS_MSG,
             [FD_DC_CRITICAL_ERROR_BF] = "Невозможно оформить документ",
             [FD_DC_ERROR_NOT_ENOUTH_PAID_BF] = "Документ не оплачен",
-            //[FD_DC_WARN_NDS_SUMS_BF] = "Суммы НДС не сходятся",
             [FD_DC_ERROR_BAD_ITEM_BF] = "Некорректный предмет расчета",
             [FD_DC_WARN_WARNED_ITEM_BF] = "Некритичная проблема в предмете расчета",
             [FD_DC_ERROR_OVERPAID_CRITICAL_BF] = "Переплата в документе",
-            //[FD_DC_PAID_WRITE_DOWN_PENNIES_BF] = "округление/списание копеек",
             [FD_DC_ERROR_OVERPAID_WITH_CHANGE_BF] = "документ со сдачей"
         };
 
@@ -473,9 +473,9 @@ namespace FR_Operator
             {"ВНО","ВЗНОСЫ НА ОМС" },               // 24
             {"ВОСС","ВЗНОСЫ НА ОСС" },              // 25
             {"ПК","платеж казино" },                // 26
-            {"","" },                               // 27
-            {"","" },                               // 28
-            {"","" },                               // 29
+            {"err","ОШИБКА несушествующий признак 27" },// 27
+            {"err","ОШИБКА несушествующий признак 28" },// 28
+            {"err","ОШИБКА несушествующий признак 29" },// 29
             {"АТНМ","подакциз. без кода марк." },   // 30
             {"АТН","подакциз. им код марк." },      // 31
             {"ТНМ","марк тов. без кода марк." },    // 32
@@ -505,6 +505,8 @@ namespace FR_Operator
             "НДС 7%",
             "НДС 5/105",
             "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122",
         };
         public static Dictionary<int, string> TaxSystem = new Dictionary<int, string>
         {
@@ -1332,6 +1334,10 @@ namespace FR_Operator
                                                     doc.Cheque.Nds5105 = taxAmount;
                                                 else if (taxType == NDS_TYPE_7107_LOC)
                                                     doc.Cheque.Nds7107 = taxAmount;
+                                                else if (taxType == NDS_TYPE_22_LOC)
+                                                    doc.Cheque.Nds22 = taxAmount;
+                                                else if (taxType == NDS_TYPE_22122_LOC)
+                                                    doc.Cheque.Nds22122 = taxAmount;
                                             }
                                             else if (taxAmount<0.001)
                                             {

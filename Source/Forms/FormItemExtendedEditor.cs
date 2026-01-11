@@ -358,6 +358,10 @@ namespace FR_Operator
                 {
                     item.ProviderPhone = textBox_itemsProviderDataProviderPhone.Text;
                 }
+                else if(sender == textBox_itemsCustomEntryNum)
+                {
+                    item.CustomEntryNum = textBox_itemsCustomEntryNum.Text;
+                }
             }
 
 

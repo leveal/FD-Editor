@@ -17,7 +17,12 @@ namespace FR_Operator
         {
             if (name == null)
                 name = "";
-            _name = name.Length<=128 ? name : name.Substring(0,128);
+            else
+            {
+                name.Replace("\r", "");
+                name.Replace("\n", "");
+            }
+            _name = name.Length <= 128 ? name : name.Substring(0, 128);
             _price = price;
             _quantity = quantity;
             _sum = sum;
@@ -42,13 +47,13 @@ namespace FR_Operator
                 if (!string.IsNullOrEmpty(value))
                     _name = value;
                 
-                while (_name.IndexOf('\n') >= 0)
+                if (_name.IndexOf('\n') >= 0)
                 {
-                    _name.Remove(_name.IndexOf('\n'));
+                    _name.Replace("'\n'","");
                 }
-                while (_name.IndexOf('\r') >= 0)
+                if (_name.IndexOf('\r') >= 0)
                 {
-                    _name.Remove(_name.IndexOf('\r'));
+                    _name.Replace("'\r'", "");
                 }
                 if(_name.Length>128)
                     _name = _name.Substring(0,128);
@@ -115,14 +120,14 @@ namespace FR_Operator
         }
 
         int _ndsRate = 0;
-        /* 1199 BYTE {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+        /* 1199 BYTE {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
          *  ставка НДС */
         public int NdsRate
         {
             get { return _ndsRate; }
             set
             {
-                if (value >= 0 && value <= 10)
+                if (value >= 0 && value <= 12)
                     _ndsRate = value;
                 Control();
             }
@@ -454,9 +459,9 @@ namespace FR_Operator
                 {
                     _providerName = string.Empty;
                 }
-                else if (value.Length > 19)
+                else if (value.Length > 255)
                 {
-                    _providerName = value.Substring(0, 19);
+                    _providerName = value.Substring(0, 255);
                 }
                 else
                 {
@@ -550,19 +555,23 @@ namespace FR_Operator
                     break;
                 case NDS_TYPE_20120_LOC:
                 case NDS_TYPE_20_LOC:
-                    _ndsSum = Math.Round(_sum / 6, 2);
+                    _ndsSum = Math.Round(_sum / 6.0, 2);
                     break;
                 case NDS_TYPE_10110_LOC:
                 case NDS_TYPE_10_LOC:
-                    _ndsSum = Math.Round(_sum / 11, 2);
+                    _ndsSum = Math.Round(_sum / 11.0, 2);
                     break;
                 case NDS_TYPE_5_LOC:
                 case NDS_TYPE_5105_LOC:
-                    _ndsSum = Math.Round(_sum / 21, 2);
+                    _ndsSum = Math.Round(_sum / 21.0, 2);
                     break;
                 case NDS_TYPE_7_LOC:
                 case NDS_TYPE_7107_LOC:
-                    _ndsSum = Math.Round(_sum*7.0 / 107, 2);
+                    _ndsSum = Math.Round(_sum * 7.0 / 107.0, 2);
+                    break;
+                case NDS_TYPE_22_LOC:
+                case NDS_TYPE_22122_LOC:
+                    _ndsSum = Math.Round(_sum * 11.0 / 61.0, 2);
                     break;
             }
 
