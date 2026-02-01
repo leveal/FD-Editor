@@ -504,7 +504,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_docTypeChooser.Location = new System.Drawing.Point(6, 19);
             this.comboBox_docTypeChooser.Name = "comboBox_docTypeChooser";
             this.comboBox_docTypeChooser.Size = new System.Drawing.Size(395, 21);
@@ -631,7 +639,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_operationType.Location = new System.Drawing.Point(6, 19);
             this.comboBox_operationType.Name = "comboBox_operationType";
             this.comboBox_operationType.Size = new System.Drawing.Size(395, 21);
@@ -743,7 +759,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkId.Location = new System.Drawing.Point(6, 19);
             this.comboBox_checkId.Name = "comboBox_checkId";
             this.comboBox_checkId.Size = new System.Drawing.Size(391, 21);
@@ -841,7 +865,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_retailPlace.Location = new System.Drawing.Point(6, 19);
             this.comboBox_retailPlace.Name = "comboBox_retailPlace";
             this.comboBox_retailPlace.Size = new System.Drawing.Size(364, 21);
@@ -925,7 +957,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_retailAddress.Location = new System.Drawing.Point(7, 19);
             this.comboBox_retailAddress.Name = "comboBox_retailAddress";
             this.comboBox_retailAddress.Size = new System.Drawing.Size(364, 21);
@@ -1040,7 +1080,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_cashierInn.Location = new System.Drawing.Point(7, 109);
             this.comboBox_cashierInn.Name = "comboBox_cashierInn";
             this.comboBox_cashierInn.Size = new System.Drawing.Size(364, 21);
@@ -1104,7 +1152,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_cashier.Location = new System.Drawing.Point(7, 32);
             this.comboBox_cashier.Name = "comboBox_cashier";
             this.comboBox_cashier.Size = new System.Drawing.Size(364, 21);
@@ -1259,7 +1315,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_selectedSno.Location = new System.Drawing.Point(7, 14);
             this.comboBox_selectedSno.Name = "comboBox_selectedSno";
             this.comboBox_selectedSno.Size = new System.Drawing.Size(364, 21);
@@ -1345,7 +1409,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_propertiesData.Location = new System.Drawing.Point(7, 20);
             this.comboBox_propertiesData.Name = "comboBox_propertiesData";
             this.comboBox_propertiesData.Size = new System.Drawing.Size(364, 21);
@@ -1442,7 +1514,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_correctionOrderNumber.Location = new System.Drawing.Point(7, 16);
             this.comboBox_correctionOrderNumber.Name = "comboBox_correctionOrderNumber";
             this.comboBox_correctionOrderNumber.Size = new System.Drawing.Size(364, 21);
@@ -1528,7 +1608,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_correctionType.Location = new System.Drawing.Point(7, 20);
             this.comboBox_correctionType.Name = "comboBox_correctionType";
             this.comboBox_correctionType.Size = new System.Drawing.Size(364, 21);
@@ -1643,7 +1731,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_correctionDate.Location = new System.Drawing.Point(7, 20);
             this.comboBox_correctionDate.Name = "comboBox_correctionDate";
             this.comboBox_correctionDate.Size = new System.Drawing.Size(364, 21);
@@ -1857,7 +1953,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsProductType.Location = new System.Drawing.Point(7, 17);
             this.comboBox_itemsProductType.Name = "comboBox_itemsProductType";
             this.comboBox_itemsProductType.Size = new System.Drawing.Size(364, 21);
@@ -2006,7 +2110,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPaymentTypeSign.Location = new System.Drawing.Point(7, 17);
             this.comboBox_itemsPaymentTypeSign.Name = "comboBox_itemsPaymentTypeSign";
             this.comboBox_itemsPaymentTypeSign.Size = new System.Drawing.Size(364, 21);
@@ -2080,7 +2192,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsSum.Location = new System.Drawing.Point(7, 20);
             this.comboBox_itemsSum.Name = "comboBox_itemsSum";
             this.comboBox_itemsSum.Size = new System.Drawing.Size(364, 21);
@@ -2154,7 +2274,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPrice.Location = new System.Drawing.Point(7, 20);
             this.comboBox_itemsPrice.Name = "comboBox_itemsPrice";
             this.comboBox_itemsPrice.Size = new System.Drawing.Size(364, 21);
@@ -2249,7 +2377,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsQuantity.Location = new System.Drawing.Point(7, 20);
             this.comboBox_itemsQuantity.Name = "comboBox_itemsQuantity";
             this.comboBox_itemsQuantity.Size = new System.Drawing.Size(364, 21);
@@ -2344,7 +2480,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsName.Location = new System.Drawing.Point(7, 20);
             this.comboBox_itemsName.Name = "comboBox_itemsName";
             this.comboBox_itemsName.Size = new System.Drawing.Size(364, 21);
@@ -2549,7 +2693,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsUnit120.Location = new System.Drawing.Point(7, 20);
             this.comboBox_itemsUnit120.Name = "comboBox_itemsUnit120";
             this.comboBox_itemsUnit120.Size = new System.Drawing.Size(364, 21);
@@ -2669,7 +2821,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsNdsRate.Location = new System.Drawing.Point(7, 20);
             this.comboBox_itemsNdsRate.Name = "comboBox_itemsNdsRate";
             this.comboBox_itemsNdsRate.Size = new System.Drawing.Size(364, 21);
@@ -2757,7 +2917,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsCustomEntryNum_1231.Location = new System.Drawing.Point(333, 376);
             this.comboBox_itemsCustomEntryNum_1231.Name = "comboBox_itemsCustomEntryNum_1231";
             this.comboBox_itemsCustomEntryNum_1231.Size = new System.Drawing.Size(278, 21);
@@ -2868,7 +3036,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsProviderDataProviderPhone_1171.Location = new System.Drawing.Point(295, 70);
             this.comboBox_itemsProviderDataProviderPhone_1171.Name = "comboBox_itemsProviderDataProviderPhone_1171";
             this.comboBox_itemsProviderDataProviderPhone_1171.Size = new System.Drawing.Size(278, 21);
@@ -2941,7 +3117,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsProviderDataProviderName_1225.Location = new System.Drawing.Point(295, 42);
             this.comboBox_itemsProviderDataProviderName_1225.Name = "comboBox_itemsProviderDataProviderName_1225";
             this.comboBox_itemsProviderDataProviderName_1225.Size = new System.Drawing.Size(278, 21);
@@ -3014,7 +3198,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsProviderInn_1226.Location = new System.Drawing.Point(295, 15);
             this.comboBox_itemsProviderInn_1226.Name = "comboBox_itemsProviderInn_1226";
             this.comboBox_itemsProviderInn_1226.Size = new System.Drawing.Size(278, 21);
@@ -3179,7 +3371,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.Location = new System.Drawing.Point(295, 201);
             this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.Name = "comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073";
             this.comboBox_itemsPaymentAgentDataPaymentAgentPhone_1073.Size = new System.Drawing.Size(278, 21);
@@ -3252,7 +3452,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.Location = new System.Drawing.Point(295, 174);
             this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.Name = "comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044";
             this.comboBox_itemsPaymentAgentDataPpaymentAgentOperation_1044.Size = new System.Drawing.Size(278, 21);
@@ -3325,7 +3533,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.Location = new System.Drawing.Point(295, 147);
             this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.Name = "comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074";
             this.comboBox_itemsPaymentAgentDataPaymentOperatorPhone_1074.Size = new System.Drawing.Size(278, 21);
@@ -3398,7 +3614,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.Location = new System.Drawing.Point(295, 120);
             this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.Name = "comboBox_itemsPaymentAgentDataTransferOperatorName_1026";
             this.comboBox_itemsPaymentAgentDataTransferOperatorName_1026.Size = new System.Drawing.Size(278, 21);
@@ -3471,7 +3695,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.Location = new System.Drawing.Point(295, 93);
             this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.Name = "comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005";
             this.comboBox_itemsPaymentAgentDataTransferOperatorAddress_1005.Size = new System.Drawing.Size(278, 21);
@@ -3544,7 +3776,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.Location = new System.Drawing.Point(295, 66);
             this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.Name = "comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075";
             this.comboBox_itemsPaymentAgentDataTransferOperatorPhone_1075.Size = new System.Drawing.Size(278, 21);
@@ -3617,7 +3857,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.Location = new System.Drawing.Point(295, 39);
             this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.Name = "comboBox_itemsPaymentAgentDataTransferOperatorInn_1016";
             this.comboBox_itemsPaymentAgentDataTransferOperatorInn_1016.Size = new System.Drawing.Size(278, 21);
@@ -3690,7 +3938,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_items_agent_1222.Location = new System.Drawing.Point(295, 12);
             this.comboBox_items_agent_1222.Name = "comboBox_items_agent_1222";
             this.comboBox_items_agent_1222.Size = new System.Drawing.Size(278, 21);
@@ -3914,7 +4170,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkPaidProvision.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkPaidProvision.Name = "comboBox_checkPaidProvision";
             this.comboBox_checkPaidProvision.Size = new System.Drawing.Size(364, 21);
@@ -3988,7 +4252,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkPaidCredit.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkPaidCredit.Name = "comboBox_checkPaidCredit";
             this.comboBox_checkPaidCredit.Size = new System.Drawing.Size(364, 21);
@@ -4062,7 +4334,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkPaidPrepaid.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkPaidPrepaid.Name = "comboBox_checkPaidPrepaid";
             this.comboBox_checkPaidPrepaid.Size = new System.Drawing.Size(364, 21);
@@ -4136,7 +4416,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkPaidEcash.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkPaidEcash.Name = "comboBox_checkPaidEcash";
             this.comboBox_checkPaidEcash.Size = new System.Drawing.Size(364, 21);
@@ -4210,7 +4498,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkPaidCash.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkPaidCash.Name = "comboBox_checkPaidCash";
             this.comboBox_checkPaidCash.Size = new System.Drawing.Size(364, 21);
@@ -4339,7 +4635,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax22122.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax22122.Name = "comboBox_checkTax22122";
             this.comboBox_checkTax22122.Size = new System.Drawing.Size(364, 21);
@@ -4413,7 +4717,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax22.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax22.Name = "comboBox_checkTax22";
             this.comboBox_checkTax22.Size = new System.Drawing.Size(364, 21);
@@ -4487,7 +4799,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax7107.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax7107.Name = "comboBox_checkTax7107";
             this.comboBox_checkTax7107.Size = new System.Drawing.Size(364, 21);
@@ -4561,7 +4881,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax5105.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax5105.Name = "comboBox_checkTax5105";
             this.comboBox_checkTax5105.Size = new System.Drawing.Size(364, 21);
@@ -4635,7 +4963,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax7.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax7.Name = "comboBox_checkTax7";
             this.comboBox_checkTax7.Size = new System.Drawing.Size(364, 21);
@@ -4709,7 +5045,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax5.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax5.Name = "comboBox_checkTax5";
             this.comboBox_checkTax5.Size = new System.Drawing.Size(364, 21);
@@ -4783,7 +5127,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTaxFree.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTaxFree.Name = "comboBox_checkTaxFree";
             this.comboBox_checkTaxFree.Size = new System.Drawing.Size(364, 21);
@@ -4857,7 +5209,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax0.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax0.Name = "comboBox_checkTax0";
             this.comboBox_checkTax0.Size = new System.Drawing.Size(364, 21);
@@ -4931,7 +5291,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax10110.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax10110.Name = "comboBox_checkTax10110";
             this.comboBox_checkTax10110.Size = new System.Drawing.Size(364, 21);
@@ -5005,7 +5373,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax20120.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax20120.Name = "comboBox_checkTax20120";
             this.comboBox_checkTax20120.Size = new System.Drawing.Size(364, 21);
@@ -5079,7 +5455,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax10.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax10.Name = "comboBox_checkTax10";
             this.comboBox_checkTax10.Size = new System.Drawing.Size(364, 21);
@@ -5153,7 +5537,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_checkTax20.Location = new System.Drawing.Point(7, 20);
             this.comboBox_checkTax20.Name = "comboBox_checkTax20";
             this.comboBox_checkTax20.Size = new System.Drawing.Size(364, 21);
@@ -5308,7 +5700,15 @@
             "AW - 49",
             "AX - 50",
             "AY - 51",
-            "AZ - 52"});
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
             this.comboBox_emailPhone.Location = new System.Drawing.Point(7, 17);
             this.comboBox_emailPhone.Name = "comboBox_emailPhone";
             this.comboBox_emailPhone.Size = new System.Drawing.Size(364, 21);

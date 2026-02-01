@@ -59,14 +59,14 @@ namespace FR_Operator
             if (_interfaceReaction)
             {
                 KKMInfoTransmitter[FR_SHIFT_STATE_KEY] = "Смена открыта";
-                KKMInfoTransmitter[FR_OWNER_USER_KEY] = "Рога и копыта";
+                KKMInfoTransmitter[FR_OWNER_USER_KEY] = "Закрытое акционерное общество Рога, копыта, шерсть и хвост";
                 KKMInfoTransmitter[FR_TIME_KEY] = DateTime.Now.ToString(DEFAULT_DT_FORMAT);
                 KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY] = _lastFD.ToString();
                 KKMInfoTransmitter[FR_SERIAL_KEY] = "emu-0123456";
                 KKMInfoTransmitter[FR_FIRMWARE_KEY] = "emu-v-7";
                 KKMInfoTransmitter[FR_FFDVER_KEY] = "1.2";
                 KKMInfoTransmitter[FR_REGISTERD_SNO_KEY] = "УСД";
-                KKMInfoTransmitter[FR_OWNER_ADDRESS_KEY] = "Moscow";
+                KKMInfoTransmitter[FR_OWNER_ADDRESS_KEY] = "100500, г Москва, вн.тер.г. муниципальный округ Алексеевский, пр-кт Мира, д. 138 к. 12, помещение 1";
                 KKMInfoTransmitter[FR_OFD_EXCHANGE_STATUS_KEY] = "empty";
                 KKMInfoTransmitter[FR_STATUS_MODE_KEY] = "empty";
                 KKMInfoTransmitter[FR_MODEL_KEY] = "emu-frf";

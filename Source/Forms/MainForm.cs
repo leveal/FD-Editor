@@ -157,7 +157,7 @@ namespace FR_Operator
 
         void WriteKKMInfo()
         {
-            kkminfo_lb_model_name.Text = KKMInfoTransmitter[FR_MODEL_KEY];
+            /*kkminfo_lb_model_name.Text = KKMInfoTransmitter[FR_MODEL_KEY];
             kkminfo_lb_serial.Text = KKMInfoTransmitter[FR_SERIAL_KEY];
             kkminfo_lb_shiftstate.Text = KKMInfoTransmitter[FR_SHIFT_STATE_KEY];
             kkminfo_lb_fdnumber.Text = KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY];
@@ -168,7 +168,107 @@ namespace FR_Operator
             kkminfo_lb_usingsno.Text = KKMInfoTransmitter[FR_REGISTERD_SNO_KEY];
             kkminfo_lb_address.Text = KKMInfoTransmitter[FR_OWNER_ADDRESS_KEY];
             kkminfo_lb_ofdExchange.Text = KKMInfoTransmitter[FR_OFD_EXCHANGE_STATUS_KEY];
-            kkminfo_lb_mode.Text = KKMInfoTransmitter[FR_STATUS_MODE_KEY];
+            kkminfo_lb_mode.Text = KKMInfoTransmitter[FR_STATUS_MODE_KEY];*/
+
+            StringBuilder sb = new StringBuilder("ККТ  ");
+            int kktLen = KKMInfoTransmitter[FR_MODEL_KEY].Length;
+            sb.AppendLine(KKMInfoTransmitter[FR_MODEL_KEY]);
+            sb.AppendLine("Зав.№  " + KKMInfoTransmitter[FR_SERIAL_KEY]);
+            int serialLen = KKMInfoTransmitter[FR_SERIAL_KEY].Length;
+            int serialStart = sb.Length - 3 - serialLen;
+            sb.AppendLine("Посл. ФД  "+ KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY] + ";  ФФД: " + KKMInfoTransmitter[FR_FFDVER_KEY]);
+            int fdNumLen = KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY].Length;
+            int ffdVerLen = KKMInfoTransmitter[FR_FFDVER_KEY].Length;
+            int ffdVerStart = sb.Length - 4 - ffdVerLen;
+            int fdNumStart = ffdVerStart - 8 - fdNumLen;
+            sb.AppendLine("Время в ККТ:  "+ KKMInfoTransmitter[FR_TIME_KEY]);
+            int frTimeLen = KKMInfoTransmitter[FR_TIME_KEY].Length;
+            int frTimeStart = sb.Length - 5 - frTimeLen;
+            sb.AppendLine("Смена:  "+ KKMInfoTransmitter[FR_SHIFT_STATE_KEY]);
+            int shiftlen = KKMInfoTransmitter[FR_SHIFT_STATE_KEY].Length;
+            int shiftStart = sb.Length - 6 - shiftlen;
+            sb.AppendLine("Непереданы/от  " + KKMInfoTransmitter[FR_OFD_EXCHANGE_STATUS_KEY]);
+            int exchangeLen = KKMInfoTransmitter[FR_OFD_EXCHANGE_STATUS_KEY].Length;
+            int exchangeStart = sb.Length - 7 - exchangeLen;
+            string userUl = UserConversion(KKMInfoTransmitter[FR_OWNER_USER_KEY]);
+            sb.AppendLine("Пользователь: "+ userUl);
+            int userLen = userUl.Length;
+            int userStart = sb.Length - 8 - userLen;
+            sb.AppendLine("СНО: "+ KKMInfoTransmitter[FR_REGISTERD_SNO_KEY]);
+            int snoLen = KKMInfoTransmitter[FR_REGISTERD_SNO_KEY].Length;
+            int snoStart = sb.Length - 9 - snoLen;
+            sb.AppendLine("Адрес: "+ KKMInfoTransmitter[FR_OWNER_ADDRESS_KEY]);
+            int addrLen = KKMInfoTransmitter[FR_OWNER_ADDRESS_KEY].Length;
+            int addrStart = sb.Length - 10 - addrLen;
+            sb.AppendLine("Режим: "+ KKMInfoTransmitter[FR_STATUS_MODE_KEY]);
+            int modeLen = KKMInfoTransmitter[FR_STATUS_MODE_KEY].Length;
+            int modeStart = sb.Length - 11 - modeLen;
+            sb.Append("Прошивка: "+ KKMInfoTransmitter[FR_FIRMWARE_KEY]);
+            int fwStart = sb.Length - 10 - KKMInfoTransmitter[FR_FIRMWARE_KEY].Length;
+            int fwLen = KKMInfoTransmitter[FR_FIRMWARE_KEY].Length;
+            //sb.AppendLine();
+            richTextBox_kkmInfo.Text = sb.ToString();
+            var bold = new Font(richTextBox_kkmInfo.Font, FontStyle.Bold);
+            if (kktLen > 0)
+            {
+                richTextBox_kkmInfo.Select(5, kktLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if(serialLen > 0)
+            {
+                richTextBox_kkmInfo.Select(serialStart, serialLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (fdNumLen > 0)
+            {
+                richTextBox_kkmInfo.Select(fdNumStart, fdNumLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (ffdVerLen > 0)
+            {
+                richTextBox_kkmInfo.Select(ffdVerStart, ffdVerLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (frTimeLen > 0)
+            {
+                richTextBox_kkmInfo.Select(frTimeStart, frTimeLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (shiftlen > 0)
+            {
+                richTextBox_kkmInfo.Select(shiftStart, shiftlen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (exchangeLen > 0)
+            {
+                richTextBox_kkmInfo.Select(exchangeStart, exchangeLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (userLen > 0)
+            {
+                richTextBox_kkmInfo.Select(userStart, userLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (snoLen > 0)
+            {
+                richTextBox_kkmInfo.Select(snoStart, snoLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (addrLen > 0)
+            {
+                richTextBox_kkmInfo.Select(addrStart, addrLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (modeLen > 0)
+            {
+                richTextBox_kkmInfo.Select(modeStart, modeLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
+            if (fwLen > 0)
+            {
+                richTextBox_kkmInfo.Select(fwStart, fwLen);
+                richTextBox_kkmInfo.SelectionFont = bold;
+            }
         }
 
         private static string _atolDriver = "10.x",
@@ -370,8 +470,8 @@ namespace FR_Operator
             }
             else
             {
-                if (fiscalPrinter != null)
-                    fiscalPrinter.Disconnect();
+                //if (fiscalPrinter != null)
+                    fiscalPrinter?.Disconnect();
                 conn_ckb_connected.Text = "Установить соединение";
             }
             this.Enabled = true;
@@ -3172,7 +3272,7 @@ namespace FR_Operator
 
         private static readonly string READ_BT = "Прочитать";
 
-        static Point READED_FD_LB_INFO = new System.Drawing.Point(3, 0);
+        static Point READED_FD_LB_INFO = new System.Drawing.Point(0, 0);
         void AddSingleReadedFd(int localNumber, FnReadedDocument doc)
         {
             bool operationsEnable = doc.Type == FTAG_FISCAL_DOCUMENT_TYPE_RECEIPT_CHEQUE 
@@ -3188,8 +3288,8 @@ namespace FR_Operator
             checkBox_fdChooser.Enabled = operationsEnable;
             checkBox_fdChooser.CheckedChanged += HandleFdOfFormList;
             var button_fdRead = new Button();
-            button_fdRead.Location = new System.Drawing.Point(250, 1);
-            button_fdRead.Size = new System.Drawing.Size(75, 23);
+            button_fdRead.Location = new System.Drawing.Point(261, 1);
+            button_fdRead.Size = new System.Drawing.Size(70, 23);
             button_fdRead.Text = READ_BT;
             button_fdRead.UseVisualStyleBackColor = true;
             button_fdRead.Enabled = operationsEnable;
@@ -3198,7 +3298,7 @@ namespace FR_Operator
             var label_fdFiscalSign = new Label();
             label_fdFiscalSign.BorderStyle = System.Windows.Forms.BorderStyle.None;
             label_fdFiscalSign.Location = READED_FD_LB_INFO;
-            label_fdFiscalSign.Size = new System.Drawing.Size(232, 43);
+            label_fdFiscalSign.Size = new System.Drawing.Size(253, 43);
             label_fdFiscalSign.Text = doc.Reprezent;
             label_fdFiscalSign.Font = new System.Drawing.Font("Segoe UI", 8.5F);
 
@@ -3211,7 +3311,7 @@ namespace FR_Operator
             groupBox_fd.Location = new System.Drawing.Point(0, 5 + 45 * localNumber);
             groupBox_fd.Name = "FD_"+doc.Number.ToString();
             groupBox_fd.Text = doc.Number.ToString();
-            groupBox_fd.Size = new System.Drawing.Size(327, 44);
+            groupBox_fd.Size = new System.Drawing.Size(331, 44);
 
             pane_tabPage_frFdContent01.Controls.Add(groupBox_fd);
 
@@ -3310,9 +3410,9 @@ namespace FR_Operator
                 foreach (var i in fFDoc.Items) ism += i.Sum;
                 if (ism - fFDoc.TotalSum > 0.0099) _roundTally = true;
             }
-            if (sender is CheckBox && _handleFdCheckBoxes)
+            if (sender is CheckBox cb && _handleFdCheckBoxes)
             {
-                CheckBox cb = (CheckBox)sender;
+                //CheckBox cb = (CheckBox)sender;
                 int docNumber = int.Parse(cb.Parent.Text);
                 string appender;
                 switch (comboBox_task2ReadSeparator.SelectedIndex)
@@ -3638,7 +3738,7 @@ namespace FR_Operator
                             row.Cells[0].Style.BackColor = Color.Red;
                         }
                     }
-                    if (status != null) status.AllDone();
+                    if (status != null && status.Created) status.AllDone();
                     reporter.ErrorsListOutput();
                     processInterruptor = false;
                     this.Enabled = true;
@@ -3672,7 +3772,7 @@ namespace FR_Operator
                     
                     int lastFdBeforeRun = fiscalPrinter.LastFd;
                     int chequesToRun = 225;
-                    int.TryParse(textBox_efnTestRunCheques.Text, out chequesToRun);
+                    int.TryParse(textBox_efnTestRunCheques.Text, out chequesToRun );
                     int sno = 1;
                     double priceInitial = Math.Round(500 + new Random().NextDouble() * 99.0);
                     for (int i = 0; i < chequesToRun; i++)
@@ -4557,6 +4657,10 @@ namespace FR_Operator
             {
                 tax = totalSum * 7.0/ 107.0;
             }
+            else if(comboBox_fastCorrectionsNds.SelectedIndex == 10 || comboBox_fastCorrectionsNds.SelectedIndex == 11)
+            {
+                tax = totalSum * 22.0 / 122.0;
+            }
             textBox_fastCorrectionsNds.Text = Math.Round(tax, 2).ToString();
             textBox_fastCorretionDocumentCounter.Text = documents.ToString();
         }
@@ -4584,7 +4688,7 @@ namespace FR_Operator
         public static string ChequesCount(List<FnReadedDocument> docs)
         {
             double tallies = 0, taxesAll = 0, noNDS = 0, cashSumm = 0, ecashSum = 0, 
-                finRezultTotal = 0, finRezultCash = 0, finRezultEcash = 0, finRezultNds = 0,
+                finRezultTotal, finRezultCash, finRezultEcash, finRezultNds,
                 totalIncome = 0, incomeCash = 0, incomeEcash = 0, incomeNds = 0,
                 totalBackIncome = 0, backIncomeCash = 0, backIncomeEcash = 0, backIncomeNds = 0,
                 totalExpand = 0, expandCash = 0, expandEcash = 0, expandNds = 0,
@@ -4780,7 +4884,7 @@ namespace FR_Operator
                     }
                     else if(finRezultTotal < 0.009 && finRezultTotal > -0.009)
                     {
-                        sb.Append("Итог операций 0");
+                        sb.Append("Итог операций нейтрально");
                     }
 
                     sb.Append(Environment.NewLine);
@@ -4796,7 +4900,7 @@ namespace FR_Operator
                     }
                     else if (finRezultCash < 0.009 && finRezultCash > -0.009)
                     {
-                        sb.Append("Выручка наличными 0");
+                        sb.Append("Выручка наличными нейтрально");
                     }
 
                     sb.Append(Environment.NewLine);
@@ -4812,7 +4916,7 @@ namespace FR_Operator
                     }
                     else if (finRezultEcash < 0.009 && finRezultEcash > -0.009)
                     {
-                        sb.Append("Выручка безналичными 0");
+                        sb.Append("Выручка безналичными нейтрально");
                     }
 
                     sb.Append(Environment.NewLine);
@@ -4828,7 +4932,7 @@ namespace FR_Operator
                     }
                     else if (finRezultNds < 0.009 && finRezultNds > -0.009)
                     {
-                        sb.Append("НДС 0");
+                        sb.Append("НДС нейтрально");
                     }
                 }
             }

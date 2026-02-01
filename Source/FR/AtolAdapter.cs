@@ -480,7 +480,7 @@ namespace FR_Operator
                             || AppSettings.CorrectionOrderExistance == 0)
                         corrInfoFtags.Add(new FTag(FTAG_CORRECTION_ORDER_NUMBER, doc.CorrectionOrderNumber,true));
                 }
-                string fw = KKMInfoTransmitter[FR_FIRMWARE_KEY];
+                //string fw = KKMInfoTransmitter[FR_FIRMWARE_KEY];
 
                 byte[] correctionInfo = new FTag(FTAG_CORRECTION_BASE, corrInfoFtags, true).RawData;//fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE);
                 LogHandle.ol(BitConverter.ToString(correctionInfo));
@@ -872,7 +872,7 @@ namespace FR_Operator
                 {
                     LogHandle.ol(fptr.errorDescription());
                     LogHandle.ol("ККТ не приняла сумму налога, возможно округление суммы итога в чеке, анализируем чек....");
-                    double deltaTax = 0, taxSumItems = 0;
+                    double deltaTax, taxSumItems = 0;
                     foreach (ConsumptionItem item in doc.Items)
                     {
                         if (item.NdsRate > 0)
@@ -918,7 +918,7 @@ namespace FR_Operator
                 {
                     LogHandle.ol(fptr.errorDescription());
                     LogHandle.ol("ККТ не приняла сумму налога, возможно округление суммы итога в чеке, анализируем чек....");
-                    double deltaTax = 0, taxSumItems = 0;
+                    double deltaTax, taxSumItems = 0;
                     foreach (ConsumptionItem item in doc.Items)
                     {
                         if(item.NdsRate >0) 
@@ -1078,7 +1078,7 @@ namespace FR_Operator
                     cheque.Document = FD_DOCUMENT_NAME_CORRECTION_CHEQUE;
                 }
                 //uint documentType = fptr.getParamInt(Constants.LIBFPTR_PARAM_FN_DOCUMENT_TYPE);
-                uint documentSize = fptr.getParamInt(Constants.LIBFPTR_PARAM_COUNT);
+                //uint documentSize = fptr.getParamInt(Constants.LIBFPTR_PARAM_COUNT);
                 String recordsID = fptr.getParamString(Constants.LIBFPTR_PARAM_RECORDS_ID);
                 fptr.setParam(Constants.LIBFPTR_PARAM_RECORDS_ID, recordsID);
                 int tegs = 0;
@@ -1457,7 +1457,7 @@ namespace FR_Operator
             String recordsID = fptr.getParamString(Constants.LIBFPTR_PARAM_RECORDS_ID);
             while (fptr.readNextRecord() == Constants.LIBFPTR_OK)
             {
-                byte[] tagValue = fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE);
+                //byte[] tagValue = fptr.getParamByteArray(Constants.LIBFPTR_PARAM_TAG_VALUE);
                 uint tagNumber = fptr.getParamInt(Constants.LIBFPTR_PARAM_TAG_NUMBER);
                 if(tagNumber == FTAG_ITEM_NAME)
                 {

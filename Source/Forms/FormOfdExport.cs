@@ -1,4 +1,5 @@
 ﻿using FR_Operator.Properties;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -623,21 +624,36 @@ namespace FR_Operator
                 {
                     int operationTypeIndex = _pointer_operationTypeM5 - 4;
                     List<string> op_types = new List<string>();
+                    int errors = 0;
                     for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
                     {
-                        if (data[i, operationTypeIndex] == null)
+                        
+                        try
                         {
-                            AddMessage("Ошибка! Строка: " + i + " - пустрое значение");
+                            if (data[i, operationTypeIndex] == null)
+                            {
+                                AddMessage("Ошибка! Строка: " + i + " - пустрое значение");
+                                break;
+                            }
+                            if (!op_types.Contains(data[i, operationTypeIndex].ToString()))
+                            {
+                                op_types.Add(data[i, operationTypeIndex].ToString());
+                            }
+                        }
+                        catch (Exception exc)
+                        {
+                            AddMessage("Строка " + i + " - " + exc.Message);
+                            errors++;
+                        }
+                        if (errors > 15)
+                        {
+                            AddMessage("Много ошибок просмотр документка завершен");
                             break;
                         }
-                        if (!op_types.Contains(data[i, operationTypeIndex].ToString()))
-                        {
-                            op_types.Add(data[i, operationTypeIndex].ToString());
-                        }
                     }
-                    if (op_types.Count > 20)
+                    if (op_types.Count > 20 || errors > 15)
                     {
-                        AddMessage("Ошибка! Слишком много значений в выбранном столбце");
+                        AddMessage("Ошибка! Слишком много значений или ошибок в выбранном столбце");
                     }
                     else
                     {
@@ -1468,7 +1484,7 @@ namespace FR_Operator
                         pst.Focus();
                         pst.Show();
                         pst.WindowState = FormWindowState.Normal;
-                        Application.Run(pst);
+                        System.Windows.Forms.Application.Run(pst);
                     }).Start();
                 }
                 int closeShiftEvery = 0;
@@ -1621,9 +1637,9 @@ namespace FR_Operator
                 List<int> ints = new List<int>();
                 foreach (var control in comboSet)
                 {
-                    if (control is CheckBox)
+                    if (control is System.Windows.Forms.CheckBox)
                     {
-                        ints.Add((control as CheckBox).Checked ? 1 : 0);
+                        ints.Add((control as System.Windows.Forms.CheckBox).Checked ? 1 : 0);
                     }
                     else if (control is System.Windows.Forms.ComboBox)
                     {
@@ -1675,9 +1691,9 @@ namespace FR_Operator
                         }
                         for (int i = 0; i < setting.Length && i < comboSet.Count; i++)
                         {
-                            if (comboSet[i] is CheckBox)
+                            if (comboSet[i] is System.Windows.Forms.CheckBox)
                             {
-                                (comboSet[i] as CheckBox).Checked = setting[i] != 0;
+                                (comboSet[i] as System.Windows.Forms.CheckBox).Checked = setting[i] != 0;
                             }
                             else if (comboSet[i] is System.Windows.Forms.ComboBox)
                             {
@@ -1856,7 +1872,7 @@ namespace FR_Operator
                 {
                     if (_startIndex > stop)
                     {
-                        AddMessage("Начальная строка превышает разре таблицы или конечную строку");
+                        AddMessage("Начальная строка превышает размер таблицы или конечную строку");
                         errorSettings = true;
                     }
                     if (_pointer_PropiertyData > cols)
@@ -2022,12 +2038,12 @@ namespace FR_Operator
                         AddMessage("Указатель на НДС 7/107 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
-                    if (_pointer_retailAddress > cols - 1)
+                    if (_pointer_retailAddress > cols)
                     {
                         AddMessage("Указатель адрес расчетов выходит за диапазон таблицы");
                         errorSettings = true;
                     }
-                    if (_pointer_retailPlace > cols - 1)
+                    if (_pointer_retailPlace > cols)
                     {
                         AddMessage("Указатель места расчетов выходит за диапазон таблицы");
                         errorSettings = true;
@@ -2039,62 +2055,62 @@ namespace FR_Operator
                     }
                     if (_pointer_items_agent_1222 > cols)
                     {
-                        AddMessage("Указвтель items_agent_1222 выходит за диапазон таблицы");
+                        AddMessage("Указатель items_agent_1222 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsPaymentAgentDataTransferOperatorInn_1016 > cols)
                     {
-                        AddMessage("Указвтель itemsPaymentAgentDataTransferOperatorInn_1016 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsPaymentAgentDataTransferOperatorInn_1016 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsPaymentAgentDataTransferOperatorPhone_1075 > cols)
                     {
-                        AddMessage("Указвтель itemsPaymentAgentDataTransferOperatorPhone_1075 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsPaymentAgentDataTransferOperatorPhone_1075 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsPaymentAgentDataTransferOperatorAddress_1005 > cols)
                     {
-                        AddMessage("Указвтель itemsPaymentAgentDataTransferOperatorAddress_1005 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsPaymentAgentDataTransferOperatorAddress_1005 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsPaymentAgentDataTransferOperatorName_1026 > cols)
                     {
-                        AddMessage("Указвтель itemsPaymentAgentDataTransferOperatorName_1026 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsPaymentAgentDataTransferOperatorName_1026 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074 > cols)
                     {
-                        AddMessage("Указвтель itemsPaymentAgentDataPaymentOperatorPhone_1074 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsPaymentAgentDataPaymentOperatorPhone_1074 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044 > cols)
                     {
-                        AddMessage("Указвтель itemsPaymentAgentDataPpaymentAgentOperation_1044 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsPaymentAgentDataPpaymentAgentOperation_1044 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsPaymentAgentDataPaymentAgentPhone_1073 > cols)
                     {
-                        AddMessage("Указвтель itemsPaymentAgentDataPaymentAgentPhone_1073 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsPaymentAgentDataPaymentAgentPhone_1073 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsProviderInn_1226 > cols)
                     {
-                        AddMessage("Указвтель itemsProviderInn_1226 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsProviderInn_1226 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsProviderDataProviderName_1225 > cols)
                     {
-                        AddMessage("Указвтель itemsProviderDataProviderName_1225 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsProviderDataProviderName_1225 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsProviderDataProviderPhone_1171 > cols)
                     {
-                        AddMessage("Указвтель itemsProviderDataProviderPhone_1171 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsProviderDataProviderPhone_1171 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                     if (_pointer_itemsCustomEntryNum_1231 > cols)
                     {
-                        AddMessage("Указвтель itemsCustomEntryNum_1231 выходит за диапазон таблицы");
+                        AddMessage("Указатель itemsCustomEntryNum_1231 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                 }

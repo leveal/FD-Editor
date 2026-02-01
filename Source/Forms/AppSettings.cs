@@ -1338,7 +1338,7 @@ namespace FR_Operator
                 int[] keys = new int[] { 3 + 65536 * 2, 3 + 65536 * 3, 3 + 65536 * 4, 31 + 65536 * 2, 31 + 65536 * 3, 31 + 65536 * 4 };
                 foreach (int key in keys)
                 {
-                    if (FTag.TFNCommonRules.ContainsKey(key) || FTag.TFNCommonRules[key].Rules.Count > 0)
+                    if (FTag.TFNCommonRules.ContainsKey(key) && FTag.TFNCommonRules[key].Rules.Count > 0)
                     {
                         int k = -1;
                         for(int i = 0; i < FTag.TFNCommonRules[key].Rules.Count; i++)
@@ -1387,7 +1387,7 @@ namespace FR_Operator
                 int[] keys = new int[] { 3 + 65536 * 2, 3 + 65536 * 3, 3 + 65536 * 4, 31 + 65536 * 2, 31 + 65536 * 3, 31 + 65536 * 4 };
                 foreach (int key in keys)
                 {
-                    if (FTag.TFNCommonRules.ContainsKey(key) || FTag.TFNCommonRules[key].Rules.Count > 0)
+                    if (FTag.TFNCommonRules.ContainsKey(key) && FTag.TFNCommonRules[key].Rules.Count > 0)
                     {
                         int k = -1;
                         for (int i = 0; i < FTag.TFNCommonRules[key].Rules.Count; i++)
