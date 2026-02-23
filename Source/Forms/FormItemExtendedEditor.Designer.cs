@@ -231,7 +231,7 @@
             "4 - Полный расчет",
             "5 - Частичный расчет и кредит",
             "6 - Передача в кредит",
-            "7 - Оплата куредита"});
+            "7 - Оплата кредита"});
             this.comboBox_itemsPaymentType.Location = new System.Drawing.Point(572, 52);
             this.comboBox_itemsPaymentType.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_itemsPaymentType.Name = "comboBox_itemsPaymentType";

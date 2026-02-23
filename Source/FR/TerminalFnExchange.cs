@@ -612,7 +612,7 @@ namespace FR_Operator
                 {
                     if(type == MsgSource.ERROR && this.RealEvent())
                     {
-                        LogHandle.olta(this.ToString());
+                        LogHandle.Olta(this.ToString());
                     }
                 }
                 // 1 - пишем в файл ошибки и информационные данные
@@ -620,7 +620,7 @@ namespace FR_Operator
                 {
                     if(type == MsgSource.INFO && this.RealEvent())
                     {
-                        LogHandle.olta(this.ToString());
+                        LogHandle.Olta(this.ToString());
                     }
                 }
                 // 2 - пишем в файл так же ненулевой обмен
@@ -628,7 +628,7 @@ namespace FR_Operator
                 {
                     if (RealEvent()&&(type == MsgSource.INPUT || type == MsgSource.OUTPUT) && data != null && data is byte[] && (data as byte[]).Length>0)
                     {
-                        LogHandle.olta(this.ToString());
+                        LogHandle.Olta(this.ToString());
                     }
                 }
                 // 3 - добавляем пустые срабатывания _port.DataRecieved
@@ -636,13 +636,13 @@ namespace FR_Operator
                 {
                     if (RealEvent()&&(type == MsgSource.INPUT || type == MsgSource.OUTPUT) && (data == null||(data != null && data is byte[] && (data as byte[]).Length == 0)))
                     {
-                        LogHandle.olta(this.ToString());
+                        LogHandle.Olta(this.ToString());
                     }
                 }
                 // добавляем синтетические события
                 if(_logLevel >= 4 && !RealEvent()) 
                 {
-                    LogHandle.olta(DateTime.Now.ToString("HH:mm:ss,fff\t")+"____not_event__");
+                    LogHandle.Olta(DateTime.Now.ToString("HH:mm:ss,fff\t")+"____not_event__");
                 }
             }
             DateTime time;
@@ -1056,11 +1056,11 @@ namespace FR_Operator
                 byte[] cmd = new byte[] { 5, 0, CODE_GET_FD_ROOT_STLV_HEAD, (byte)(_numberFdToRead % 256),(byte)(_numberFdToRead/256%256),(byte)(_numberFdToRead/256/256%256),(byte)(_numberFdToRead/256/256/256) };
                 var crcbyset = scrc.ComputeChecksumBytes(cmd);
                 byte[] command = new byte[] { START_SIGN, 5, 0, CODE_GET_FD_ROOT_STLV_HEAD, (byte)(_numberFdToRead % 256), (byte)(_numberFdToRead / 256 % 256), (byte)(_numberFdToRead / 256 / 256 % 256), (byte)(_numberFdToRead / 256 / 256 / 256),crcbyset[0], crcbyset[1] };
-                LogHandle.olta("Запрашиваем заголовок ФД " + _numberFdToRead);
+                LogHandle.Olta("Запрашиваем заголовок ФД " + _numberFdToRead);
                 tcs_levell_0 = new TaskCompletionSource<bool>();
                 SendData(command);
                 await Task.WhenAny(tcs_levell_0.Task, Task.Delay(_timeOut));
-                LogHandle.olta("Запрос заголовка завершен");
+                LogHandle.Olta("Запрос заголовка завершен");
                 if (tcs_levell_0.Task.IsCompleted)
                 {
                     tcs_levell_0?.TrySetException(new Exception("Brake operation"));
@@ -1086,7 +1086,7 @@ namespace FR_Operator
                         }
                         else
                         {
-                            LogHandle.olta("При обмене с ФН произошла ошибка, выводим накопленные данные"
+                            LogHandle.Olta("При обмене с ФН произошла ошибка, выводим накопленные данные"
                                 +Environment.NewLine + _buffer_level_1 == null ? "Empty":BitConverter.ToString(_buffer_level_1.ToArray()));
                         }
                         if(clearRawData)
@@ -1519,7 +1519,7 @@ namespace FR_Operator
                                             //{
                                                 if(answerAsList[5]==0 || answerAsList[6] == 0)
                                                 {
-                                                    LogHandle.olta("Не удалось получить дату окончания ФН  2000+ГГ:"+ answerAsList[4]+" ММ:"+ answerAsList[5]+" ДД:"+ answerAsList[6]);
+                                                    LogHandle.Olta("Не удалось получить дату окончания ФН  2000+ГГ:"+ answerAsList[4]+" ММ:"+ answerAsList[5]+" ДД:"+ answerAsList[6]);
                                                 }
                                                 else
                                                 {
@@ -2537,7 +2537,7 @@ namespace FR_Operator
             }
             if (cmd.Count == 0)
             {
-                LogHandle.olta("Передан код документа не реализованный в методе: " + documentCode);
+                LogHandle.Olta("Передан код документа не реализованный в методе: " + documentCode);
                 if (tfn_ir)
                 {
                     _terminalUi.UpdateStatusArea("Код ФД: " + documentCode, NOT_SUPPORTED_THIS_VER);
@@ -2605,7 +2605,7 @@ namespace FR_Operator
             {
                 if (data == null || data.Length < 2)
                 {
-                    LogHandle.olta("Не переданы данные или переданы не все необходимые данные для формирования ФД");
+                    LogHandle.Olta("Не переданы данные или переданы не все необходимые данные для формирования ФД");
                     if (tfn_ir)
                     {
                         _terminalUi.UpdateStatusArea("Код ФД: " + documentCode, "Нет данных для формирования");
@@ -2631,7 +2631,7 @@ namespace FR_Operator
                     || o2 is ulong;
                 if (!(o1ok && o2ok))
                 {
-                    LogHandle.olta("Переданы некорректные данные для формирования ФД");
+                    LogHandle.Olta("Переданы некорректные данные для формирования ФД");
                     if (tfn_ir)
                     {
                         _terminalUi.UpdateStatusArea("Код ФД: " + documentCode, "некорректные данные для формирования");
@@ -2669,7 +2669,7 @@ namespace FR_Operator
             }
             if (request == null || request.Length == 0)
             {
-                LogHandle.olta("Передан код документа не реализованный в методе: " + documentCode);
+                LogHandle.Olta("Передан код документа не реализованный в методе: " + documentCode);
                 if (tfn_ir)
                 {
                     _terminalUi.UpdateStatusArea("Код ФД: " + documentCode, NOT_SUPPORTED_THIS_VER);
@@ -3234,7 +3234,7 @@ namespace FR_Operator
         public override bool PerformFD(FiscalCheque doc)
         {
             //throw new NotImplementedException();
-            LogHandle.olta("Отправляем чек в ФН\r\n"+doc.ToString(FiscalCheque.FULL_INFO));
+            LogHandle.Olta("Отправляем чек в ФН\r\n"+doc.ToString(FiscalCheque.FULL_INFO));
             int totalInPens = (int)Math.Round(doc.TotalSum * 100);
             int paymentInPens = (int)Math.Round(100 * (doc.Cash + doc.ECash + doc.Prepaid + doc.Credit + doc.Provision));
 

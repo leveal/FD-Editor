@@ -195,7 +195,7 @@
             this.tabControl_steps.Size = new System.Drawing.Size(993, 573);
             this.tabControl_steps.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl_steps.TabIndex = 0;
-            this.tabControl_steps.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+            this.tabControl_steps.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl1_DrawItem);
             this.tabControl_steps.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_steps_Selecting);
             this.tabControl_steps.Click += new System.EventHandler(this.ActionControls);
             // 
@@ -957,7 +957,7 @@
             "4 - Полный расчет",
             "5 - Частичный расчет и кредит",
             "6 - Передача в кредит",
-            "7 - Оплата куредита"});
+            "7 - Оплата кредита"});
             this.comboBox_cheq_itemPaymentTypeSign.Location = new System.Drawing.Point(122, 57);
             this.comboBox_cheq_itemPaymentTypeSign.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_cheq_itemPaymentTypeSign.Name = "comboBox_cheq_itemPaymentTypeSign";

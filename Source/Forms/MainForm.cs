@@ -3091,7 +3091,7 @@ namespace FR_Operator
                                 string ssss = JsonChequeConstructor.CreateJsonString(fd);
                                 if (!string.IsNullOrEmpty(ssss) && ssss.Length > 30)
                                 {
-                                    using (StreamWriter sw = new StreamWriter(Path.Combine(path, fdDocTypesShirt[fd.Type]+"_ФД"+fd.Number.ToString("D6") + "_ИТ_" + fd.Summ + "_" + fd.Time.ToString("yyyy_MM_dd_HHmm") + "__sav_" + Guid.NewGuid().ToString().Substring(0,3) + ".json"), false, System.Text.Encoding.UTF8))
+                                    using (StreamWriter sw = new StreamWriter(Path.Combine(path, (string.IsNullOrEmpty(fd.Cheque.AdditionalFdPropertie)?"": fd.Cheque.AdditionalFdPropertie + "_") + fdDocTypesShirt[fd.Type]+"_ФД"+fd.Number.ToString("D6") + "_ИТ_" + fd.Summ + "_" + fd.Time.ToString("yyyy_MM_dd_HHmm") + "__sav_" + Guid.NewGuid().ToString().Substring(0,3) + ".json"), false, System.Text.Encoding.UTF8))
                                     {
                                         sw.Write(ssss);
                                         fdCounder++;
@@ -3344,45 +3344,53 @@ namespace FR_Operator
                 LogHandle.ol("Ошибка с доступом к информации о ФД");
                 return;
             }
-            switch (m.Index)
+            try
             {
-                case 0:     // Копировать информацию о ФД
-                    Clipboard.SetText( (KKMInfoTransmitter[FR_OWNER_USER_KEY] + Environment.NewLine +"ЗН ККТ "+ KKMInfoTransmitter[FR_SERIAL_KEY] +Environment.NewLine +fdInfo));
-                    break;
-                case 1:
-                    Clipboard.SetText( fdInfo);
-                    break;
-                case 2:     // Копировать ФП
-                    if (fdInfo.Contains("ФП:"))
-                    {
-                        string fp = fdInfo.Substring(fdInfo.IndexOf("ФП:") + 4);
-                        if (fdInfo.Contains("ОФД"))
+                switch (m.Index)
+                {
+                    case 0:     // Копировать информацию о ФД
+                        Clipboard.SetText((KKMInfoTransmitter[FR_OWNER_USER_KEY] + Environment.NewLine + "ЗН ККТ " + KKMInfoTransmitter[FR_SERIAL_KEY] + Environment.NewLine + fdInfo));
+                        break;
+                    case 1:
+                        Clipboard.SetText(fdInfo);
+                        break;
+                    case 2:     // Копировать ФП
+                        if (fdInfo.Contains("ФП:"))
                         {
-                            int t = 0;
-                            while (fp[t]>='0'&& fp[t] <= '9' && t < fp.Length)
+                            string fp = fdInfo.Substring(fdInfo.IndexOf("ФП:") + 4);
+                            if (fdInfo.Contains("ОФД"))
                             {
-                                t++;
+                                int t = 0;
+                                while (fp[t] >= '0' && fp[t] <= '9' && t < fp.Length)
+                                {
+                                    t++;
+                                }
+                                if (t > 0)
+                                {
+                                    fp = fp.Substring(0, t);
+                                }
                             }
-                            if (t > 0)
-                            {
-                                fp = fp.Substring(0,t);
-                            }
+                            Clipboard.SetText(fp);
                         }
-                        Clipboard.SetText(fp);
-                    }
-                    break;
-                case 3:     // Копировать № ФД
-                    if(fdInfo.Contains(' '))
-                    {
-                        Clipboard.SetText(fdInfo.Substring(0,fdInfo.IndexOf(' ')));
-                    }
-                    break;
-                case 4:     // Копировать дату ФД
-                    if(fdInfo.Contains("Время "))
-                    {
-                        Clipboard.SetText(fdInfo.Substring(fdInfo.IndexOf("Время ")+6,10));
-                    }
-                    break;
+                        break;
+                    case 3:     // Копировать № ФД
+                        if (fdInfo.Contains(' '))
+                        {
+                            Clipboard.SetText(fdInfo.Substring(0, fdInfo.IndexOf(' ')));
+                        }
+                        break;
+                    case 4:     // Копировать дату ФД
+                        if (fdInfo.Contains("Время "))
+                        {
+                            Clipboard.SetText(fdInfo.Substring(fdInfo.IndexOf("Время ") + 6, 10));
+                        }
+                        break;
+                }
+            }
+            catch(Exception exc)
+            {
+                LogHandle.ol("Сбой при операции с контекстным меню считанного ФД");
+                PushMessage(exc.Message);
             }
         }
 

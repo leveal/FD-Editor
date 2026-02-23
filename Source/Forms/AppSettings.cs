@@ -19,87 +19,7 @@ namespace FR_Operator
         public AppSettings()
         {
             InitializeComponent();
-
-            if(_usingCustomSno) radioButton_cs_usingSno.Checked = true;
-            else radioButton_cs_dontUsingSno.Checked = true;
-            checkBox_atolUsePropertyData.Checked = _atolUsePropertyData;
-            checkBox_setFiscalSignAsPropertyData.Checked = _appendFiscalSignAsPropertyData;
-            radioButton_overrideOriginalPropertyData.Enabled = _appendFiscalSignAsPropertyData;
-            radioButton_saveOriginalPropertyData.Enabled = _appendFiscalSignAsPropertyData;
-            textBox_correctionOrderNumberDefault.Text = _correctionOrderNumberDefault;
-            if (_overridePropertyData)
-                radioButton_overrideOriginalPropertyData.Checked = true;
-            else
-                radioButton_saveOriginalPropertyData.Checked = true;
-            if(_overrideCorrectionDocumentDate)
-                radioButton_correctionDocumentDateOveeride.Checked = true;
-            else
-                radioButton_correctionDocumentDateSaveOriginal.Checked = true;
-            if(_overrideCorrectionOrderNumber)
-                radioButton_correctionOrderNumberOverride.Checked = true;
-            else
-                radioButton_correctionOrderNumberSaveOriginal.Checked = true;
-            comboBox_settingsItemProductTypeDefault.SelectedIndex = _itemProductType;
-            comboBox_settingsItemPaymentTypeDefault.SelectedIndex = _itemPaymentType;
-            comboBox_settingsItemTaxRateDefault.SelectedIndex = _itemTaxRate;
-            textBox_itemNameDefault.Text = string.IsNullOrEmpty(_itemName)?"":_itemName;
-            if(_itemPrice>0) 
-                textBox_itemPriceDefault.Text = _itemPrice.ToString();
-            if(_itemQuantity>0) 
-                textBox_itemQuantityDefault.Text = _itemQuantity.ToString();
-            checkBox_atolAppendMeasure120.Checked = _autoUnit120SetZero;
-            comboBox_copayIntFd.SelectedIndex = (int)CoPayInterfaceDoc;
-            textBox_emuDelay.Text = _emulatorDelay.ToString();
-            checkBox_shtrihPrintPropertyData.Checked = _shtrihPrintPropertyData;
-            textBox_infoPrefix.Text = _extendedTextInfoPrefix;
-            comboBox_indentBefore.SelectedIndex = _extendedTextInfoOffseBefore;
-            comboBox_indentAfter.SelectedIndex = _extendedTextInfoOffseAfter;
-            comboBox_infiStr1.SelectedIndex = _extendedTextInfoStrFormat[0];
-            comboBox_infiStr2.SelectedIndex = _extendedTextInfoStrFormat[1];
-            comboBox_infiStr3.SelectedIndex = _extendedTextInfoStrFormat[2];
-            textBox_atolFontForPrinting.Text = _atolFontForPrinting.ToString();
-            checkBox_fillItemPaymetTypeDef.Checked = _atolFillItemsPaymentTypeDefault4;
-            textBox_shtrihFontForPrinting.Text = _shtrihFomtForPrinting.ToString();
-            comboBox_cleanAfterPrint.SelectedIndex = _extendedTextInfoCleanAfterPrint ? 0 : 1;
-            comboBox_terminalFnComPrefer.SelectedIndex = _terminalPreferPort;
-            textBox_cashierDefault.Text = _cashierDefault;
-            textBox_cashierInnDefault.Text = _cashierInnDefault;
-            comboBox_tetminalFn1115Method.SelectedIndex = _terminalFnTag1115Filling;
-            checkBox_terminalSkipItemsInCoorectionFfd2.Checked = _tfnSkipItemsInCorrectionFfd2;
-            checkBox_correctionOrderNumber_CorrectionOrderExistance.Checked = _corretion_order_number_existance == 1;
-            checkBox_ovverrideRetailAddress.Checked = _overideRetailAddress;
-            checkBox_ovverrideRetailPlace.Checked = _overideRetailPlace;
-
-            if (_shtrihCloseCheckMethod == 0)
-                radioButton_shtrihCloseCheqMethodOld.Checked = true;
-            else if(_shtrihCloseCheckMethod == 1)
-            {
-                radioButton_shtrihCloseCheckEx2.Checked = true;
-            }
-            else if(_shtrihCloseCheckMethod == 2)
-            {
-                radioButton_shtrihCloseCheckEx3.Checked = true;
-            }
-            else if(_shtrihCloseCheckMethod == 3)
-            {
-                radioButton_shtrihCloseCheckEx4.Checked = true;
-            }
-
-            if (_shtrihRegisterItemMethod == 0)
-            {
-                radioButton_shtrihRegRuleMain.Checked = true;
-            }
-            else if (_shtrihRegisterItemMethod == 1)
-            {
-                radioButton_shtrihRegRuleOld.Checked = true;
-            }
-
-            foreach(var header in _jsonHeaders)
-            {
-                listBox_jsonHeaders.Items.Add(header);
-            }
-
-            _skipProcessing = false;
+            ApplySettingIf();
 
             ContextMenu cm = new ContextMenu();
             cm.MenuItems.Add("Копировать ссылку");
@@ -164,6 +84,90 @@ namespace FR_Operator
             
         }
 
+        private void ApplySettingIf()
+        {
+            _skipProcessing = true;
+            if (_usingCustomSno) radioButton_cs_usingSno.Checked = true;
+            else radioButton_cs_dontUsingSno.Checked = true;
+            checkBox_atolUsePropertyData.Checked = _atolUsePropertyData;
+            checkBox_setFiscalSignAsPropertyData.Checked = _appendFiscalSignAsPropertyData;
+            radioButton_overrideOriginalPropertyData.Enabled = _appendFiscalSignAsPropertyData;
+            radioButton_saveOriginalPropertyData.Enabled = _appendFiscalSignAsPropertyData;
+            textBox_correctionOrderNumberDefault.Text = _correctionOrderNumberDefault;
+            if (_overridePropertyData)
+                radioButton_overrideOriginalPropertyData.Checked = true;
+            else
+                radioButton_saveOriginalPropertyData.Checked = true;
+            if (_overrideCorrectionDocumentDate)
+                radioButton_correctionDocumentDateOveeride.Checked = true;
+            else
+                radioButton_correctionDocumentDateSaveOriginal.Checked = true;
+            if (_overrideCorrectionOrderNumber)
+                radioButton_correctionOrderNumberOverride.Checked = true;
+            else
+                radioButton_correctionOrderNumberSaveOriginal.Checked = true;
+            comboBox_settingsItemProductTypeDefault.SelectedIndex = _itemProductType;
+            comboBox_settingsItemPaymentTypeDefault.SelectedIndex = _itemPaymentType;
+            comboBox_settingsItemTaxRateDefault.SelectedIndex = _itemTaxRate;
+            textBox_itemNameDefault.Text = string.IsNullOrEmpty(_itemName) ? "" : _itemName;
+            if (_itemPrice > 0)
+                textBox_itemPriceDefault.Text = _itemPrice.ToString();
+            if (_itemQuantity > 0)
+                textBox_itemQuantityDefault.Text = _itemQuantity.ToString();
+            checkBox_atolAppendMeasure120.Checked = _autoUnit120SetZero;
+            comboBox_copayIntFd.SelectedIndex = (int)CoPayInterfaceDoc;
+            textBox_emuDelay.Text = _emulatorDelay.ToString();
+            checkBox_shtrihPrintPropertyData.Checked = _shtrihPrintPropertyData;
+            textBox_infoPrefix.Text = _extendedTextInfoPrefix;
+            comboBox_indentBefore.SelectedIndex = _extendedTextInfoOffseBefore;
+            comboBox_indentAfter.SelectedIndex = _extendedTextInfoOffseAfter;
+            comboBox_infiStr1.SelectedIndex = _extendedTextInfoStrFormat[0];
+            comboBox_infiStr2.SelectedIndex = _extendedTextInfoStrFormat[1];
+            comboBox_infiStr3.SelectedIndex = _extendedTextInfoStrFormat[2];
+            textBox_atolFontForPrinting.Text = _atolFontForPrinting.ToString();
+            checkBox_fillItemPaymetTypeDef.Checked = _atolFillItemsPaymentTypeDefault4;
+            textBox_shtrihFontForPrinting.Text = _shtrihFomtForPrinting.ToString();
+            comboBox_cleanAfterPrint.SelectedIndex = _extendedTextInfoCleanAfterPrint ? 0 : 1;
+            comboBox_terminalFnComPrefer.SelectedIndex = _terminalPreferPort;
+            textBox_cashierDefault.Text = _cashierDefault;
+            textBox_cashierInnDefault.Text = _cashierInnDefault;
+            comboBox_tetminalFn1115Method.SelectedIndex = _terminalFnTag1115Filling;
+            checkBox_terminalSkipItemsInCoorectionFfd2.Checked = _tfnSkipItemsInCorrectionFfd2;
+            checkBox_correctionOrderNumber_CorrectionOrderExistance.Checked = _corretion_order_number_existance == 1;
+            checkBox_ovverrideRetailAddress.Checked = _overideRetailAddress;
+            checkBox_ovverrideRetailPlace.Checked = _overideRetailPlace;
+
+            if (_shtrihCloseCheckMethod == 0)
+                radioButton_shtrihCloseCheqMethodOld.Checked = true;
+            else if (_shtrihCloseCheckMethod == 1)
+            {
+                radioButton_shtrihCloseCheckEx2.Checked = true;
+            }
+            else if (_shtrihCloseCheckMethod == 2)
+            {
+                radioButton_shtrihCloseCheckEx3.Checked = true;
+            }
+            else if (_shtrihCloseCheckMethod == 3)
+            {
+                radioButton_shtrihCloseCheckEx4.Checked = true;
+            }
+
+            if (_shtrihRegisterItemMethod == 0)
+            {
+                radioButton_shtrihRegRuleMain.Checked = true;
+            }
+            else if (_shtrihRegisterItemMethod == 1)
+            {
+                radioButton_shtrihRegRuleOld.Checked = true;
+            }
+
+            foreach (var header in _jsonHeaders)
+            {
+                listBox_jsonHeaders.Items.Add(header);
+            }
+
+            _skipProcessing = false;
+        }
 
         private static List<string> _jsonHeaders = new List<string>();
         private const string JSON_PATH = "js.path=";
@@ -361,11 +365,11 @@ namespace FR_Operator
                     stringsForPrinting.Add(_extendedTextInfoPrefix);
                 foreach (int x in _extendedTextInfoStrFormat)
                     if (x > 0)
-                        stringsForPrinting.Add(_FdInfo(fd, x));
+                        stringsForPrinting.Add(Serv_FdInfo(fd, x));
             }
             return stringsForPrinting;
         }
-        static string _FdInfo(FiscalPrinter.FnReadedDocument fd, int type)
+        static string Serv_FdInfo(FiscalPrinter.FnReadedDocument fd, int type)
         {
             switch (type)
             {
@@ -398,12 +402,18 @@ namespace FR_Operator
         {
             FTag.LoadTFNRules();
             LogHandle.ol("Загружаем настройки");
+
+            LoadIniFile();
+        }
+        private static void LoadIniFile(string externPath = null)
+        {
             try
             {
-                if (File.Exists(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileSettings)))
+                string fileName = externPath == null ? System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileSettings): externPath;
+                if (File.Exists(fileName))
                 {
                     string parameter = null;
-                    using (StreamReader sr = new StreamReader(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileSettings), Encoding.UTF8))
+                    using (StreamReader sr = new StreamReader(fileName, Encoding.UTF8))
                     {
                         while ((parameter = sr.ReadLine()) != null)
                         {
@@ -659,7 +669,7 @@ namespace FR_Operator
                                         _corretion_order_number_existance = t;
                                     }
                                 }
-                                    
+
                             }
                             else if (parameter.StartsWith(OFD_EXP_SET))
                             {
@@ -667,9 +677,9 @@ namespace FR_Operator
                                 string satName = parameter.Substring(OFD_EXP_SET.Length, numsSt - OFD_EXP_SET.Length);
                                 string[] digits = parameter.Substring(numsSt + 1).Split(';');
                                 List<int> ints = new List<int>();
-                                foreach(var num in digits)
+                                foreach (var num in digits)
                                 {
-                                    if(!string.IsNullOrEmpty(num))
+                                    if (!string.IsNullOrEmpty(num))
                                         ints.Add(int.Parse(num));
                                 }
                                 OfdExportSet[satName] = ints.ToArray();
@@ -690,6 +700,7 @@ namespace FR_Operator
                             }
                         }
                     }
+                    
                 }
                 else
                 {
@@ -699,10 +710,17 @@ namespace FR_Operator
                     _jsonHeaders.Add("[].ticket.document.bso");
                     _jsonHeaders.Add("[].ticket.document.bsoCorrection");
                 }
+                if (OfdExportSet.Count == 0)
+                {
+                    OfdExportSet["Первый ОФД"] = new int[] { 3, 13, 10, 0, 0, 6, -1, 8, 0, 0, 17, 19, 18, 20, 13, 16, 4, 1, 0, 0, 6, 0, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                    OfdExportSet["Платформа"] = new int[] { 5, 11, 0, 4, 0, 0, -1, 8, 0, 0, 10, 20, 0, 35, 36, 11, 4, 1, 37, 0, 6, 0, 13, 14, 16, 17, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                    OfdExportSet["Новая заявка"] = new int[] { 0, 12, 0, 0, 10, 0, -1, 3, 0, 0, 12, 0, 0, 9, 0, 0, 4, 1, 11, 0, 6, 0, 4, 5, 6, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 };
+
+                }
             }
-            catch(Exception e) { LogHandle.ol("При чтении настроек произошла ошибка; "+e.Message); }
-            
+            catch (Exception e) { LogHandle.ol("При чтении настроек произошла ошибка; " + e.Message); }
         }
+
         public static void SaveSettings() 
         { 
             StringBuilder sb = new StringBuilder("#[COMMON]");
@@ -1869,7 +1887,21 @@ namespace FR_Operator
                     FTag.DefaultFormCode = 31;
                 }
             }
+            else if (sender == button_import)
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                
+                dialog.Filter = "Xml Files|*.ini|All files (*.*)|*.*";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
 
+                    OfdExportSet.Clear();
+                    listBox_jsonHeaders.Items.Clear();
+                    _jsonHeaders.Clear();
+                    LoadIniFile(dialog.FileName);
+                    ApplySettingIf();
+                }
+            }
             
         }
 
@@ -1885,7 +1917,6 @@ namespace FR_Operator
             if (sender == radioButton_shtrihSwichPrintingOn&& radioButton_shtrihSwichPrintingOn.Checked)
             {
                 s.EnablingPrinting = 0;
-                int t = s.EnablingPrinting;
                 if (s.CheckEnablingPrinting != 0) 
                 {
                     failSet = true;
@@ -1895,7 +1926,6 @@ namespace FR_Operator
             else if (sender == radioButton_shtrihSwichPrintingOff && radioButton_shtrihSwichPrintingOff.Checked)
             {
                 s.EnablingPrinting = 2;
-                int t = s.EnablingPrinting;
                 if (s.CheckEnablingPrinting != 2)
                 {
                     failSet = true;
@@ -1904,7 +1934,6 @@ namespace FR_Operator
             else if (sender == radioButton_shtrihSwichFwTaxesOn && radioButton_shtrihSwichFwTaxesOn.Checked)
             {
                 s.TaxesFillsFirmware = 0;
-                int t = s.TaxesFillsFirmware;
                 if (s.CheckTaxesFillsFirmware != 0)
                 {
                     failSet = true;
@@ -1913,7 +1942,6 @@ namespace FR_Operator
             else if (sender == radioButton_shtrihSwichFwTaxesOff && radioButton_shtrihSwichFwTaxesOff.Checked)
             {
                 s.TaxesFillsFirmware = 1;
-                int t = s.TaxesFillsFirmware;
                 if (s.CheckTaxesFillsFirmware != 1)
                 {
                     failSet = true;

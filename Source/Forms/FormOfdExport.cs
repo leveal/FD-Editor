@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using CheckBox = System.Windows.Forms.CheckBox;
 
 namespace FR_Operator
 {
@@ -53,11 +54,11 @@ namespace FR_Operator
             comboBox_itemsPrice.SelectedIndex = _pointer_itemsPrice;
             comboBox_itemsSum.SelectedIndex = _pointer_itemsSum;
             comboBox_itemsUnit120.SelectedIndex = _pointer_itemsUnit120;
-            comboBox_itemsNdsRate.SelectedIndex = _pointer_itemsNdsRate;
+            comboBox_itemsNdsRateM12.SelectedIndex = _pointer_itemsNdsRateM12;
             comboBox_itemsNdsRateDefault.SelectedIndex = _itemsNdsRateDefault;
             comboBox_cashier.SelectedIndex = _pointer_cashier;
             textBox_cashierDefault.Text = _cashierDefault.ToString();
-            comboBox_selectedSno.SelectedIndex = _pointer_sno;
+            comboBox_selectedSno.SelectedIndex = _pointer_snoM4;
             if (_snoDefault == 1) 
             { 
                 comboBox_snoDefault.SelectedIndex = 0; 
@@ -221,6 +222,7 @@ namespace FR_Operator
             comboBox_itemsProviderDataProviderName_1225.SelectedIndex = _pointer_itemsProviderDataProviderName_1225;
             comboBox_itemsProviderDataProviderPhone_1171.SelectedIndex = _pointer_itemsProviderDataProviderPhone_1171;
             comboBox_itemsCustomEntryNum_1231.SelectedIndex = _pointer_itemsCustomEntryNum_1231;
+            comboBox_jsonFilename.SelectedIndex = _pointer_jsonFilename;
 
             // дальнейшие установки будут обрабатываться в хандлере
             skip_handle_sign = false;
@@ -282,7 +284,7 @@ namespace FR_Operator
             comboSet.Add(comboBox_itemsProductType);
             comboSet.Add(comboBox_itemsPaymentTypeSignDefault);
             comboSet.Add(comboBox_itemsProductTypeDefault);
-            comboSet.Add(comboBox_itemsNdsRate);
+            comboSet.Add(comboBox_itemsNdsRateM12);
             comboSet.Add(comboBox_itemsUnit120);
             comboSet.Add(comboBox_itemsNdsRateDefault);
             comboSet.Add(comboBox_itemsUnit120Default);
@@ -322,6 +324,7 @@ namespace FR_Operator
             comboSet.Add(comboBox_itemsCustomEntryNum_1231);
             comboSet.Add(comboBox_checkTax22);
             comboSet.Add(comboBox_checkTax22122);
+            comboSet.Add(comboBox_jsonFilename);
             MapPresetts();
         }
         bool _overrideAddressOriginal = false;
@@ -373,8 +376,9 @@ namespace FR_Operator
         int _pointer_itemsUnit120 = 0;
         int _itemsUnit120Default = 0;
 
-        int _pointer_itemsNdsRate = 0;
+        int _pointer_itemsNdsRateM12 = 0;
         int _itemsNdsRateDefault = 6;
+        Dictionary<string, int> _itemsNdsRateMap = new Dictionary<string, int>();
 
         int _pointer_checkPaidCash = 0;
         int _pointer_checkPaidEcash = 0;
@@ -382,8 +386,9 @@ namespace FR_Operator
         int _pointer_checkPaidCredit = 0;
         int _pointer_checkPaidProvision = 0;
 
-        int _pointer_sno = 0;
+        int _pointer_snoM4 = 0;
         int _snoDefault = 1;
+        Dictionary<string, int> _snoMap = new Dictionary<string, int>();
 
         int _pointer_PropiertyData = 0;
         int _pointer_cashier = 0;
@@ -451,6 +456,8 @@ namespace FR_Operator
 
         int _pointer_itemsCustomEntryNum_1231 = 0;
         string _itemsCustomEntryNum_1231_default = string.Empty;
+
+        int _pointer_jsonFilename = 0;
 
         public static bool breakOperation = false; 
         bool skip_handle_sign = false;
@@ -624,10 +631,9 @@ namespace FR_Operator
                 {
                     int operationTypeIndex = _pointer_operationTypeM5 - 4;
                     List<string> op_types = new List<string>();
-                    int errors = 0;
                     for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
                     {
-                        
+                        int errors = 0;
                         try
                         {
                             if (data[i, operationTypeIndex] == null)
@@ -651,9 +657,9 @@ namespace FR_Operator
                             break;
                         }
                     }
-                    if (op_types.Count > 20 || errors > 15)
+                    if (op_types.Count > 20)
                     {
-                        AddMessage("Ошибка! Слишком много значений или ошибок в выбранном столбце");
+                        AddMessage("Ошибка! Слишком много значений в выбранном столбце");
                     }
                     else
                     {
@@ -661,19 +667,19 @@ namespace FR_Operator
                         foreach (var opType in op_types)
                         {
                             string opTypeFounded = "";
-                            if (opType == "1" || opType.ToLower() == "приход")
+                            if (opType == "1" || opType.ToLower() == "приход" || opType.ToLower() == "1 приход")
                             {
                                 opTypeFounded = "1 Приход";
                             }
-                            else if (opType == "2" || opType.ToLower() == "возврат" || opType.ToLower() == "возврат прихода")
+                            else if (opType == "2" || opType.ToLower() == "возврат" || opType.ToLower() == "возврат прихода" || opType.ToLower() == "2 возврат прихода")
                             {
                                 opTypeFounded = "2 Возврат прихода";
                             }
-                            else if (opType == "3" || opType.ToLower() == "расход")
+                            else if (opType == "3" || opType.ToLower() == "расход" || opType.ToLower() == "3 расход")
                             {
                                 opTypeFounded = "3 Расход";
                             }
-                            else if (opType == "4" || opType.ToLower() == "возврат расхода")
+                            else if (opType == "4" || opType.ToLower() == "возврат расхода" || opType.ToLower() == "4 возврат расхода")
                             {
                                 opTypeFounded = "4 Возврат расхода";
                             }
@@ -864,12 +870,24 @@ namespace FR_Operator
                                 }
                                 else if (t == 7)
                                 {
-                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "7 - Оплата куредита");
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "7 - Оплата кредита");
                                 }
                             }
                             else
                             {
-                                dataGridView_itemsPaymentTypeMap.Rows.Add(s);
+                                if(s.ToLower() == "полный расчет" || s.ToLower() == "полный расчёт")
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "4 - Полный расчет");
+                                }
+                                else if (s.ToLower() == "аванс")
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "3 - Аванс");
+                                }
+                                else
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s);
+                                }
+                                    
                             }
                         }
                     }
@@ -914,19 +932,19 @@ namespace FR_Operator
                     {
                         foreach (string s in ipt)
                         {
-                            if (s == "1")
+                            if (s == "1" || s.ToLower() == "товар" || s.ToLower() == "1. товар")
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "1. Товар" );
                             }
-                            else if(s == "2")
+                            else if(s == "2" || s.ToLower() == "подакцизный товар" || s.ToLower() == "2. подакцизный товар")
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "2. Подакцизный товар");
                             }
-                            else if (s == "3")
+                            else if (s == "3" || s.ToLower() == "работа" || s.ToLower() == "3. работа")
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "3. Работа");
                             }
-                            else if (s == "4")
+                            else if (s == "4" || s.ToLower() == "услуга" || s.ToLower() == "4. услуга")
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "4. Услуга");
                             }
@@ -1022,19 +1040,19 @@ namespace FR_Operator
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "27. Выдача ДС");
                             }
-                            else if (s == "30")
+                            else if (s == "30" || s.ToLower() == "атнм")
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "30. АТНМ");
                             }
-                            else if (s == "31")
+                            else if (s == "31" || s.ToLower() == "атм")
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "31. АТМ");
                             }
-                            else if (s == "32")
+                            else if (s == "32" || s.ToLower() == "тнм")
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "32. ТНМ");
                             }
-                            else if (s == "33")
+                            else if (s == "33" || s.ToLower() == "тм")
                             {
                                 dataGridView_itemsProductTypeMap.Rows.Add(s, "33. ТМ");
                             }
@@ -1157,9 +1175,173 @@ namespace FR_Operator
                     _itemsUnit120Default = 255;
                 }
             }
-            else if (sender == comboBox_itemsNdsRate)
+            else if (sender == comboBox_itemsNdsRateM12)
             {
-                _pointer_itemsNdsRate = comboBox_itemsNdsRate.SelectedIndex;
+                _pointer_itemsNdsRateM12 = comboBox_itemsNdsRateM12.SelectedIndex;
+                dataGridView_taxChooser.Rows.Clear();
+                if (_pointer_itemsNdsRateM12 > 0 && _pointer_itemsNdsRateM12 <= data.GetUpperBound(1))
+                {
+                    List<string> ips = new List<string>();
+                    int errors = 0;
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
+                    {
+                        if (data[i, _pointer_itemsNdsRateM12] != null)
+                        {
+                            if (!ips.Contains(data[i, _pointer_itemsNdsRateM12].ToString()))
+                                ips.Add(data[i, _pointer_itemsNdsRateM12].ToString());
+                        }
+                        else
+                        {
+                            AddMessage(i + " строка пустое значение");
+                            errors++;
+                        }
+                        if (ips.Count > 25)
+                        {
+                            AddMessage("Найдено слишком много признаков расчета возможно выбран неправильный столбец");
+                            errors += 16;
+                        }
+                        if (errors > 15)
+                        {
+                            AddMessage("Превышено количество неправильных значений проверка прервана.");
+                            break;
+                        }
+                    }
+                    if (errors <= 15)
+                    {
+                        foreach (string s in ips)
+                        {
+                            int t = -1;
+                            bool integerCode = int.TryParse(s, out t) && t > 0 && t <= 12;
+                            if (integerCode)
+                            {
+                                if(t == 1)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 20");
+                                }
+                                else if (t == 2)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 10");
+                                }
+                                else if (t == 3)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 20/120");
+                                }
+                                else if (t == 4)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 10/110");
+                                }
+                                else if (t == 5)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 0");
+                                }
+                                else if (t == 6)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "Без НДС");
+                                }
+                                else if (t == 7)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 5");
+                                }
+                                else if (t == 8)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 7");
+                                }
+                                else if (t == 9)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 5/105");
+                                }
+                                else if (t == 10)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 7/107");
+                                }
+                                else if (t == 11)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 22");
+                                }
+                                else if (t == 12)
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, "НДС 22/122");
+                                }
+                            }
+                            else
+                            {
+                                if (s == "НДС 20" ||
+                                    s == "НДС 10" ||
+                                    s == "НДС 20/120" ||
+                                    s == "НДС 10/110" ||
+                                    s == "НДС 0" ||
+                                    s == "Без НДС" ||
+                                    s == "НДС 5" ||
+                                    s == "НДС 7" ||
+                                    s == "НДС 5/105" ||
+                                    s == "НДС 7/107" ||
+                                    s == "НДС 22" ||
+                                    s == "НДС 22/122"
+                                    )
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, s);
+                                }
+                                else if (s != null && s.IndexOf('%') == s.Length - 1 && (
+                                    s.Contains("НДС 20") ||
+                                    s.Contains("НДС 10") ||
+                                    s.Contains("НДС 20/120") ||
+                                    s.Contains("НДС 10/110") ||
+                                    s.Contains("НДС 0") ||
+                                    s.Contains("Без НДС") ||
+                                    s.Contains("НДС 5") ||
+                                    s.Contains("НДС 7") ||
+                                    s.Contains("НДС 5/105") ||
+                                    s.Contains("НДС 7/107") ||
+                                    s.Contains("НДС 22") ||
+                                    s.Contains("НДС 22/122")
+                                    ) )
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s, s.Substring(0,s.Length -1));
+                                }
+                                else
+                                {
+                                    dataGridView_taxChooser.Rows.Add(s);
+                                }
+                            }
+                            /*if (t > 0 && t <= 7)
+                            {
+                                if (t == 1)
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "1 - Предоплата 100%");
+                                }
+                                else if (t == 2)
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "2 - Частичная предоплата");
+                                }
+                                else if (t == 3)
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "3 - Аванс");
+                                }
+                                else if (t == 4)
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "4 - Полный расчет");
+                                }
+                                else if (t == 5)
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "5 - Частичный расчет и кредит");
+                                }
+                                else if (t == 6)
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "6 - Передача в кредит");
+                                }
+                                else if (t == 7)
+                                {
+                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "7 - Оплата кредита");
+                                }
+                            }
+                            else
+                            {
+                                dataGridView_itemsPaymentTypeMap.Rows.Add(s);
+                            }*/
+                        }
+                    }
+                }
+
             }
             else if (sender == comboBox_itemsNdsRateDefault)
             {
@@ -1204,6 +1386,67 @@ namespace FR_Operator
             else if (sender == button_checkOutEmulatorRun)
             {
                 breakOperation = false;
+                _itemsNdsRateMap.Clear();
+                foreach(DataGridViewRow row in dataGridView_taxChooser.Rows)
+                {
+                    int taxRate = 0;
+                    if (row.Cells[1].Value == null || row.Cells[1].Value.ToString() == "")
+                    {
+                        AddMessage("Не заполнена таблица ставок НДС !!!");
+                    }
+                    else
+                    {
+                        if (row.Cells[1].Value.ToString() == "НДС 20")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 1;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 10")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 2;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 20/120")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 3;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 10/110")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 4;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 0")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 5;
+                        }
+                        if (row.Cells[1].Value.ToString() == "Без НДС")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 6;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 5")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 7;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 7")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 8;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 5/105")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 9;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 7/107")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 10;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 22")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 11;
+                        }
+                        if (row.Cells[1].Value.ToString() == "НДС 22/122")
+                        {
+                            _itemsNdsRateMap[row.Cells[0].Value.ToString()] = 12;
+                        }
+                    }
+                }
+
                 _operationTypesMap.Clear();
                 foreach (DataGridViewRow row in dataGridView_operationTypeMap.Rows)
                 {
@@ -1293,7 +1536,7 @@ namespace FR_Operator
                         {
                             _itemsPaymentTypeMap[row.Cells[0].Value.ToString()] = 6;
                         }
-                        else if (row.Cells[1].Value.ToString() == "7 - Оплата куредита")
+                        else if (row.Cells[1].Value.ToString() == "7 - Оплата кредита")
                         {
                             _itemsPaymentTypeMap[row.Cells[0].Value.ToString()] = 7;
                         }
@@ -1340,6 +1583,42 @@ namespace FR_Operator
                         }
                     }
                 }
+                _snoMap.Clear();
+                foreach(DataGridViewRow row in dataGridView_snoMap.Rows)
+                {
+                    if (row.Cells[1].Value == null || row.Cells[1].Value.ToString() == "")
+                    {
+                        AddMessage("Не заполнена таблица соответсвия СНО!!!");
+                    }
+                    else
+                    {
+                        if (row.Cells[1].Value.ToString() == "ОСНО")
+                        {
+                            _snoMap[row.Cells[0].Value.ToString()] = 1;
+                        }
+                        else if (row.Cells[1].Value.ToString() == "УСН Доход")
+                        {
+                            _snoMap[row.Cells[0].Value.ToString()] = 2;
+                        }
+                        else if (row.Cells[1].Value.ToString() == "УСН Доход минус расход")
+                        {
+                            _snoMap[row.Cells[0].Value.ToString()] = 4;
+                        }
+                        else if (row.Cells[1].Value.ToString() == "ЕСХН")
+                        {
+                            _snoMap[row.Cells[0].Value.ToString()] = 16;
+                        }
+                        else if (row.Cells[1].Value.ToString() == "ПСН")
+                        {
+                            _snoMap[row.Cells[0].Value.ToString()] = 32;
+                        }
+                        else
+                        {
+                            AddMessage("Не удается разобрать СНО для строки: " + row.Cells[1].Value.ToString());
+                        }
+                    }
+
+                }
 
 
 
@@ -1384,7 +1663,68 @@ namespace FR_Operator
             }
             else if (sender == comboBox_selectedSno)
             {
-                _pointer_sno = comboBox_selectedSno.SelectedIndex;
+                _pointer_snoM4 = comboBox_selectedSno.SelectedIndex;
+                dataGridView_snoMap.Rows.Clear();
+                if (_pointer_snoM4 > 0 && _pointer_snoM4 <= data.GetUpperBound(1))
+                {
+                    List<string> ips = new List<string>();
+                    int errors = 0;
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i <= _endIndex; i++)
+                    {
+                        if (data[i, _pointer_snoM4] != null)
+                        {
+                            if (!ips.Contains(data[i, _pointer_snoM4].ToString()))
+                                ips.Add(data[i, _pointer_snoM4].ToString());
+                        }
+                        else
+                        {
+                            AddMessage(i + " строка пустое значение");
+                            errors++;
+                        }
+                        if (ips.Count > 25)
+                        {
+                            AddMessage("Найдено слишком много СНО возможно выбран неправильный столбец");
+                            errors += 16;
+                        }
+                        if (errors > 15)
+                        {
+                            AddMessage("Превышено количество неправильных значений проверка прервана.");
+                            break;
+                        }
+                    }
+                    if (errors <= 15)
+                    {
+                        foreach (string s in ips)
+                        {
+                            string check = s.ToUpper();
+                            if(s== "1" || check == "ОСНО")
+                            {
+                                dataGridView_snoMap.Rows.Add(s, "ОСНО");
+                            }
+                            else if (s == "2" || check == "УСН ДОХОД" || check == "УСНД")
+                            {
+                                dataGridView_snoMap.Rows.Add(s, "УСН Доход");
+                            }
+                            else if (s == "4" || check == "УСН ДОХОД МИНУС РАСХОД" || check == "УСНДР")
+                            {
+                                dataGridView_snoMap.Rows.Add(s, "УСН Доход минус расход");
+                            }
+                            else if (s == "16" || check == "ЕСХН")
+                            {
+                                dataGridView_snoMap.Rows.Add(s, "ЕСХН");
+                            }
+                            else if (s == "32" || check == "ПСН" || check == "Патент")
+                            {
+                                dataGridView_snoMap.Rows.Add(s, "ПСН");
+                            }
+                            else
+                            {
+                                dataGridView_snoMap.Rows.Add(s);
+                            }
+                        }
+                    }
+                }
+
             }
             else if (sender == comboBox_snoDefault)
             {
@@ -1423,7 +1763,7 @@ namespace FR_Operator
                 {
                     int errors = 0;
                     List<string> list = new List<string>();
-                    for (int i = _startIndex; i < _endIndex && i <= data.GetUpperBound(0); i++)
+                    for (int i = _startIndex; i <= _endIndex && i <= data.GetUpperBound(0); i++)
                     {
                         try
                         {
@@ -1476,7 +1816,7 @@ namespace FR_Operator
                 breakOperation = false;
                 int errorsAllowed = 10;
                 int.TryParse(textBox_errorsAllowed.Text, out errorsAllowed);
-                if (data.GetUpperBound(0) > 15 && !(fiscalPrinter is FrEmulator))
+                if (data.GetUpperBound(0) > 25 && !(fiscalPrinter is FrEmulator))
                 {
                     new Thread(() =>
                     {
@@ -1534,7 +1874,7 @@ namespace FR_Operator
             }
             else if (sender == comboBox_selectedSno)
             {
-                _pointer_sno = comboBox_selectedSno.SelectedIndex;
+                _pointer_snoM4 = comboBox_selectedSno.SelectedIndex;
             }
             else if (sender == checkBox_enableManualTaxes)
             {
@@ -1637,9 +1977,9 @@ namespace FR_Operator
                 List<int> ints = new List<int>();
                 foreach (var control in comboSet)
                 {
-                    if (control is System.Windows.Forms.CheckBox)
+                    if (control is CheckBox)
                     {
-                        ints.Add((control as System.Windows.Forms.CheckBox).Checked ? 1 : 0);
+                        ints.Add((control as CheckBox).Checked ? 1 : 0);
                     }
                     else if (control is System.Windows.Forms.ComboBox)
                     {
@@ -1691,9 +2031,9 @@ namespace FR_Operator
                         }
                         for (int i = 0; i < setting.Length && i < comboSet.Count; i++)
                         {
-                            if (comboSet[i] is System.Windows.Forms.CheckBox)
+                            if (comboSet[i] is CheckBox)
                             {
-                                (comboSet[i] as System.Windows.Forms.CheckBox).Checked = setting[i] != 0;
+                                (comboSet[i] as CheckBox).Checked = setting[i] != 0;
                             }
                             else if (comboSet[i] is System.Windows.Forms.ComboBox)
                             {
@@ -1830,6 +2170,10 @@ namespace FR_Operator
             {
                 _itemsCustomEntryNum_1231_default = textBox_itemsCustomEntryNum_1231_default.Text;
             }
+            else if(sender == comboBox_jsonFilename)
+            {
+                _pointer_jsonFilename = comboBox_jsonFilename.SelectedIndex;
+            }
         }
 
         void MapPresetts()
@@ -1948,7 +2292,7 @@ namespace FR_Operator
                         AddMessage("Указатель на меру предмета расчета выходит за диапазон таблицы");
                         errorSettings = true;
                     }
-                    if (_pointer_itemsNdsRate > cols)
+                    if (_pointer_itemsNdsRateM12 > cols)
                     {
                         AddMessage("Указатель на ставку НДС предмета расчета выходит за диапазон таблицы");
                         errorSettings = true;
@@ -1978,7 +2322,7 @@ namespace FR_Operator
                         AddMessage("Указатель на оплату иным типом оплаты выходит за диапазон таблицы");
                         errorSettings = true;
                     }
-                    if(_pointer_sno > cols)
+                    if(_pointer_snoM4 > cols)
                     {
                         AddMessage("Указатель на CHO выходит за диапазон таблицы");
                         errorSettings = true;
@@ -2111,6 +2455,11 @@ namespace FR_Operator
                     if (_pointer_itemsCustomEntryNum_1231 > cols)
                     {
                         AddMessage("Указатель itemsCustomEntryNum_1231 выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    if (_pointer_jsonFilename > cols)
+                    {
+                        AddMessage("Указатель метки json выходит за диапазон таблицы");
                         errorSettings = true;
                     }
                 }
@@ -2274,6 +2623,24 @@ namespace FR_Operator
                         }
 
                         // накапливаем чек
+                        subExtErr = "метка json ";
+                        if (_pointer_jsonFilename > 0)
+                        {
+                            if(data[i, _pointer_jsonFilename] != null)
+                            {
+                                object o = data[i, _pointer_jsonFilename];
+                                if(o is float || o is double || o is decimal)
+                                {
+                                    double d = (double)o;
+                                    check.AdditionalFdPropertie = d.ToString("F0");
+                                }
+                                else
+                                {
+                                    check.AdditionalFdPropertie = data[i, _pointer_jsonFilename].ToString();
+                                }
+                                    
+                            }
+                        }
                         // признак расчета
                         subExtErr = "1192 propiertiesData ";
                         if (_pointer_PropiertyData > 0)
@@ -2289,13 +2656,13 @@ namespace FR_Operator
                             }
                         }
                         subExtErr = "СНО";
-                        if (_pointer_sno == 0)
+                        if (_pointer_snoM4 == 0)
                         {
                             check.Sno = _snoDefault;
                         }
                         else
                         {
-                            check.Sno = int.Parse(data[i, _pointer_sno].ToString());
+                            check.Sno = _snoMap[data[i, _pointer_snoM4].ToString()];
                         }
                         subExtErr = "Emal|Phone";
                         if (_pointer_emailPhone == 0)
@@ -2408,7 +2775,8 @@ namespace FR_Operator
                                 throw new Exception("Отсутвует значение в таблице типа документа");
                             }
                         }
-                        subExtErr = "Реквизиты коррекции";
+                        //subExtErr = "Реквизиты коррекции";
+                        subExtErr = "Дата коррекции";
                         // Реквизиты коррекции
                         if(check.Document == FiscalPrinter.FD_DOCUMENT_NAME_CORRECTION_CHEQUE)
                         {
@@ -2428,6 +2796,7 @@ namespace FR_Operator
                                     check.CorrectionDocumentDate = DateTime.ParseExact(data[i, _pointer_correctionDate].ToString(), _dtFormat, CultureInfo.InvariantCulture);
                                 }
                             }
+                            subExtErr = "Тип коррекции";
                             if (_pointer_correctionTypeM1 <= 1)
                             {
                                 check.CorrectionTypeFtag = _pointer_correctionTypeM1;
@@ -2457,7 +2826,7 @@ namespace FR_Operator
                         /*
                          * * * разбираем предметрасчета * * * 
                          */
-                        subExtErr = "Предмет расчета";
+                        //subExtErr = "Предмет расчета";
                         string itemsName = string.Empty;
                         double itemsQuantity = _itemsQuantityDefault;
                         double itemsSum = 0;
@@ -2552,20 +2921,21 @@ namespace FR_Operator
 
                         }
                         subExtErr = "Предмет расчета: ставка НДС";
-                        if (_pointer_itemsNdsRate == 0)
+                        if (_pointer_itemsNdsRateM12 == 0)
                         {
                             itemsNdsRate = _itemsNdsRateDefault;
                         }
                         else
                         {
-                            if (data[i, _pointer_itemsNdsRate] is int || data[i, _pointer_itemsNdsRate] is uint)
+                            /*if (data[i, _pointer_itemsNdsRateM12] is int || data[i, _pointer_itemsNdsRateM12] is uint)
                             {
-                                itemsNdsRate = (int)data[i, _pointer_itemsNdsRate];
+                                itemsNdsRate = (int)data[i, _pointer_itemsNdsRateM12];
                             }
                             else
                             {
-                                itemsNdsRate = int.Parse(data[i, _pointer_itemsNdsRate].ToString());
-                            }
+                                itemsNdsRate = int.Parse(data[i, _pointer_itemsNdsRateM12].ToString());
+                            }*/
+                            itemsNdsRate = _itemsNdsRateMap[data[i, _pointer_itemsNdsRateM12].ToString()];
                         }
                         subExtErr = "Предмет расчета";
                         ConsumptionItem item = new ConsumptionItem(itemsName, itemsPrice, itemsQuantity, itemsSum, itemsPproductType, itemsPaymentType, itemsNdsRate);
@@ -2787,7 +3157,7 @@ namespace FR_Operator
 
                         if (_pointer_checkPaidCash > 0)
                         {
-                            object cashObj = data[i, _pointer_checkPaidCash];
+                            object cashObj = data[i, _pointer_checkPaidCash] == null ? 0.0 : data[i, _pointer_checkPaidCash];
                             if(cashObj is double || cashObj is float || cashObj is int || cashObj is uint)
                             {
                                 check.Cash = Math.Round((double)cashObj, 2);
@@ -2799,7 +3169,7 @@ namespace FR_Operator
                         }
                         if (_pointer_checkPaidEcash > 0)
                         {
-                            object ecashObj = data[i, _pointer_checkPaidEcash];
+                            object ecashObj = data[i, _pointer_checkPaidEcash] == null ? 0.0 : data[i, _pointer_checkPaidEcash];
                             if (ecashObj is double || ecashObj is float || ecashObj is int || ecashObj is uint)
                             {
                                 check.ECash = Math.Round((double)ecashObj, 2);
@@ -2811,7 +3181,7 @@ namespace FR_Operator
                         }
                         if (_pointer_checkPaidPrepaid > 0)
                         {
-                            object PrepObj = data[i, _pointer_checkPaidPrepaid];
+                            object PrepObj = data[i, _pointer_checkPaidPrepaid] == null ? 0.0 : data[i, _pointer_checkPaidPrepaid];
                             if (PrepObj is double || PrepObj is float || PrepObj is int || PrepObj is uint)
                             {
                                 check.Prepaid = Math.Round((double)PrepObj, 2);
@@ -2823,7 +3193,7 @@ namespace FR_Operator
                         }
                         if (_pointer_checkPaidCredit > 0)
                         {
-                            object credObj = data[i, _pointer_checkPaidCredit];
+                            object credObj = data[i, _pointer_checkPaidCredit] == null ? 0.0 : data[i, _pointer_checkPaidCredit];
                             if (credObj is double || credObj is float || credObj is int || credObj is uint)
                             {
                                 check.Credit = Math.Round((double)credObj, 2);
@@ -2835,7 +3205,7 @@ namespace FR_Operator
                         }
                         if (_pointer_checkPaidProvision > 0)
                         {
-                            object otherObj = data[i, _pointer_checkPaidProvision];
+                            object otherObj = data[i, _pointer_checkPaidProvision] == null ? 0.0 : data[i, _pointer_checkPaidProvision];
                             if (otherObj is double || otherObj is float || otherObj is int || otherObj is uint)
                             {
                                 check.Provision = Math.Round((double)otherObj, 2);

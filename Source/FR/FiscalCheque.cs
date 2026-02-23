@@ -670,6 +670,14 @@ namespace FR_Operator
             get { return _availableCommonTaxes; }
         }
 
+
+        string _aaditionalFdPropertie = string.Empty;
+        public string AdditionalFdPropertie
+        {
+            get => _aaditionalFdPropertie;
+            set => _aaditionalFdPropertie = value;
+        }
+
         // ФЛК документа 0 - ошибок и предупреждений нет
         private int _docControlFlags = 0;
         public int DocControlFlags
@@ -1229,6 +1237,7 @@ namespace FR_Operator
             cloned.Nds22 = this.Nds22;
             cloned.Nds22122 = this.Nds22122;
             cloned.TotalSum = this.TotalSum;
+            cloned.AdditionalFdPropertie = this.AdditionalFdPropertie;
 
             return cloned;
         }

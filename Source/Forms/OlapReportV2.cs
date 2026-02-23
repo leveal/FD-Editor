@@ -69,7 +69,7 @@ namespace FR_Operator
         }
         private FiscalPrinter _fr = null;
 
-        private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
+        private void TabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
             Graphics g;
             string sText;
@@ -156,7 +156,7 @@ namespace FR_Operator
             {
                 checkEventCancel = false;
                 tabControl_steps.SelectedIndex = 6; //количество предмета расчета
-                _CheckQuantitiesValues();
+                CheckQuantitiesValues();
             }
             else if (sender == button_goTo8_itemSum)
             {
@@ -402,7 +402,7 @@ namespace FR_Operator
             {
                 _ind_itemQuantity = comboBox_itemQuantity.SelectedIndex;
                 button_goTo7__itemQuantity.Enabled = _ind_itemQuantity != 0;
-                _CheckQuantitiesValues();
+                CheckQuantitiesValues();
             }
             else if(sender == comboBox_itemSum)
             {
@@ -1474,7 +1474,7 @@ namespace FR_Operator
 
 
 
-        private void _CheckQuantitiesValues()
+        private void CheckQuantitiesValues()
         {
             if (_table == null)
             {

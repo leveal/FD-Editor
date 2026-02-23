@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_fd = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
@@ -35,7 +36,6 @@
             this.button_savePreset = new System.Windows.Forms.Button();
             this.textBox_presetName = new System.Windows.Forms.TextBox();
             this.listBox_presets = new System.Windows.Forms.ListBox();
-            this.button_presetsTaxcom = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridView_documentTypeMap = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,7 +71,6 @@
             this.dataGridView_snoMap = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewComboBoxColumn4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.label19 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.comboBox_snoDefault = new System.Windows.Forms.ComboBox();
             this.comboBox_selectedSno = new System.Windows.Forms.ComboBox();
@@ -128,10 +127,12 @@
             this.comboBox_itemsUnit120Default = new System.Windows.Forms.ComboBox();
             this.comboBox_itemsUnit120 = new System.Windows.Forms.ComboBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.dataGridView_taxChooser = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewComboBoxColumn6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBox_itemsNdsRateDefault = new System.Windows.Forms.ComboBox();
-            this.comboBox_itemsNdsRate = new System.Windows.Forms.ComboBox();
+            this.comboBox_itemsNdsRateM12 = new System.Windows.Forms.ComboBox();
             this.tabPage_ci_ap = new System.Windows.Forms.TabPage();
             this.label47 = new System.Windows.Forms.Label();
             this.comboBox_itemsCustomEntryNum_1231 = new System.Windows.Forms.ComboBox();
@@ -241,6 +242,9 @@
             this.button_checkOutEmulatorRun = new System.Windows.Forms.Button();
             this.button_openExcel = new System.Windows.Forms.Button();
             this.richTextBox_log = new System.Windows.Forms.RichTextBox();
+            this.comboBox_jsonFilename = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage_fd.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -272,6 +276,7 @@
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_itemsUnitQuantityMeasure)).BeginInit();
             this.groupBox12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taxChooser)).BeginInit();
             this.tabPage_ci_ap.SuspendLayout();
             this.groupBox34.SuspendLayout();
             this.groupBox35.SuspendLayout();
@@ -326,7 +331,6 @@
             this.tabPage_fd.Controls.Add(this.button_savePreset);
             this.tabPage_fd.Controls.Add(this.textBox_presetName);
             this.tabPage_fd.Controls.Add(this.listBox_presets);
-            this.tabPage_fd.Controls.Add(this.button_presetsTaxcom);
             this.tabPage_fd.Controls.Add(this.groupBox3);
             this.tabPage_fd.Controls.Add(this.button_presetsFirstOfd);
             this.tabPage_fd.Controls.Add(this.groupBox_operationType);
@@ -346,7 +350,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(318, 284);
+            this.label20.Location = new System.Drawing.Point(318, 291);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(131, 13);
             this.label20.TabIndex = 20;
@@ -355,7 +359,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(241, 384);
+            this.label15.Location = new System.Drawing.Point(241, 388);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(107, 13);
             this.label15.TabIndex = 19;
@@ -363,7 +367,7 @@
             // 
             // button_savePreset
             // 
-            this.button_savePreset.Location = new System.Drawing.Point(15, 377);
+            this.button_savePreset.Location = new System.Drawing.Point(15, 381);
             this.button_savePreset.Name = "button_savePreset";
             this.button_savePreset.Size = new System.Drawing.Size(219, 23);
             this.button_savePreset.TabIndex = 18;
@@ -373,7 +377,7 @@
             // 
             // textBox_presetName
             // 
-            this.textBox_presetName.Location = new System.Drawing.Point(363, 379);
+            this.textBox_presetName.Location = new System.Drawing.Point(363, 383);
             this.textBox_presetName.MaxLength = 16;
             this.textBox_presetName.Name = "textBox_presetName";
             this.textBox_presetName.Size = new System.Drawing.Size(156, 20);
@@ -382,28 +386,17 @@
             // listBox_presets
             // 
             this.listBox_presets.FormattingEnabled = true;
-            this.listBox_presets.Location = new System.Drawing.Point(244, 304);
+            this.listBox_presets.Location = new System.Drawing.Point(244, 310);
             this.listBox_presets.Name = "listBox_presets";
             this.listBox_presets.Size = new System.Drawing.Size(275, 69);
             this.listBox_presets.TabIndex = 15;
             this.listBox_presets.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // button_presetsTaxcom
-            // 
-            this.button_presetsTaxcom.Enabled = false;
-            this.button_presetsTaxcom.Location = new System.Drawing.Point(14, 316);
-            this.button_presetsTaxcom.Name = "button_presetsTaxcom";
-            this.button_presetsTaxcom.Size = new System.Drawing.Size(220, 23);
-            this.button_presetsTaxcom.TabIndex = 14;
-            this.button_presetsTaxcom.Text = "Преднастройки Такском";
-            this.button_presetsTaxcom.UseVisualStyleBackColor = true;
-            this.button_presetsTaxcom.Click += new System.EventHandler(this.EventHandler);
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dataGridView_documentTypeMap);
             this.groupBox3.Controls.Add(this.comboBox_docTypeChooser);
-            this.groupBox3.Location = new System.Drawing.Point(516, 73);
+            this.groupBox3.Location = new System.Drawing.Point(536, 73);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(503, 208);
             this.groupBox3.TabIndex = 7;
@@ -521,7 +514,7 @@
             // 
             // button_presetsFirstOfd
             // 
-            this.button_presetsFirstOfd.Location = new System.Drawing.Point(15, 287);
+            this.button_presetsFirstOfd.Location = new System.Drawing.Point(15, 348);
             this.button_presetsFirstOfd.Name = "button_presetsFirstOfd";
             this.button_presetsFirstOfd.Size = new System.Drawing.Size(220, 23);
             this.button_presetsFirstOfd.TabIndex = 13;
@@ -792,7 +785,7 @@
             // 
             this.groupBox32.Controls.Add(this.textBox_retailPlaceDefault);
             this.groupBox32.Controls.Add(this.comboBox_retailPlace);
-            this.groupBox32.Location = new System.Drawing.Point(536, 278);
+            this.groupBox32.Location = new System.Drawing.Point(536, 316);
             this.groupBox32.Name = "groupBox32";
             this.groupBox32.Size = new System.Drawing.Size(377, 83);
             this.groupBox32.TabIndex = 12;
@@ -884,7 +877,7 @@
             // 
             this.groupBox21.Controls.Add(this.textBox_retailAdressDefault);
             this.groupBox21.Controls.Add(this.comboBox_retailAddress);
-            this.groupBox21.Location = new System.Drawing.Point(536, 189);
+            this.groupBox21.Location = new System.Drawing.Point(536, 227);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(377, 83);
             this.groupBox21.TabIndex = 11;
@@ -1170,13 +1163,12 @@
             // groupBox19
             // 
             this.groupBox19.Controls.Add(this.dataGridView_snoMap);
-            this.groupBox19.Controls.Add(this.label19);
             this.groupBox19.Controls.Add(this.label13);
             this.groupBox19.Controls.Add(this.comboBox_snoDefault);
             this.groupBox19.Controls.Add(this.comboBox_selectedSno);
             this.groupBox19.Location = new System.Drawing.Point(536, 13);
             this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(377, 170);
+            this.groupBox19.Size = new System.Drawing.Size(377, 208);
             this.groupBox19.TabIndex = 9;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "СНО";
@@ -1191,13 +1183,11 @@
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewComboBoxColumn4});
             this.dataGridView_snoMap.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView_snoMap.Enabled = false;
-            this.dataGridView_snoMap.Location = new System.Drawing.Point(6, 90);
+            this.dataGridView_snoMap.Location = new System.Drawing.Point(6, 63);
             this.dataGridView_snoMap.Name = "dataGridView_snoMap";
             this.dataGridView_snoMap.RowHeadersWidth = 4;
-            this.dataGridView_snoMap.Size = new System.Drawing.Size(364, 74);
+            this.dataGridView_snoMap.Size = new System.Drawing.Size(364, 139);
             this.dataGridView_snoMap.TabIndex = 515;
-            this.dataGridView_snoMap.Visible = false;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -1223,15 +1213,6 @@
             this.dataGridViewComboBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.dataGridViewComboBoxColumn4.Width = 200;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(7, 60);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(237, 26);
-            this.label19.TabIndex = 513;
-            this.label19.Text = "Из эксель принимаются числовые значения \r\nсогласно протоколу ФФД (коды ставок)";
             // 
             // label13
             // 
@@ -1454,7 +1435,6 @@
             this.textBox_correctionOrderNumber.Name = "textBox_correctionOrderNumber";
             this.textBox_correctionOrderNumber.Size = new System.Drawing.Size(364, 20);
             this.textBox_correctionOrderNumber.TabIndex = 4;
-            this.textBox_correctionOrderNumber.Text = "Б/Н";
             this.textBox_correctionOrderNumber.TextChanged += new System.EventHandler(this.EventHandler);
             // 
             // comboBox_correctionOrderNumber
@@ -2017,7 +1997,7 @@
             "4 - Полный расчет",
             "5 - Частичный расчет и кредит",
             "6 - Передача в кредит",
-            "7 - Оплата куредита"});
+            "7 - Оплата кредита"});
             this.dataGridViewComboBoxColumn2.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
             this.dataGridViewComboBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -2045,7 +2025,7 @@
             "4 - Полный расчет",
             "5 - Частичный расчет и кредит",
             "6 - Передача в кредит",
-            "7 - Оплата куредита"});
+            "7 - Оплата кредита"});
             this.comboBox_itemsPaymentTypeSignDefault.Location = new System.Drawing.Point(96, 41);
             this.comboBox_itemsPaymentTypeSignDefault.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_itemsPaymentTypeSignDefault.Name = "comboBox_itemsPaymentTypeSignDefault";
@@ -2710,25 +2690,64 @@
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.label14);
+            this.groupBox12.Controls.Add(this.dataGridView_taxChooser);
             this.groupBox12.Controls.Add(this.label10);
             this.groupBox12.Controls.Add(this.comboBox_itemsNdsRateDefault);
-            this.groupBox12.Controls.Add(this.comboBox_itemsNdsRate);
+            this.groupBox12.Controls.Add(this.comboBox_itemsNdsRateM12);
             this.groupBox12.Location = new System.Drawing.Point(8, 14);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(377, 145);
+            this.groupBox12.Size = new System.Drawing.Size(377, 249);
             this.groupBox12.TabIndex = 12;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Ставка НДС предмета расчета";
             // 
-            // label14
+            // dataGridView_taxChooser
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(4, 76);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(258, 26);
-            this.label14.TabIndex = 513;
-            this.label14.Text = "Из эксель принимаются числовые значения 1-10\r\nсогласно протоколу ФФД";
+            this.dataGridView_taxChooser.AllowUserToAddRows = false;
+            this.dataGridView_taxChooser.AllowUserToDeleteRows = false;
+            this.dataGridView_taxChooser.AllowUserToResizeRows = false;
+            this.dataGridView_taxChooser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_taxChooser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewComboBoxColumn6});
+            this.dataGridView_taxChooser.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridView_taxChooser.Location = new System.Drawing.Point(6, 93);
+            this.dataGridView_taxChooser.Name = "dataGridView_taxChooser";
+            this.dataGridView_taxChooser.RowHeadersWidth = 4;
+            this.dataGridView_taxChooser.Size = new System.Drawing.Size(364, 147);
+            this.dataGridView_taxChooser.TabIndex = 516;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn6.FillWeight = 80F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Значения таблицы";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewComboBoxColumn6
+            // 
+            this.dataGridViewComboBoxColumn6.FillWeight = 120F;
+            this.dataGridViewComboBoxColumn6.HeaderText = "Ставка НДС";
+            this.dataGridViewComboBoxColumn6.Items.AddRange(new object[] {
+            "НДС 20",
+            "НДС 10",
+            "НДС 20/120",
+            "НДС 10/110",
+            "НДС 0",
+            "Без НДС",
+            "НДС 5",
+            "НДС 7",
+            "НДС 5/105",
+            "НДС 7/107",
+            "НДС 22",
+            "НДС 22/122"});
+            this.dataGridViewComboBoxColumn6.MinimumWidth = 6;
+            this.dataGridViewComboBoxColumn6.Name = "dataGridViewComboBoxColumn6";
+            this.dataGridViewComboBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewComboBoxColumn6.Width = 200;
             // 
             // label10
             // 
@@ -2764,11 +2783,11 @@
             this.comboBox_itemsNdsRateDefault.TabIndex = 510;
             this.comboBox_itemsNdsRateDefault.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
-            // comboBox_itemsNdsRate
+            // comboBox_itemsNdsRateM12
             // 
-            this.comboBox_itemsNdsRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_itemsNdsRate.FormattingEnabled = true;
-            this.comboBox_itemsNdsRate.Items.AddRange(new object[] {
+            this.comboBox_itemsNdsRateM12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_itemsNdsRateM12.FormattingEnabled = true;
+            this.comboBox_itemsNdsRateM12.Items.AddRange(new object[] {
             "По умолчанию",
             "A - 1",
             "B - 2",
@@ -2830,11 +2849,11 @@
             "BF - 58",
             "BG - 59",
             "BH - 60"});
-            this.comboBox_itemsNdsRate.Location = new System.Drawing.Point(7, 20);
-            this.comboBox_itemsNdsRate.Name = "comboBox_itemsNdsRate";
-            this.comboBox_itemsNdsRate.Size = new System.Drawing.Size(364, 21);
-            this.comboBox_itemsNdsRate.TabIndex = 0;
-            this.comboBox_itemsNdsRate.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            this.comboBox_itemsNdsRateM12.Location = new System.Drawing.Point(7, 20);
+            this.comboBox_itemsNdsRateM12.Name = "comboBox_itemsNdsRateM12";
+            this.comboBox_itemsNdsRateM12.Size = new System.Drawing.Size(364, 21);
+            this.comboBox_itemsNdsRateM12.TabIndex = 0;
+            this.comboBox_itemsNdsRateM12.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
             // 
             // tabPage_ci_ap
             // 
@@ -5554,6 +5573,8 @@
             // 
             // tabPage_perform
             // 
+            this.tabPage_perform.Controls.Add(this.label14);
+            this.tabPage_perform.Controls.Add(this.comboBox_jsonFilename);
             this.tabPage_perform.Controls.Add(this.label23);
             this.tabPage_perform.Controls.Add(this.comboBox_closeShiftEvery);
             this.tabPage_perform.Controls.Add(this.label22);
@@ -5579,7 +5600,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(595, 382);
+            this.label23.Location = new System.Drawing.Point(595, 388);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(163, 13);
             this.label23.TabIndex = 16;
@@ -5595,7 +5616,7 @@
             "Каждые 4000 чеков",
             "Каждые 8000 чеков",
             "Каждые 10000 чеков"});
-            this.comboBox_closeShiftEvery.Location = new System.Drawing.Point(770, 379);
+            this.comboBox_closeShiftEvery.Location = new System.Drawing.Point(770, 385);
             this.comboBox_closeShiftEvery.Name = "comboBox_closeShiftEvery";
             this.comboBox_closeShiftEvery.Size = new System.Drawing.Size(233, 21);
             this.comboBox_closeShiftEvery.TabIndex = 15;
@@ -5604,7 +5625,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(595, 355);
+            this.label22.Location = new System.Drawing.Point(595, 365);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(164, 13);
             this.label22.TabIndex = 14;
@@ -5619,7 +5640,7 @@
             "1 секунда",
             "2 секунды",
             "3 секунды"});
-            this.comboBox_pauseAfterCheque.Location = new System.Drawing.Point(770, 352);
+            this.comboBox_pauseAfterCheque.Location = new System.Drawing.Point(770, 362);
             this.comboBox_pauseAfterCheque.Name = "comboBox_pauseAfterCheque";
             this.comboBox_pauseAfterCheque.Size = new System.Drawing.Size(233, 21);
             this.comboBox_pauseAfterCheque.TabIndex = 13;
@@ -5778,13 +5799,15 @@
             // 
             // textBox_perfomingInformation
             // 
+            this.textBox_perfomingInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_perfomingInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_perfomingInformation.ForeColor = System.Drawing.Color.Black;
             this.textBox_perfomingInformation.Location = new System.Drawing.Point(6, 67);
             this.textBox_perfomingInformation.Multiline = true;
             this.textBox_perfomingInformation.Name = "textBox_perfomingInformation";
             this.textBox_perfomingInformation.ReadOnly = true;
-            this.textBox_perfomingInformation.Size = new System.Drawing.Size(1009, 265);
+            this.textBox_perfomingInformation.Size = new System.Drawing.Size(1074, 265);
             this.textBox_perfomingInformation.TabIndex = 2;
             // 
             // button_performCorrections
@@ -5829,6 +5852,90 @@
             this.richTextBox_log.Size = new System.Drawing.Size(880, 92);
             this.richTextBox_log.TabIndex = 1;
             this.richTextBox_log.Text = "";
+            // 
+            // comboBox_jsonFilename
+            // 
+            this.comboBox_jsonFilename.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_jsonFilename.FormattingEnabled = true;
+            this.comboBox_jsonFilename.Items.AddRange(new object[] {
+            "Нет",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
+            this.comboBox_jsonFilename.Location = new System.Drawing.Point(770, 338);
+            this.comboBox_jsonFilename.Name = "comboBox_jsonFilename";
+            this.comboBox_jsonFilename.Size = new System.Drawing.Size(233, 21);
+            this.comboBox_jsonFilename.TabIndex = 0;
+            this.comboBox_jsonFilename.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(595, 341);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(160, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "Маркировать выгрузку JSON*";
+            this.toolTip1.SetToolTip(this.label14, "Это свойство не попадет в чек, но\r\nбудет испольхзовано как чать названия\r\nфайла п" +
+        "ри сохранении чека в  JSON.\r\nНе должно содержать сиволов которые\r\nне могут быть " +
+        "частью названия файла");
             // 
             // FormOfdExport
             // 
@@ -5889,6 +5996,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_itemsUnitQuantityMeasure)).EndInit();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_taxChooser)).EndInit();
             this.tabPage_ci_ap.ResumeLayout(false);
             this.tabPage_ci_ap.PerformLayout();
             this.groupBox34.ResumeLayout(false);
@@ -5984,7 +6092,7 @@
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBox_itemsNdsRateDefault;
-        private System.Windows.Forms.ComboBox comboBox_itemsNdsRate;
+        private System.Windows.Forms.ComboBox comboBox_itemsNdsRateM12;
         private System.Windows.Forms.TabPage tabPage_payment;
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.ComboBox comboBox_checkPaidEcash;
@@ -6015,7 +6123,6 @@
         private System.Windows.Forms.ComboBox comboBox_selectedSno;
         private System.Windows.Forms.TextBox textBox_errorsAllowed;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button button_presetsTaxcom;
         private System.Windows.Forms.Button button_presetsFirstOfd;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox comboBox_snoDefault;
@@ -6027,7 +6134,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ComboBox comboBox_cashierInn;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.CheckBox checkBox_admissibilityErrors;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -6038,9 +6144,6 @@
         private System.Windows.Forms.DataGridView dataGridView_itemsUnitQuantityMeasure;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage tabPage_taxes;
         private System.Windows.Forms.CheckBox checkBox_enableManualTaxes;
         private System.Windows.Forms.GroupBox groupBox_manualTax;
@@ -6139,5 +6242,13 @@
         private System.Windows.Forms.ComboBox comboBox_checkTax22122;
         private System.Windows.Forms.GroupBox groupBox36;
         private System.Windows.Forms.ComboBox comboBox_checkTax22;
+        private System.Windows.Forms.DataGridView dataGridView_taxChooser;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
+        private System.Windows.Forms.ComboBox comboBox_jsonFilename;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

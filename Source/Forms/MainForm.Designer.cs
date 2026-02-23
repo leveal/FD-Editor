@@ -236,6 +236,7 @@
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage_Olap = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.label77 = new System.Windows.Forms.Label();
             this.button_ofdFormat = new System.Windows.Forms.Button();
             this.checkBox_cleanJsonCollection = new System.Windows.Forms.CheckBox();
             this.button_readjsonList = new System.Windows.Forms.Button();
@@ -393,7 +394,6 @@
             this.label50 = new System.Windows.Forms.Label();
             this.button_openSettings = new System.Windows.Forms.Button();
             this.button_cashOperation = new System.Windows.Forms.Button();
-            this.label77 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -2969,6 +2969,15 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Выгрузки ОФД";
             // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(14, 18);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(209, 26);
+            this.label77.TabIndex = 1;
+            this.label77.Text = "Описание формата и пример выгрузки \r\nсмотрите в документации";
+            // 
             // button_ofdFormat
             // 
             this.button_ofdFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -4063,7 +4072,7 @@
             "4 - Полный расчет",
             "5 - Частичный расчет и кредит",
             "6 - Передача в кредит",
-            "7 - Оплата куредита"});
+            "7 - Оплата кредита"});
             this.comboBox_cheq_itemPaymentTypeSign.Location = new System.Drawing.Point(52, 56);
             this.comboBox_cheq_itemPaymentTypeSign.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox_cheq_itemPaymentTypeSign.Name = "comboBox_cheq_itemPaymentTypeSign";
@@ -4770,15 +4779,6 @@
             this.button_cashOperation.TabIndex = 25;
             this.button_cashOperation.UseVisualStyleBackColor = true;
             this.button_cashOperation.Click += new System.EventHandler(this.Button_frNoncheqOperation);
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(14, 18);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(209, 26);
-            this.label77.TabIndex = 1;
-            this.label77.Text = "Описание формата и пример выгрузки \r\nсмотрите в документации";
             // 
             // MainForm
             // 

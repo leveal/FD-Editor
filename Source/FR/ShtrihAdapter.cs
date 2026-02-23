@@ -1757,12 +1757,13 @@ namespace FR_Operator
                     sbtlvImage.Append(s);
                 }
                 tlvImage = sbtlvImage.ToString();
+                LogHandle.ol("Разбираем TLV образ"+ Environment.NewLine + BitConverter.ToString(Encoding.GetEncoding(1251).GetBytes(tlvImage)));
                 FnReadedDocument frd2 = TranslateFtagsList(Encoding.GetEncoding(1251).GetBytes(tlvImage), dType);
                 if (/*false/*отладка* / && */ CorrectnessOfReading(frd2.Cheque)&&frd2.Time > new DateTime(2017,6,1)) 
                 {
                     
                     //LogHandle.ol("Прочитан документ:" + Encoding.UTF8.GetBytes(tlvImage));
-                    LogHandle.ol("Прочитан документ" + Environment.NewLine + BitConverter.ToString(Encoding.GetEncoding(1251).GetBytes(tlvImage)) +Environment.NewLine);
+                    //LogHandle.ol("Прочитан документ" + Environment.NewLine + BitConverter.ToString(Encoding.GetEncoding(1251).GetBytes(tlvImage)) +Environment.NewLine);
 
                     
                     uint ut=0;

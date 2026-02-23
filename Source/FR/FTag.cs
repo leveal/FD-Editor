@@ -58,9 +58,16 @@ namespace FR_Operator
                     case FDataType.FVLN:
                         //Debug.WriteLine(BitConverter.ToString(_rawData));
                         int decimalPoint = data[0];
-                        _valueDouble = 0;
-                        for (int i = 1; i < data.Length; i++) _valueDouble += (int)Math.Round(data[i] * Math.Pow(256, i - 1));
-                        _valueDouble /= Math.Pow(10, decimalPoint);
+                        //_valueDouble = 0;
+                        ulong accumulation = 0;
+                        ulong mult = 1;
+                        for (int i = 1; i < data.Length; i++) 
+                        {
+                            accumulation += data[i] * mult;
+                            mult *= 256;
+                        }
+                        //_valueDouble += (int)Math.Round(data[i] * Math.Pow(256, i - 1));
+                        _valueDouble = accumulation / Math.Pow(10, decimalPoint);
                         Representation = _valueDouble.ToString();
                         break;
                     case FDataType.U32UT:

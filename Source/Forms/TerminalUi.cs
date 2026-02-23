@@ -2212,7 +2212,7 @@ namespace FR_Operator
             }
             catch (Exception ex)
             {
-                LogHandle.olta(ex.Message);
+                LogHandle.Olta(ex.Message);
             }
         }
 

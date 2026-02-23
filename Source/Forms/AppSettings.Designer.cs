@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppSettings));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_common = new System.Windows.Forms.TabPage();
+            this.button_import = new System.Windows.Forms.Button();
             this.textBox_cashierInnDefault = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.textBox_cashierDefault = new System.Windows.Forms.TextBox();
@@ -190,6 +191,7 @@
             // 
             // tabPage_common
             // 
+            this.tabPage_common.Controls.Add(this.button_import);
             this.tabPage_common.Controls.Add(this.textBox_cashierInnDefault);
             this.tabPage_common.Controls.Add(this.label27);
             this.tabPage_common.Controls.Add(this.textBox_cashierDefault);
@@ -208,6 +210,16 @@
             this.tabPage_common.TabIndex = 0;
             this.tabPage_common.Text = "Общие";
             this.tabPage_common.UseVisualStyleBackColor = true;
+            // 
+            // button_import
+            // 
+            this.button_import.Location = new System.Drawing.Point(150, 10);
+            this.button_import.Name = "button_import";
+            this.button_import.Size = new System.Drawing.Size(182, 23);
+            this.button_import.TabIndex = 107;
+            this.button_import.Text = "Импорт внешних настроек";
+            this.button_import.UseVisualStyleBackColor = true;
+            this.button_import.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox_cashierInnDefault
             // 
@@ -765,7 +777,7 @@
             "4 - Полный расчет",
             "5 - Частичный расчет и кредит",
             "6 - Передача в кредит",
-            "7 - Оплата куредита"});
+            "7 - Оплата кредита"});
             this.comboBox_settingsItemPaymentTypeDefault.Location = new System.Drawing.Point(241, 40);
             this.comboBox_settingsItemPaymentTypeDefault.Name = "comboBox_settingsItemPaymentTypeDefault";
             this.comboBox_settingsItemPaymentTypeDefault.Size = new System.Drawing.Size(217, 21);
@@ -1870,5 +1882,6 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Button button_import;
     }
 }

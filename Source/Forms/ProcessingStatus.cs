@@ -59,40 +59,26 @@ namespace FR_Operator
             }
         }
 
-        private void _allDone()
+        private void S_allDone()
         {
-            if (InvokeRequired)
+            if (this.Created)
             {
-                BeginInvoke(new Action(() =>
-                {
-                    if (!this.Created)
-                    {
-                        Thread.Sleep(250);
-                    }
-                    if (this.Created)
-                    {
-                        this.Close();
-                        this.Dispose();
-                    }
-                }));
-            }
-            else
-            {
-                if (!this.Created)
-                {
-                    Thread.Sleep(250);
-                }
-                if (this.Created)
+                MethodInvoker method = delegate
                 {
                     this.Close();
                     this.Dispose();
-                }
+                };
+                Thread.Sleep(250);
+                if (this.InvokeRequired)
+                    this.BeginInvoke(method);
+                else
+                    method.Invoke();
             }
         }
 
         public void AllDone()
         {
-            _allDone();
+            S_allDone();
         }
 
         private void button_processingBreak_Click(object sender, EventArgs e)
