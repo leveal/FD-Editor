@@ -201,6 +201,8 @@ namespace FR_Operator
             FR_CASHIER_NAME_KEY = 10300,
             FR_CASHIER_INN_KEY = 10301,
 
+            FR_WARN_KEY = 10400,
+
             FD_DOCUMENT_NAME_CHEQUE = 11000,
             FD_DOCUMENT_NAME_CORRECTION_CHEQUE = 11001,
 
@@ -442,6 +444,7 @@ namespace FR_Operator
             [FR_CASHIER_NAME_KEY] = "",
             [FR_CASHIER_INN_KEY] = "",
             [FR_STATUS_MODE_KEY] = "",
+            [FR_WARN_KEY] = ""
         };
 
         public static readonly string[,] ItemTypeDscr = new string[,]
@@ -684,6 +687,7 @@ namespace FR_Operator
             KKMInfoTransmitter[FR_FFDVER_KEY] = "";
             KKMInfoTransmitter[FR_CASHIER_NAME_KEY] = "";
             KKMInfoTransmitter[FR_CASHIER_INN_KEY] = "";
+            KKMInfoTransmitter[FR_WARN_KEY] = "";
         }
 
         public static Dictionary<int, string> fdDocTypes = new Dictionary<int, string>()

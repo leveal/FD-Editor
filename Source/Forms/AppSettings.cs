@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -79,7 +80,7 @@ namespace FR_Operator
 
             if (parent == linkLabel_doc)
             {
-                Clipboard.SetText("https://docs.google.com/document/d/1iyOS7q8_ULj-dHfb7LYhAu0a19XmvymBdfMWLfGu1Xw/edit?usp=sharing");
+                try { Clipboard.SetText("https://docs.google.com/document/d/1iyOS7q8_ULj-dHfb7LYhAu0a19XmvymBdfMWLfGu1Xw/edit?usp=sharing"); } catch { }
             }
             
         }
@@ -115,6 +116,9 @@ namespace FR_Operator
             if (_itemQuantity > 0)
                 textBox_itemQuantityDefault.Text = _itemQuantity.ToString();
             checkBox_atolAppendMeasure120.Checked = _autoUnit120SetZero;
+            checkBox_atolWarnEndLic17.Checked = _atolWarnEndLic17;
+            textBox_atolFontForPrinting.Text = _atolFontForPrinting.ToString();
+            checkBox_fillItemPaymetTypeDef.Checked = _atolFillItemsPaymentTypeDefault4;
             comboBox_copayIntFd.SelectedIndex = (int)CoPayInterfaceDoc;
             textBox_emuDelay.Text = _emulatorDelay.ToString();
             checkBox_shtrihPrintPropertyData.Checked = _shtrihPrintPropertyData;
@@ -124,8 +128,6 @@ namespace FR_Operator
             comboBox_infiStr1.SelectedIndex = _extendedTextInfoStrFormat[0];
             comboBox_infiStr2.SelectedIndex = _extendedTextInfoStrFormat[1];
             comboBox_infiStr3.SelectedIndex = _extendedTextInfoStrFormat[2];
-            textBox_atolFontForPrinting.Text = _atolFontForPrinting.ToString();
-            checkBox_fillItemPaymetTypeDef.Checked = _atolFillItemsPaymentTypeDefault4;
             textBox_shtrihFontForPrinting.Text = _shtrihFomtForPrinting.ToString();
             comboBox_cleanAfterPrint.SelectedIndex = _extendedTextInfoCleanAfterPrint ? 0 : 1;
             comboBox_terminalFnComPrefer.SelectedIndex = _terminalPreferPort;
@@ -165,13 +167,28 @@ namespace FR_Operator
             {
                 listBox_jsonHeaders.Items.Add(header);
             }
+            checkBox_offLoggingJsonParcing.Checked = _jsonOffLog;
 
+            listBox_shtrihWarns.Items.Clear();
+            foreach (var warn in shtrihWarns)
+            {
+                listBox_shtrihWarns.Items.Add(warn.ToString());
+            }
             _skipProcessing = false;
         }
 
         private static List<string> _jsonHeaders = new List<string>();
         private const string JSON_PATH = "js.path=";
         public static List<string> JsonHeaders { get => _jsonHeaders; }
+
+
+        private static string JSON_OFF_LOG = "off_log_json_parcing=";
+        private static bool _jsonOffLog = false;
+        public static bool OffLogJsonParce
+        {
+            get { return _jsonOffLog; }
+        }
+
         //!!  Атолы !! 
         /*
          * 
@@ -229,6 +246,17 @@ namespace FR_Operator
         private const string AUTO_UNIT120_SET_ZERO_KEY = "Atol_items.unit120_setZero=true";
         private const string UNIT120_SAVE_EMPTY_KEY = "Atol_items.unit120_setZero=false";
 
+        private static bool _atolWarnEndLic17 = true;
+        private const string ATOL_WARN_END_LIC_17 = "Atol_warn_end_lic_17=";
+        public static bool AtolWarnEndLic17
+        {
+            get => _atolWarnEndLic17;
+            set
+            {
+                _atolWarnEndLic17= value;
+                SaveSettings();
+            }
+        }
 
         // !! TerminalFn !!
         /*
@@ -544,6 +572,10 @@ namespace FR_Operator
                                 }
                                 catch { }
                             }
+                            else if (parameter.StartsWith(ATOL_WARN_END_LIC_17))
+                            {
+                                _atolWarnEndLic17 = parameter.ToLower().EndsWith("true");
+                            }
                             else if (parameter.StartsWith(SHTRIH_REGISTER_ITEM))
                             {
                                 int method = 0;
@@ -616,6 +648,10 @@ namespace FR_Operator
                             else if (parameter.StartsWith(JSON_PATH))
                             {
                                 _jsonHeaders.Add(parameter.Substring(JSON_PATH.Length));
+                            }
+                            else if (parameter.StartsWith(JSON_OFF_LOG))
+                            {
+                                _jsonOffLog = parameter.ToLower().EndsWith("true");
                             }
                             else if (parameter.StartsWith(TERMINALFN_LOG_LEVEL))
                             {
@@ -697,6 +733,65 @@ namespace FR_Operator
                                 {
                                     OverideRetailPlace = true;
                                 }
+                            }
+                            else if (parameter.StartsWith(SWS_START))
+                            {
+                                int fieldIndex = parameter.IndexOf(SWS_FIELD);
+                                int containsIndex = parameter.IndexOf(SWS_CONTAINS);
+                                int conditionIndex = parameter.IndexOf(SWS_CONDITION);
+                                int valueIndex = parameter.IndexOf(SWS_VALUE);
+                                int msgIndex = parameter.IndexOf(SWS_MSG);
+                                int commentIndex = parameter.IndexOf(SWS_COMMENT);
+                                int endIndex = parameter.IndexOf(SWS_END_WARN);
+                                if (fieldIndex>0 && containsIndex > 0 && conditionIndex > 0 && valueIndex > 0 && msgIndex > 0 && commentIndex > 0 && endIndex > 0)
+                                {
+                                    string tableString = parameter.Substring(SWS_START.Length, fieldIndex - SWS_START.Length);
+                                    int.TryParse(tableString, out int table);
+                                    string fieldStr = parameter.Substring(fieldIndex+ SWS_FIELD.Length, containsIndex - SWS_FIELD.Length - fieldIndex);
+                                    int.TryParse(fieldStr, out int field);
+                                    string containsStr = parameter.Substring(containsIndex + SWS_CONTAINS.Length, conditionIndex - SWS_CONTAINS.Length - containsIndex);
+                                    string conditionStr = parameter.Substring(conditionIndex + SWS_CONDITION.Length, valueIndex - SWS_CONDITION.Length - conditionIndex).ToLower();
+                                    ShtrihWarn.SWCondition condition;
+                                    if(conditionStr == "equal")
+                                    {
+                                        condition = ShtrihWarn.SWCondition.Equal;
+                                    }
+                                    else if(conditionStr == "differ")
+                                    {
+                                        condition = ShtrihWarn.SWCondition.Differ;
+                                    }
+                                    else if(conditionStr == "more")
+                                    {
+                                        condition = ShtrihWarn.SWCondition.More;
+                                    }
+                                    else if (conditionStr == "less")
+                                    {
+                                        condition = ShtrihWarn.SWCondition.Less;
+                                    }
+                                    else
+                                    {
+                                        LogHandle.ol("Некорректное условие предупреждений, пропускаем строку");
+                                        condition = ShtrihWarn.SWCondition.Equal;
+                                        continue;
+                                    }
+                                    string valueStr = parameter.Substring( valueIndex + SWS_VALUE.Length, msgIndex - valueIndex - SWS_VALUE.Length );
+                                    int.TryParse( valueStr, out int value);
+                                    string messageStr = parameter.Substring( msgIndex + SWS_MSG.Length, commentIndex - msgIndex - SWS_MSG.Length );
+                                    string comment = parameter.Substring(commentIndex + SWS_COMMENT.Length, endIndex - commentIndex - SWS_COMMENT.Length);
+                                    if (table>0 && field > 0)
+                                    {
+                                        ShtrihWarn warn = new ShtrihWarn();
+                                        warn.Table = table;
+                                        warn.Field = field;
+                                        warn.Message = messageStr;
+                                        warn.Condition = condition;
+                                        warn.Value = value;
+                                        warn.NameContains = containsStr;
+                                        warn.Comment = comment;
+                                        shtrihWarns.Add( warn );
+                                    }
+                                }
+
                             }
                         }
                     }
@@ -809,8 +904,11 @@ namespace FR_Operator
                 {
                     sb.AppendLine(JSON_PATH+header);
                 }
-                sb.AppendLine();
+                
             }
+            sb.AppendLine(JSON_OFF_LOG+ _jsonOffLog );
+
+            sb.AppendLine();
             // shtrih settings
             sb.AppendLine("#[SHTRIH]");
             if (_shtrihPrintPropertyData)
@@ -827,6 +925,12 @@ namespace FR_Operator
             }
             sb.AppendLine(SHTRIH_REGISTER_ITEM + _shtrihRegisterItemMethod);
             sb.AppendLine(SHTRIH_CLOSE_CHECK_METHOD + _shtrihCloseCheckMethod);
+            foreach(var shtrihWarn in shtrihWarns)
+            {
+                sb.AppendLine(shtrihWarn.ToString("save"));
+            }
+
+
             // atol settings
             sb.AppendLine();
             sb.AppendLine("#[ATOL]");
@@ -849,6 +953,7 @@ namespace FR_Operator
                 sb.AppendLine(ATOL_FONT_FOR_PRINTING+_atolFontForPrinting);
             }
             sb.AppendLine(ATOL_FILL_ITEMS_PT_DEF+_atolFillItemsPaymentTypeDefault4);
+            sb.AppendLine(ATOL_WARN_END_LIC_17+_atolWarnEndLic17);
             sb.AppendLine();
             sb.AppendLine("#[EMULATOR]");
             sb.AppendLine(EMULATOR_DELAY+_emulatorDelay);
@@ -902,7 +1007,11 @@ namespace FR_Operator
             {
                 _atolUsePropertyData = checkBox_atolUsePropertyData.Checked;
             }
-            else if(sender == textBox_cashierDefault)
+            else if (sender == checkBox_atolWarnEndLic17)
+            {
+                _atolWarnEndLic17 = checkBox_atolWarnEndLic17.Checked;
+            }
+            else if (sender == textBox_cashierDefault)
             {
                 _cashierDefault = textBox_cashierDefault.Text;
             }
@@ -921,15 +1030,15 @@ namespace FR_Operator
                 }
 
             }
-            else if(sender == radioButton_cs_usingSno)
+            else if (sender == radioButton_cs_usingSno)
             {
-                if(radioButton_cs_usingSno.Checked)
+                if (radioButton_cs_usingSno.Checked)
                 {
                     LogHandle.ol("Usage custom SNO true");
                     _usingCustomSno = true;
                 }
             }
-            else if(sender == radioButton_cs_dontUsingSno && radioButton_cs_dontUsingSno.Checked)
+            else if (sender == radioButton_cs_dontUsingSno && radioButton_cs_dontUsingSno.Checked)
             {
                 if (radioButton_cs_dontUsingSno.Checked)
                 {
@@ -943,21 +1052,21 @@ namespace FR_Operator
                 radioButton_overrideOriginalPropertyData.Enabled = _appendFiscalSignAsPropertyData;
                 radioButton_saveOriginalPropertyData.Enabled = _appendFiscalSignAsPropertyData;
             }
-            else if(sender == radioButton_overrideOriginalPropertyData )
+            else if (sender == radioButton_overrideOriginalPropertyData)
             {
                 if (radioButton_overrideOriginalPropertyData.Checked)
                     _overridePropertyData = true;
                 else
                     return;
             }
-            else if ( sender == radioButton_saveOriginalPropertyData)
+            else if (sender == radioButton_saveOriginalPropertyData)
             {
                 if (radioButton_saveOriginalPropertyData.Checked)
                     _overridePropertyData = false;
                 else
                     return;
             }
-            else if(sender == textBox_correctionOrderNumberDefault)
+            else if (sender == textBox_correctionOrderNumberDefault)
             {
                 _correctionOrderNumberDefault = textBox_correctionOrderNumberDefault.Text;
             }
@@ -968,30 +1077,30 @@ namespace FR_Operator
                 else
                     return;
             }
-            else if(sender == radioButton_correctionOrderNumberSaveOriginal)
+            else if (sender == radioButton_correctionOrderNumberSaveOriginal)
             {
                 if (radioButton_correctionOrderNumberSaveOriginal.Checked)
                     _overrideCorrectionOrderNumber = false;
-                else 
+                else
                     return;
             }
             else if (sender == radioButton_correctionDocumentDateSaveOriginal)
             {
                 if (radioButton_correctionDocumentDateSaveOriginal.Checked)
                     _overrideCorrectionDocumentDate = false;
-                else 
+                else
                     return;
             }
-            else if(sender == radioButton_correctionDocumentDateOveeride)
+            else if (sender == radioButton_correctionDocumentDateOveeride)
             {
                 if (radioButton_correctionDocumentDateOveeride.Checked)
                     _overrideCorrectionDocumentDate = true;
                 else
                     return;
             }
-            else if(sender == comboBox_settingsItemProductTypeDefault)
+            else if (sender == comboBox_settingsItemProductTypeDefault)
             {
-                if(comboBox_settingsItemProductTypeDefault.SelectedIndex == 28 || comboBox_settingsItemProductTypeDefault.SelectedIndex == 29)
+                if (comboBox_settingsItemProductTypeDefault.SelectedIndex == 28 || comboBox_settingsItemProductTypeDefault.SelectedIndex == 29)
                 {
                     comboBox_settingsItemProductTypeDefault.SelectedIndex = _itemProductType;
                 }
@@ -1000,19 +1109,19 @@ namespace FR_Operator
                     _itemProductType = comboBox_settingsItemProductTypeDefault.SelectedIndex;
                 }
             }
-            else if(sender == comboBox_settingsItemPaymentTypeDefault)
+            else if (sender == comboBox_settingsItemPaymentTypeDefault)
             {
                 _itemPaymentType = comboBox_settingsItemPaymentTypeDefault.SelectedIndex;
             }
-            else if(sender == comboBox_settingsItemTaxRateDefault)
+            else if (sender == comboBox_settingsItemTaxRateDefault)
             {
                 _itemTaxRate = comboBox_settingsItemTaxRateDefault.SelectedIndex;
             }
-            else if(sender == textBox_itemNameDefault)
+            else if (sender == textBox_itemNameDefault)
             {
                 _itemName = textBox_itemNameDefault.Text;
             }
-            else if(sender == textBox_itemPriceDefault)
+            else if (sender == textBox_itemPriceDefault)
             {
                 try { _itemPrice = double.Parse(FiscalPrinter.ReplaceBadDecimalSeparatorPoint(textBox_itemPriceDefault.Text)); } catch { _itemPrice = -1; }
             }
@@ -1020,7 +1129,7 @@ namespace FR_Operator
             {
                 try { _itemQuantity = double.Parse(FiscalPrinter.ReplaceBadDecimalSeparatorPoint(textBox_itemQuantityDefault.Text)); } catch { _itemQuantity = -1; }
             }
-            else if(sender == comboBox_copayIntFd)
+            else if (sender == comboBox_copayIntFd)
             {
                 switch (comboBox_copayIntFd.SelectedIndex)
                 {
@@ -1155,25 +1264,85 @@ namespace FR_Operator
             {
                 _terminalPreferPort = comboBox_terminalFnComPrefer.SelectedIndex;
             }
-            else if(sender == comboBox_tetminalFn1115Method)
+            else if (sender == comboBox_tetminalFn1115Method)
             {
                 _terminalFnTag1115Filling = comboBox_tetminalFn1115Method.SelectedIndex;
             }
-            else if(sender == checkBox_terminalSkipItemsInCoorectionFfd2)
+            else if (sender == checkBox_terminalSkipItemsInCoorectionFfd2)
             {
                 _tfnSkipItemsInCorrectionFfd2 = checkBox_terminalSkipItemsInCoorectionFfd2.Checked;
             }
-            else if(sender == checkBox_correctionOrderNumber_CorrectionOrderExistance)
+            else if (sender == checkBox_correctionOrderNumber_CorrectionOrderExistance)
             {
                 _corretion_order_number_existance = checkBox_correctionOrderNumber_CorrectionOrderExistance.Checked ? 1 : 0;
             }
-            else if(sender == checkBox_ovverrideRetailAddress)
+            else if (sender == checkBox_ovverrideRetailAddress)
             {
                 OverideRetailAddress = checkBox_ovverrideRetailAddress.Checked;
             }
             else if (sender == checkBox_ovverrideRetailPlace)
             {
                 OverideRetailPlace = checkBox_ovverrideRetailPlace.Checked;
+            }
+            else if (sender == checkBox_offLoggingJsonParcing)
+            {
+                _jsonOffLog = checkBox_offLoggingJsonParcing.Checked;
+            }
+            else if (sender == button_shtrih_warn_save || sender == button_shtrih_warn_delete)
+            {
+                if (
+                    int.TryParse(textBox_shtrih_warn_table.Text, out int table) &&
+                    int.TryParse(textBox_shtrih_warn_field.Text, out int field) &&
+                    int.TryParse(textBox_shtrih_warn_value.Text, out int value) &&
+                    !string.IsNullOrEmpty(comboBox_shtrih_warn_condition.Text) &&
+                    table > 0 && field > 0
+                    )
+                {
+                    string contains = textBox_shtrih_warn_contain.Text;
+                    string message = textBox_shtrih_warn_message.Text;
+                    string comment = textBox_textBox_shtrih_warn_comment.Text;
+                    ShtrihWarn.SWCondition condition;
+                    if (comboBox_shtrih_warn_condition.Text == "==")
+                    {
+                        condition = ShtrihWarn.SWCondition.Equal;
+                    }
+                    else if (comboBox_shtrih_warn_condition.Text == "!=(<>)")
+                    {
+                        condition = ShtrihWarn.SWCondition.Differ;
+                    }
+                    else if (comboBox_shtrih_warn_condition.Text == ">")
+                    {
+                        condition = ShtrihWarn.SWCondition.More;
+                    }
+                    else
+                    {
+                        condition = ShtrihWarn.SWCondition.Less;
+                    }
+                    ShtrihWarn warn = new ShtrihWarn();
+                    warn.Table = table;
+                    warn.Field = field;
+                    warn.Message = message;
+                    warn.Condition = condition;
+                    warn.Value = value;
+                    warn.NameContains = contains;
+                    warn.Comment = string.IsNullOrEmpty(comment) ? "" : comment;
+                    if (shtrihWarns.Contains(warn))
+                    {
+                        if (sender == button_shtrih_warn_save) { shtrihWarns[shtrihWarns.IndexOf(warn)] = warn; }
+                        else { shtrihWarns.Remove(warn); }
+                    }
+                    else
+                    {
+                        shtrihWarns.Add(warn);
+                    }
+
+                    listBox_shtrihWarns.Items.Clear();
+                    foreach (var item in shtrihWarns)
+                    {
+                        listBox_shtrihWarns.Items.Add(item.ToString());
+                    }
+
+                }
             }
             SaveSettings();
         }
@@ -1463,7 +1632,7 @@ namespace FR_Operator
         
 
 
-        private void linkLabel_doc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void OpenDocumentation(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (sender == linkLabel_doc)
             {
@@ -1486,7 +1655,7 @@ namespace FR_Operator
 
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void XmlFdRules(object sender, EventArgs e)
         {
             if (sender == button_saveRules)
             {
@@ -1568,40 +1737,6 @@ namespace FR_Operator
                 fnsTokens.AppendChild(xmlComment3);
                 fnsTokens.AppendChild(xmlComment4);
                 List<string> tokens = new List<string>(FTag.structuredTagNames.Keys);
-                // номера как токены
-                /*Dictionary<string,string> numsAsTokens = new Dictionary<string,string>();
-                Dictionary<string, int> invertedFnsNames = new Dictionary<string, int>();
-                foreach(int t in FTag.fnsNames.Keys)
-                {
-                    invertedFnsNames[FTag.fnsNames[t]] = t;
-                }
-
-
-                foreach(var oldToken in tokens)
-                {
-
-
-                    string nat = "";
-                    if (oldToken.Contains("."))
-                    {
-                        string[] oldSubTokens = oldToken.Split('.');
-                        foreach(string oldSubToken in oldSubTokens)
-                        {
-                            if (nat.Length > 0)
-                            {
-                                nat = nat+".";
-                            }
-                            nat = nat + invertedFnsNames[oldSubToken];
-                        }
-                    }
-                    else
-                    {
-                        nat = invertedFnsNames[oldToken].ToString();
-                    }
-                    
-                    numsAsTokens[oldToken] = nat;
-                    nat = "";
-                }*/
 
                 foreach (string s in tokens)
                 {
@@ -1720,8 +1855,6 @@ namespace FR_Operator
                                         {
                                             userFriendlyTagNames[tagNumber] = ufName;
                                         }
-
-
                                         if (tagType == "UNKNOWN")
                                         {
                                             mainRecognitionRule[tagNumber] = FTag.FDataType.UNKNOWN;
@@ -1779,7 +1912,6 @@ namespace FR_Operator
                                             badRecodsCounter++;
                                             continue;
                                         }
-
                                     }
                                 }
                                 else
@@ -1792,10 +1924,7 @@ namespace FR_Operator
                                 badRecodsCounter++;
                                 LogHandle.ol(exc.Message);
                             }
-
-
                         }
-
                         foreach (var objTokenRule in tokensRule)
                         {
                             try
@@ -1824,9 +1953,7 @@ namespace FR_Operator
                                 LogHandle.ol(exc.Message);
                                 badRecodsCounter++;
                             }
-
                         }
-
                         LogHandle.ol("FNS tokens rules founded: " + fnsJsonRulesStructured.Count + "; Tokens before: " + FTag.structuredTagNames.Count);
                         LogHandle.ol("FNS names founded: " + fnsJsonDict.Count + "; FNS names before: " + FTag.fnsNames.Count);
 
@@ -1906,7 +2033,7 @@ namespace FR_Operator
         }
 
         bool skipControlDev = false;
-        private void ControlDevice(object sender, EventArgs e)
+        private void ControlShtrihTables(object sender, EventArgs e)
         {
             if(skipControlDev)
                 return;
@@ -1957,5 +2084,281 @@ namespace FR_Operator
 
             }
         }
+
+        public static string SWS_START = "shtih_warn[id.T=";
+        public static string SWS_FIELD = ";id.F=";
+        public static string SWS_CONTAINS = ";id.Contain{";
+        public static string SWS_CONDITION = "};id.Condition{";
+        public static string SWS_VALUE = "};id.Value=";
+        public static string SWS_MSG = ";Msg={";
+        public static string SWS_COMMENT = "};Comment={";
+        public static string SWS_END_WARN = "}];";
+
+        public static List<ShtrihWarn> shtrihWarns = new List<ShtrihWarn>();
+        public struct ShtrihWarn
+        {
+            public int Table;
+            public int Field;
+            public string NameContains;
+            public SWCondition Condition;
+            public int Value;
+            public string Message;
+            public string Comment;
+
+            public string ToString(string s = null)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                if (s == null)
+                {
+                    sb.Append("T=");
+                    sb.Append(Table);
+                    sb.Append("; П=");
+                    sb.Append(Field);
+                    sb.Append("; содержит{");
+                    sb.Append(NameContains);
+                    sb.Append("} ");
+                    if (Condition == SWCondition.Equal)
+                    {
+                        sb.Append("== ");
+                    }
+                    else if (Condition == SWCondition.Differ)
+                    {
+                        sb.Append("!= ");
+                    }
+                    else if (Condition == SWCondition.Less)
+                    {
+                        sb.Append("< ");
+                    }
+                    else if (Condition == SWCondition.More)
+                    {
+                        sb.Append("> ");
+                    }
+                    sb.Append(Value);
+                }
+                else if(s.ToLower() == "save")
+                {
+                    sb.Append(SWS_START);
+                    sb.Append(Table);
+                    sb.Append(SWS_FIELD);
+                    sb.Append(Field);
+                    sb.Append(SWS_CONTAINS);
+                    if(!string.IsNullOrEmpty(NameContains)) sb.Append(NameContains);
+                    sb.Append(SWS_CONDITION);
+                    sb.Append(Condition);
+                    sb.Append(SWS_VALUE);
+                    sb.Append(Value);
+                    sb.Append(SWS_MSG);
+                    sb.Append(string.IsNullOrEmpty(Message)?"mull":Message);
+                    sb.Append(SWS_COMMENT);
+                    if(!string.IsNullOrEmpty(Comment)) sb.Append(Comment);
+                    sb.Append(SWS_END_WARN);
+                }
+                return sb.ToString();
+            }
+
+            public static  bool operator == (ShtrihWarn sw1, ShtrihWarn sw2)
+            {
+                return sw1.Equals(sw2);
+            }
+            public static bool operator !=(ShtrihWarn sw1, ShtrihWarn sw2)
+            {
+                return !sw1.Equals(sw2);
+            }
+            public override bool Equals(object obj)
+            {
+                if(obj is ShtrihWarn)
+                {
+                    ShtrihWarn sw = (ShtrihWarn)obj;
+                    return (sw.Table == this.Table &&
+                            sw.Field == this.Field &&
+                            sw.NameContains == this.NameContains &&
+                            sw.Condition == this.Condition &&
+                            sw.Value == this.Value
+                        );
+                }
+                return false;
+            }
+            public enum SWCondition
+            {
+                Differ,
+                Equal,
+                More,
+                Less
+            }
+        }
+
+        private void SWS_changing(object sender, EventArgs e)
+        {
+            if (sender == listBox_shtrihWarns)
+            {
+                if (listBox_shtrihWarns.SelectedItem == null)
+                {
+                    LogHandle.ol("Не выбраны никакие настройки");
+                    return;
+                }
+                int warnNumber = listBox_shtrihWarns.SelectedIndex;
+                if (shtrihWarns.Count > 0 && warnNumber >= 0 && warnNumber < shtrihWarns.Count)
+                {
+                    ShtrihWarn warn = shtrihWarns[warnNumber];
+                    textBox_shtrih_warn_table.Text = warn.Table.ToString();
+                    textBox_shtrih_warn_field.Text = warn.Field.ToString();
+                    textBox_shtrih_warn_value.Text = warn.Value.ToString();
+                    textBox_shtrih_warn_contain.Text = warn.NameContains;
+                    textBox_shtrih_warn_message.Text = warn.Message;
+                    textBox_textBox_shtrih_warn_comment.Text = warn.Comment;
+                    if (warn.Condition == ShtrihWarn.SWCondition.Equal)
+                    {
+                        comboBox_shtrih_warn_condition.SelectedIndex = 0;
+                    }
+                    else if (warn.Condition == ShtrihWarn.SWCondition.Differ)
+                    {
+                        comboBox_shtrih_warn_condition.SelectedIndex = 1;
+                    }
+                    else if (warn.Condition == ShtrihWarn.SWCondition.More)
+                    {
+                        comboBox_shtrih_warn_condition.SelectedIndex = 2;
+                    }
+                    else if (warn.Condition == ShtrihWarn.SWCondition.Less)
+                    {
+                        comboBox_shtrih_warn_condition.SelectedIndex = 3;
+                    }
+                }
+                else
+                {
+                    LogHandle.ol("индекс предупреждения выходит за допустимый диапазон");
+                }
+            }
+            else if (
+                    sender == textBox_shtrih_warn_table ||
+                    sender == textBox_shtrih_warn_field ||
+                    sender == textBox_shtrih_warn_contain ||
+                    sender == comboBox_shtrih_warn_condition ||
+                    sender == textBox_shtrih_warn_value ||
+                    sender == textBox_textBox_shtrih_warn_comment ||
+                    sender == textBox_shtrih_warn_message
+                )
+            {
+                if (
+                    int.TryParse(textBox_shtrih_warn_table.Text, out int table) &&
+                    int.TryParse(textBox_shtrih_warn_field.Text, out int field) &&
+                    int.TryParse(textBox_shtrih_warn_value.Text, out int value) &&
+                    !string.IsNullOrEmpty(comboBox_shtrih_warn_condition.Text) &&
+                    table > 0 && field > 0
+                    )
+                {
+                    string contains = textBox_shtrih_warn_contain.Text;
+                    string message = textBox_shtrih_warn_message.Text;
+                    string comment = textBox_textBox_shtrih_warn_comment.Text;
+                    ShtrihWarn.SWCondition condition;
+                    if (comboBox_shtrih_warn_condition.Text == "==")
+                    {
+                        condition = ShtrihWarn.SWCondition.Equal;
+                    }
+                    else if (comboBox_shtrih_warn_condition.Text == "!=(<>)")
+                    {
+                        condition = ShtrihWarn.SWCondition.Differ;
+                    }
+                    else if (comboBox_shtrih_warn_condition.Text == ">")
+                    {
+                        condition = ShtrihWarn.SWCondition.More;
+                    }
+                    else
+                    {
+                        condition = ShtrihWarn.SWCondition.Less;
+                    }
+                    ShtrihWarn warn = new ShtrihWarn();
+                    warn.Table = table;
+                    warn.Field = field;
+                    warn.Message = message;
+                    warn.Condition = condition;
+                    warn.Value = value;
+                    warn.NameContains = contains;
+                    warn.Comment = comment;
+                    bool badString = false;
+                    if (!string.IsNullOrEmpty(contains))
+                    {
+                        foreach(char c in contains)
+                        {
+                            if(
+                                c >= 'A' && c <= 'Z' ||
+                                c >= 'a' && c <= 'z' ||
+                                c >= '0' && c <= '9' ||
+                                c >= 'А' && c <= 'Я' ||
+                                c >= 'а' && c <= 'я' ||
+                                c == '(' || c == ')' || c == ' ' || c == '.' || c == ','
+                                )
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                badString = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!badString && !string.IsNullOrEmpty(message))
+                    {
+                        foreach (char c in message)
+                        {
+                            if (
+                                c >= 'A' && c <= 'Z' ||
+                                c >= 'a' && c <= 'z' ||
+                                c >= '0' && c <= '9' ||
+                                c >= 'А' && c <= 'Я' ||
+                                c >= 'а' && c <= 'я' ||
+                                c == '(' || c == ')' || c == ' ' || c == '.' || c == ','
+                                )
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                badString = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!badString && !string.IsNullOrEmpty(comment))
+                    {
+                        foreach (char c in comment)
+                        {
+                            if (
+                                c >= 'A' && c <= 'Z' ||
+                                c >= 'a' && c <= 'z' ||
+                                c >= '0' && c <= '9' ||
+                                c >= 'А' && c <= 'Я' ||
+                                c >= 'а' && c <= 'я' ||
+                                c == '(' || c == ')' || c == ' ' || c == '.' || c == ','
+                                )
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                badString = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    button_shtrih_warn_save.Enabled = !badString;
+                    if (shtrihWarns.Contains(warn))
+                    {
+                        button_shtrih_warn_delete.Enabled = true;
+                    }
+                    else
+                    {
+                        button_shtrih_warn_delete.Enabled = false;
+                    }
+                }
+                else
+                {
+                    button_shtrih_warn_save.Enabled = false;
+                }
+            }
+        }
+
     }
 }

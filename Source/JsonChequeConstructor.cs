@@ -22,7 +22,7 @@ namespace FR_Operator
                 {
                     fileContent = sr.ReadToEnd();
                 }
-                return _TryConvert(fileContent /*, AppSettings.JsonHeaders[0]*/ );
+                return Serv_TryConvert(fileContent /*, AppSettings.JsonHeaders[0]*/ );
 
             }
 
@@ -40,7 +40,7 @@ namespace FR_Operator
             {
                 string fileContent = string.Empty;
 
-                LogHandle.ol(Environment.NewLine+ "****************************************"+ Environment.NewLine+ "Обрабатываем файл: "+file+Environment.NewLine+ "****************************************");
+                if (!AppSettings.OffLogJsonParce) LogHandle.ol(Environment.NewLine+ "****************************************"+ Environment.NewLine+ "Обрабатываем файл: "+file+Environment.NewLine+ "****************************************");
 
                 try
                 {
@@ -51,15 +51,15 @@ namespace FR_Operator
                 }
                 catch(Exception exc)
                 {
-                    LogHandle.ol("При чтении файла произошла ошибка");
-                    LogHandle.ol(exc.Message);
+                    if(!AppSettings.OffLogJsonParce) LogHandle.ol("При чтении файла произошла ошибка");
+                    if (!AppSettings.OffLogJsonParce) LogHandle.ol(exc.Message);
                     continue;
                 }
                 try
                 {
-                    LogHandle.ol("Поиск ФД в корне файла");
+                    if (!AppSettings.OffLogJsonParce) LogHandle.ol("Поиск ФД в корне файла");
                     JObject json = JObject.Parse(fileContent);
-                    FnReadedDocument fd = _ReadFd(json);
+                    FnReadedDocument fd = Serv_ReadFd(json);
                     if (!fd.Equals(FnReadedDocument.EmptyFD))
                     {
                         fnReadedDocuments.Add(fd);
@@ -67,11 +67,11 @@ namespace FR_Operator
                 }
                 catch (Exception exc)
                 {
-                    LogHandle.ol(exc.Message);
+                    if (!AppSettings.OffLogJsonParce) LogHandle.ol(exc.Message);
                 }
                 foreach(var s in AppSettings.JsonHeaders)
                 {
-                    LogHandle.ol("Ищем ФД по пути "+s);
+                    if (!AppSettings.OffLogJsonParce) LogHandle.ol("Ищем ФД по пути "+s);
                     string[] partsPath = s.Split('.');
                     int pathIndex = 0;
                     
@@ -99,7 +99,7 @@ namespace FR_Operator
                     }
                     catch(Exception exParce)
                     {
-                        LogHandle.ol(exParce.Message);
+                        if (!AppSettings.OffLogJsonParce) LogHandle.ol(exParce.Message);
                         continue;
                     }               
                 }
@@ -115,11 +115,11 @@ namespace FR_Operator
         {
             if(pathIndex == path.Length)
             {
-                LogHandle.ol("достигнут конец пути");
+                if (!AppSettings.OffLogJsonParce) LogHandle.ol("достигнут конец пути");
                 try
                 {
                     JObject jsCheque = JObject.Parse(token.ToString());
-                    FnReadedDocument fd = _ReadFd(jsCheque);
+                    FnReadedDocument fd = Serv_ReadFd(jsCheque);
                     if (!fd.Equals(FnReadedDocument.EmptyFD))
                     {
                         collector.Add(fd);
@@ -128,7 +128,7 @@ namespace FR_Operator
                 }
                 catch(Exception ex)
                 {
-                    LogHandle.ol(ex.Message);   
+                    if (!AppSettings.OffLogJsonParce) LogHandle.ol(ex.Message);   
                 }
                 return;
             }
@@ -156,7 +156,7 @@ namespace FR_Operator
         }
 
 
-        public static FnReadedDocument _TryConvert(string json, string header = "")
+        public static FnReadedDocument Serv_TryConvert(string json, string header = "")
         {
             try
             {
@@ -174,19 +174,19 @@ namespace FR_Operator
                 string[] paths = pathTmp.Split('.');
 
 
-                return _ReadFd(jc);
+                return Serv_ReadFd(jc);
             }
             catch(Exception ex)
             {
-                LogHandle.ol(ex.StackTrace);
-                LogHandle.ol(ex.Message);
+                if (!AppSettings.OffLogJsonParce) LogHandle.ol(ex.StackTrace);
+                if (!AppSettings.OffLogJsonParce) LogHandle.ol(ex.Message);
             }
             return FnReadedDocument.EmptyFD;
         }
 
-        public static FnReadedDocument _ReadFd(JObject chequeContent)
+        public static FnReadedDocument Serv_ReadFd(JObject chequeContent)
         {
-            LogHandle.ol("Разбор json документа: "+chequeContent.ToString().Replace(Environment.NewLine,""));
+            if (!AppSettings.OffLogJsonParce) LogHandle.ol("Разбор json документа: "+chequeContent.ToString().Replace(Environment.NewLine,""));
             FTag root = null;
             try
             {
@@ -197,18 +197,18 @@ namespace FR_Operator
                 {
                     if(jt.Path == "code")
                     {
-                        LogHandle.ol("__token: " + jt.ToString()+ " FD root tag");
+                        if (!AppSettings.OffLogJsonParce) LogHandle.ol("__token: " + jt.ToString()+ " FD root tag");
                         int documentName = jt.First.Value<int>();
                         root = new FTag(documentName, ftagContainer, false);
                     }
                     else if(jt.Path == "items"|| jt.Path == FTag.fnsNames[FTAG_ITEM])
                     {
-                        LogHandle.ol("parce items____");
+                        if (!AppSettings.OffLogJsonParce) LogHandle.ol("parce items____");
                         int itemNumbers = jt.Children().Children().Count();
 
                         for(int i=0; i < itemNumbers; i++)
                         {
-                            LogHandle.ol("_item_[" + i+"]");
+                            if (!AppSettings.OffLogJsonParce) LogHandle.ol("_item_[" + i+"]");
                             List<string[]> stringsReplaceRule = new List<string[]> { new string[] {"items["+i+"]","items" } };
                             if (FTag.rulesChanged)
                             {
@@ -219,18 +219,18 @@ namespace FR_Operator
                             foreach (JToken jtItemCh in jt.Children()[i].Children())
                             {
                                 itemTagsList.Add(GetFTagOfJsProperty(jtItemCh, stringsReplaceRule));
-                                LogHandle.ol(jtItemCh.ToString());
+                                if (!AppSettings.OffLogJsonParce) LogHandle.ol(jtItemCh.ToString());
                             }
                             
                             ftagContainer.Add(new FTag(FTAG_ITEM, itemTagsList, false));
-                            LogHandle.ol(ftagContainer[ftagContainer.Count - 1].ToString());
+                            if (!AppSettings.OffLogJsonParce) LogHandle.ol(ftagContainer[ftagContainer.Count - 1].ToString());
                         }
                     }
                     else if(jt.Path == FTag.fnsNames[FTAG_AMOUNTS_RECEIPT_NDS])
                     {
-                        LogHandle.ol("parce amounnts nds____");
+                        if(!AppSettings.OffLogJsonParce) LogHandle.ol("parce amounnts nds____");
                         JToken amounts = jt.Children().Children().First();
-                        LogHandle.ol(amounts.Path);
+                        if (!AppSettings.OffLogJsonParce) LogHandle.ol(amounts.Path);
                         int amountNdsSumsCount = amounts.Children().Children().Count();
                         
                         List<FTag> famouny = new List<FTag>();
@@ -239,7 +239,7 @@ namespace FR_Operator
                         for(int i = 0; i < amountNdsSumsCount; i++)
                         {
                             FTag fAmountNds = new FTag(FTAG_AMOUNTS_NDS, new List<FTag>(), false);
-                            LogHandle.ol("_amountsNds_[" + i + "]");
+                            if (!AppSettings.OffLogJsonParce) LogHandle.ol("_amountsNds_[" + i + "]");
                             List<string[]> stringsReplaceRule = new List<string[]> { new string[] { "amountsNds[" + i + "]", "amountsNds" } };
                             if (FTag.rulesChanged)
                             {
@@ -250,7 +250,7 @@ namespace FR_Operator
                             foreach (JToken jtIAmountCh in amounts.Children()[i].Children())
                             {
                                 fAmountNds.Nested.Add(GetFTagOfJsProperty(jtIAmountCh, stringsReplaceRule));
-                                LogHandle.ol(jtIAmountCh.ToString());
+                                if (!AppSettings.OffLogJsonParce) LogHandle.ol(jtIAmountCh.ToString());
                             }
                             famouny.Add(fAmountNds);
                             //ftagContainer.Add(new FTag(FTAG_ITEM, itemTagsList, false));
@@ -259,14 +259,14 @@ namespace FR_Operator
                         }
                         ftagContainer.Add(fAmountsNdsSums);
 
-                        LogHandle.ol(amounts.ToString());
+                        if (!AppSettings.OffLogJsonParce) LogHandle.ol(amounts.ToString());
                     }
                     else
                     {
-                        LogHandle.ol("__token: " + jt.ToString());
+                        if (!AppSettings.OffLogJsonParce) LogHandle.ol("__token: " + jt.ToString());
                         if(jt.ToString().Contains("\"taxationType\""))
                         {
-                            LogHandle.ol("pofd taxation type fix");
+                            if (!AppSettings.OffLogJsonParce) LogHandle.ol("pofd taxation type fix");
                             object fs = jt.First;
                             var tmpTag = new FTag(FTAG_APPLIED_TAXATION_TYPE, fs, false);
                             if(tmpTag.TagNumber== FTAG_APPLIED_TAXATION_TYPE)
@@ -288,7 +288,7 @@ namespace FR_Operator
                 
                 if (root == null)
                 {
-                    LogHandle.ol("В разбираемом токене отсутсвует корневой тег(номер формы ФД)");
+                    if (!AppSettings.OffLogJsonParce) LogHandle.ol("В разбираемом токене отсутсвует корневой тег(номер формы ФД)");
                     return FnReadedDocument.EmptyFD;
                 }
                     
@@ -317,7 +317,7 @@ namespace FR_Operator
             }
             catch(Exception exc)
             {
-                LogHandle.ol(exc.ToString());
+                if (!AppSettings.OffLogJsonParce) LogHandle.ol(exc.ToString());
             }
             return FnReadedDocument.EmptyFD;
         }
@@ -343,7 +343,7 @@ namespace FR_Operator
                 tagNumber = FTag.structuredTagNames[path];
             else
             {
-                LogHandle.ol("unknown tag name: " + path+Environment.NewLine+ "skip this entry");
+                if (!AppSettings.OffLogJsonParce) LogHandle.ol("unknown tag name: " + path+Environment.NewLine+ "skip this entry");
 
                 return FTag.Empty;
             }
@@ -431,7 +431,7 @@ namespace FR_Operator
                      *  сделано - сюда попадать не должны
                      * 
                      */
-                    LogHandle.ol("Проблема с разбором. Возможно проблема с правилами разбора, необходим анализ кода.");
+                     LogHandle.ol("Проблема с разбором. Возможно проблема с правилами разбора, необходим анализ кода.");
                     return FTag.Empty;
 
                 }
@@ -444,7 +444,7 @@ namespace FR_Operator
                 tag = new FTag(tagNumber, tagsIncluded, false);
 
             }
-            LogHandle.ol(tag.ToString());
+            if (!AppSettings.OffLogJsonParce) LogHandle.ol(tag.ToString());
             return tag;
         }
 

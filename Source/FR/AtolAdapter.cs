@@ -199,6 +199,58 @@ namespace FR_Operator
                 }
                 KKMInfoTransmitter[FR_FFDVER_KEY] = ffd;
                 LogHandle.ol("FFD: " + ffd);
+
+
+                LogHandle.ol("Собираем информацию о лицензиях");
+                int lic17= -1; // -1 нет, 0 истекла, 1 действует 1-2 дня, 2 действует более 2х дней
+                fptr.setParam(Constants.LIBFPTR_PARAM_RECORDS_TYPE, Constants.LIBFPTR_RT_LICENSES);
+                fptr.beginReadRecords();
+                String recordsID = fptr.getParamString(Constants.LIBFPTR_PARAM_RECORDS_ID);
+                fptr.setParam(Constants.LIBFPTR_PARAM_RECORDS_ID, recordsID);
+                while (fptr.readNextRecord() == Constants.LIBFPTR_OK)
+                {
+                    long id = fptr.getParamInt(Constants.LIBFPTR_PARAM_LICENSE_NUMBER);
+                    String name = fptr.getParamString(Constants.LIBFPTR_PARAM_LICENSE_NAME);
+                    DateTime dateFrom = fptr.getParamDateTime(Constants.LIBFPTR_PARAM_LICENSE_VALID_FROM);
+                    DateTime dateUntil = fptr.getParamDateTime(Constants.LIBFPTR_PARAM_LICENSE_VALID_UNTIL);
+                    String unitVersion = fptr.getParamString(Constants.LIBFPTR_PARAM_UNIT_VERSION);
+                    fptr.setParam(Constants.LIBFPTR_PARAM_RECORDS_ID, recordsID);
+                    //LogHandle.ol("id:" + id);
+                    //LogHandle.ol("name:" + name);
+                    //LogHandle.ol("dateFrom:" + dateFrom);
+                    //LogHandle.ol("dateUntil:" + dateUntil);
+                    //LogHandle.ol("unitVersion:" + unitVersion);
+                    if(id == 17)
+                    {
+                        if(dateUntil < DateTime.Now.AddDays(0))
+                        {
+                            lic17 = 0;
+                        }
+                        else if (dateUntil < DateTime.Now.AddDays(2))
+                        {
+                            lic17 = 1;
+                        }
+                        else
+                        {
+                            lic17 = 2;
+                        }
+                    }
+                }
+                fptr.setParam(Constants.LIBFPTR_PARAM_RECORDS_ID, recordsID);
+                fptr.endReadRecords();
+
+                if (lic17 < 0)
+                {
+                    KKMInfoTransmitter[FR_WARN_KEY] = "Нет лицензии 17";
+                }
+                else if(lic17 == 0)
+                {
+                    KKMInfoTransmitter[FR_WARN_KEY] = "Лицензия 17 истекла";
+                }
+                else if (lic17 == 1)
+                {
+                    KKMInfoTransmitter[FR_WARN_KEY] = "Лицензия 17 истечет в течение 2х дней";
+                }
             }
             fptr.setParam(Constants.LIBFPTR_PARAM_FN_DATA_TYPE, Constants.LIBFPTR_FNDT_LAST_DOCUMENT);
             fptr.fnQueryData();

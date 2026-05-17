@@ -158,7 +158,7 @@ namespace FR_Operator
                     }
                     else
                     {
-                        LogHandle.ol("value neither str not int TN: "+ tagNumber+"  V: "+ value.ToString());
+                        if (!AppSettings.OffLogJsonParce) LogHandle.ol("value neither str not int TN: "+ tagNumber+"  V: "+ value.ToString()+" tryparce ToString");
                         uint.TryParse(value.ToString(),out _valueInt);
                     }
 
@@ -1270,6 +1270,7 @@ namespace FR_Operator
             ["kktNumber"] = 1013,
 
             ["items.paymentAgentData.transferOperatorInn"] = 1016, //--items.paymentAgentData.transferOperatorInn
+            ["items.paymentAgentData.paymentProviderInn"] = 1016,   // фикс для платформы  
             ["ofdInn"] = 1017,
             ["userInn"] = 1018,
 
@@ -1279,6 +1280,7 @@ namespace FR_Operator
             ["items.quantity"] = 1023,   //--items.quantity
 
             ["paymentAgentData.transferOperatorName"] = 1026,   //--paymentAgentData.transferOperatorName
+            ["items.paymentAgentData.paymentProviderName"] = 1026, // фикс для платформы  
 
             ["items.name"] = 1030,   //--tems.name
             ["cashTotalSum"] = 1031,
@@ -1378,6 +1380,7 @@ namespace FR_Operator
             ["items.productCodeNew"] = 1163,    //--items.productCodeNew
 
             ["providerPhone"] = 1171,    // items.providerData.providerPhone
+            ["items.providerData.providerPhone"] = 1171,
 
             ["correctionType"] = 1173,
             ["сorrectionBase"] = 1174,

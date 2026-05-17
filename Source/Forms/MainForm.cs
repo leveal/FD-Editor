@@ -97,7 +97,6 @@ namespace FR_Operator
             _hidedPageOldVar = tabControl_subTask2.TabPages[3];
             tabControl_subTask2.TabPages.Remove(_hidedPageOldVar);
 
-
             ContextMenu cm = new ContextMenu();
             cm.MenuItems.Add("Копировать ссылку");
             linkLabel1.ContextMenu = cm;
@@ -157,19 +156,6 @@ namespace FR_Operator
 
         void WriteKKMInfo()
         {
-            /*kkminfo_lb_model_name.Text = KKMInfoTransmitter[FR_MODEL_KEY];
-            kkminfo_lb_serial.Text = KKMInfoTransmitter[FR_SERIAL_KEY];
-            kkminfo_lb_shiftstate.Text = KKMInfoTransmitter[FR_SHIFT_STATE_KEY];
-            kkminfo_lb_fdnumber.Text = KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY];
-            kkminfo_lb_frtime.Text = KKMInfoTransmitter[FR_TIME_KEY];
-            kkminfo_lb_firmware.Text = KKMInfoTransmitter[FR_FIRMWARE_KEY];
-            kkminfo_lb_ffd.Text = KKMInfoTransmitter[FR_FFDVER_KEY];
-            kkminfo_lb_username.Text = UserConversion( KKMInfoTransmitter[FR_OWNER_USER_KEY] );
-            kkminfo_lb_usingsno.Text = KKMInfoTransmitter[FR_REGISTERD_SNO_KEY];
-            kkminfo_lb_address.Text = KKMInfoTransmitter[FR_OWNER_ADDRESS_KEY];
-            kkminfo_lb_ofdExchange.Text = KKMInfoTransmitter[FR_OFD_EXCHANGE_STATUS_KEY];
-            kkminfo_lb_mode.Text = KKMInfoTransmitter[FR_STATUS_MODE_KEY];*/
-
             StringBuilder sb = new StringBuilder("ККТ  ");
             int kktLen = KKMInfoTransmitter[FR_MODEL_KEY].Length;
             sb.AppendLine(KKMInfoTransmitter[FR_MODEL_KEY]);
@@ -206,7 +192,8 @@ namespace FR_Operator
             sb.Append("Прошивка: "+ KKMInfoTransmitter[FR_FIRMWARE_KEY]);
             int fwStart = sb.Length - 10 - KKMInfoTransmitter[FR_FIRMWARE_KEY].Length;
             int fwLen = KKMInfoTransmitter[FR_FIRMWARE_KEY].Length;
-            //sb.AppendLine();
+            sb.AppendLine();
+            sb.Append(KKMInfoTransmitter[FR_WARN_KEY]);
             richTextBox_kkmInfo.Text = sb.ToString();
             var bold = new Font(richTextBox_kkmInfo.Font, FontStyle.Bold);
             if (kktLen > 0)
@@ -301,7 +288,7 @@ namespace FR_Operator
 
 
 
-        // Нижняя строка ответа на команду ФР
+        // верхняя строка ответа на команду ФР
         public void PushMessage(string msg)
         {
             LogHandle.ol("interface reaction: " + msg);
@@ -733,7 +720,6 @@ namespace FR_Operator
                         if (r2To > fiscalPrinter.LastFd) r2To = fiscalPrinter.LastFd;
                         if (r2From <= r2To && r2From > 0)
                         {
-                            //List<FnReadedDocument> listFd = new List<FnReadedDocument>();
                             FnReadedDocument readed;
                             Thread myThread = new Thread(new ThreadStart(Run_status_window));
                             myThread.Start(); // запускаем поток
@@ -880,7 +866,6 @@ namespace FR_Operator
                 }
                 fiscalPrinter = new TerminalFnExchange(this);
                 kkminfo_label_connectionParams.Text = FiscalPrinter.KKMInfoTransmitter[FR_CONNECTION_SETTINGS_KEY];
-                //conn_ckb_connected.Checked = true;
             }
 
         }
@@ -895,13 +880,11 @@ namespace FR_Operator
 
         void ReadFormFiscalDocument()
         {
-            
             if (fFDoc == null)
             {
                 LogHandle.ol("Create new interface cheque");
                 fFDoc = new FiscalCheque();
             }
-
 
             // тег 1192
             fFDoc.PropertiesData = textBox_chequePropertiesData.Text;
@@ -1154,8 +1137,6 @@ namespace FR_Operator
                     catch { }
                 }
             }
-            
-                
 
             if (_editMode == EDIT_MODE_APPEND)
             {
@@ -1170,9 +1151,8 @@ namespace FR_Operator
             }
             fFDoc.Control();
             FormFiscalDocChanged();
-            //panel_consumptionItemsContent.Refresh();
+
             panel_consumptionItemsContent.ScrollControlIntoView(panel_consumptionItemsContent.Controls[panel_consumptionItemsContent.Controls.Count-1]);
-            //System.Threading.Thread.Sleep(500);
             panel_consumptionItemsContent.VerticalScroll.Value = panel_consumptionItemsContent.VerticalScroll.Maximum;
         }
 
@@ -1321,9 +1301,6 @@ namespace FR_Operator
 
         private int _editMode = EDIT_MODE_APPEND;
 
-        // 
-        //private void _AboutWND(){AboutForm helpWindow = new AboutForm();helpWindow.Focus();helpWindow.Show();helpWindow.WindowState = FormWindowState.Normal;Application.Run(helpWindow);}
-        //private void _AppSettings(){AppSettings helpWindow = new AppSettings();helpWindow.Focus();helpWindow.Show();helpWindow.WindowState = FormWindowState.Normal;Application.Run(helpWindow);}
 
         private void DialogBoxes(object sender, EventArgs e)
         {
@@ -1339,9 +1316,6 @@ namespace FR_Operator
             }   //Настройки программы
             else if(sender == button_aboutWnd)
             {
-                // создаем новый поток
-                //Thread myThread = new Thread(new ThreadStart(_AboutWND));
-                //myThread.Start(); // запускаем поток
                 AboutForm helpWindow = new AboutForm();
                 helpWindow.ShowDialog();
             }   // Окно описание
@@ -1657,11 +1631,8 @@ namespace FR_Operator
             // предметы расчета
             else if (sender == textBox_cheqItemPrice || sender == textBox_cheqItemQuantity || sender == textBox_cheqItemSum || sender == textBox_cheqItemName)
             {
-                /*if (_modeItemChange == PROCESSING_FLAG)
-                    return;*/
                 if (sender == textBox_cheqItemPrice || sender == textBox_cheqItemQuantity || sender == textBox_cheqItemSum)
                 {
-                    //WriteCorrectDecimalSeparator((TextBox)sender);
                     TextBox t = sender as TextBox;
                     string original = t.Text;
                     string replaced = ReplaceBadDecimalSeparatorPoint(original);
@@ -1722,7 +1693,6 @@ namespace FR_Operator
             }
             else if (sender is Button btn)
             {
-                //Button btn = (Button)sender;
                 
                 if (btn.Name.StartsWith("button_paySurcharge"))
                 {
@@ -1862,28 +1832,7 @@ namespace FR_Operator
                 else
                     textBox_cheqItemMeasure105.Text = "0";
                 textBox_cheqItemMeasure105.ForeColor = Color.Black;
-                /*if(comboBox_cheqItemMeasureType.SelectedIndex == 1)
-                {
-                    if (_toolTip1 == null)
-                    {
-                        _toolTip1 = new ToolTip();
-                        _toolTip1.AutoPopDelay = 1000;
-                        _toolTip1.InitialDelay = 1000;
-                        _toolTip1.ReshowDelay = 500;
-                        _toolTip1.ShowAlways = true;
-                        _toolTip1.SetToolTip(textBox_cheqItemMeasure105, _measureToolTip);
-                    }
-                    
-                }
-                else if(comboBox_cheqItemMeasureType.SelectedIndex == 0)
-                {
-                    if(_toolTip1!=null)
-                    {
-                        _toolTip1.AutoPopDelay = 1000000;
-                        _toolTip1.InitialDelay = 1000000;
-                        _toolTip1.ReshowDelay = 500000;
-                    }
-                }*/
+                
             }
             else if(sender == textBox_cheqItemMeasure105)
             {
@@ -2189,6 +2138,7 @@ namespace FR_Operator
                     textBox_readedExtendedInfo.Text = ChequesCount(_fdReaded);
                     textBox_task2ReadedCount.Text = _fdReaded.Count.ToString();
                 }
+
             }
             else if (sender == button_task2Read)
             {
@@ -2419,7 +2369,8 @@ namespace FR_Operator
                     coSmoErrorBlocker = checkBox_task2CorOpStopper.Checked,
                     // прямая операция
                     smoUse = checkBox_task2StrightModified.Checked,
-                    smoTypeCorretion = checkBox_task2SmoDocType.Checked;
+                    smoTypeCorretion = checkBox_task2SmoDocType.Checked,
+                    smoCorrReturnFfd2 = checkBox_invers105.Checked;
 
                 int smoPayTypeRemove1 = checkBox_task2changePayment1.Checked ? comboBox_task2Payment1Original.SelectedIndex : 0,
                     smoPayTypeRemove2 = checkBox_task2changePayment2.Checked ? comboBox_task2Payment2Original.SelectedIndex : 0,
@@ -2572,6 +2523,18 @@ namespace FR_Operator
                         noSkipError = true;
                         if (smoTypeCorretion) fd.Cheque.Document = FD_DOCUMENT_NAME_CORRECTION_CHEQUE;
 
+                        if (fiscalPrinter.FfdFtagFormat == 2 && fd.Cheque.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE && smoCorrReturnFfd2)
+                        {
+                            if(fd.Cheque.CalculationSign == 2)
+                            {
+                                fd.Cheque.CalculationSign = 3;
+                            }
+                            if (fd.Cheque.CalculationSign == 4)
+                            {
+                                fd.Cheque.CalculationSign = 1;
+                            }
+                        }
+
                         if (smoPayTypeRemove1 > 0)
                         {
                             double pay = 0;
@@ -2677,7 +2640,7 @@ namespace FR_Operator
                             {
                                 if (
                                     itm.NdsRate == smoTaxRateRemove1
-                                    || (smoTaxRateRemove1 == 11 && ((itm.NdsRate > 0 && itm.NdsRate < NDS_TYPE_0_LOC) || (itm.NdsRate > NDS_TYPE_FREE_LOC)))
+                                    || (smoTaxRateRemove1 == 13 && ((itm.NdsRate > 0 && itm.NdsRate < NDS_TYPE_0_LOC) || (itm.NdsRate > NDS_TYPE_FREE_LOC)))
                                     || (smoTaxRateRemove1 == NDS_TYPE_FREE_LOC && (itm.NdsRate == NDS_TYPE_EMPTY_LOC || itm.NdsRate == NDS_TYPE_FREE_LOC))
                                     )
                                 {
@@ -2692,7 +2655,7 @@ namespace FR_Operator
                             {
                                 if (
                                     i.NdsRate == smoTaxRateRemove2
-                                    || (smoTaxRateRemove2 == 11 && ((i.NdsRate > 0 && i.NdsRate < NDS_TYPE_0_LOC) || (i.NdsRate > NDS_TYPE_FREE_LOC)))
+                                    || (smoTaxRateRemove2 == 13 && ((i.NdsRate > 0 && i.NdsRate < NDS_TYPE_0_LOC) || (i.NdsRate > NDS_TYPE_FREE_LOC)))
                                     || (smoTaxRateRemove1 == NDS_TYPE_FREE_LOC && (i.NdsRate == NDS_TYPE_EMPTY_LOC || i.NdsRate == NDS_TYPE_FREE_LOC))
                                     )
                                 {
@@ -3537,6 +3500,7 @@ namespace FR_Operator
                         {
                             button_ofdFormat.Enabled = true;
                             button_efnTestRun.Visible = true;
+                            button_efnTestRun_v2.Visible = true;
                             checkBox_testRun_noExDuTm.Visible = true;
                             checkBox_efnTestRunNoCorrection.Visible = true;
                             textBox_efnTestRunCheques.Visible = true;
@@ -4207,43 +4171,43 @@ namespace FR_Operator
                             }
                             if (Math.Abs(ogigChq.TotalSum - perfChq.Cheque.TotalSum) > 0.009)
                             {
-                                sb.AppendLine("Расхождение итога");
+                                sb.AppendLine("Расхождение итога  " + ogigChq.TotalSum + "\t-\t" + perfChq.Cheque.TotalSum);
                             }
                             if (Math.Abs(ogigChq.Cash - perfChq.Cheque.Cash) > 0.009)
                             {
-                                sb.AppendLine("Расхождение нал");
+                                sb.AppendLine("Расхождение нал  " + ogigChq.Cash + "\t-\t" + perfChq.Cheque.Cash);
                             }
                             if (Math.Abs(ogigChq.ECash - perfChq.Cheque.ECash) > 0.009)
                             {
-                                sb.AppendLine("Расхождение БН");
+                                sb.AppendLine("Расхождение БН  " + ogigChq.ECash + "\t-\t" + perfChq.Cheque.ECash);
                             }
                             if (Math.Abs(ogigChq.Prepaid - perfChq.Cheque.Prepaid) > 0.009)
                             {
-                                sb.AppendLine("Расхождение Prepaid");
+                                sb.AppendLine("Расхождение Prepaid  " + ogigChq.Prepaid + "\t-\t" + perfChq.Cheque.Prepaid);
                             }
                             if (Math.Abs(ogigChq.Credit - perfChq.Cheque.Credit) > 0.009)
                             {
-                                sb.AppendLine("Расхождение Credit");
+                                sb.AppendLine("Расхождение Credit  " + ogigChq.Credit + "\t-\t" + perfChq.Cheque.Credit);
                             }
                             if (Math.Abs(ogigChq.Provision - perfChq.Cheque.Provision) > 0.009)
                             {
-                                sb.AppendLine("Расхождение Provision");
+                                sb.AppendLine("Расхождение Provision  " + ogigChq.Provision + "\t-\t" + perfChq.Cheque.Provision);
                             }
                             if (Math.Abs(ogigChq.Nds0 - perfChq.Cheque.Nds0) > 0.009)
                             {
-                                sb.AppendLine("Расхождение Nds0");
+                                sb.AppendLine("Расхождение Nds0  " + ogigChq.Nds0 + "\t-\t" + perfChq.Cheque.Nds0);
                             }
                             if (Math.Abs(ogigChq.Nds10 - perfChq.Cheque.Nds10) > 0.009)
                             {
-                                sb.AppendLine("Расхождение Nds10");
+                                sb.AppendLine("Расхождение Nds10  " + ogigChq.Nds10 + "\t-\t" + perfChq.Cheque.Nds10);
                             }
                             if (Math.Abs(ogigChq.Nds10110 - perfChq.Cheque.Nds10110) > 0.009)
                             {
-                                sb.AppendLine("Расхождение Nds10110");
+                                sb.AppendLine("Расхождение Nds10110  " + ogigChq.Nds10110 + "\t-\t" + perfChq.Cheque.Nds10110);
                             }
                             if (Math.Abs(ogigChq.Nds20 - perfChq.Cheque.Nds20) > 0.009)
                             {
-                                sb.AppendLine("Расхождение Nds20");
+                                sb.AppendLine("Расхождение Nds20  " + ogigChq.Nds20 + "\t-\t" + perfChq.Cheque.Nds20);
                             }
                             if (Math.Abs(ogigChq.Nds20120 - perfChq.Cheque.Nds20120) > 0.009)
                             {
@@ -4251,31 +4215,31 @@ namespace FR_Operator
                             }
                             if (Math.Abs(ogigChq.NdsFree - perfChq.Cheque.NdsFree) > 0.009)
                             {
-                                sb.AppendLine("Расхождение nds_free");
+                                sb.AppendLine("Расхождение nds_free  " + ogigChq.NdsFree + "\t-\t" + perfChq.Cheque.NdsFree);
                             }
                             if (Math.Abs(ogigChq.Nds5 - perfChq.Cheque.Nds5) > 0.009)
                             {
-                                sb.AppendLine("Расхождение nds5");
+                                sb.AppendLine("Расхождение nds5  " + ogigChq.Nds5 + "\t-\t" + perfChq.Cheque.Nds5);
                             }
                             if (Math.Abs(ogigChq.Nds5105 - perfChq.Cheque.Nds5105) > 0.009)
                             {
-                                sb.AppendLine("Расхождение 5105");
+                                sb.AppendLine("Расхождение 5105  " + ogigChq.Nds5105 + "\t-\t" + perfChq.Cheque.Nds5105);
                             }
                             if (Math.Abs(ogigChq.Nds7 - perfChq.Cheque.Nds7) > 0.009)
                             {
-                                sb.AppendLine("Расхождение nds7");
+                                sb.AppendLine("Расхождение nds7  " + ogigChq.Nds7 + "\t-\t" + perfChq.Cheque.Nds7);
                             }
                             if (Math.Abs(ogigChq.Nds7107 - perfChq.Cheque.Nds7107) > 0.009)
                             {
-                                sb.AppendLine("Расхождение 7107");
+                                sb.AppendLine("Расхождение 7107  " + ogigChq.Nds7107 + "\t-\t" + perfChq.Cheque.Nds7107);
                             }
                             if (Math.Abs(ogigChq.Nds22 - perfChq.Cheque.Nds22) > 0.009)
                             {
-                                sb.AppendLine("Расхождение nds22");
+                                sb.AppendLine("Расхождение nds22  " + ogigChq.Nds22 + "\t-\t" + perfChq.Cheque.Nds22);
                             }
                             if (Math.Abs(ogigChq.Nds22122 - perfChq.Cheque.Nds22122) > 0.009)
                             {
-                                sb.AppendLine("Расхождение nds22122");
+                                sb.AppendLine("Расхождение nds22122  " + ogigChq.Nds22122 + "\t-\t" + perfChq.Cheque.Nds22122);
                             }
                             if (ogigChq.BuyerInformation||perfChq.Cheque.BuyerInformation)
                             {
@@ -4313,7 +4277,7 @@ namespace FR_Operator
                             {
                                 if (ogigChq.Items[k].Name != perfChq.Cheque.Items[k].Name)
                                 {
-                                    sb.AppendLine("Расхождение пр.наим " + k);
+                                    sb.AppendLine("Расхождение пр.наим(" + k+")\t"+ ogigChq.Items[k].Name + "\t-\t"+ perfChq.Cheque.Items[k].Name);
                                 }
                                 if (ogigChq.Items[k].NdsRate != perfChq.Cheque.Items[k].NdsRate)
                                 {
@@ -4375,7 +4339,337 @@ namespace FR_Operator
                 }
 
             }
-            else if(sender == button_IEE_FOD)
+            else if (sender == button_efnTestRun_v2)
+            {
+                if (fiscalPrinter!=null&&fiscalPrinter.IsConnected)
+                {
+                    int ffd = fiscalPrinter.FfdFtagFormat;
+                    LogHandle.ol("Тестовый прогон версия 2");
+                    StringBuilder sbFinal = new StringBuilder();
+                    foreach (var fdReadedToRun in _fdReaded)
+                    {
+                        int lastFd = fiscalPrinter.LastFd;
+                        if (fdReadedToRun.Cheque != null)
+                        {
+                            fiscalPrinter.ReadDeviceCondition();
+                            int lastFdBeforePerf = fiscalPrinter.LastFd;
+                            bool performRezult = fiscalPrinter.PerformFD(fdReadedToRun.Cheque);
+                            fiscalPrinter.ReadDeviceCondition();
+                            if(fiscalPrinter.LastFd> lastFdBeforePerf)
+                            {
+                                // увеличился номер ФД
+                                FnReadedDocument fdReadedTestRub = fiscalPrinter.ReadFD(fiscalPrinter.LastFd, true); 
+                                if(fdReadedTestRub.Type == FTAG_FISCAL_DOCUMENT_TYPE_RECEIPT_CHEQUE
+                                    || fdReadedTestRub.Type == FTAG_FISCAL_DOCUMENT_TYPE_BSO
+                                    || fdReadedTestRub.Type == FTAG_FISCAL_DOCUMENT_TYPE_RECEIPT_CORRECTION_CHEQUE
+                                    || fdReadedTestRub.Type == FTAG_FISCAL_DOCUMENT_TYPE_BSO_CORRECTION
+                                    )
+                                {
+                                    // сверяем пробитый чек и посланный
+                                    StringBuilder sb = new StringBuilder(" ");
+                                    sb.Clear();
+                                    var ogigChq = fdReadedToRun.Cheque;
+                                    var perfChq = fdReadedTestRub;
+                                    if (ogigChq.EmailPhone != perfChq.Cheque.EmailPhone)
+                                    {
+                                        sb.AppendLine("Расходится emale:\t" + ogigChq.EmailPhone + "\t-\t" + perfChq.Cheque.EmailPhone);
+                                    }
+                                    // Придумать проверку адреса и места установки
+
+                                    if (ogigChq.InternetPayment != perfChq.Cheque.InternetPayment)
+                                    {
+                                        sb.AppendLine("Расходится internetPayment:\t" + ogigChq.InternetPayment + "\t-\t" + perfChq.Cheque.InternetPayment);
+                                    }
+
+                                    if (ogigChq.Sno != perfChq.Cheque.Sno)
+                                    {
+                                        sb.AppendLine("Расходится СНО:\t" + ogigChq.Sno + "\t-\t" + perfChq.Cheque.Sno);
+                                    }
+
+                                    if (ogigChq.CalculationSign != perfChq.Cheque.CalculationSign)
+                                    {
+                                        sb.AppendLine("Признак расчета:\t" + ogigChq.CalculationSign + "\t-\t" + perfChq.Cheque.CalculationSign);
+                                    }
+                                    if (ogigChq.Document != perfChq.Cheque.Document)
+                                    {
+                                        sb.Append("Форма ФД:\t");
+                                        sb.Append(ogigChq.Document == FD_DOCUMENT_NAME_CHEQUE ? "чек\t-\t" : "ЧК\t-\t");
+                                        sb.AppendLine(perfChq.Cheque.Document == FD_DOCUMENT_NAME_CHEQUE ? "чек" : "ЧК");
+                                    }
+                                    if (ogigChq.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE)
+                                    {
+                                        if ((ogigChq.CorrectionDocumentDate - perfChq.Cheque.CorrectionDocumentDate).TotalSeconds > 10)
+                                        {
+                                            sb.AppendLine("Отличается дата коррекции:\t" + ogigChq.CorrectionDocumentDate.ToString(DEFAULT_DT_FORMAT) + "\t-\t" + perfChq.Cheque.CorrectionDocumentDate.ToString(DEFAULT_DT_FORMAT));
+                                        }
+                                        if (ogigChq.CorrectionTypeFtag != perfChq.Cheque.CorrectionTypeFtag)
+                                        {
+                                            sb.AppendLine("Отличается тип коррекции:\t" + ogigChq.CorrectionTypeFtag + "\t-\t" + perfChq.Cheque.CorrectionTypeFtag);
+                                        }
+                                        if (ogigChq.CorrectionTypeNotFtag != perfChq.Cheque.CorrectionTypeNotFtag)
+                                        {
+                                            sb.AppendLine("Отличается Тип коррекции NotFtag:\t" + ogigChq.CorrectionTypeNotFtag + "\t-\t" + perfChq.Cheque.CorrectionTypeNotFtag);
+                                        }
+
+                                        if (ogigChq.CorrectionOrderNumber != perfChq.Cheque.CorrectionOrderNumber)
+                                        {
+                                            if (ogigChq.CorrectionTypeNotFtag != 0)
+                                                sb.AppendLine("Отличается номер коррекции:\t" + ogigChq.CorrectionOrderNumber + "\t-\t" + perfChq.Cheque.CorrectionOrderNumber);
+                                        }
+                                    }
+                                    if (ogigChq.Items.Count != perfChq.Cheque.Items.Count)
+                                    {
+                                        if (ffd == 2 && ogigChq.DocumentNameFtagType == FTAG_FISCAL_DOCUMENT_TYPE_RECEIPT_CORRECTION_CHEQUE && AppSettings.TFN_SkipItemsInCoorectionFfd2)
+                                        {
+                                            // ФФД 1.05 чеки коррекции
+                                        }
+                                        else
+                                        {
+                                            sb.AppendLine("Отличается колчиество ПР\t" + ogigChq.Items.Count + "\t-\t" + perfChq.Cheque.Items.Count);
+                                        }
+
+                                    }
+                                    if (Math.Abs(ogigChq.TotalSum - perfChq.Cheque.TotalSum) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение итога  " + ogigChq.TotalSum + "\t-\t" + perfChq.Cheque.TotalSum);
+                                    }
+                                    if (Math.Abs(ogigChq.Cash - perfChq.Cheque.Cash) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение нал  " + ogigChq.Cash + "\t-\t" + perfChq.Cheque.Cash);
+                                    }
+                                    if (Math.Abs(ogigChq.ECash - perfChq.Cheque.ECash) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение БН  " + ogigChq.ECash + "\t-\t" + perfChq.Cheque.ECash);
+                                    }
+                                    if (Math.Abs(ogigChq.Prepaid - perfChq.Cheque.Prepaid) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение Prepaid  " + ogigChq.Prepaid + "\t-\t" + perfChq.Cheque.Prepaid);
+                                    }
+                                    if (Math.Abs(ogigChq.Credit - perfChq.Cheque.Credit) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение Credit  " + ogigChq.Credit + "\t-\t" + perfChq.Cheque.Credit);
+                                    }
+                                    if (Math.Abs(ogigChq.Provision - perfChq.Cheque.Provision) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение Provision  " + ogigChq.Provision + "\t-\t" + perfChq.Cheque.Provision);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds0 - perfChq.Cheque.Nds0) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение Nds0  " + ogigChq.Nds0 + "\t-\t" + perfChq.Cheque.Nds0);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds10 - perfChq.Cheque.Nds10) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение Nds10  " + ogigChq.Nds10 + "\t-\t" + perfChq.Cheque.Nds10);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds10110 - perfChq.Cheque.Nds10110) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение Nds10110  " + ogigChq.Nds10110 + "\t-\t" + perfChq.Cheque.Nds10110);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds20 - perfChq.Cheque.Nds20) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение Nds20  " + ogigChq.Nds20 + "\t-\t" + perfChq.Cheque.Nds20);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds20120 - perfChq.Cheque.Nds20120) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение 20120");
+                                    }
+                                    if (Math.Abs(ogigChq.NdsFree - perfChq.Cheque.NdsFree) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение nds_free  " + ogigChq.NdsFree + "\t-\t" + perfChq.Cheque.NdsFree);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds5 - perfChq.Cheque.Nds5) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение nds5  " + ogigChq.Nds5 + "\t-\t" + perfChq.Cheque.Nds5);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds5105 - perfChq.Cheque.Nds5105) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение 5105  " + ogigChq.Nds5105 + "\t-\t" + perfChq.Cheque.Nds5105);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds7 - perfChq.Cheque.Nds7) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение nds7  " + ogigChq.Nds7 + "\t-\t" + perfChq.Cheque.Nds7);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds7107 - perfChq.Cheque.Nds7107) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение 7107  " + ogigChq.Nds7107 + "\t-\t" + perfChq.Cheque.Nds7107);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds22 - perfChq.Cheque.Nds22) > 0.011)
+                                    {
+                                        sb.AppendLine("Расхождение nds22  " + ogigChq.Nds22 + "\t-\t" + perfChq.Cheque.Nds22);
+                                    }
+                                    if (Math.Abs(ogigChq.Nds22122 - perfChq.Cheque.Nds22122) > 0.009)
+                                    {
+                                        sb.AppendLine("Расхождение nds22122  " + ogigChq.Nds22122 + "\t-\t" + perfChq.Cheque.Nds22122);
+                                    }
+                                    if (ogigChq.BuyerInformation || perfChq.Cheque.BuyerInformation)
+                                    {
+                                        if (ogigChq.BuyerInformationBuyer != perfChq.Cheque.BuyerInformationBuyer)
+                                        {
+                                            sb.AppendLine("Расходится имя покупателя");
+                                        }
+                                        if (ogigChq.BuyerInformationBuyerInn != perfChq.Cheque.BuyerInformationBuyerInn)
+                                        {
+                                            sb.AppendLine("Расходится ИНН покупателя");
+                                        }
+                                        if (ogigChq.BuyerInformationBuyerBirthday != perfChq.Cheque.BuyerInformationBuyerBirthday && ffd == 4)
+                                        {
+                                            sb.AppendLine("Расходится Birthday покупателя");
+                                        }
+                                        if (ogigChq.BuyerInformationBuyerCitizenship != perfChq.Cheque.BuyerInformationBuyerCitizenship && ffd == 4)
+                                        {
+                                            sb.AppendLine("Расходится Citizenship покупателя");
+                                        }
+                                        if (ogigChq.BuyerInformationBuyerDocumentCode != perfChq.Cheque.BuyerInformationBuyerDocumentCode && ffd == 4)
+                                        {
+                                            sb.AppendLine("Расходится DocCode покупателя");
+                                        }
+                                        if (ogigChq.BuyerInformationBuyerDocumentData != perfChq.Cheque.BuyerInformationBuyerDocumentData && ffd == 4)
+                                        {
+                                            sb.AppendLine("Расходится DocData покупателя");
+                                        }
+                                        if (ogigChq.BuyerInformationBuyerAddress != perfChq.Cheque.BuyerInformationBuyerAddress && ffd == 4)
+                                        {
+                                            sb.AppendLine("Расходится адрес покупателя");
+                                        }
+                                    }
+
+                                    for (int k = 0; k < ogigChq.Items.Count && k < perfChq.Cheque.Items.Count; k++)
+                                    {
+                                        if (ogigChq.Items[k].Name.Replace("\u00A0"," ") != perfChq.Cheque.Items[k].Name.Replace("\u00A0", " "))
+                                        {
+                                            sb.AppendLine("Расхождение пр.наим " + k);
+                                        }
+                                        if (ogigChq.Items[k].NdsRate != perfChq.Cheque.Items[k].NdsRate)
+                                        {
+                                            sb.AppendLine("items.NDS RATE(" + k + ") " + ogigChq.Items[k].NdsRate + "\t-\t" + perfChq.Cheque.Items[k].NdsRate);
+                                        }
+                                        if (ogigChq.Items[k].ProductType != perfChq.Cheque.Items[k].ProductType)
+                                        {
+                                            sb.AppendLine("items.ProductType(" + k + ") " + ogigChq.Items[k].ProductType + "\t-\t" + perfChq.Cheque.Items[k].ProductType);
+                                        }
+                                        if (ogigChq.Items[k].PaymentType != perfChq.Cheque.Items[k].PaymentType)
+                                        {
+                                            sb.AppendLine("items.PaymentType(" + k + ") " + ogigChq.Items[k].PaymentType + "\t-\t" + perfChq.Cheque.Items[k].PaymentType);
+                                        }
+                                        if (ffd == 4 && ogigChq.Items[k].Unit120 != perfChq.Cheque.Items[k].Unit120)
+                                        {
+                                            sb.AppendLine("items.Unit120(" + k + ") " + ogigChq.Items[k].Unit120 + "\t-\t" + perfChq.Cheque.Items[k].Unit120);
+                                        }
+                                        if (ffd < 4 && ogigChq.Items[k].Unit105 != null && perfChq.Cheque.Items[k].Unit105 != null && ogigChq.Items[k].Unit105 != perfChq.Cheque.Items[k].Unit105)
+                                        {
+                                            sb.AppendLine("items.Unit105(" + k + ") " + ogigChq.Items[k].Unit105 + "\t-\t" + perfChq.Cheque.Items[k].Unit105);
+                                        }
+                                        if (Math.Abs(ogigChq.Items[k].Quantity - perfChq.Cheque.Items[k].Quantity) > 0.009)
+                                        {
+                                            sb.AppendLine("items.Quantity(" + k + ") " + ogigChq.Items[k].Quantity + "\t-\t" + perfChq.Cheque.Items[k].Quantity);
+                                        }
+                                        if (Math.Abs(ogigChq.Items[k].Sum - perfChq.Cheque.Items[k].Sum) > 0.009)
+                                        {
+                                            sb.AppendLine("items.Sum(" + k + ") " + ogigChq.Items[k].Sum + "\t-\t" + perfChq.Cheque.Items[k].Sum);
+                                        }
+                                        if (ogigChq.Items[k].PaymentAgentByProductType != perfChq.Cheque.Items[k].PaymentAgentByProductType)
+                                        {
+                                            sb.AppendLine("items.PaymentAgentByProductType(" + k + ") " + ogigChq.Items[k].PaymentAgentByProductType + "\t-\t" + perfChq.Cheque.Items[k].PaymentAgentByProductType);
+                                        }
+                                        if (ogigChq.Items[k].TransferOperatorPhone != perfChq.Cheque.Items[k].TransferOperatorPhone)
+                                        {
+                                            sb.AppendLine("items.TransferOperatorPhone(" + k + ") " + ogigChq.Items[k].TransferOperatorPhone + "\t-\t" + perfChq.Cheque.Items[k].TransferOperatorPhone);
+                                        }
+                                        if (ogigChq.Items[k].PaymentAgentOperation != perfChq.Cheque.Items[k].PaymentAgentOperation)
+                                        {
+                                            sb.AppendLine("items.PaymentAgentOperation(" + k + ") " + ogigChq.Items[k].PaymentAgentOperation + "\t-\t" + perfChq.Cheque.Items[k].PaymentAgentOperation);
+                                        }
+                                        if (ogigChq.Items[k].PaymentAgentPhone != perfChq.Cheque.Items[k].PaymentAgentPhone)
+                                        {
+                                            sb.AppendLine("items.PaymentAgentPhone(" + k + ") " + ogigChq.Items[k].PaymentAgentPhone + "\t-\t" + perfChq.Cheque.Items[k].PaymentAgentPhone);
+                                        }
+                                        if (ogigChq.Items[k].PaymentOperatorPhone != perfChq.Cheque.Items[k].PaymentOperatorPhone)
+                                        {
+                                            sb.AppendLine("items.PaymentOperatorPhone(" + k + ") " + ogigChq.Items[k].PaymentOperatorPhone + "\t-\t" + perfChq.Cheque.Items[k].PaymentOperatorPhone);
+                                        }
+                                        if (ogigChq.Items[k].TransferOperatorName != perfChq.Cheque.Items[k].TransferOperatorName)
+                                        {
+                                            sb.AppendLine("items.TransferOperatorName(" + k + ") " + ogigChq.Items[k].TransferOperatorName + "\t-\t" + perfChq.Cheque.Items[k].TransferOperatorName);
+                                        }
+                                        if (ogigChq.Items[k].TransferOperatorAddress != perfChq.Cheque.Items[k].TransferOperatorAddress)
+                                        {
+                                            sb.AppendLine("items.TransferOperatorAddress(" + k + ") " + ogigChq.Items[k].TransferOperatorAddress + "\t-\t" + perfChq.Cheque.Items[k].TransferOperatorAddress);
+                                        }
+                                        if (ogigChq.Items[k].TransferOperatorInn != perfChq.Cheque.Items[k].TransferOperatorInn)
+                                        {
+                                            sb.AppendLine("items.TransferOperatorInn(" + k + ") " + ogigChq.Items[k].TransferOperatorInn + "\t-\t" + perfChq.Cheque.Items[k].TransferOperatorInn);
+                                        }
+                                        if (ogigChq.Items[k].ProviderInn != perfChq.Cheque.Items[k].ProviderInn)
+                                        {
+                                            sb.AppendLine("items.ProviderInn(" + k + ") " + ogigChq.Items[k].ProviderInn + "\t-\t" + perfChq.Cheque.Items[k].ProviderInn);
+                                        }
+                                        if (ogigChq.Items[k].ProviderPhone != perfChq.Cheque.Items[k].ProviderPhone)
+                                        {
+                                            sb.AppendLine("items.ProviderPhone(" + k + ") " + ogigChq.Items[k].ProviderPhone + "\t-\t" + perfChq.Cheque.Items[k].ProviderPhone);
+                                        }
+                                        if (ogigChq.Items[k].ProviderName != perfChq.Cheque.Items[k].ProviderName)
+                                        {
+                                            sb.AppendLine("items.ProviderName(" + k + ") " + ogigChq.Items[k].ProviderName + "\t-\t" + perfChq.Cheque.Items[k].ProviderName);
+                                        }
+
+                                    }
+
+
+
+                                    if (sb.Length > 0)
+                                    {
+                                        sbFinal.AppendLine("! ! ! ! Расхождение ! ! ! !" + Environment.NewLine +
+                                            sb.ToString()+
+                                            "посланный в ФР" + Environment.NewLine +
+                                            ogigChq.ToString(FiscalCheque.FULL_INFO) + Environment.NewLine +
+                                            "прочитанный из ФР" + Environment.NewLine +
+                                            perfChq.Cheque.ToString(FiscalCheque.FULL_INFO)
+                                        );
+
+                                    }
+
+
+                                }
+                                else
+                                {
+                                    // чек не офрмился, возможно открылась смена
+                                    sbFinal.AppendLine("Чек не оформился но увеличился номер ФД" + Environment.NewLine +
+                                        fdReadedToRun.Cheque.ToString(FiscalCheque.FULL_INFO)
+                                        );
+                                }
+                            }
+                            else
+                            {
+                                sbFinal.AppendLine("Чек не оформился" + Environment.NewLine +
+                                    fdReadedToRun.Cheque.ToString(FiscalCheque.FULL_INFO)
+                                        );
+                            }
+
+                        }
+                        else
+                        {
+                            sbFinal.AppendLine("прблема с чтением чека " + fdReadedToRun.ReeprezentOL);
+                            sbFinal.AppendLine();
+                        }
+                            
+                    }
+                    if (sbFinal.Length > 0)
+                    {
+                        LogHandle.ol(sbFinal.ToString());
+                    }
+                    else
+                    {
+                        LogHandle.ol("Расхождений нет");
+                    }
+
+                }
+                else
+                {
+                    PushMessage(CONNECTION_NOT_ESTABLISHED);
+                }
+                
+            }
+            else if (sender == button_IEE_FOD)
             {
                 FormItemExtendedEditor fiee = new FormItemExtendedEditor();
                 fiee.ShowDialog();
@@ -4701,6 +4995,7 @@ namespace FR_Operator
                 totalBackIncome = 0, backIncomeCash = 0, backIncomeEcash = 0, backIncomeNds = 0,
                 totalExpand = 0, expandCash = 0, expandEcash = 0, expandNds = 0,
                 totalBackExpand = 0, backExpandCash = 0, backExpandEcash = 0, backExpandNds = 0;
+            double[,] divisionBySno = new double[2,6];      // первый индекс 0 - оборот, 1 фин. результат, второй индес СНО
             int cheques = 0;
             foreach (var doc in docs)
             {
@@ -4722,14 +5017,41 @@ namespace FR_Operator
                     ecashSum += doc.Cheque.ECash;
                     noNDS += doc.Cheque.NdsFree;
                     cheques++;
-                    if(doc.Cheque.CalculationSign == 1)
+                    int snoIndex;
+                    if (doc.Cheque.Sno == 1)
+                    {
+                        snoIndex = 1;
+                    }
+                    else if(doc.Cheque.Sno == 2)
+                    {
+                        snoIndex = 2;
+                    }
+                    else if (doc.Cheque.Sno == 4)
+                    {
+                        snoIndex = 3;
+                    }
+                    else if (doc.Cheque.Sno == 16)
+                    {
+                        snoIndex = 4;
+                    }
+                    else if (doc.Cheque.Sno == 32)
+                    {
+                        snoIndex = 5;
+                    }
+                    else
+                    {
+                        snoIndex = 0;
+                    }
+                    divisionBySno[0, snoIndex] += doc.Cheque.TotalSum;
+
+                    if (doc.Cheque.CalculationSign == 1)
                     {
                         totalIncome += doc.Cheque.TotalSum;
                         incomeCash += doc.Cheque.Cash;
                         incomeEcash += doc.Cheque.ECash;
-                        incomeNds += doc.Cheque.Nds20 + 
-                            doc.Cheque.Nds10 + 
-                            doc.Cheque.Nds20120 + 
+                        incomeNds += doc.Cheque.Nds20 +
+                            doc.Cheque.Nds10 +
+                            doc.Cheque.Nds20120 +
                             doc.Cheque.Nds10110 +
                             doc.Cheque.Nds5 +
                             doc.Cheque.Nds7 +
@@ -4738,15 +5060,16 @@ namespace FR_Operator
                             doc.Cheque.Nds22 +
                             doc.Cheque.Nds22122
                         ;
+                        divisionBySno[1, snoIndex] += doc.Cheque.TotalSum;
                     }
                     else if (doc.Cheque.CalculationSign == 2)
                     {
                         totalBackIncome += doc.Cheque.TotalSum;
                         backIncomeCash += doc.Cheque.Cash;
                         backIncomeEcash += doc.Cheque.ECash;
-                        backIncomeNds += doc.Cheque.Nds20 + 
-                            doc.Cheque.Nds10 + 
-                            doc.Cheque.Nds20120 + 
+                        backIncomeNds += doc.Cheque.Nds20 +
+                            doc.Cheque.Nds10 +
+                            doc.Cheque.Nds20120 +
                             doc.Cheque.Nds10110 +
                             doc.Cheque.Nds5 +
                             doc.Cheque.Nds7 +
@@ -4755,15 +5078,16 @@ namespace FR_Operator
                             doc.Cheque.Nds22 +
                             doc.Cheque.Nds22122
                         ;
+                        divisionBySno[1, snoIndex] -= doc.Cheque.TotalSum;
                     }
                     else if (doc.Cheque.CalculationSign == 3)
                     {
                         totalExpand += doc.Cheque.TotalSum;
                         expandCash += doc.Cheque.Cash;
                         expandEcash += doc.Cheque.ECash;
-                        expandNds += doc.Cheque.Nds20 + 
-                            doc.Cheque.Nds10 + 
-                            doc.Cheque.Nds20120 + 
+                        expandNds += doc.Cheque.Nds20 +
+                            doc.Cheque.Nds10 +
+                            doc.Cheque.Nds20120 +
                             doc.Cheque.Nds10110 +
                             doc.Cheque.Nds5 +
                             doc.Cheque.Nds7 +
@@ -4772,15 +5096,16 @@ namespace FR_Operator
                             doc.Cheque.Nds22 +
                             doc.Cheque.Nds22122
                         ;
+                        divisionBySno[1, snoIndex] -= doc.Cheque.TotalSum;
                     }
-                    else if(doc.Cheque.CalculationSign == 4)
+                    else if (doc.Cheque.CalculationSign == 4)
                     {
                         totalBackExpand += doc.Cheque.TotalSum;
                         backExpandCash += doc.Cheque.Cash;
                         backExpandEcash += doc.Cheque.ECash;
-                        backExpandNds += doc.Cheque.Nds20 + 
-                            doc.Cheque.Nds10 + 
-                            doc.Cheque.Nds20120 + 
+                        backExpandNds += doc.Cheque.Nds20 +
+                            doc.Cheque.Nds10 +
+                            doc.Cheque.Nds20120 +
                             doc.Cheque.Nds10110 +
                             doc.Cheque.Nds5 +
                             doc.Cheque.Nds7 +
@@ -4789,6 +5114,7 @@ namespace FR_Operator
                             doc.Cheque.Nds22 +
                             doc.Cheque.Nds22122
                         ;
+                        divisionBySno[1, snoIndex] += doc.Cheque.TotalSum;
                     }
                 }
             }
@@ -4941,6 +5267,44 @@ namespace FR_Operator
                     else if (finRezultNds < 0.009 && finRezultNds > -0.009)
                     {
                         sb.Append("НДС нейтрально");
+                    }
+                    sb.Append(Environment.NewLine);
+                    sb.AppendLine("Разбивка итогов по СНО");
+                    if (divisionBySno[0, 0] > 0.009)
+                    {
+                        sb.AppendLine("Не заполнное или ошибочное");
+                        sb.Append(" сумма итогов " + Math.Round(divisionBySno[0, 0], 2));
+                        sb.AppendLine("; фин. результат " + Math.Round(divisionBySno[1, 0], 2));
+                    }
+                    if (divisionBySno[0, 1] > 0.009)
+                    {
+                        sb.AppendLine("ОСНО");
+                        sb.Append(" сумма итогов " + Math.Round(divisionBySno[0, 1], 2));
+                        sb.AppendLine("; фин. результат " + Math.Round(divisionBySno[1, 1], 2));
+                    }
+                    if (divisionBySno[0, 2] > 0.009)
+                    {
+                        sb.AppendLine("УСНД");
+                        sb.Append(" сумма итогов " + Math.Round(divisionBySno[0, 2], 2));
+                        sb.AppendLine("; фин. результат " + Math.Round(divisionBySno[1, 2], 2));
+                    }
+                    if (divisionBySno[0, 3] > 0.009)
+                    {
+                        sb.AppendLine("УСНДР");
+                        sb.Append(" сумма итогов " + Math.Round(divisionBySno[0, 3], 2));
+                        sb.AppendLine("; фин. результат " + Math.Round(divisionBySno[1, 3], 2));
+                    }
+                    if (divisionBySno[0, 4] > 0.009)
+                    {
+                        sb.AppendLine("ЕСХН");
+                        sb.Append(" сумма итогов " + Math.Round(divisionBySno[0, 4], 2));
+                        sb.AppendLine("; фин. результат " + Math.Round(divisionBySno[1, 4], 2));
+                    }
+                    if (divisionBySno[0, 5] > 0.009)
+                    {
+                        sb.AppendLine("ПСН");
+                        sb.Append(" сумма итогов " + Math.Round(divisionBySno[0, 5], 2));
+                        sb.AppendLine("; фин. результат " + Math.Round(divisionBySno[1, 5], 2));
                     }
                 }
             }

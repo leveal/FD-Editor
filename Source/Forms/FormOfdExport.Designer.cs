@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_fd = new System.Windows.Forms.TabPage();
+            this.checkBox_num_start_locker = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.button_savePreset = new System.Windows.Forms.Button();
@@ -63,7 +64,7 @@
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_cashierInnDefault = new System.Windows.Forms.TextBox();
             this.textBox_cashierDefault = new System.Windows.Forms.TextBox();
             this.comboBox_cashierInn = new System.Windows.Forms.ComboBox();
             this.comboBox_cashier = new System.Windows.Forms.ComboBox();
@@ -224,6 +225,8 @@
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkTax20 = new System.Windows.Forms.ComboBox();
             this.tabPage_perform = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBox_jsonFilename = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
             this.comboBox_closeShiftEvery = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -242,8 +245,6 @@
             this.button_checkOutEmulatorRun = new System.Windows.Forms.Button();
             this.button_openExcel = new System.Windows.Forms.Button();
             this.richTextBox_log = new System.Windows.Forms.RichTextBox();
-            this.comboBox_jsonFilename = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage_fd.SuspendLayout();
@@ -326,6 +327,7 @@
             // 
             // tabPage_fd
             // 
+            this.tabPage_fd.Controls.Add(this.checkBox_num_start_locker);
             this.tabPage_fd.Controls.Add(this.label20);
             this.tabPage_fd.Controls.Add(this.label15);
             this.tabPage_fd.Controls.Add(this.button_savePreset);
@@ -346,6 +348,21 @@
             this.tabPage_fd.TabIndex = 0;
             this.tabPage_fd.Text = "Документ";
             this.tabPage_fd.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_num_start_locker
+            // 
+            this.checkBox_num_start_locker.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox_num_start_locker.AutoSize = true;
+            this.checkBox_num_start_locker.BackgroundImage = global::FR_Operator.Properties.Resources.padlock_uncheked;
+            this.checkBox_num_start_locker.Location = new System.Drawing.Point(886, 9);
+            this.checkBox_num_start_locker.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBox_num_start_locker.Name = "checkBox_num_start_locker";
+            this.checkBox_num_start_locker.Size = new System.Drawing.Size(20, 23);
+            this.checkBox_num_start_locker.TabIndex = 1;
+            this.checkBox_num_start_locker.Text = " ";
+            this.toolTip1.SetToolTip(this.checkBox_num_start_locker, "Не менять номер при загрузке настроек");
+            this.checkBox_num_start_locker.UseVisualStyleBackColor = true;
+            this.checkBox_num_start_locker.CheckedChanged += new System.EventHandler(this.EventHandler);
             // 
             // label20
             // 
@@ -684,6 +701,7 @@
             this.textBox_startFrom.Text = "2";
             this.textBox_startFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox_startFrom.TextChanged += new System.EventHandler(this.EventHandler);
+            this.textBox_startFrom.Enter += new System.EventHandler(this.textBox_startFrom_Enter);
             // 
             // groupBox1
             // 
@@ -969,7 +987,7 @@
             // 
             this.groupBox20.Controls.Add(this.label17);
             this.groupBox20.Controls.Add(this.label16);
-            this.groupBox20.Controls.Add(this.textBox1);
+            this.groupBox20.Controls.Add(this.textBox_cashierInnDefault);
             this.groupBox20.Controls.Add(this.textBox_cashierDefault);
             this.groupBox20.Controls.Add(this.comboBox_cashierInn);
             this.groupBox20.Controls.Add(this.comboBox_cashier);
@@ -983,7 +1001,6 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Enabled = false;
             this.label17.Location = new System.Drawing.Point(9, 92);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(103, 13);
@@ -999,13 +1016,14 @@
             this.label16.TabIndex = 5;
             this.label16.Text = "1023 Кассир";
             // 
-            // textBox1
+            // textBox_cashierInnDefault
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(7, 134);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(364, 20);
-            this.textBox1.TabIndex = 12;
+            this.textBox_cashierInnDefault.Enabled = false;
+            this.textBox_cashierInnDefault.Location = new System.Drawing.Point(7, 134);
+            this.textBox_cashierInnDefault.Name = "textBox_cashierInnDefault";
+            this.textBox_cashierInnDefault.Size = new System.Drawing.Size(364, 20);
+            this.textBox_cashierInnDefault.TabIndex = 12;
+            this.textBox_cashierInnDefault.TextChanged += new System.EventHandler(this.EventHandler);
             // 
             // textBox_cashierDefault
             // 
@@ -5597,6 +5615,90 @@
             this.tabPage_perform.UseVisualStyleBackColor = true;
             this.tabPage_perform.Click += new System.EventHandler(this.EventHandler);
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(595, 341);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(160, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "Маркировать выгрузку JSON*";
+            this.toolTip1.SetToolTip(this.label14, "Это свойство не попадет в чек, но\r\nбудет испольхзовано как чать названия\r\nфайла п" +
+        "ри сохранении чека в  JSON.\r\nНе должно содержать сиволов которые\r\nне могут быть " +
+        "частью названия файла");
+            // 
+            // comboBox_jsonFilename
+            // 
+            this.comboBox_jsonFilename.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_jsonFilename.FormattingEnabled = true;
+            this.comboBox_jsonFilename.Items.AddRange(new object[] {
+            "Нет",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
+            this.comboBox_jsonFilename.Location = new System.Drawing.Point(770, 338);
+            this.comboBox_jsonFilename.Name = "comboBox_jsonFilename";
+            this.comboBox_jsonFilename.Size = new System.Drawing.Size(233, 21);
+            this.comboBox_jsonFilename.TabIndex = 0;
+            this.comboBox_jsonFilename.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -5853,90 +5955,6 @@
             this.richTextBox_log.TabIndex = 1;
             this.richTextBox_log.Text = "";
             // 
-            // comboBox_jsonFilename
-            // 
-            this.comboBox_jsonFilename.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_jsonFilename.FormattingEnabled = true;
-            this.comboBox_jsonFilename.Items.AddRange(new object[] {
-            "Нет",
-            "A - 1",
-            "B - 2",
-            "C - 3",
-            "D - 4",
-            "E - 5",
-            "F - 6",
-            "G - 7",
-            "H - 8",
-            "I - 9",
-            "J - 10",
-            "K - 11",
-            "L - 12",
-            "M - 13",
-            "N - 14",
-            "O - 15",
-            "P - 16",
-            "Q - 17",
-            "R - 18",
-            "S - 19",
-            "T - 20",
-            "U - 21",
-            "V - 22",
-            "W - 23",
-            "X - 24",
-            "Y - 25",
-            "Z - 26",
-            "AA - 27",
-            "AB - 28",
-            "AC - 29",
-            "AD - 30",
-            "AE - 31",
-            "AF - 32",
-            "AG - 33",
-            "AH - 34",
-            "AI - 35",
-            "AJ - 36",
-            "AK - 37",
-            "AL - 38",
-            "AM - 39",
-            "AN - 40",
-            "AO - 41",
-            "AP - 42",
-            "AQ - 43",
-            "AR - 44",
-            "AS - 45",
-            "AT - 46",
-            "AU - 47",
-            "AV - 48",
-            "AW - 49",
-            "AX - 50",
-            "AY - 51",
-            "AZ - 52",
-            "BA - 53",
-            "BB - 54",
-            "BC - 55",
-            "BD - 56",
-            "BE - 57",
-            "BF - 58",
-            "BG - 59",
-            "BH - 60"});
-            this.comboBox_jsonFilename.Location = new System.Drawing.Point(770, 338);
-            this.comboBox_jsonFilename.Name = "comboBox_jsonFilename";
-            this.comboBox_jsonFilename.Size = new System.Drawing.Size(233, 21);
-            this.comboBox_jsonFilename.TabIndex = 0;
-            this.comboBox_jsonFilename.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(595, 341);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(160, 13);
-            this.label14.TabIndex = 17;
-            this.label14.Text = "Маркировать выгрузку JSON*";
-            this.toolTip1.SetToolTip(this.label14, "Это свойство не попадет в чек, но\r\nбудет испольхзовано как чать названия\r\nфайла п" +
-        "ри сохранении чека в  JSON.\r\nНе должно содержать сиволов которые\r\nне могут быть " +
-        "частью названия файла");
-            // 
             // FormOfdExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6132,7 +6150,7 @@
         private System.Windows.Forms.ComboBox comboBox_cashier;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_cashierInnDefault;
         private System.Windows.Forms.ComboBox comboBox_cashierInn;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.CheckBox checkBox_admissibilityErrors;
@@ -6250,5 +6268,6 @@
         private System.Windows.Forms.ComboBox comboBox_jsonFilename;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox checkBox_num_start_locker;
     }
 }

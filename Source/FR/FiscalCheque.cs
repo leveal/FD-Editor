@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using System.Text;
 using static FR_Operator.FiscalPrinter;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
@@ -1298,6 +1299,12 @@ namespace FR_Operator
             }
             // 1036 machineNumber
             // 1044 paymentAgentOperation
+            else if (tagNumber == FTAG_OPERATION_TYPE)
+            {
+                try { f = new FTag(FTAG_OPERATION_TYPE, _calculationSign, true); } catch { }
+                if (f != null && f.TagNumber > 0)           
+                    l.Add(f);
+            }
             else if (tagNumber == FTAG_APPLIED_TAXATION_TYPE)//1055
             {
                 if (Sno > 0)
@@ -1316,16 +1323,16 @@ namespace FR_Operator
             {
                 //if (ECash > 0.009)
                 //{
-                    try { f = new FTag(FTAG_ECASH_TOTAL_SUM, (int)Math.Round(ECash * 100.0), true); } catch { }
-                    if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
-                        l.Add(f);
+                try { f = new FTag(FTAG_ECASH_TOTAL_SUM, (int)Math.Round(ECash * 100.0), true); } catch { }
+                if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
+                    l.Add(f);
                 //}
             }
             else if (tagNumber == FTAG_PRORERTIES_1084)//1084
             {
                 if (!string.IsNullOrEmpty(_propertiesPropertyName) && !string.IsNullOrEmpty(_propertiesPropertyValue))
                 {
-                    try 
+                    try
                     {
                         FTag f1085 = new FTag(FTAG_PROPERTIES_PROPERTY_NAME, _propertiesPropertyName, true);
                         FTag f1086 = new FTag(FTAG_PROPERTIES_PROPERTY_NAME, _propertiesPropertyValue, true);
@@ -1337,66 +1344,66 @@ namespace FR_Operator
                     } catch { }
                 }
             }
-            else if(tagNumber == FTAG_NDS20_DOCUMENT_SUM) // 1102
+            else if (tagNumber == FTAG_NDS20_DOCUMENT_SUM) // 1102
             {
                 //if (Nds20 > 0.009)
                 //{
-                    try { f = new FTag(FTAG_NDS20_DOCUMENT_SUM, (int)Math.Round(Nds20 * 100.0), true); } catch { }
-                    if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
-                        l.Add(f);
+                try { f = new FTag(FTAG_NDS20_DOCUMENT_SUM, (int)Math.Round(Nds20 * 100.0), true); } catch { }
+                if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
+                    l.Add(f);
                 //}
             }
             else if (tagNumber == FTAG_NDS10_DOCUMENT_SUM) // 1103
             {
                 //if (Nds10 > 0.009)
                 //{
-                    try { f = new FTag(FTAG_NDS10_DOCUMENT_SUM, (int)Math.Round(Nds10 * 100.0), true); } catch { }
-                    if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
-                        l.Add(f);
+                try { f = new FTag(FTAG_NDS10_DOCUMENT_SUM, (int)Math.Round(Nds10 * 100.0), true); } catch { }
+                if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
+                    l.Add(f);
                 //}
             }
             else if (tagNumber == FTAG_NDS0_DOCUMENT_SUM) // 1104
             {
                 //if (Nds0 > 0.009 || Nds5 + Nds5105 + Nds7 + Nds7107 > 0.009)
                 //{
-                    try { f = new FTag(FTAG_NDS0_DOCUMENT_SUM, (int)Math.Round(Nds0 * 100.0), true); } catch { }
-                    if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
-                        l.Add(f);
+                try { f = new FTag(FTAG_NDS0_DOCUMENT_SUM, (int)Math.Round(Nds0 * 100.0), true); } catch { }
+                if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
+                    l.Add(f);
                 //}
             }
             else if (tagNumber == FTAG_NDS_FREE_DOCUMENT_SUM) // 1105
             {
                 //if (NdsFree > 0.009)
                 //{
-                    try { f = new FTag(FTAG_NDS_FREE_DOCUMENT_SUM, (int)Math.Round(NdsFree * 100.0), true); } catch { }
-                    if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
-                        l.Add(f);
+                try { f = new FTag(FTAG_NDS_FREE_DOCUMENT_SUM, (int)Math.Round(NdsFree * 100.0), true); } catch { }
+                if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
+                    l.Add(f);
                 //}
             }
             else if (tagNumber == FTAG_NDS20120_DOCUMENT_SUM) // 1106
             {
                 //if (Nds20120 > 0.009)
                 //{
-                    try { f = new FTag(FTAG_NDS20120_DOCUMENT_SUM, (int)Math.Round(Nds20120 * 100.0), true); } catch { }
-                    if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
-                        l.Add(f);
+                try { f = new FTag(FTAG_NDS20120_DOCUMENT_SUM, (int)Math.Round(Nds20120 * 100.0), true); } catch { }
+                if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
+                    l.Add(f);
                 //}
             }
             else if (tagNumber == FTAG_NDS10110_DOCUMENT_SUM) // 1107
             {
                 //if (Nds10110 > 0.009)
                 //{
-                    try { f = new FTag(FTAG_NDS10110_DOCUMENT_SUM, (int)Math.Round(Nds10110 * 100.0), true); } catch { }
-                    if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
-                        l.Add(f);
+                try { f = new FTag(FTAG_NDS10110_DOCUMENT_SUM, (int)Math.Round(Nds10110 * 100.0), true); } catch { }
+                if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
+                    l.Add(f);
                 //}
             }
             //1108 internetSign
-            else if(tagNumber == FTAG_AMOUNTS_RECEIPT_NDS) // 1115
+            else if (tagNumber == FTAG_AMOUNTS_RECEIPT_NDS) // 1115
             {
                 if (AppSettings.TFNFillTagNdsAmountsMethod == 0) // добавляем все суммыы
                 {
-                    FTag nds5vln = new FTag(FTAG_AMOUNTS_NDS_NDSSUM,(int)Math.Round(Nds5*100.0),true);
+                    FTag nds5vln = new FTag(FTAG_AMOUNTS_NDS_NDSSUM, (int)Math.Round(Nds5 * 100.0), true);
                     FTag nds5st = new FTag(FTAG_ITEM_NDS_RATE, NDS_TYPE_5_LOC, true);
                     List<FTag> nest5 = new List<FTag>();
                     nest5.Add(nds5vln);
@@ -1451,7 +1458,7 @@ namespace FR_Operator
                 }
                 else   // добавляем только ненулевые
                 {
-                    
+
                     FTag famountsNdsSums = new FTag(FTAG_AMOUNTS_RECEIPT_NDS, new List<FTag>(), true);
                     if (Nds5 > 0.009)
                     {
@@ -1688,7 +1695,7 @@ namespace FR_Operator
                 if (!string.IsNullOrEmpty(_retailAddress))
                 {
                     try { f = new FTag(FTAG_RETAIL_PLACE_ADRRESS, _retailAddress, true); } catch { }
-                    if (f != null && f.TagNumber > 0)           
+                    if (f != null && f.TagNumber > 0)
                         l.Add(f);
                 }
             }
@@ -1698,7 +1705,7 @@ namespace FR_Operator
                 {
                     try { f = new FTag(FTAG_RETAIL_PLACE, _retailPlace, true); } catch { }
                 }
-                if (f != null && f.TagNumber > 0)           
+                if (f != null && f.TagNumber > 0)
                     l.Add(f);
             }
             // 1261 industryReceiptDetails
@@ -1769,6 +1776,43 @@ namespace FR_Operator
                 }
             }
             return fTags;
+        }
+
+
+
+        // для более прозпачного логирования
+        List<int> _excelRows = null;
+        string _fileName = string.Empty;
+        public int AddExcelRow
+        {
+            set
+            {
+                if(_excelRows == null)
+                {
+                    _excelRows = new List<int>();
+                }
+                _excelRows.Add(value);
+            }
+        }
+        public string SourceData
+        {
+            get
+            {
+                string info = string.Empty;
+                if(_excelRows!=null && _excelRows.Count > 0)
+                {
+                    info = " строки excel: " + string.Join(" ", _excelRows);
+                }
+                if (!string.IsNullOrEmpty(_fileName))
+                {
+                    info += " источник: " + _fileName;
+                }
+                return info;
+            }
+        }
+        public bool IsSourceData
+        {
+            get => _excelRows!=null || !string.IsNullOrEmpty(_fileName);
         }
     }
 }

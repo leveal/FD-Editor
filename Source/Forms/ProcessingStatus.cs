@@ -19,11 +19,27 @@ namespace FR_Operator
             InitializeComponent();
             link = this;
             this.Icon = Resources.fd_editpr_16_2;
+            comboBox_dynPause.Visible = comboBox_dynPause_Visible;
         }
 
         public static MainForm main_window = null;
         public static ProcessingStatus link = null;
-
+        public bool comboBox_dynPause_Visible = false;
+        public void VisiblePause()
+        {
+            if (this.Created)
+            {
+                MethodInvoker method = delegate
+                {
+                    comboBox_dynPause.Visible = true;
+                    comboBox_dynPause_Visible = true;
+                };
+                if (this.InvokeRequired)
+                    this.BeginInvoke(method);
+                else
+                    method.Invoke();
+            }
+        }
         public void Message(string message, bool showErrors = true)
         {
             if(!string.IsNullOrEmpty(message))
@@ -85,6 +101,21 @@ namespace FR_Operator
         {
             MainForm.processInterruptor = true;
             FormOfdExport.breakOperation = true;
+        }
+
+        private void ComboBox_dynPause_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (sender == comboBox_dynPause)
+            {
+                if(comboBox_dynPause.SelectedIndex == 0|| comboBox_dynPause.SelectedIndex == 1)
+                {
+                    FormOfdExport.dynamicPause = 0;
+                }
+                else
+                {
+                    FormOfdExport.dynamicPause = (int)(Math.Pow(2, comboBox_dynPause.SelectedIndex - 1));
+                }
+            }
         }
     }
 }

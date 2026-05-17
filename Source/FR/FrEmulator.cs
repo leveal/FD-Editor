@@ -87,18 +87,23 @@ namespace FR_Operator
             return SettingsWindow();
         }
 
+        const int ESW_SIZE_X = 265;
+        const int ESW_SIZE_Y = 205;
+        const int LABEL_R_POINT_X = 20;
+        const int TB_L_POINT_X = 167;
+        static System.Drawing.Size TB_Size = new System.Drawing.Size(33,17);
         private bool SettingsWindow()
         {
             Form emuSettings = new Form();
             emuSettings.Text = "Эмулятор ФР настройка";
-            emuSettings.Size = new System.Drawing.Size(265,175);
-            emuSettings.ClientSize = new System.Drawing.Size(265, 175);
+            emuSettings.Size = new System.Drawing.Size(ESW_SIZE_X, ESW_SIZE_Y);
+            emuSettings.ClientSize = new System.Drawing.Size(ESW_SIZE_X, ESW_SIZE_Y);
             emuSettings.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             
 
             Label lb_info = new Label();
             lb_info.Text = "СНО по умолч.";
-            lb_info.Location = new System.Drawing.Point(20, 10);
+            lb_info.Location = new System.Drawing.Point(LABEL_R_POINT_X, 10);
             emuSettings.Controls.Add(lb_info);
 
             ComboBox cmb_sno = new ComboBox();
@@ -137,7 +142,7 @@ namespace FR_Operator
             emuSettings.Controls.Add(cmb_sno);
 
             CheckBox checkBox_fillFds = new CheckBox();
-            checkBox_fillFds.Location = new System.Drawing.Point(20, 35);
+            checkBox_fillFds.Location = new System.Drawing.Point(LABEL_R_POINT_X, 35);
             checkBox_fillFds.Size = new System.Drawing.Size(145, 17);
             checkBox_fillFds.Text = "Заполнить чеками";
             checkBox_fillFds.Checked = false;
@@ -146,8 +151,8 @@ namespace FR_Operator
             TextBox tb_cheques = new TextBox();
             tb_cheques.Text = _chequesNumToFill.ToString();
             tb_cheques.Name = "tb_cheques_to_fill";
-            tb_cheques.Location = new System.Drawing.Point(167,34);
-            tb_cheques.Size = new System.Drawing.Size(33,17);
+            tb_cheques.Location = new System.Drawing.Point(TB_L_POINT_X, 34);
+            tb_cheques.Size = TB_Size;
             emuSettings.Controls.Add(tb_cheques);
 
             Label lb_cheques = new Label();
@@ -157,7 +162,7 @@ namespace FR_Operator
 
             Label lb_delay = new Label();
             lb_delay.Text = "Задержка оформления";
-            lb_delay.Location = new System.Drawing.Point(20, 60);
+            lb_delay.Location = new System.Drawing.Point(LABEL_R_POINT_X, 60);
             lb_delay.Size = new System.Drawing.Size(128, 17);
             emuSettings.Controls.Add(lb_delay);
 
@@ -170,8 +175,8 @@ namespace FR_Operator
             emuSettings.Controls.Add(checkBox_emptyFiscalSign);
 
             TextBox tb_delay = new TextBox();
-            tb_delay.Location = new System.Drawing.Point(167, 59);
-            tb_delay.Size = new System.Drawing.Size(33,17);
+            tb_delay.Location = new System.Drawing.Point(TB_L_POINT_X, 59);
+            tb_delay.Size = TB_Size;
             tb_delay.Name = "tb_delay";
             tb_delay.Text = AppSettings.EmulatorDelay.ToString();
             emuSettings.Controls.Add(tb_delay);
@@ -181,23 +186,36 @@ namespace FR_Operator
             lb_milisec.Location = new System.Drawing.Point(205, 60);
             emuSettings.Controls.Add(lb_milisec);
 
+            Label lb_restrictFD = new Label();
+            lb_restrictFD.Text = "Ограничить к-во ФД";
+            lb_restrictFD.Location = new System.Drawing.Point(LABEL_R_POINT_X, 114);
+            lb_restrictFD.Size = new System.Drawing.Size(128, 17);
+            emuSettings.Controls.Add(lb_restrictFD);
+
+            TextBox tb_restrictFd = new TextBox();
+            tb_restrictFd.Location = new System.Drawing.Point(TB_L_POINT_X, 110);
+            tb_restrictFd.Size = TB_Size;
+            tb_restrictFd.Name = "tb_restrictor";
+            tb_restrictFd.Text = _restrictor.ToString();
+            emuSettings.Controls.Add(tb_restrictFd);
+
             Button bt_cleanFd = new Button();
             bt_cleanFd.Text = "Удалить чеки из памяти эмулятора";
-            bt_cleanFd.Location = new System.Drawing.Point(25,110);
+            bt_cleanFd.Location = new System.Drawing.Point(25, ESW_SIZE_Y - 65);
             bt_cleanFd.Size = new System.Drawing.Size(220,24);
             bt_cleanFd.Click += EventWindowHandler;
             emuSettings.Controls.Add(bt_cleanFd);
 
             Button btn_ok = new Button();
             btn_ok.Text = "OK";
-            btn_ok.Location = new System.Drawing.Point(25, 145);
+            btn_ok.Location = new System.Drawing.Point(25, ESW_SIZE_Y - 30);
             btn_ok.Size = new System.Drawing.Size(90, 24);
             btn_ok.Click += EventWindowHandler;
             emuSettings.Controls.Add(btn_ok);
 
             Button btn_cancel = new Button();
             btn_cancel.Text = "OTMEHA";
-            btn_cancel.Location = new System.Drawing.Point(155, 145);
+            btn_cancel.Location = new System.Drawing.Point(155, ESW_SIZE_Y - 30);
             btn_cancel.Size = new System.Drawing.Size(90, 24);
             btn_cancel.Click += EventWindowHandler;
             emuSettings.Controls.Add(btn_cancel);
@@ -226,6 +244,16 @@ namespace FR_Operator
                     else if(tb.Name == "tb_cheques_to_fill")
                     {
                         try { _chequesNumToFill = int.Parse(tb.Text); } catch { _chequesNumToFill = 45; }
+                    }
+                    else if (tb.Name == "tb_restrictor")
+                    {
+                        if(int.TryParse(tb.Text, out int t))
+                        {
+                            if (t > 0)
+                                _restrictor = t;
+                            else
+                                t = 0;
+                        }
                     }
                     if (_chequesNumToFill > 200000)
                     {
@@ -378,148 +406,154 @@ namespace FR_Operator
         private int _chequesNumToFill = 45;
         public override bool PerformFD(FiscalCheque doc)
         {
-            if(_shiftState == FR_SHIFT_CLOSED)
-                OpenShift();
-            if(AppSettings.EmulatorDelay > 0)
-                Thread.Sleep(AppSettings.EmulatorDelay);
-            bool badDocToPerfome = false;
-
-            string badMsg = "";
-            if(doc.Items.Count == 0 && doc.Document != FD_DOCUMENT_NAME_CORRECTION_CHEQUE)
+            if (_restrictor <= 0 || _lastFD < _restrictor)
             {
-                badMsg = "пустой чек\t";
-                badDocToPerfome = true;
-            }
+                if (_shiftState == FR_SHIFT_CLOSED)
+                    OpenShift();
+                if (AppSettings.EmulatorDelay > 0)
+                    Thread.Sleep(AppSettings.EmulatorDelay);
+                bool badDocToPerfome = false;
 
-            double itemsSum=0;
-            foreach (var item in doc.Items)
-            {
-                itemsSum += item.Sum;
-                if(itemsSum < -0.0099)
+                string badMsg = "";
+                if (doc.Items.Count == 0 && doc.Document != FD_DOCUMENT_NAME_CORRECTION_CHEQUE)
                 {
-                    badMsg = "Отрицательная сумма предмета расчета";
-                    badDocToPerfome=true;
-                    break;
+                    badMsg = "пустой чек\t";
+                    badDocToPerfome = true;
                 }
 
-                if(Math.Abs(Math.Round(item.Sum,2)-Math.Round(item.Price*item.Quantity,2)) > 0.011)
+                double itemsSum = 0;
+                foreach (var item in doc.Items)
                 {
-                    badMsg = "Расхождение сумм более копейки в предмете расчета " + item.ToString();
-                    badDocToPerfome = true;
-                    break;
+                    itemsSum += item.Sum;
+                    if (itemsSum < -0.0099)
+                    {
+                        badMsg = "Отрицательная сумма предмета расчета";
+                        badDocToPerfome = true;
+                        break;
+                    }
+
+                    if (Math.Abs(Math.Round(item.Sum, 2) - Math.Round(item.Price * item.Quantity, 2)) > 0.011)
+                    {
+                        badMsg = "Расхождение сумм более копейки в предмете расчета " + item.ToString();
+                        badDocToPerfome = true;
+                        break;
+                    }
+                    if (item.Quantity < 0.00000001)
+                    {
+                        badMsg = "Нулевое количество в предмете расчета " + item.ToString();
+                        badDocToPerfome = true;
+                        break;
+                    }
+                    if (item.ProductType <= 0 || item.ProductType > 33 || item.ProductType == 28 || item.ProductType == 29)
+                    {
+                        badMsg = "Некорректное значение 1212=" + item.ProductType;
+                        badDocToPerfome = true;
+                        break;
+                    }
+                    if (item.PaymentType <= 0 || item.PaymentType > 7)
+                    {
+                        badMsg = "Некорректное значение 1214[1-7]=" + item.PaymentType;
+                        badDocToPerfome = true;
+                        break;
+                    }
+                    if (item.NdsRate < 0 || item.NdsRate > 12)
+                    {
+                        badMsg = "Некорректная ставка НДС[1-12]= " + item.NdsRate;
+                        badDocToPerfome = true;
+                        break;
+                    }
                 }
-                if(item.Quantity < 0.00000001)
-                {
-                    badMsg = "Нулевое количество в предмете расчета " + item.ToString();
-                    badDocToPerfome = true;
-                    break;
-                }
-                if (item.ProductType <= 0 || item.ProductType > 33 || item.ProductType == 28 || item.ProductType == 29)
-                {
-                    badMsg = "Некорректное значение 1212=" + item.ProductType;
-                    badDocToPerfome = true;
-                    break;
-                }
-                if(item.PaymentType<=0|| item.PaymentType > 7)
-                {
-                    badMsg = "Некорректное значение 1214[1-7]=" + item.PaymentType;
-                    badDocToPerfome = true;
-                    break;
-                }
-                if (item.NdsRate < 0 || item.NdsRate > 12)
-                {
-                    badMsg = "Некорректная ставка НДС[1-12]= " + item.NdsRate;
-                    badDocToPerfome = true;
-                    break;
-                }
-            }
-            itemsSum = Math.Round(itemsSum,2);
-                
-            if (doc.TotalSum > itemsSum + 0.001 && doc.Document != FD_DOCUMENT_NAME_CORRECTION_CHEQUE)
-            {
-                badMsg += "итог больше сумм предметов расчета\t";
-                badDocToPerfome = true;
-            }
-            if (doc.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE && doc.Items.Count > 0)
-            {
-                //  количество предметов расчета больше нуля соответствует ФФД > 1.05
-                if(doc.TotalSum > itemsSum + 0.001)
+                itemsSum = Math.Round(itemsSum, 2);
+
+                if (doc.TotalSum > itemsSum + 0.001 && doc.Document != FD_DOCUMENT_NAME_CORRECTION_CHEQUE)
                 {
                     badMsg += "итог больше сумм предметов расчета\t";
                     badDocToPerfome = true;
                 }
-                else
+                if (doc.Document == FD_DOCUMENT_NAME_CORRECTION_CHEQUE && doc.Items.Count > 0)
                 {
-                    // итог меньше сумм предметов расчета
-                    double roundedItemsSum = (double)((int)(itemsSum));
-                    if (doc.TotalSum < roundedItemsSum - 0.001)
+                    //  количество предметов расчета больше нуля соответствует ФФД > 1.05
+                    if (doc.TotalSum > itemsSum + 0.001)
                     {
-                        badMsg += "итог критично меньше сумм предметов расчета\t";
+                        badMsg += "итог больше сумм предметов расчета\t";
+                        badDocToPerfome = true;
+                    }
+                    else
+                    {
+                        // итог меньше сумм предметов расчета
+                        double roundedItemsSum = (double)((int)(itemsSum));
+                        if (doc.TotalSum < roundedItemsSum - 0.001)
+                        {
+                            badMsg += "итог критично меньше сумм предметов расчета\t";
+                            badDocToPerfome = true;
+                        }
+                    }
+                }
+
+                if ((doc.Document != FD_DOCUMENT_NAME_CORRECTION_CHEQUE && doc.Items.Count == 0) && doc.TotalSum < itemsSum && doc.TotalSum < Math.Round(itemsSum, 0))
+                {
+                    KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = "некорректен итог чека\t";
+                    badDocToPerfome = true;
+                }
+                double paynentSumms = Math.Round(doc.Cash + doc.ECash + doc.Prepaid + doc.Credit + doc.Provision, 2);
+                if (doc.IsNotPaid || doc.IsOverPaid)
+                {
+                    if (doc.IsOverPaid || Math.Abs(doc.TotalSum - paynentSumms) > 0.99) // возможно округлени
+                    {
+                        badMsg += "некоректна оплата\t";
                         badDocToPerfome = true;
                     }
                 }
-            }
 
-            if((doc.Document != FD_DOCUMENT_NAME_CORRECTION_CHEQUE && doc.Items.Count == 0) && doc.TotalSum < itemsSum &&  doc.TotalSum < Math.Round(itemsSum, 0))
-            {
-                KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = "некорректен итог чека\t";
-                badDocToPerfome = true;
-            }
-            double paynentSumms = Math.Round(doc.Cash + doc.ECash + doc.Prepaid + doc.Credit + doc.Provision, 2);
-            if (doc.IsNotPaid||doc.IsOverPaid)
-            {
-                if (doc.IsOverPaid||Math.Abs(doc.TotalSum-paynentSumms)>0.99) // возможно округлени
+                if (doc.TotalSum - paynentSumms >= 0.009)
                 {
-                    badMsg += "некоректна оплата\t";
+                    badMsg += "Сумма оплат меньше итога чека";
                     badDocToPerfome = true;
                 }
-            }
-
-            if (doc.TotalSum - paynentSumms >= 0.009)
-            {
-                badMsg += "Сумма оплат меньше итога чека";
-                badDocToPerfome = true;
-            }
-            if (doc.TotalSum - paynentSumms <= -0.009 && doc.Cash + 0.001 > paynentSumms - doc.TotalSum)
-            {
-                badMsg += "Сумма оплат больше итога чека";
-                badDocToPerfome = true;
-            }
-            if (doc.Sno == 0 && _snoDefaul == 0)
-            {
-                badMsg += "Не выбрана СНО";
-                badDocToPerfome = true;
-            }
-
-            if (badDocToPerfome)
-            {
-                KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = badMsg;
-                if (_interfaceReaction) RezultMsg("Ошибка "+badMsg);
-                return false;
-            }
-            if (doc.WithChange)
-            {
-                double delta = doc.Cash + doc.ECash + doc.Prepaid + doc.Credit + doc.Provision - doc.TotalSum;
-                if (delta < 0)
+                if (doc.TotalSum - paynentSumms <= -0.009 && doc.Cash + 0.001 > paynentSumms - doc.TotalSum)
                 {
-                    KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = "Проблема с подсчетами";
-                    if (_interfaceReaction) RezultMsg("!!!Проблема с подсчетами!!!");
+                    badMsg += "Сумма оплат больше итога чека";
+                    badDocToPerfome = true;
+                }
+                if (doc.Sno == 0 && _snoDefaul == 0)
+                {
+                    badMsg += "Не выбрана СНО";
+                    badDocToPerfome = true;
+                }
+
+                if (badDocToPerfome)
+                {
+                    KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = badMsg;
+                    if (_interfaceReaction) RezultMsg("Ошибка " + badMsg);
                     return false;
                 }
-                doc = doc.Clone() as FiscalCheque;
-                doc.Cash -= delta;
+                if (doc.WithChange)
+                {
+                    double delta = doc.Cash + doc.ECash + doc.Prepaid + doc.Credit + doc.Provision - doc.TotalSum;
+                    if (delta < 0)
+                    {
+                        KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = "Проблема с подсчетами";
+                        if (_interfaceReaction) RezultMsg("!!!Проблема с подсчетами!!!");
+                        return false;
+                    }
+                    doc = doc.Clone() as FiscalCheque;
+                    doc.Cash -= delta;
+                }
+
+
+                int fs = _random.Next();
+                FnReadedDocument frd = new FnReadedDocument(doc.DocumentNameFtagType, DateTime.Now, ++_lastFD, doc.TotalSum, (_emptyFp ? "" : fs.ToString("D10")), (FiscalCheque)doc.Clone());
+                if (frd.Cheque.Sno == 0)
+                {
+                    frd.Cheque.Sno = _snoDefaul;
+                }
+                _fnMemory.Add(_lastFD, frd);
+
+                return true;
             }
-
-
-            int fs = _random.Next();
-            FnReadedDocument frd = new FnReadedDocument(doc.DocumentNameFtagType, DateTime.Now, ++_lastFD, doc.TotalSum, (_emptyFp? "" : fs.ToString("D10")),(FiscalCheque)doc.Clone());
-            if(frd.Cheque.Sno == 0)
-            {
-                frd.Cheque.Sno = _snoDefaul;
-            }
-            _fnMemory.Add(_lastFD, frd);
-
-            return true;
+            KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY] = "Ограничение ресурса ФН";
+            if (_interfaceReaction) RezultMsg("Ограничение ресурса ФН");
+            return false;
         }
 
         public override void ReadDeviceCondition()
@@ -572,5 +606,7 @@ namespace FR_Operator
         }
         
         private Dictionary<int,FnReadedDocument> _fnMemory = new Dictionary<int, FnReadedDocument>();
+
+        int _restrictor = 0;
     }
 }

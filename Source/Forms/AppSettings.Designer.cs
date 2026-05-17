@@ -38,19 +38,6 @@
             this.textBox_cashierDefault = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.linkLabel_doc = new System.Windows.Forms.LinkLabel();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.comboBox_defaultRootTagValue = new System.Windows.Forms.ComboBox();
-            this.button_loadRules = new System.Windows.Forms.Button();
-            this.textBox_saveRuleAsXml = new System.Windows.Forms.TextBox();
-            this.button_saveRules = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.button_addJsonHeader = new System.Windows.Forms.Button();
-            this.button_removeJsonHeader = new System.Windows.Forms.Button();
-            this.listBox_jsonHeaders = new System.Windows.Forms.ListBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textBox_jsonHeaerToAdd = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.comboBox_cleanAfterPrint = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -105,7 +92,42 @@
             this.radioButton_overrideOriginalPropertyData = new System.Windows.Forms.RadioButton();
             this.radioButton_saveOriginalPropertyData = new System.Windows.Forms.RadioButton();
             this.checkBox_setFiscalSignAsPropertyData = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox_offLoggingJsonParcing = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.comboBox_defaultRootTagValue = new System.Windows.Forms.ComboBox();
+            this.button_loadRules = new System.Windows.Forms.Button();
+            this.textBox_saveRuleAsXml = new System.Windows.Forms.TextBox();
+            this.button_saveRules = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.button_addJsonHeader = new System.Windows.Forms.Button();
+            this.button_removeJsonHeader = new System.Windows.Forms.Button();
+            this.listBox_jsonHeaders = new System.Windows.Forms.ListBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox_jsonHeaerToAdd = new System.Windows.Forms.TextBox();
             this.tabPage_shtrih = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.textBox_textBox_shtrih_warn_comment = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.textBox_shtrih_warn_message = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.button_shtrih_warn_delete = new System.Windows.Forms.Button();
+            this.button_shtrih_warn_save = new System.Windows.Forms.Button();
+            this.textBox_shtrih_warn_value = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.comboBox_shtrih_warn_condition = new System.Windows.Forms.ComboBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.textBox_shtrih_warn_contain = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.textBox_shtrih_warn_field = new System.Windows.Forms.TextBox();
+            this.textBox_shtrih_warn_table = new System.Windows.Forms.TextBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.listBox_shtrihWarns = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -151,10 +173,15 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label29 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkBox_atolWarnEndLic17 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_common.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -163,7 +190,13 @@
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.tabPage_shtrih.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -179,6 +212,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage_common);
             this.tabControl1.Controls.Add(this.tabPage_fdProperties);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage_shtrih);
             this.tabControl1.Controls.Add(this.tabPage_atol);
             this.tabControl1.Controls.Add(this.tabPage_term);
@@ -197,7 +231,6 @@
             this.tabPage_common.Controls.Add(this.textBox_cashierDefault);
             this.tabPage_common.Controls.Add(this.label26);
             this.tabPage_common.Controls.Add(this.linkLabel_doc);
-            this.tabPage_common.Controls.Add(this.groupBox5);
             this.tabPage_common.Controls.Add(this.groupBox4);
             this.tabPage_common.Controls.Add(this.comboBox_copayIntFd);
             this.tabPage_common.Controls.Add(this.label7);
@@ -219,7 +252,7 @@
             this.button_import.TabIndex = 107;
             this.button_import.Text = "Импорт внешних настроек";
             this.button_import.UseVisualStyleBackColor = true;
-            this.button_import.Click += new System.EventHandler(this.button1_Click);
+            this.button_import.Click += new System.EventHandler(this.XmlFdRules);
             // 
             // textBox_cashierInnDefault
             // 
@@ -267,147 +300,7 @@
             this.linkLabel_doc.TabIndex = 102;
             this.linkLabel_doc.TabStop = true;
             this.linkLabel_doc.Text = "Онлайн документация";
-            this.linkLabel_doc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_doc_LinkClicked);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.groupBox9);
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Controls.Add(this.button_addJsonHeader);
-            this.groupBox5.Controls.Add(this.button_removeJsonHeader);
-            this.groupBox5.Controls.Add(this.listBox_jsonHeaders);
-            this.groupBox5.Controls.Add(this.label17);
-            this.groupBox5.Controls.Add(this.textBox_jsonHeaerToAdd);
-            this.groupBox5.Location = new System.Drawing.Point(5, 153);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(330, 343);
-            this.groupBox5.TabIndex = 17;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Работа с JSON";
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.label24);
-            this.groupBox9.Controls.Add(this.comboBox_defaultRootTagValue);
-            this.groupBox9.Controls.Add(this.button_loadRules);
-            this.groupBox9.Controls.Add(this.textBox_saveRuleAsXml);
-            this.groupBox9.Controls.Add(this.button_saveRules);
-            this.groupBox9.Location = new System.Drawing.Point(1, 212);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(324, 124);
-            this.groupBox9.TabIndex = 7;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Для кастомных выгрузок ОФД";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(6, 50);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(120, 13);
-            this.label24.TabIndex = 8;
-            this.label24.Text = "Код формы по умолч.*";
-            this.toolTip1.SetToolTip(this.label24, "Если в выгрузке отсутвует указатель\r\nна форму документа тег \"code\"");
-            // 
-            // comboBox_defaultRootTagValue
-            // 
-            this.comboBox_defaultRootTagValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_defaultRootTagValue.FormattingEnabled = true;
-            this.comboBox_defaultRootTagValue.Items.AddRange(new object[] {
-            "Нет",
-            "Чек(форма 3)",
-            "Чек коррекции(форма 31)"});
-            this.comboBox_defaultRootTagValue.Location = new System.Drawing.Point(144, 46);
-            this.comboBox_defaultRootTagValue.Name = "comboBox_defaultRootTagValue";
-            this.comboBox_defaultRootTagValue.Size = new System.Drawing.Size(172, 21);
-            this.comboBox_defaultRootTagValue.TabIndex = 7;
-            this.comboBox_defaultRootTagValue.SelectedIndexChanged += new System.EventHandler(this.button1_Click);
-            // 
-            // button_loadRules
-            // 
-            this.button_loadRules.Location = new System.Drawing.Point(7, 19);
-            this.button_loadRules.Margin = new System.Windows.Forms.Padding(2);
-            this.button_loadRules.Name = "button_loadRules";
-            this.button_loadRules.Size = new System.Drawing.Size(310, 23);
-            this.button_loadRules.TabIndex = 2;
-            this.button_loadRules.Text = "Загрузить и заменить правила(xml)";
-            this.button_loadRules.UseVisualStyleBackColor = true;
-            this.button_loadRules.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // textBox_saveRuleAsXml
-            // 
-            this.textBox_saveRuleAsXml.Location = new System.Drawing.Point(7, 98);
-            this.textBox_saveRuleAsXml.Name = "textBox_saveRuleAsXml";
-            this.textBox_saveRuleAsXml.Size = new System.Drawing.Size(310, 20);
-            this.textBox_saveRuleAsXml.TabIndex = 6;
-            this.textBox_saveRuleAsXml.Text = "default_rules.xml";
-            // 
-            // button_saveRules
-            // 
-            this.button_saveRules.Location = new System.Drawing.Point(7, 71);
-            this.button_saveRules.Margin = new System.Windows.Forms.Padding(2);
-            this.button_saveRules.Name = "button_saveRules";
-            this.button_saveRules.Size = new System.Drawing.Size(310, 23);
-            this.button_saveRules.TabIndex = 1;
-            this.button_saveRules.Text = "Сохранить правила распозования(xml)";
-            this.toolTip1.SetToolTip(this.button_saveRules, "Демонстрация и описание формата");
-            this.button_saveRules.UseVisualStyleBackColor = true;
-            this.button_saveRules.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(3, 158);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(315, 39);
-            this.label18.TabIndex = 5;
-            this.label18.Text = "Необходимо чтобы путь к контейнеру с чеком был в списке,\r\nесли его нет прогромма " +
-    "не сможер расшифровать его.\r\n* подробно в документации";
-            // 
-            // button_addJsonHeader
-            // 
-            this.button_addJsonHeader.Location = new System.Drawing.Point(4, 112);
-            this.button_addJsonHeader.Name = "button_addJsonHeader";
-            this.button_addJsonHeader.Size = new System.Drawing.Size(153, 23);
-            this.button_addJsonHeader.TabIndex = 4;
-            this.button_addJsonHeader.Text = "Добавить из строки";
-            this.button_addJsonHeader.UseVisualStyleBackColor = true;
-            this.button_addJsonHeader.Click += new System.EventHandler(this.ChangingSettings);
-            // 
-            // button_removeJsonHeader
-            // 
-            this.button_removeJsonHeader.Location = new System.Drawing.Point(172, 112);
-            this.button_removeJsonHeader.Name = "button_removeJsonHeader";
-            this.button_removeJsonHeader.Size = new System.Drawing.Size(153, 23);
-            this.button_removeJsonHeader.TabIndex = 3;
-            this.button_removeJsonHeader.Text = "Удалить выбранные";
-            this.button_removeJsonHeader.UseVisualStyleBackColor = true;
-            this.button_removeJsonHeader.Click += new System.EventHandler(this.ChangingSettings);
-            // 
-            // listBox_jsonHeaders
-            // 
-            this.listBox_jsonHeaders.FormattingEnabled = true;
-            this.listBox_jsonHeaders.Location = new System.Drawing.Point(6, 30);
-            this.listBox_jsonHeaders.Name = "listBox_jsonHeaders";
-            this.listBox_jsonHeaders.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.listBox_jsonHeaders.Size = new System.Drawing.Size(318, 82);
-            this.listBox_jsonHeaders.TabIndex = 2;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(3, 14);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(144, 13);
-            this.label17.TabIndex = 1;
-            this.label17.Text = "Пути к контейнеру с чеком";
-            // 
-            // textBox_jsonHeaerToAdd
-            // 
-            this.textBox_jsonHeaerToAdd.Location = new System.Drawing.Point(5, 136);
-            this.textBox_jsonHeaerToAdd.Name = "textBox_jsonHeaerToAdd";
-            this.textBox_jsonHeaerToAdd.Size = new System.Drawing.Size(319, 20);
-            this.textBox_jsonHeaerToAdd.TabIndex = 0;
+            this.linkLabel_doc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OpenDocumentation);
             // 
             // groupBox4
             // 
@@ -1147,8 +1040,172 @@
             this.checkBox_setFiscalSignAsPropertyData.UseVisualStyleBackColor = true;
             this.checkBox_setFiscalSignAsPropertyData.CheckedChanged += new System.EventHandler(this.ChangingSettings);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.checkBox_offLoggingJsonParcing);
+            this.tabPage1.Controls.Add(this.groupBox5);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(808, 501);
+            this.tabPage1.TabIndex = 6;
+            this.tabPage1.Text = "JSON";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_offLoggingJsonParcing
+            // 
+            this.checkBox_offLoggingJsonParcing.AutoSize = true;
+            this.checkBox_offLoggingJsonParcing.Location = new System.Drawing.Point(438, 27);
+            this.checkBox_offLoggingJsonParcing.Name = "checkBox_offLoggingJsonParcing";
+            this.checkBox_offLoggingJsonParcing.Size = new System.Drawing.Size(279, 30);
+            this.checkBox_offLoggingJsonParcing.TabIndex = 18;
+            this.checkBox_offLoggingJsonParcing.Text = "Отключить логирование при распознавании\r\n(для ускорения обработки большого к-ва ф" +
+    "айлов)";
+            this.checkBox_offLoggingJsonParcing.UseVisualStyleBackColor = true;
+            this.checkBox_offLoggingJsonParcing.CheckedChanged += new System.EventHandler(this.ChangingSettings);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.groupBox9);
+            this.groupBox5.Controls.Add(this.label18);
+            this.groupBox5.Controls.Add(this.button_addJsonHeader);
+            this.groupBox5.Controls.Add(this.button_removeJsonHeader);
+            this.groupBox5.Controls.Add(this.listBox_jsonHeaders);
+            this.groupBox5.Controls.Add(this.label17);
+            this.groupBox5.Controls.Add(this.textBox_jsonHeaerToAdd);
+            this.groupBox5.Location = new System.Drawing.Point(18, 13);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(330, 397);
+            this.groupBox5.TabIndex = 17;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Парсинг чеков";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.label24);
+            this.groupBox9.Controls.Add(this.comboBox_defaultRootTagValue);
+            this.groupBox9.Controls.Add(this.button_loadRules);
+            this.groupBox9.Controls.Add(this.textBox_saveRuleAsXml);
+            this.groupBox9.Controls.Add(this.button_saveRules);
+            this.groupBox9.Location = new System.Drawing.Point(1, 234);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(324, 146);
+            this.groupBox9.TabIndex = 7;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Для кастомных выгрузок ОФД";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 58);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(120, 13);
+            this.label24.TabIndex = 8;
+            this.label24.Text = "Код формы по умолч.*";
+            this.toolTip1.SetToolTip(this.label24, "Если в выгрузке отсутвует указатель\r\nна форму документа тег \"code\"");
+            // 
+            // comboBox_defaultRootTagValue
+            // 
+            this.comboBox_defaultRootTagValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_defaultRootTagValue.FormattingEnabled = true;
+            this.comboBox_defaultRootTagValue.Items.AddRange(new object[] {
+            "Нет",
+            "Чек(форма 3)",
+            "Чек коррекции(форма 31)"});
+            this.comboBox_defaultRootTagValue.Location = new System.Drawing.Point(144, 54);
+            this.comboBox_defaultRootTagValue.Name = "comboBox_defaultRootTagValue";
+            this.comboBox_defaultRootTagValue.Size = new System.Drawing.Size(172, 21);
+            this.comboBox_defaultRootTagValue.TabIndex = 7;
+            this.comboBox_defaultRootTagValue.SelectedIndexChanged += new System.EventHandler(this.XmlFdRules);
+            // 
+            // button_loadRules
+            // 
+            this.button_loadRules.Location = new System.Drawing.Point(7, 23);
+            this.button_loadRules.Margin = new System.Windows.Forms.Padding(2);
+            this.button_loadRules.Name = "button_loadRules";
+            this.button_loadRules.Size = new System.Drawing.Size(310, 23);
+            this.button_loadRules.TabIndex = 2;
+            this.button_loadRules.Text = "Загрузить и заменить правила(xml)";
+            this.button_loadRules.UseVisualStyleBackColor = true;
+            this.button_loadRules.Click += new System.EventHandler(this.XmlFdRules);
+            // 
+            // textBox_saveRuleAsXml
+            // 
+            this.textBox_saveRuleAsXml.Location = new System.Drawing.Point(7, 114);
+            this.textBox_saveRuleAsXml.Name = "textBox_saveRuleAsXml";
+            this.textBox_saveRuleAsXml.Size = new System.Drawing.Size(310, 20);
+            this.textBox_saveRuleAsXml.TabIndex = 6;
+            this.textBox_saveRuleAsXml.Text = "default_rules.xml";
+            // 
+            // button_saveRules
+            // 
+            this.button_saveRules.Location = new System.Drawing.Point(7, 83);
+            this.button_saveRules.Margin = new System.Windows.Forms.Padding(2);
+            this.button_saveRules.Name = "button_saveRules";
+            this.button_saveRules.Size = new System.Drawing.Size(310, 23);
+            this.button_saveRules.TabIndex = 1;
+            this.button_saveRules.Text = "Сохранить правила распозования(xml)";
+            this.toolTip1.SetToolTip(this.button_saveRules, "Демонстрация и описание формата");
+            this.button_saveRules.UseVisualStyleBackColor = true;
+            this.button_saveRules.Click += new System.EventHandler(this.XmlFdRules);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(5, 170);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(315, 39);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "Необходимо чтобы путь к контейнеру с чеком был в списке,\r\nесли его нет прогромма " +
+    "не сможер расшифровать его.\r\n* подробно в документации";
+            // 
+            // button_addJsonHeader
+            // 
+            this.button_addJsonHeader.Location = new System.Drawing.Point(4, 112);
+            this.button_addJsonHeader.Name = "button_addJsonHeader";
+            this.button_addJsonHeader.Size = new System.Drawing.Size(153, 23);
+            this.button_addJsonHeader.TabIndex = 4;
+            this.button_addJsonHeader.Text = "Добавить из строки";
+            this.button_addJsonHeader.UseVisualStyleBackColor = true;
+            this.button_addJsonHeader.Click += new System.EventHandler(this.ChangingSettings);
+            // 
+            // button_removeJsonHeader
+            // 
+            this.button_removeJsonHeader.Location = new System.Drawing.Point(172, 112);
+            this.button_removeJsonHeader.Name = "button_removeJsonHeader";
+            this.button_removeJsonHeader.Size = new System.Drawing.Size(153, 23);
+            this.button_removeJsonHeader.TabIndex = 3;
+            this.button_removeJsonHeader.Text = "Удалить выбранные";
+            this.button_removeJsonHeader.UseVisualStyleBackColor = true;
+            this.button_removeJsonHeader.Click += new System.EventHandler(this.ChangingSettings);
+            // 
+            // listBox_jsonHeaders
+            // 
+            this.listBox_jsonHeaders.FormattingEnabled = true;
+            this.listBox_jsonHeaders.Location = new System.Drawing.Point(6, 30);
+            this.listBox_jsonHeaders.Name = "listBox_jsonHeaders";
+            this.listBox_jsonHeaders.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listBox_jsonHeaders.Size = new System.Drawing.Size(318, 82);
+            this.listBox_jsonHeaders.TabIndex = 2;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 14);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(144, 13);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "Пути к контейнеру с чеком";
+            // 
+            // textBox_jsonHeaerToAdd
+            // 
+            this.textBox_jsonHeaerToAdd.Location = new System.Drawing.Point(5, 136);
+            this.textBox_jsonHeaerToAdd.Name = "textBox_jsonHeaerToAdd";
+            this.textBox_jsonHeaerToAdd.Size = new System.Drawing.Size(319, 20);
+            this.textBox_jsonHeaerToAdd.TabIndex = 0;
+            // 
             // tabPage_shtrih
             // 
+            this.tabPage_shtrih.Controls.Add(this.tabControl2);
             this.tabPage_shtrih.Controls.Add(this.groupBox1);
             this.tabPage_shtrih.Controls.Add(this.groupBox_shtrihDeviceSettings);
             this.tabPage_shtrih.Controls.Add(this.textBox_shtrihFontForPrinting);
@@ -1162,13 +1219,232 @@
             this.tabPage_shtrih.Text = "Штрих/Poscenter";
             this.tabPage_shtrih.UseVisualStyleBackColor = true;
             // 
+            // tabControl2
+            // 
+            this.tabControl2.Appearance = System.Windows.Forms.TabAppearance.Buttons;
+            this.tabControl2.Controls.Add(this.tabPage2);
+            this.tabControl2.Location = new System.Drawing.Point(6, 292);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(777, 203);
+            this.tabControl2.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox14);
+            this.tabPage2.Controls.Add(this.listBox_shtrihWarns);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(769, 174);
+            this.tabPage2.TabIndex = 0;
+            this.tabPage2.Text = "Предупреждения";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.textBox_textBox_shtrih_warn_comment);
+            this.groupBox14.Controls.Add(this.label40);
+            this.groupBox14.Controls.Add(this.textBox_shtrih_warn_message);
+            this.groupBox14.Controls.Add(this.label39);
+            this.groupBox14.Controls.Add(this.button_shtrih_warn_delete);
+            this.groupBox14.Controls.Add(this.button_shtrih_warn_save);
+            this.groupBox14.Controls.Add(this.textBox_shtrih_warn_value);
+            this.groupBox14.Controls.Add(this.label38);
+            this.groupBox14.Controls.Add(this.comboBox_shtrih_warn_condition);
+            this.groupBox14.Controls.Add(this.label35);
+            this.groupBox14.Controls.Add(this.textBox_shtrih_warn_contain);
+            this.groupBox14.Controls.Add(this.label37);
+            this.groupBox14.Controls.Add(this.textBox_shtrih_warn_field);
+            this.groupBox14.Controls.Add(this.textBox_shtrih_warn_table);
+            this.groupBox14.Controls.Add(this.label36);
+            this.groupBox14.Controls.Add(this.label34);
+            this.groupBox14.Location = new System.Drawing.Point(376, 6);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(348, 160);
+            this.groupBox14.TabIndex = 1;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "groupBox14";
+            // 
+            // textBox_textBox_shtrih_warn_comment
+            // 
+            this.textBox_textBox_shtrih_warn_comment.Location = new System.Drawing.Point(135, 103);
+            this.textBox_textBox_shtrih_warn_comment.MaxLength = 35;
+            this.textBox_textBox_shtrih_warn_comment.Name = "textBox_textBox_shtrih_warn_comment";
+            this.textBox_textBox_shtrih_warn_comment.Size = new System.Drawing.Size(198, 20);
+            this.textBox_textBox_shtrih_warn_comment.TabIndex = 17;
+            this.textBox_textBox_shtrih_warn_comment.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_textBox_shtrih_warn_comment.TextChanged += new System.EventHandler(this.SWS_changing);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(13, 106);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(81, 13);
+            this.label40.TabIndex = 16;
+            this.label40.Text = "Комментарий*";
+            this.toolTip1.SetToolTip(this.label40, "До 35-ти символов\r\nДопустима кириллица, латиница и пробелы");
+            // 
+            // textBox_shtrih_warn_message
+            // 
+            this.textBox_shtrih_warn_message.Location = new System.Drawing.Point(135, 80);
+            this.textBox_shtrih_warn_message.MaxLength = 35;
+            this.textBox_shtrih_warn_message.Name = "textBox_shtrih_warn_message";
+            this.textBox_shtrih_warn_message.Size = new System.Drawing.Size(198, 20);
+            this.textBox_shtrih_warn_message.TabIndex = 15;
+            this.textBox_shtrih_warn_message.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_shtrih_warn_message.TextChanged += new System.EventHandler(this.SWS_changing);
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(13, 83);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(98, 13);
+            this.label39.TabIndex = 14;
+            this.label39.Text = "Предупреждение*";
+            this.toolTip1.SetToolTip(this.label39, "До 35-ти символов\r\nДопустима кириллица, латиница и пробелы");
+            // 
+            // button_shtrih_warn_delete
+            // 
+            this.button_shtrih_warn_delete.Enabled = false;
+            this.button_shtrih_warn_delete.Location = new System.Drawing.Point(13, 128);
+            this.button_shtrih_warn_delete.Name = "button_shtrih_warn_delete";
+            this.button_shtrih_warn_delete.Size = new System.Drawing.Size(109, 23);
+            this.button_shtrih_warn_delete.TabIndex = 13;
+            this.button_shtrih_warn_delete.Text = "Удалить";
+            this.button_shtrih_warn_delete.UseVisualStyleBackColor = true;
+            this.button_shtrih_warn_delete.Click += new System.EventHandler(this.ChangingSettings);
+            // 
+            // button_shtrih_warn_save
+            // 
+            this.button_shtrih_warn_save.Enabled = false;
+            this.button_shtrih_warn_save.Location = new System.Drawing.Point(224, 128);
+            this.button_shtrih_warn_save.Name = "button_shtrih_warn_save";
+            this.button_shtrih_warn_save.Size = new System.Drawing.Size(109, 23);
+            this.button_shtrih_warn_save.TabIndex = 12;
+            this.button_shtrih_warn_save.Text = "Сохранить";
+            this.button_shtrih_warn_save.UseVisualStyleBackColor = true;
+            this.button_shtrih_warn_save.Click += new System.EventHandler(this.ChangingSettings);
+            // 
+            // textBox_shtrih_warn_value
+            // 
+            this.textBox_shtrih_warn_value.Location = new System.Drawing.Point(297, 57);
+            this.textBox_shtrih_warn_value.MaxLength = 5;
+            this.textBox_shtrih_warn_value.Name = "textBox_shtrih_warn_value";
+            this.textBox_shtrih_warn_value.Size = new System.Drawing.Size(36, 20);
+            this.textBox_shtrih_warn_value.TabIndex = 11;
+            this.textBox_shtrih_warn_value.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_shtrih_warn_value.TextChanged += new System.EventHandler(this.SWS_changing);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(235, 61);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(55, 13);
+            this.label38.TabIndex = 10;
+            this.label38.Text = "Значение";
+            // 
+            // comboBox_shtrih_warn_condition
+            // 
+            this.comboBox_shtrih_warn_condition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_shtrih_warn_condition.FormattingEnabled = true;
+            this.comboBox_shtrih_warn_condition.Items.AddRange(new object[] {
+            "==",
+            "!=(<>)",
+            ">",
+            "<"});
+            this.comboBox_shtrih_warn_condition.Location = new System.Drawing.Point(135, 56);
+            this.comboBox_shtrih_warn_condition.Name = "comboBox_shtrih_warn_condition";
+            this.comboBox_shtrih_warn_condition.Size = new System.Drawing.Size(53, 21);
+            this.comboBox_shtrih_warn_condition.TabIndex = 9;
+            this.comboBox_shtrih_warn_condition.SelectedIndexChanged += new System.EventHandler(this.SWS_changing);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(13, 58);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(51, 13);
+            this.label35.TabIndex = 8;
+            this.label35.Text = "Условие";
+            // 
+            // textBox_shtrih_warn_contain
+            // 
+            this.textBox_shtrih_warn_contain.Location = new System.Drawing.Point(135, 34);
+            this.textBox_shtrih_warn_contain.MaxLength = 15;
+            this.textBox_shtrih_warn_contain.Name = "textBox_shtrih_warn_contain";
+            this.textBox_shtrih_warn_contain.Size = new System.Drawing.Size(198, 20);
+            this.textBox_shtrih_warn_contain.TabIndex = 7;
+            this.textBox_shtrih_warn_contain.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_shtrih_warn_contain.TextChanged += new System.EventHandler(this.SWS_changing);
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(13, 37);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(113, 13);
+            this.label37.TabIndex = 6;
+            this.label37.Text = "Название содержит*";
+            this.toolTip1.SetToolTip(this.label37, "До 15-ти символов\r\nДопустима кириллица, латиница и пробелы");
+            // 
+            // textBox_shtrih_warn_field
+            // 
+            this.textBox_shtrih_warn_field.Location = new System.Drawing.Point(297, 11);
+            this.textBox_shtrih_warn_field.MaxLength = 3;
+            this.textBox_shtrih_warn_field.Name = "textBox_shtrih_warn_field";
+            this.textBox_shtrih_warn_field.Size = new System.Drawing.Size(36, 20);
+            this.textBox_shtrih_warn_field.TabIndex = 5;
+            this.textBox_shtrih_warn_field.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_shtrih_warn_field.TextChanged += new System.EventHandler(this.SWS_changing);
+            // 
+            // textBox_shtrih_warn_table
+            // 
+            this.textBox_shtrih_warn_table.Location = new System.Drawing.Point(135, 11);
+            this.textBox_shtrih_warn_table.MaxLength = 3;
+            this.textBox_shtrih_warn_table.Name = "textBox_shtrih_warn_table";
+            this.textBox_shtrih_warn_table.Size = new System.Drawing.Size(36, 20);
+            this.textBox_shtrih_warn_table.TabIndex = 3;
+            this.textBox_shtrih_warn_table.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_shtrih_warn_table.TextChanged += new System.EventHandler(this.SWS_changing);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(235, 14);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(33, 13);
+            this.label36.TabIndex = 2;
+            this.label36.Text = "Поле";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(13, 14);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(50, 13);
+            this.label34.TabIndex = 0;
+            this.label34.Text = "Таблица";
+            // 
+            // listBox_shtrihWarns
+            // 
+            this.listBox_shtrihWarns.FormattingEnabled = true;
+            this.listBox_shtrihWarns.Location = new System.Drawing.Point(6, 6);
+            this.listBox_shtrihWarns.Name = "listBox_shtrihWarns";
+            this.listBox_shtrihWarns.Size = new System.Drawing.Size(364, 160);
+            this.listBox_shtrihWarns.TabIndex = 0;
+            this.listBox_shtrihWarns.SelectedIndexChanged += new System.EventHandler(this.SWS_changing);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.groupBox12);
             this.groupBox1.Controls.Add(this.groupBox11);
             this.groupBox1.Location = new System.Drawing.Point(9, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(471, 329);
+            this.groupBox1.Size = new System.Drawing.Size(471, 285);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Формирование ФД";
@@ -1184,9 +1460,9 @@
             this.groupBox12.Controls.Add(this.radioButton_shtrihCloseCheckEx3);
             this.groupBox12.Controls.Add(this.radioButton_shtrihCloseCheckEx2);
             this.groupBox12.Controls.Add(this.radioButton_shtrihCloseCheqMethodOld);
-            this.groupBox12.Location = new System.Drawing.Point(6, 92);
+            this.groupBox12.Location = new System.Drawing.Point(6, 81);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(459, 231);
+            this.groupBox12.Size = new System.Drawing.Size(459, 199);
             this.groupBox12.TabIndex = 1;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Закрытие ФД";
@@ -1196,7 +1472,7 @@
             this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton1.AutoSize = true;
             this.radioButton1.Enabled = false;
-            this.radioButton1.Location = new System.Drawing.Point(6, 187);
+            this.radioButton1.Location = new System.Drawing.Point(6, 173);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(191, 23);
             this.radioButton1.TabIndex = 10;
@@ -1208,7 +1484,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(200, 147);
+            this.label33.Location = new System.Drawing.Point(200, 136);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(252, 26);
             this.label33.TabIndex = 9;
@@ -1218,7 +1494,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(200, 105);
+            this.label32.Location = new System.Drawing.Point(200, 97);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(234, 26);
             this.label32.TabIndex = 8;
@@ -1228,7 +1504,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(200, 65);
+            this.label31.Location = new System.Drawing.Point(200, 60);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(210, 26);
             this.label31.TabIndex = 7;
@@ -1238,7 +1514,7 @@
             // 
             this.label30.AutoSize = true;
             this.label30.Enabled = false;
-            this.label30.Location = new System.Drawing.Point(200, 31);
+            this.label30.Location = new System.Drawing.Point(200, 29);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(223, 13);
             this.label30.TabIndex = 6;
@@ -1248,7 +1524,7 @@
             // 
             this.radioButton_shtrihCloseCheckEx4.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_shtrihCloseCheckEx4.AutoSize = true;
-            this.radioButton_shtrihCloseCheckEx4.Location = new System.Drawing.Point(6, 145);
+            this.radioButton_shtrihCloseCheckEx4.Location = new System.Drawing.Point(6, 134);
             this.radioButton_shtrihCloseCheckEx4.Name = "radioButton_shtrihCloseCheckEx4";
             this.radioButton_shtrihCloseCheckEx4.Size = new System.Drawing.Size(179, 36);
             this.radioButton_shtrihCloseCheckEx4.TabIndex = 5;
@@ -1265,7 +1541,7 @@
             // 
             this.radioButton_shtrihCloseCheckEx3.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_shtrihCloseCheckEx3.AutoSize = true;
-            this.radioButton_shtrihCloseCheckEx3.Location = new System.Drawing.Point(6, 103);
+            this.radioButton_shtrihCloseCheckEx3.Location = new System.Drawing.Point(6, 95);
             this.radioButton_shtrihCloseCheckEx3.Name = "radioButton_shtrihCloseCheckEx3";
             this.radioButton_shtrihCloseCheckEx3.Size = new System.Drawing.Size(179, 36);
             this.radioButton_shtrihCloseCheckEx3.TabIndex = 4;
@@ -1282,7 +1558,7 @@
             // 
             this.radioButton_shtrihCloseCheckEx2.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_shtrihCloseCheckEx2.AutoSize = true;
-            this.radioButton_shtrihCloseCheckEx2.Location = new System.Drawing.Point(6, 61);
+            this.radioButton_shtrihCloseCheckEx2.Location = new System.Drawing.Point(6, 56);
             this.radioButton_shtrihCloseCheckEx2.Name = "radioButton_shtrihCloseCheckEx2";
             this.radioButton_shtrihCloseCheckEx2.Size = new System.Drawing.Size(179, 36);
             this.radioButton_shtrihCloseCheckEx2.TabIndex = 3;
@@ -1300,7 +1576,7 @@
             this.radioButton_shtrihCloseCheqMethodOld.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_shtrihCloseCheqMethodOld.AutoSize = true;
             this.radioButton_shtrihCloseCheqMethodOld.Enabled = false;
-            this.radioButton_shtrihCloseCheqMethodOld.Location = new System.Drawing.Point(6, 19);
+            this.radioButton_shtrihCloseCheqMethodOld.Location = new System.Drawing.Point(6, 17);
             this.radioButton_shtrihCloseCheqMethodOld.Name = "radioButton_shtrihCloseCheqMethodOld";
             this.radioButton_shtrihCloseCheqMethodOld.Size = new System.Drawing.Size(179, 36);
             this.radioButton_shtrihCloseCheqMethodOld.TabIndex = 2;
@@ -1362,7 +1638,7 @@
             this.groupBox_shtrihDeviceSettings.Controls.Add(this.groupBox10);
             this.groupBox_shtrihDeviceSettings.Controls.Add(this.groupBox_taxSettings);
             this.groupBox_shtrihDeviceSettings.Enabled = false;
-            this.groupBox_shtrihDeviceSettings.Location = new System.Drawing.Point(491, 159);
+            this.groupBox_shtrihDeviceSettings.Location = new System.Drawing.Point(486, 90);
             this.groupBox_shtrihDeviceSettings.Name = "groupBox_shtrihDeviceSettings";
             this.groupBox_shtrihDeviceSettings.Size = new System.Drawing.Size(303, 152);
             this.groupBox_shtrihDeviceSettings.TabIndex = 7;
@@ -1412,7 +1688,7 @@
             this.radioButton_shtrihSwichPrintingOn.Text = "Включена";
             this.toolTip1.SetToolTip(this.radioButton_shtrihSwichPrintingOn, "Установить Т17.Р1.П7 = 0");
             this.radioButton_shtrihSwichPrintingOn.UseVisualStyleBackColor = true;
-            this.radioButton_shtrihSwichPrintingOn.CheckedChanged += new System.EventHandler(this.ControlDevice);
+            this.radioButton_shtrihSwichPrintingOn.CheckedChanged += new System.EventHandler(this.ControlShtrihTables);
             // 
             // radioButton_shtrihSwichPrintingOff
             // 
@@ -1426,7 +1702,7 @@
             this.radioButton_shtrihSwichPrintingOff.Text = "Отключена";
             this.toolTip1.SetToolTip(this.radioButton_shtrihSwichPrintingOff, "Установить Т17.Р1.П7 = 2");
             this.radioButton_shtrihSwichPrintingOff.UseVisualStyleBackColor = true;
-            this.radioButton_shtrihSwichPrintingOff.CheckedChanged += new System.EventHandler(this.ControlDevice);
+            this.radioButton_shtrihSwichPrintingOff.CheckedChanged += new System.EventHandler(this.ControlShtrihTables);
             // 
             // groupBox_taxSettings
             // 
@@ -1462,7 +1738,7 @@
             this.radioButton_shtrihSwichFwTaxesOff.Text = "Считает верхнее ПО";
             this.toolTip1.SetToolTip(this.radioButton_shtrihSwichFwTaxesOff, "Установить Т1.Р1.П14 = 1");
             this.radioButton_shtrihSwichFwTaxesOff.UseVisualStyleBackColor = true;
-            this.radioButton_shtrihSwichFwTaxesOff.CheckedChanged += new System.EventHandler(this.ControlDevice);
+            this.radioButton_shtrihSwichFwTaxesOff.CheckedChanged += new System.EventHandler(this.ControlShtrihTables);
             // 
             // radioButton_shtrihSwichFwTaxesOn
             // 
@@ -1476,7 +1752,7 @@
             this.radioButton_shtrihSwichFwTaxesOn.Text = "Считает прошивка ФРа";
             this.toolTip1.SetToolTip(this.radioButton_shtrihSwichFwTaxesOn, "Установить Т1.Р1.П14 = 0");
             this.radioButton_shtrihSwichFwTaxesOn.UseVisualStyleBackColor = true;
-            this.radioButton_shtrihSwichFwTaxesOn.CheckedChanged += new System.EventHandler(this.ControlDevice);
+            this.radioButton_shtrihSwichFwTaxesOn.CheckedChanged += new System.EventHandler(this.ControlShtrihTables);
             // 
             // textBox_shtrihFontForPrinting
             // 
@@ -1509,6 +1785,7 @@
             // 
             // tabPage_atol
             // 
+            this.tabPage_atol.Controls.Add(this.checkBox_atolWarnEndLic17);
             this.tabPage_atol.Controls.Add(this.checkBox_fillItemPaymetTypeDef);
             this.tabPage_atol.Controls.Add(this.textBox_atolFontForPrinting);
             this.tabPage_atol.Controls.Add(this.label16);
@@ -1699,6 +1976,60 @@
             this.textBox2.Text = "5536 9141 0937 9473";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Текст предкпреждения";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Значение";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 70;
+            // 
+            // dataGridViewComboBoxColumn1
+            // 
+            this.dataGridViewComboBoxColumn1.HeaderText = "Условие";
+            this.dataGridViewComboBoxColumn1.Items.AddRange(new object[] {
+            "=",
+            "!=(<>)",
+            ">",
+            "<"});
+            this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
+            this.dataGridViewComboBoxColumn1.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Название содержит";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Поле";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Таблица";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 70;
+            // 
+            // checkBox_atolWarnEndLic17
+            // 
+            this.checkBox_atolWarnEndLic17.AutoSize = true;
+            this.checkBox_atolWarnEndLic17.Checked = true;
+            this.checkBox_atolWarnEndLic17.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_atolWarnEndLic17.Location = new System.Drawing.Point(16, 139);
+            this.checkBox_atolWarnEndLic17.Name = "checkBox_atolWarnEndLic17";
+            this.checkBox_atolWarnEndLic17.Size = new System.Drawing.Size(325, 17);
+            this.checkBox_atolWarnEndLic17.TabIndex = 10;
+            this.checkBox_atolWarnEndLic17.Text = "Предупреждать об отсутсвии или истекшей лицензии №17";
+            this.checkBox_atolWarnEndLic17.UseVisualStyleBackColor = true;
+            this.checkBox_atolWarnEndLic17.CheckedChanged += new System.EventHandler(this.ChangingSettings);
+            // 
             // AppSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1716,10 +2047,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage_common.ResumeLayout(false);
             this.tabPage_common.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1736,8 +2063,18 @@
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.tabPage_shtrih.ResumeLayout(false);
             this.tabPage_shtrih.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
@@ -1883,5 +2220,34 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button button_import;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.CheckBox checkBox_offLoggingJsonParcing;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBox14;
+        private System.Windows.Forms.TextBox textBox_shtrih_warn_table;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.ListBox listBox_shtrihWarns;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.TextBox textBox_shtrih_warn_contain;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox textBox_shtrih_warn_field;
+        private System.Windows.Forms.Button button_shtrih_warn_delete;
+        private System.Windows.Forms.Button button_shtrih_warn_save;
+        private System.Windows.Forms.TextBox textBox_shtrih_warn_value;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.ComboBox comboBox_shtrih_warn_condition;
+        private System.Windows.Forms.TextBox textBox_shtrih_warn_message;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.TextBox textBox_textBox_shtrih_warn_comment;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.CheckBox checkBox_atolWarnEndLic17;
     }
 }

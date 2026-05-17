@@ -1079,8 +1079,7 @@ namespace FR_Operator
                         if (readTlv)
                         {
                             var f = FiscalPrinter.TranslateFtagsList(_buffer_level_1.ToArray());//FTLVParcer.ParseStructure(_buffer_level_1.ToArray());
-                            //LogHandle.olta(f.Count.ToString());
-                            //if(_ui!=null)_ui.AddReadedFdList(f);
+                            
                             if (f.Tags != null&& f.Tags.Count>0)
                                 ftagList.AddRange(f.Tags);
                         }
@@ -1098,14 +1097,8 @@ namespace FR_Operator
                     _fnAnwerCodeInt = _SERVICE_CODE_TIMEOUT_OFF;
                     _fnOperationMessage = "Истек таймаут";
                     ResetQueue();
-                    
-                    //LogAddEvent(new UartEvent(MsgSource.INFO, "Проверяем доступность порта"));
-                    //if(!PortIsOpened)
-                    //    ClosePort();
 
                 }
-
-
             }
 
         }
@@ -1184,8 +1177,6 @@ namespace FR_Operator
             return "Нет данных";
         }
 
-
-
         int _unsentDocs = 0;
         int _firstUnsentDocNumber = 0;
         DateTime _firstUnsentTime = new DateTime(1970,1,1);
@@ -1225,11 +1216,7 @@ namespace FR_Operator
             get { return _shiftStateFiscalPrinter; }
         }
 
-
-
-
         public string FnOperationMessage {  get { return _fnOperationMessage; } }
-
 
 
         private int _dataQueue = 0;
@@ -1515,43 +1502,41 @@ namespace FR_Operator
                                         {
                                             List<int> paramsToUpdateExpir = new List<int>();
                                             DateTime dtExpira = new DateTime(1970, 1, 1);
-                                            //if (answerAsList[4] > 0)
-                                            //{
-                                                if(answerAsList[5]==0 || answerAsList[6] == 0)
-                                                {
-                                                    LogHandle.Olta("Не удалось получить дату окончания ФН  2000+ГГ:"+ answerAsList[4]+" ММ:"+ answerAsList[5]+" ДД:"+ answerAsList[6]);
-                                                }
-                                                else
-                                                {
-                                                    dtExpira = new DateTime(2000 + answerAsList[4], answerAsList[5], answerAsList[6]);
-                                                }
-                                                FnInfo[FNDESCR_EXPIRATION_DATE] = dtExpira.ToString("dd.MM.yyyy");
-                                                sbDescribtion.AppendLine("" + dtExpira.ToString("dd.MM.yyyy"));
-                                                FnInfo[FNDESCR_EXPIRATION_AVAILABLE_REGS] = answerAsList[7].ToString();
-                                                FnInfo[FNDESCR_EXPIRATION_PERFORMED_REGS] = answerAsList[8].ToString();
-                                                sbDescribtion.AppendLine("Выполнено регистраций: " + answerAsList[8] + "  осталось: " + answerAsList[7]);
 
-                                                if (!_uiParamsToUpdate.Contains(FNDESCR_EXPIRATION_DATE))
-                                                {
-                                                    _uiParamsToUpdate.Add(FNDESCR_EXPIRATION_DATE);
-                                                }
-                                                if (!_uiParamsToUpdate.Contains(FNDESCR_EXPIRATION_AVAILABLE_REGS))
-                                                {
-                                                    _uiParamsToUpdate.Add(FNDESCR_EXPIRATION_AVAILABLE_REGS);
-                                                }
-                                                if (!_uiParamsToUpdate.Contains(FNDESCR_EXPIRATION_PERFORMED_REGS))
-                                                {
-                                                    _uiParamsToUpdate.Add(FNDESCR_EXPIRATION_PERFORMED_REGS);
-                                                }
-                                                describtion = sbDescribtion.ToString();
-                                            //}
+                                            if(answerAsList[5]==0 || answerAsList[6] == 0)
+                                            {
+                                                LogHandle.Olta("Не удалось получить дату окончания ФН  2000+ГГ:"+ answerAsList[4]+" ММ:"+ answerAsList[5]+" ДД:"+ answerAsList[6]);
+                                            }
+                                            else
+                                            {
+                                                dtExpira = new DateTime(2000 + answerAsList[4], answerAsList[5], answerAsList[6]);
+                                            }
+                                            FnInfo[FNDESCR_EXPIRATION_DATE] = dtExpira.ToString("dd.MM.yyyy");
+                                            sbDescribtion.AppendLine("" + dtExpira.ToString("dd.MM.yyyy"));
+                                            FnInfo[FNDESCR_EXPIRATION_AVAILABLE_REGS] = answerAsList[7].ToString();
+                                            FnInfo[FNDESCR_EXPIRATION_PERFORMED_REGS] = answerAsList[8].ToString();
+                                            sbDescribtion.AppendLine("Выполнено регистраций: " + answerAsList[8] + "  осталось: " + answerAsList[7]);
+
+                                            if (!_uiParamsToUpdate.Contains(FNDESCR_EXPIRATION_DATE))
+                                            {
+                                                _uiParamsToUpdate.Add(FNDESCR_EXPIRATION_DATE);
+                                            }
+                                            if (!_uiParamsToUpdate.Contains(FNDESCR_EXPIRATION_AVAILABLE_REGS))
+                                            {
+                                                _uiParamsToUpdate.Add(FNDESCR_EXPIRATION_AVAILABLE_REGS);
+                                            }
+                                            if (!_uiParamsToUpdate.Contains(FNDESCR_EXPIRATION_PERFORMED_REGS))
+                                            {
+                                                _uiParamsToUpdate.Add(FNDESCR_EXPIRATION_PERFORMED_REGS);
+                                            }
+                                            describtion = sbDescribtion.ToString();
+                                            
                                         }
                                         break;
                                     case CODE_GET_FN_STATUS:
                                         if (_fnAnwerCodeInt == OK)
                                         {
                                             List<int> paramsToUpdate = new List<int>();
-                                            //string fnStageOfApplication = "";
                                             _stageOfUsage = answerAsList[4];
                                             if (_stageOfUsage == 1)
                                             {
@@ -1578,7 +1563,7 @@ namespace FR_Operator
                                                 FnInfo[FNDESCR_STAGE_OF_APPLICATION] = "Code: " + answerAsList[4].ToString("X2") + " - описание для данного кода отсутсвует.";
                                             }
                                             if (!_uiParamsToUpdate.Contains(FNDESCR_STAGE_OF_APPLICATION)) _uiParamsToUpdate.Add(FNDESCR_STAGE_OF_APPLICATION);
-                                            //FnInfo[STAGE_OF_APPLICATION] = fnStageOfApplication;
+                                            
                                             switch (answerAsList[5])
                                             {
                                                 case 0:
@@ -1626,13 +1611,11 @@ namespace FR_Operator
                                             if (answerAsList[7] == 0)
                                             {
                                                 FnInfo[FNDESCR_SHIFT_STATE] = "Cмена закрыта";
-                                                //_shiftStateFiscalPrinter = FR_SHIFT_CLOSED;
                                                 _shiftState = FR_SHIFT_CLOSED;
                                             }
                                             else if (answerAsList[7] == 1)
                                             {
                                                 FnInfo[FNDESCR_SHIFT_STATE] = "Cмена открыта";
-                                                //_shiftStateFiscalPrinter = FR_SHIFT_OPEN;
                                                 _shiftState = FR_SHIFT_OPEN;
                                             }
                                             else
@@ -1723,14 +1706,13 @@ namespace FR_Operator
                                             FnInfo[FiscalPrinter.FTAG_FFD] = FFDStr;
                                             if (!_uiParamsToUpdate.Contains(FiscalPrinter.FTAG_FFD)) _uiParamsToUpdate.Add(FiscalPrinter.FTAG_FFD);
                                             describtion = sbDescribtion.ToString();
-                                        }
-                                        
+                                        }                                       
                                         break;
                                     case CODE_GET_ARCHIVED_FD_INFO:
                                         if(_fnAnwerCodeInt == OK)
                                         {
                                             int type = answerAsList[4];
-                                            //type += 65536 * (1+ answerAsList[5]);     // тут это усложняет дальнейшую обработку
+
                                             DateTime time = new DateTime(2000 + answerAsList[6], answerAsList[7], answerAsList[8], answerAsList[9], answerAsList[10], 0);
                                             int fdNumber = answerAsList[11] + 256 * answerAsList[12] + 65536 * answerAsList[13] + 256 * 65536 * answerAsList[14];
                                             uint fiscalSign = (uint)answerAsList[15] + (uint)256 * answerAsList[16] + (uint)65536 * answerAsList[17] + (uint)256 * 65536 * answerAsList[18];
@@ -1778,14 +1760,6 @@ namespace FR_Operator
                                                 sbDescribtion.AppendLine(tag.ToString());
                                                 ftagList.Add(tag);
                                                 RegFTags[tag.TagNumber] = tag;
-                                                /*if (_buffer_level_1 != null && _fnAnwerCodeInt == OK)
-                                                {
-                                                    _buffer_level_1.Add(answerAsList[4]);
-                                                    _buffer_level_1.Add(answerAsList[5]);
-                                                    _buffer_level_1.Add(answerAsList[6]);
-                                                    _buffer_level_1.Add(answerAsList[7]);
-                                                    _buffer_level_1.AddRange(rawDataTlv);
-                                                }*/
                                             }
                                             else
                                             {
@@ -1806,7 +1780,6 @@ namespace FR_Operator
                                                 int tlvLength = (int)answerAsList[6] + (int)answerAsList[7] * 256;
                                                 if (answerAsList.Count - 10 == tlvLength)
                                                 {
-                                                    //sbDescribtion.AppendLine("Длина ответа ФН и длина возвращенного тега совпали"); // эту строку в последствии удалить
                                                     byte[] rawDataTlv = new byte[tlvLength];
                                                     Array.Copy(answerAsList.ToArray(), 8, rawDataTlv, 0, tlvLength);
                                                     FTag ft = new FTag(tagNumberFd, rawDataTlv);
@@ -1840,7 +1813,7 @@ namespace FR_Operator
                                 UnlocUartOut();
                                 LogAddEvent(new UartEvent(MsgSource.INFO, null, describtion));
                                 _buffer_level_0.Clear();
-                                //_deviceAvailable = true;
+                                
                                 tcs_levell_0?.TrySetResult(true); // передаем в верхний обработчик данные о завершении запроса
                                 return;
                             }
@@ -1871,7 +1844,7 @@ namespace FR_Operator
                      *  ожидаем дополучение данных
                      *  
                      */
-
+                    LogHandle.Olta("получено сообщение 1..3 байта dq: "+_dataQueue);
                 }
 
                 _dataQueue--;
@@ -1883,9 +1856,7 @@ namespace FR_Operator
                 ResetQueue();
                 Thread.Sleep(_timeOut / 3);
                 UnlocUartOut();
-                
-            } 
-            
+            }   
         }
 
         public async Task<int> GetFnExpirationAsync(bool updateUi = true)
@@ -1963,9 +1934,7 @@ namespace FR_Operator
         {
             if (_port!=null&&_port.IsOpen)
             {
-                //byte[] cmd = { 1, 0, GET_FN_STATUS };
-                //var crcbyset = scrc.ComputeChecksumBytes(cmd);
-                //byte[] command = new byte[6] { START_SIGN, 1, 0, GET_FN_STATUS, crcbyset[0], crcbyset[1] };
+                
                 tcs_levell_0 = new TaskCompletionSource<bool>();
                 SendData(CMD_GET_FN_STATUS);
                 await Task.WhenAny(tcs_levell_0.Task, Task.Delay(_timeOut));
@@ -2057,7 +2026,6 @@ namespace FR_Operator
             }
             double countFd = _num2 - _num1;
             bool showProgress = countFd > 10;
-            //int fdCounter = ftagList.Count;
 
             int fdCnt = _fnArchList.Count;
             for (int i = _num1; i <= _num2 && !_brakeOperationReading; i++)
@@ -2071,7 +2039,6 @@ namespace FR_Operator
                     {
                         _fnArchList.Add(_acrchiveReadedDocument);
                         _terminalUi.UpdateStatusArea("Прочитан " + i, null, showProgress ? 100.0 * (i - _num1) / countFd : -1);
-                        //fdCounter = ftagList.Count;
                         _terminalUi.AddFdToTv(_acrchiveReadedDocument);
                     }
                     else
@@ -2173,7 +2140,6 @@ namespace FR_Operator
 
             
             List<byte> cmd = new List<byte>();
-            //cmd.Add(4);
             cmd.Add(4);
             cmd.Add(0);
             cmd.Add(CODE_FN_REG_PARAM);
@@ -2209,9 +2175,7 @@ namespace FR_Operator
                         SendData(CMD_GET_REG_TLV_STRUCT);
                         await Task.WhenAny(tcs_levell_0.Task, Task.Delay(_timeOut));
                     }
-                    //var regFtags = FTag.FTLVParcer.ParseStructure(_buffer_level_1.ToArray());
 
-                    //RegFTags.AddRange(regFtags);
                     if(updateUi && _terminalUi!=null && _terminalUi.Created )
                     {
                         _terminalUi.FillRegTable();
@@ -2247,13 +2211,7 @@ namespace FR_Operator
             {
                 _fnOperationMessage = "Истек таймаут";
                 ResetQueue();
-                /*if ((DateTime.Now - _lastPortCheckAvailability).TotalMilliseconds > 10 * _timeOut)
-                {
-                    LogAddEvent(new UartEvent(MsgSource.INFO, "Истек таймаут", "Проверяем доступность порта"));
-                    if (!PortIsOpened)
-                        ClosePort();
-                    _lastPortCheckAvailability = DateTime.Now;
-                }*/
+
                 return _SERVICE_CODE_TIMEOUT_OFF;
             }
         }
@@ -2382,24 +2340,6 @@ namespace FR_Operator
             // доп проверка тегов
             // {пренижен номер тега, превышен номер тега}
             // добавить ФЛК
-            //bool[] badFtagFlsgs = _CheckSendedFtags(ftags);
-            //StringBuilder sberrrr = new StringBuilder();
-            //if (badFtagFlsgs[0])
-            //{
-            //    sberrrr.AppendLine("В списке тегов передан тег с номером ниже минимально-разрешенного");
-            //}
-            //if (badFtagFlsgs[1])
-            //{
-            //    sberrrr.AppendLine("В списке тегов передан тег с номером выше максимально-разрешенного");
-            //}
-            //foreach(var bad in badFtagFlsgs)
-            //{
-            //    if (bad)
-            //    {
-            //        LogAddEvent(new UartEvent(MsgSource.ERROR,null, sberrrr.ToString()));
-            //        return INTERRUPTED;
-            //    }
-            //}
 
             tfn_ir = tfn_ir && _terminalUi != null && _terminalUi.Created;
             List<byte> cmd = new List<byte>();
@@ -2778,7 +2718,6 @@ namespace FR_Operator
             {
                 if (OpenPort() != OK)
                 {
-                    //LogHandle.ol("Не удалось открыть ком-порт");
                     RezultMsg("Не удалось открыть ком-порт "+ConnectionReprezentation());
                     _connected = false;
                     return false;
@@ -2827,7 +2766,6 @@ namespace FR_Operator
             }
             ftagList.Clear();
             KKMInfoTransmitter[FR_FIRMWARE_KEY] = _tfn_lib_version;
-            //var expiraReq = Task.Run(async () => await _GetFnExpirationAsync()).Result;
 
             var resultKkt = Task.Run(async () => await GetRegistrationParamsAsync(false,FTAG_KKT_NUMBER_FACTORY)).Result;
             if ( resultKkt == OK && RegFTags.Count > 0 )
@@ -3010,7 +2948,7 @@ namespace FR_Operator
             KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY] = _lastFD.ToString();
             KKMInfoTransmitter[FR_SHIFT_STATE_KEY] = GetFnInfoParam(FNDESCR_SHIFT_STATE);
             KKMInfoTransmitter[FR_OFD_EXCHANGE_STATUS_KEY] = GetFnInfoParam(FNDESCR_OFD_EXCHANGE_FD_STRING);
-            //KKMInfoTransmitter[FR_FIRMWARE_KEY] = "ТОЛЬКО ЧТЕНИЕ ФД!";
+
             _ui.UpdateUiKkmDescribtion();
         }
 
@@ -3067,10 +3005,7 @@ namespace FR_Operator
                 string defData = tlvRule.DefaultData;
                 List<FTag> l = null;
                 FTag f = null;
-                //if(tlvNumber == 1188||tlvNumber == 1189)
-                //{
-                //    LogHandle.ol("debug get reg params");
-                //}
+
                 if (sourceData == TFTagRuleSet.RSOURCE_IGNORE)
                 {
                     continue;
@@ -3233,7 +3168,6 @@ namespace FR_Operator
 
         public override bool PerformFD(FiscalCheque doc)
         {
-            //throw new NotImplementedException();
             LogHandle.Olta("Отправляем чек в ФН\r\n"+doc.ToString(FiscalCheque.FULL_INFO));
             int totalInPens = (int)Math.Round(doc.TotalSum * 100);
             int paymentInPens = (int)Math.Round(100 * (doc.Cash + doc.ECash + doc.Prepaid + doc.Credit + doc.Provision));
@@ -3439,7 +3373,6 @@ namespace FR_Operator
                 return true;
             }
             RezultMsg(_errorPresentation);
-            //AbortDocument();
             return false;
         }
 

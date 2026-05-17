@@ -44,30 +44,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.richTextBox_kkmInfo = new System.Windows.Forms.RichTextBox();
             this.button_kkmInfoUpdate = new System.Windows.Forms.Button();
-            this.kkminfo_lb_mode = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.kkminfo_lb_address = new System.Windows.Forms.TextBox();
-            this.kkminfo_lb_ofdExchange = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.kkminfo_lb_ffd = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.kkminfo_lb_firmware = new System.Windows.Forms.Label();
-            this.kkminfo_lb_frtime = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.kkminfo_lb_fdnumber = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.kkminfo_lb_shiftstate = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.kkminfo_lb_usingsno = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.kkminfo_lb_username = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.kkminfo_lb_serial = new System.Windows.Forms.TextBox();
-            this.lbl_frser = new System.Windows.Forms.Label();
-            this.kkminfo_lb_model_name = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.textBox_cheq_cashierName = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -157,6 +133,7 @@
             this.comboBox_task2CorrectionType = new System.Windows.Forms.ComboBox();
             this.label69 = new System.Windows.Forms.Label();
             this.groupBox_task2CorrectionFinal = new System.Windows.Forms.GroupBox();
+            this.checkBox_invers105 = new System.Windows.Forms.CheckBox();
             this.comboBox_OperationSignChanged = new System.Windows.Forms.ComboBox();
             this.checkBox_task2OperationSignChanger = new System.Windows.Forms.CheckBox();
             this.label25 = new System.Windows.Forms.Label();
@@ -194,6 +171,7 @@
             this.radioButton_task2BackCorrectVariantBuySell = new System.Windows.Forms.RadioButton();
             this.radioButton_task2BackCorrectVariantReturn = new System.Windows.Forms.RadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button_efnTestRun_v2 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.checkBox_testmode2026 = new System.Windows.Forms.CheckBox();
             this.checkBox_efnTestRunNoInternetSign = new System.Windows.Forms.CheckBox();
@@ -575,240 +553,6 @@
             this.button_kkmInfoUpdate.UseVisualStyleBackColor = true;
             this.button_kkmInfoUpdate.Click += new System.EventHandler(this.Button_frNoncheqOperation);
             // 
-            // kkminfo_lb_mode
-            // 
-            this.kkminfo_lb_mode.AutoSize = true;
-            this.kkminfo_lb_mode.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.kkminfo_lb_mode.Location = new System.Drawing.Point(76, 335);
-            this.kkminfo_lb_mode.Name = "kkminfo_lb_mode";
-            this.kkminfo_lb_mode.Size = new System.Drawing.Size(73, 13);
-            this.kkminfo_lb_mode.TabIndex = 24;
-            this.kkminfo_lb_mode.Text = "нет данных";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(31, 335);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(42, 13);
-            this.label20.TabIndex = 23;
-            this.label20.Text = "Режим";
-            // 
-            // kkminfo_lb_address
-            // 
-            this.kkminfo_lb_address.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.kkminfo_lb_address.Enabled = false;
-            this.kkminfo_lb_address.Location = new System.Drawing.Point(72, 316);
-            this.kkminfo_lb_address.Margin = new System.Windows.Forms.Padding(0);
-            this.kkminfo_lb_address.Multiline = true;
-            this.kkminfo_lb_address.Name = "kkminfo_lb_address";
-            this.kkminfo_lb_address.Size = new System.Drawing.Size(199, 20);
-            this.kkminfo_lb_address.TabIndex = 22;
-            this.kkminfo_lb_address.Text = "МСК, Мира ул., 14, с3";
-            // 
-            // kkminfo_lb_ofdExchange
-            // 
-            this.kkminfo_lb_ofdExchange.AutoSize = true;
-            this.kkminfo_lb_ofdExchange.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.kkminfo_lb_ofdExchange.Location = new System.Drawing.Point(122, 255);
-            this.kkminfo_lb_ofdExchange.Name = "kkminfo_lb_ofdExchange";
-            this.kkminfo_lb_ofdExchange.Size = new System.Drawing.Size(84, 13);
-            this.kkminfo_lb_ofdExchange.TabIndex = 21;
-            this.kkminfo_lb_ofdExchange.Text = "1/01.01.2022";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(29, 255);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(85, 13);
-            this.label34.TabIndex = 20;
-            this.label34.Text = "непереданы/от";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(28, 316);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(41, 13);
-            this.label31.TabIndex = 18;
-            this.label31.Text = "Адрес:";
-            // 
-            // kkminfo_lb_ffd
-            // 
-            this.kkminfo_lb_ffd.AutoSize = true;
-            this.kkminfo_lb_ffd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.kkminfo_lb_ffd.Location = new System.Drawing.Point(200, 208);
-            this.kkminfo_lb_ffd.Name = "kkminfo_lb_ffd";
-            this.kkminfo_lb_ffd.Size = new System.Drawing.Size(25, 13);
-            this.kkminfo_lb_ffd.TabIndex = 17;
-            this.kkminfo_lb_ffd.Text = "1.3";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(154, 208);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(41, 13);
-            this.label13.TabIndex = 16;
-            this.label13.Text = "ФФД:";
-            // 
-            // kkminfo_lb_firmware
-            // 
-            this.kkminfo_lb_firmware.AutoSize = true;
-            this.kkminfo_lb_firmware.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.kkminfo_lb_firmware.Location = new System.Drawing.Point(97, 355);
-            this.kkminfo_lb_firmware.Name = "kkminfo_lb_firmware";
-            this.kkminfo_lb_firmware.Size = new System.Drawing.Size(50, 13);
-            this.kkminfo_lb_firmware.TabIndex = 15;
-            this.kkminfo_lb_firmware.Text = "5.7.200";
-            // 
-            // kkminfo_lb_frtime
-            // 
-            this.kkminfo_lb_frtime.AutoSize = true;
-            this.kkminfo_lb_frtime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.kkminfo_lb_frtime.Location = new System.Drawing.Point(88, 223);
-            this.kkminfo_lb_frtime.Name = "kkminfo_lb_frtime";
-            this.kkminfo_lb_frtime.Size = new System.Drawing.Size(107, 13);
-            this.kkminfo_lb_frtime.TabIndex = 14;
-            this.kkminfo_lb_frtime.Text = "02.02.2022 23:59";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(36, 355);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(62, 13);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Прошивка:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 224);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(64, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Время ФР:";
-            // 
-            // kkminfo_lb_fdnumber
-            // 
-            this.kkminfo_lb_fdnumber.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.kkminfo_lb_fdnumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.kkminfo_lb_fdnumber.Location = new System.Drawing.Point(89, 208);
-            this.kkminfo_lb_fdnumber.Name = "kkminfo_lb_fdnumber";
-            this.kkminfo_lb_fdnumber.ReadOnly = true;
-            this.kkminfo_lb_fdnumber.Size = new System.Drawing.Size(60, 13);
-            this.kkminfo_lb_fdnumber.TabIndex = 11;
-            this.kkminfo_lb_fdnumber.Text = "9858";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(27, 208);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(56, 13);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "Посл.ФД";
-            // 
-            // kkminfo_lb_shiftstate
-            // 
-            this.kkminfo_lb_shiftstate.AutoSize = true;
-            this.kkminfo_lb_shiftstate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.kkminfo_lb_shiftstate.Location = new System.Drawing.Point(71, 239);
-            this.kkminfo_lb_shiftstate.Name = "kkminfo_lb_shiftstate";
-            this.kkminfo_lb_shiftstate.Size = new System.Drawing.Size(58, 13);
-            this.kkminfo_lb_shiftstate.TabIndex = 9;
-            this.kkminfo_lb_shiftstate.Text = "Открыта";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(29, 239);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 13);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Смена:";
-            // 
-            // kkminfo_lb_usingsno
-            // 
-            this.kkminfo_lb_usingsno.AutoSize = true;
-            this.kkminfo_lb_usingsno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.kkminfo_lb_usingsno.Location = new System.Drawing.Point(95, 303);
-            this.kkminfo_lb_usingsno.Name = "kkminfo_lb_usingsno";
-            this.kkminfo_lb_usingsno.Size = new System.Drawing.Size(33, 13);
-            this.kkminfo_lb_usingsno.TabIndex = 7;
-            this.kkminfo_lb_usingsno.Text = "ПСН";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(27, 304);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(55, 12);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "Зарег. СНО";
-            // 
-            // kkminfo_lb_username
-            // 
-            this.kkminfo_lb_username.AutoSize = true;
-            this.kkminfo_lb_username.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.kkminfo_lb_username.Location = new System.Drawing.Point(27, 287);
-            this.kkminfo_lb_username.Name = "kkminfo_lb_username";
-            this.kkminfo_lb_username.Size = new System.Drawing.Size(107, 13);
-            this.kkminfo_lb_username.TabIndex = 5;
-            this.kkminfo_lb_username.Text = "ИП Забубин В.И.";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(27, 272);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(154, 12);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "Наименование пользователя (ЮЛ)";
-            // 
-            // kkminfo_lb_serial
-            // 
-            this.kkminfo_lb_serial.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.kkminfo_lb_serial.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.kkminfo_lb_serial.Location = new System.Drawing.Point(82, 189);
-            this.kkminfo_lb_serial.Name = "kkminfo_lb_serial";
-            this.kkminfo_lb_serial.ReadOnly = true;
-            this.kkminfo_lb_serial.Size = new System.Drawing.Size(133, 13);
-            this.kkminfo_lb_serial.TabIndex = 3;
-            this.kkminfo_lb_serial.Text = "123456789012";
-            // 
-            // lbl_frser
-            // 
-            this.lbl_frser.AutoSize = true;
-            this.lbl_frser.Location = new System.Drawing.Point(27, 190);
-            this.lbl_frser.Name = "lbl_frser";
-            this.lbl_frser.Size = new System.Drawing.Size(40, 13);
-            this.lbl_frser.TabIndex = 2;
-            this.lbl_frser.Text = "Зав.№";
-            // 
-            // kkminfo_lb_model_name
-            // 
-            this.kkminfo_lb_model_name.AutoSize = true;
-            this.kkminfo_lb_model_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.kkminfo_lb_model_name.Location = new System.Drawing.Point(81, 172);
-            this.kkminfo_lb_model_name.Name = "kkminfo_lb_model_name";
-            this.kkminfo_lb_model_name.Size = new System.Drawing.Size(87, 13);
-            this.kkminfo_lb_model_name.TabIndex = 1;
-            this.kkminfo_lb_model_name.Text = "Штрих-М-03Ф";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 173);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Модель:";
-            // 
             // textBox_cheq_cashierName
             // 
             this.textBox_cheq_cashierName.Location = new System.Drawing.Point(78, 25);
@@ -1063,7 +807,7 @@
             this.checkedListBox_fdListV2.FormattingEnabled = true;
             this.checkedListBox_fdListV2.Location = new System.Drawing.Point(14, 4);
             this.checkedListBox_fdListV2.Name = "checkedListBox_fdListV2";
-            this.checkedListBox_fdListV2.Size = new System.Drawing.Size(323, 499);
+            this.checkedListBox_fdListV2.Size = new System.Drawing.Size(323, 484);
             this.checkedListBox_fdListV2.TabIndex = 1;
             this.checkedListBox_fdListV2.SelectedValueChanged += new System.EventHandler(this.CheckedListBox_fdListV2_ItemCheck);
             // 
@@ -1899,6 +1643,7 @@
             // 
             // groupBox_task2CorrectionFinal
             // 
+            this.groupBox_task2CorrectionFinal.Controls.Add(this.checkBox_invers105);
             this.groupBox_task2CorrectionFinal.Controls.Add(this.comboBox_OperationSignChanged);
             this.groupBox_task2CorrectionFinal.Controls.Add(this.checkBox_task2OperationSignChanger);
             this.groupBox_task2CorrectionFinal.Controls.Add(this.label25);
@@ -1932,6 +1677,20 @@
             this.groupBox_task2CorrectionFinal.Size = new System.Drawing.Size(321, 209);
             this.groupBox_task2CorrectionFinal.TabIndex = 3;
             this.groupBox_task2CorrectionFinal.TabStop = false;
+            // 
+            // checkBox_invers105
+            // 
+            this.checkBox_invers105.AutoSize = true;
+            this.checkBox_invers105.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_invers105.Location = new System.Drawing.Point(194, 8);
+            this.checkBox_invers105.Name = "checkBox_invers105";
+            this.checkBox_invers105.Size = new System.Drawing.Size(119, 17);
+            this.checkBox_invers105.TabIndex = 526;
+            this.checkBox_invers105.Text = "Расчет ФФД 1.05";
+            this.toolTip1.SetToolTip(this.checkBox_invers105, "Если ФР на ФФД 1.05 \r\nЗаменять признак расчета в чеках коррекции по маске\r\n2 Возв" +
+        "рат прихода -> 3 Расход\r\n4 Возврат расхода -> 1 Приход\r\nПриоритет правила ниже у" +
+        "становки признака расчета");
+            this.checkBox_invers105.UseVisualStyleBackColor = true;
             // 
             // comboBox_OperationSignChanged
             // 
@@ -2115,6 +1874,8 @@
             "НДС 7%",
             "НДС 5/105",
             "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122",
             "Ненулевой"});
             this.comboBox_taxType2Original.Location = new System.Drawing.Point(71, 119);
             this.comboBox_taxType2Original.Margin = new System.Windows.Forms.Padding(2);
@@ -2185,6 +1946,8 @@
             "НДС 7%",
             "НДС 5/105",
             "НДС 7/107",
+            "НДС 22%",
+            "НДС 22/122",
             "Ненулевой"});
             this.comboBox_taxType1Original.Location = new System.Drawing.Point(71, 96);
             this.comboBox_taxType1Original.Margin = new System.Windows.Forms.Padding(2);
@@ -2448,42 +2211,30 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.kkminfo_lb_mode);
+            this.tabPage4.Controls.Add(this.button_efnTestRun_v2);
             this.tabPage4.Controls.Add(this.groupBox11);
-            this.tabPage4.Controls.Add(this.label20);
             this.tabPage4.Controls.Add(this.button_IEE_FOD);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_address);
             this.tabPage4.Controls.Add(this.button_aboutWnd);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_ofdExchange);
             this.tabPage4.Controls.Add(this.textBox_cheque_correctionDescribtion);
-            this.tabPage4.Controls.Add(this.label34);
             this.tabPage4.Controls.Add(this.button_MassActionCleanList);
-            this.tabPage4.Controls.Add(this.label31);
-            this.tabPage4.Controls.Add(this.label6);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_ffd);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_model_name);
-            this.tabPage4.Controls.Add(this.label13);
-            this.tabPage4.Controls.Add(this.lbl_frser);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_firmware);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_serial);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_frtime);
-            this.tabPage4.Controls.Add(this.label8);
-            this.tabPage4.Controls.Add(this.label11);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_username);
-            this.tabPage4.Controls.Add(this.label7);
-            this.tabPage4.Controls.Add(this.label9);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_fdnumber);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_usingsno);
-            this.tabPage4.Controls.Add(this.label12);
-            this.tabPage4.Controls.Add(this.label10);
-            this.tabPage4.Controls.Add(this.kkminfo_lb_shiftstate);
             this.tabPage4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabPage4.Location = new System.Drawing.Point(21, 4);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(325, 460);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Предыд. вар.";
+            this.tabPage4.Text = "Сервис";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button_efnTestRun_v2
+            // 
+            this.button_efnTestRun_v2.Location = new System.Drawing.Point(9, 158);
+            this.button_efnTestRun_v2.Name = "button_efnTestRun_v2";
+            this.button_efnTestRun_v2.Size = new System.Drawing.Size(229, 23);
+            this.button_efnTestRun_v2.TabIndex = 311;
+            this.button_efnTestRun_v2.Text = "Запуск прогона - только ЭФН/МГМГ v2";
+            this.button_efnTestRun_v2.UseVisualStyleBackColor = true;
+            this.button_efnTestRun_v2.Visible = false;
+            this.button_efnTestRun_v2.Click += new System.EventHandler(this.MassActionsOldVar);
             // 
             // groupBox11
             // 
@@ -2589,9 +2340,9 @@
             // textBox_cheque_correctionDescribtion
             // 
             this.textBox_cheque_correctionDescribtion.Enabled = false;
-            this.textBox_cheque_correctionDescribtion.Location = new System.Drawing.Point(94, 429);
+            this.textBox_cheque_correctionDescribtion.Location = new System.Drawing.Point(214, 429);
             this.textBox_cheque_correctionDescribtion.Name = "textBox_cheque_correctionDescribtion";
-            this.textBox_cheque_correctionDescribtion.Size = new System.Drawing.Size(155, 20);
+            this.textBox_cheque_correctionDescribtion.Size = new System.Drawing.Size(35, 20);
             this.textBox_cheque_correctionDescribtion.TabIndex = 303;
             this.textBox_cheque_correctionDescribtion.Text = "*";
             this.textBox_cheque_correctionDescribtion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -4806,9 +4557,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.HelpButton = true;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1475, 777);
+            this.MaximumSize = new System.Drawing.Size(1475, 775);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(770, 629);
+            this.MinimumSize = new System.Drawing.Size(770, 627);
             this.Name = "MainForm";
             this.Text = "FD editor";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.MainForm_HelpButtonClicked);
@@ -4884,28 +4635,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox conn_ckb_connected;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label kkminfo_lb_usingsno;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label kkminfo_lb_username;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox kkminfo_lb_serial;
-        private System.Windows.Forms.Label lbl_frser;
-        private System.Windows.Forms.Label kkminfo_lb_model_name;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox kkminfo_lb_fdnumber;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label kkminfo_lb_shiftstate;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label conn_lb_driver_version;
         private System.Windows.Forms.Button bt_connection;
         private System.Windows.Forms.Label conn_lb_driver_ver;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label kkminfo_lb_firmware;
-        private System.Windows.Forms.Label kkminfo_lb_frtime;
-        private System.Windows.Forms.Label kkminfo_lb_ffd;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox textBox_cheq_cashierName;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
@@ -4980,13 +4713,9 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox textBox_cheqTotalPaidSum;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label kkminfo_lb_ofdExchange;
-        private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button button_cheqDeleteAllItems;
         private System.Windows.Forms.Label kkminfo_label_connectionParams;
         private System.Windows.Forms.TextBox textBox_operationRezult;
-        private System.Windows.Forms.TextBox kkminfo_lb_address;
         private System.Windows.Forms.Button button_openShift;
         private System.Windows.Forms.Button button_closeShift;
         private System.Windows.Forms.Button button_rePrint;
@@ -5024,8 +4753,6 @@
         private System.Windows.Forms.TextBox textBox_readFD250;
         private System.Windows.Forms.Button button_aboutWnd;
         private System.Windows.Forms.Button button_MassActionCleanList;
-        private System.Windows.Forms.Label kkminfo_lb_mode;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button button_fdReadedSelectAll;
         private System.Windows.Forms.Button button_fdReadedSelectNone;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -5242,6 +4969,8 @@
         private System.Windows.Forms.CheckBox checkBox_testmode2026;
         private System.Windows.Forms.RichTextBox richTextBox_kkmInfo;
         private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.CheckBox checkBox_invers105;
+        private System.Windows.Forms.Button button_efnTestRun_v2;
     }
 }
 

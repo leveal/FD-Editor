@@ -50,7 +50,7 @@ namespace FR_Operator
                 {
                     LogHandle.ol("Отсутсвует обертка для работы с атолом Atol.Drivers10.Fptr.dll" + Environment.NewLine +
                         "Работа с атолом заблокирована. Возможно программа некорректно извлечена из архива. Для разблокировки работы с атолом добавьте в директорию с программой обертку Atol.Drivers10.Fptr.dll"+Environment.NewLine+
-                        "Для разблокировки скачайте fs.atol.ru полный архив драйвера, скопируйте 10.10.6.0\\wrappers\\csharp\\Atol.Drivers10.Fptr.dll  в папку с программой и перезапустите ее" );
+                        "Для разблокировки скачайте fs.atol.ru полный архив драйвера, скопируйте 10.10.8.0\\wrappers\\csharp\\Atol.Drivers10.Fptr.dll  в папку с программой и перезапустите ее" );
                     AppSettings.AtolAbility = false;
                 }
                 if (!System.IO.File.Exists("Newtonsoft.Json.dll"))

@@ -223,7 +223,10 @@ namespace FR_Operator
         public int PaymentAgentByProductType
         {
             get { return _paymentAgentByProductType; }
-            set { if (value>=0)_paymentAgentByProductType = value; }
+            set 
+            {
+                if (value>=0)_paymentAgentByProductType = value; 
+            }
         }
         // 1075 телефон оператора перевода
         string _transferOperatorPhone = string.Empty;
@@ -232,7 +235,7 @@ namespace FR_Operator
             get => _transferOperatorPhone;
             set
             {
-                if(value == null)
+                if (value == null)
                 {
                     _transferOperatorPhone = string.Empty;
                 }
@@ -253,7 +256,7 @@ namespace FR_Operator
             get => _paymentAgentOperation;
             set
             {
-                if(value == null)
+                if (value == null)
                 {
                     _paymentAgentOperation = string.Empty;
                 }
@@ -274,7 +277,7 @@ namespace FR_Operator
             get => _paymentAgentPhone;
             set
             {
-                if(value == null)
+                if (value == null)
                 {
                     _paymentAgentPhone = string.Empty;
                 }
@@ -295,7 +298,7 @@ namespace FR_Operator
             get => _paymentOperatorPhone;
             set
             {
-                if(value == null)
+                if (value == null)
                 {
                     _paymentOperatorPhone = string.Empty;
                 }
@@ -425,7 +428,10 @@ namespace FR_Operator
         public string ProviderInn
         {
             get { return _providerInn; }
-            set { if(CorrectInn(value))_providerInn = value; }
+            set 
+            {
+                if (CorrectInn(value))_providerInn = value; 
+            }
         }
         // 1171 телефон поставщика
         string _providerPhone = string.Empty;
@@ -434,7 +440,8 @@ namespace FR_Operator
             get => _providerPhone;
             set
             {
-                if(value == null)
+                
+                if (value == null)
                 {
                     _providerPhone = string.Empty;
                 }
@@ -472,8 +479,7 @@ namespace FR_Operator
         // 1224 данные поставщика
         public bool IsProviderData
         {
-            get => (!string.IsNullOrEmpty(_providerPhone)) ||
-                (!string.IsNullOrEmpty(_providerName));
+            get => (!string.IsNullOrEmpty(_providerPhone)) || (!string.IsNullOrEmpty(_providerName)); 
         }
         public FTag ProviderData
         {

@@ -47,12 +47,11 @@ internal class LogHandle
             }
         }
         Console.WriteLine(message);
-
         if (message!= "Doc paid exactly") File.AppendAllText(_fullPathToLog, DateTime.Now.ToString("g") + ":\t" + message + Environment.NewLine);
     }
 
 
-    public static async void olta(string uartEvent)
+    public static async void Olta(string uartEvent)
     {
         Console.WriteLine(uartEvent);
         uartEvents.Enqueue(uartEvent);
@@ -116,4 +115,40 @@ internal class LogHandle
             _timer = null;
         }
     }
+
+    
+    static List<string> _analize = new List<string>();
+    // для сбора статистики
+    public static void AddData(string data)
+    {
+        _analize.Add(data);
+    }
+    // вывод данных для анализа
+    public static void ShowData(bool unique = true)
+    {
+        if (unique)
+        {
+            List<string> list = new List<string>();
+            foreach (string s in _analize)
+            {
+                if (!list.Contains(s))
+                {
+                    list.Add(s);
+                }
+            }
+            foreach (string s in list) 
+            {
+                Console.WriteLine(s);
+            }
+        }
+        else
+        {
+            foreach (string s in _analize)
+            {
+                Console.WriteLine(s);
+            }
+        }
+        _analize.Clear();
+    }
+
 }

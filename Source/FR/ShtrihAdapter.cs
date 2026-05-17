@@ -331,6 +331,58 @@ namespace FR_Operator
                 Driver.ReadTable();
                 KKMInfoTransmitter[FR_FN_SERIAL_KEY] = Driver.ValueOfFieldString;
                 LogHandle.ol("fn serial "+ KKMInfoTransmitter[FR_FN_SERIAL_KEY]);
+
+                // опрос по предупреждениям
+                StringBuilder sbWarns = new StringBuilder();
+                foreach (var warm in AppSettings.shtrihWarns)
+                {
+                    Driver.TableNumber = warm.Table;
+                    Driver.RowNumber = 1;
+                    Driver.FieldNumber = warm.Field;
+                    int read = Driver.GetFieldStruct();
+                    if (read == 0)
+                    {
+                        bool nameOk = true;
+                        if (!string.IsNullOrEmpty(warm.NameContains))
+                        {
+                            nameOk = Driver.FieldName.ToLower().Contains(warm.NameContains.ToLower());
+                        }
+                        Driver.ReadTable();
+                        if (nameOk)
+                        {
+                            int settingValue = Driver.ValueOfFieldInteger;
+                            if (warm.Condition == AppSettings.ShtrihWarn.SWCondition.Equal)
+                            {
+                                if (warm.Value == settingValue)
+                                {
+                                    sbWarns.AppendLine(warm.Message);
+                                }
+                            }
+                            else if (warm.Condition == AppSettings.ShtrihWarn.SWCondition.Differ)
+                            {
+                                if (warm.Value != settingValue)
+                                {
+                                    sbWarns.AppendLine(warm.Message);
+                                }
+                            }
+                            else if (warm.Condition == AppSettings.ShtrihWarn.SWCondition.More)
+                            {
+                                if (settingValue > warm.Value)
+                                {
+                                    sbWarns.AppendLine(warm.Message);
+                                }
+                            }
+                            else if (warm.Condition == AppSettings.ShtrihWarn.SWCondition.Less)
+                            {
+                                if (settingValue < warm.Value)
+                                {
+                                    sbWarns.AppendLine(warm.Message);
+                                }
+                            }
+                        }
+                    }
+                }
+                KKMInfoTransmitter[FR_WARN_KEY] = sbWarns.ToString();
             }
             if(_deviceVer == 1)
             {

@@ -169,8 +169,8 @@ namespace FR_Operator
             }
             else
             {
-                //string line = "\t" + cheque.ToString(FiscalCheque.SHORT_INFO) + (rezultOperation?"\tOK": "\t!!!ОШИБКА ОПЕРАЦИИ!!! - " + KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY])+Environment.NewLine;
-                File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _task2RepotFileNameReadedFdList), "\t" + cheque.ToString(FiscalCheque.SHORT_INFO) + (rezultOperation ? "\tOK" : "\t!!!ОШИБКА ОПЕРАЦИИ!!! - " + KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY]) + Environment.NewLine);
+                File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _task2RepotFileNameReadedFdList), "\t" + cheque.ToString(FiscalCheque.SHORT_INFO) + (rezultOperation ? "\tOK" : "\t!!!ОШИБКА ОПЕРАЦИИ!!! - " + KKMInfoTransmitter[FR_LAST_ERROR_MSG_KEY]) 
+                    + Environment.NewLine + cheque.SourceData + Environment.NewLine);
                 if (!rezultOperation) _errorCounter++;
             }
         }
@@ -184,7 +184,7 @@ namespace FR_Operator
         private static string _task2RepotFileNameReadedFdList = "";
 
 
-        /*  для обраьотки эксель олап
+        /*  для обработки эксель олап
          *  результат фискальной операции будет добавляться методом AppendCorrFd
          *  public static void AppendCorrFd(FiscalCheque cheque, bool rezultOperation)
          *  для расширенной записи лога в ExcelLine нужно передавать строку
