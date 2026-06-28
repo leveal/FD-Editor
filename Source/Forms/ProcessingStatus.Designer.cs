@@ -78,9 +78,10 @@
             "пауза 2с",
             "пауза 4с",
             "пауза 8с",
-            "пауза 16с",
-            "пауза 32с",
-            "пауза 64с"});
+            "пауза 15с",
+            "пауза 30с",
+            "пауза 1 мин",
+            "пауза 2 мин"});
             this.comboBox_dynPause.Location = new System.Drawing.Point(297, 188);
             this.comboBox_dynPause.Name = "comboBox_dynPause";
             this.comboBox_dynPause.Size = new System.Drawing.Size(135, 21);

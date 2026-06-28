@@ -1383,10 +1383,10 @@ namespace FR_Operator
             ["items.providerData.providerPhone"] = 1171,
 
             ["correctionType"] = 1173,
-            ["сorrectionBase"] = 1174,
+            ["correctionBase"] = 1174,
 
-            ["сorrectionBase.correctionDocumentDate"] = 1178,   //--сorrectionBase.correctionDocumentDate
-            ["сorrectionBase.correctionDocumentNumber"] = 1179,   //--сorrectionBase.correctionDocumentNumber
+            ["correctionBase.correctionDocumentDate"] = 1178,   //--correctionBase.correctionDocumentDate
+            ["correctionBase.correctionDocumentNumber"] = 1179,   //--correctionBase.correctionDocumentNumber
 
             ["fiscalDriveSumReports.sellOper.taxFreeSum"] = 1183,   //--fiscalDriveSumReports.sellOper.taxFreeSum
 
@@ -1523,7 +1523,19 @@ namespace FR_Operator
             ["buyerData.buyerDocumentData"] = 1246,   //--buyerInformation.buyerDocumentData
 
             ["buyerData.buyerAddress"] = 1254,   //--buyerInformation.buyerAddress
+
+            ["items.itemsIndustryDetails"] = 1260,
+
+            ["items.labelCodeProcesMode"] = 2102,
+            ["items.productCodeHandleMode"] = 2102, // pofd
+
+            ["items.checkingProdInformationResult"] = 2106,
+            ["items.productCodeCheckResult"] = 2106,   //pofd
+
+            ["checkingLabeledProdResult"] = 2107,
+            ["overallProductCodeCheckResult"] = 2107,   //pofd
             ["items.measureUnit"] = 2108,
+
             ["retailAddress"] = 1009,
         };
 

@@ -3273,7 +3273,11 @@ namespace FR_Operator
                                 }
                             }
                         }
-
+                        else if (tlvNumber == FTAG_OPERATION_TYPE)
+                        {
+                            continue;
+                            // данный тег передается при закрытии чека как байт передача его в 1.05 ведет к задублированию в Ав15-4
+                        }
                     }
                     if ((l == null || l.Count == 0) && !string.IsNullOrEmpty(defData))
                     {

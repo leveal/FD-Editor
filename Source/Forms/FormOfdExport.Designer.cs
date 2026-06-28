@@ -246,6 +246,7 @@
             this.button_openExcel = new System.Windows.Forms.Button();
             this.richTextBox_log = new System.Windows.Forms.RichTextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBox_trigerFuse = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_fd.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1018,7 +1019,6 @@
             // 
             // textBox_cashierInnDefault
             // 
-            this.textBox_cashierInnDefault.Enabled = false;
             this.textBox_cashierInnDefault.Location = new System.Drawing.Point(7, 134);
             this.textBox_cashierInnDefault.Name = "textBox_cashierInnDefault";
             this.textBox_cashierInnDefault.Size = new System.Drawing.Size(364, 20);
@@ -1036,7 +1036,6 @@
             // comboBox_cashierInn
             // 
             this.comboBox_cashierInn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_cashierInn.Enabled = false;
             this.comboBox_cashierInn.FormattingEnabled = true;
             this.comboBox_cashierInn.Items.AddRange(new object[] {
             "Использовать значение",
@@ -5591,6 +5590,7 @@
             // 
             // tabPage_perform
             // 
+            this.tabPage_perform.Controls.Add(this.checkBox_trigerFuse);
             this.tabPage_perform.Controls.Add(this.label14);
             this.tabPage_perform.Controls.Add(this.comboBox_jsonFilename);
             this.tabPage_perform.Controls.Add(this.label23);
@@ -5881,7 +5881,7 @@
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(363, 6);
+            this.button2.Location = new System.Drawing.Point(363, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(175, 36);
             this.button2.TabIndex = 4;
@@ -5915,7 +5915,7 @@
             // button_performCorrections
             // 
             this.button_performCorrections.Enabled = false;
-            this.button_performCorrections.Location = new System.Drawing.Point(183, 6);
+            this.button_performCorrections.Location = new System.Drawing.Point(183, 3);
             this.button_performCorrections.Name = "button_performCorrections";
             this.button_performCorrections.Size = new System.Drawing.Size(175, 36);
             this.button_performCorrections.TabIndex = 1;
@@ -5925,7 +5925,7 @@
             // 
             // button_checkOutEmulatorRun
             // 
-            this.button_checkOutEmulatorRun.Location = new System.Drawing.Point(5, 6);
+            this.button_checkOutEmulatorRun.Location = new System.Drawing.Point(5, 3);
             this.button_checkOutEmulatorRun.Name = "button_checkOutEmulatorRun";
             this.button_checkOutEmulatorRun.Size = new System.Drawing.Size(175, 36);
             this.button_checkOutEmulatorRun.TabIndex = 0;
@@ -5954,6 +5954,17 @@
             this.richTextBox_log.Size = new System.Drawing.Size(880, 92);
             this.richTextBox_log.TabIndex = 1;
             this.richTextBox_log.Text = "";
+            // 
+            // checkBox_trigerFuse
+            // 
+            this.checkBox_trigerFuse.AutoSize = true;
+            this.checkBox_trigerFuse.Location = new System.Drawing.Point(183, 44);
+            this.checkBox_trigerFuse.Name = "checkBox_trigerFuse";
+            this.checkBox_trigerFuse.Size = new System.Drawing.Size(131, 17);
+            this.checkBox_trigerFuse.TabIndex = 18;
+            this.checkBox_trigerFuse.Text = "Блокировка запуска";
+            this.checkBox_trigerFuse.UseVisualStyleBackColor = true;
+            this.checkBox_trigerFuse.CheckedChanged += new System.EventHandler(this.EventHandler);
             // 
             // FormOfdExport
             // 
@@ -6269,5 +6280,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox checkBox_num_start_locker;
+        private System.Windows.Forms.CheckBox checkBox_trigerFuse;
     }
 }

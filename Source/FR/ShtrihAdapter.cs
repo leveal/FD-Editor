@@ -129,6 +129,16 @@ namespace FR_Operator
             Driver.FNGetStatus();
             _lastFD = Driver.DocumentNumber;
             KKMInfoTransmitter[FR_LAST_FD_NUMBER_KEY] = _lastFD.ToString();
+            int openDoc = Driver.FNCurrentDocument;
+            if(openDoc > 0 && openDoc <= 41)
+            {
+                _checkOpened = true;
+            }
+            else
+            {
+                _checkOpened = false;
+            }
+
             if (Driver.FNSessionState == 1)
             {
                 Driver.GetECRStatus();
@@ -603,6 +613,12 @@ namespace FR_Operator
                 RezultMsg("Обновите драйвер");
                 return false;
             }*/
+            if (_checkOpened)
+            {
+                LogHandle.ol("Обнаружен открытый документ перед открытием чека");
+                CriticalCheqErrorServiceOperations();
+            }
+
 
             if (!_dontPrint)
             {
@@ -1665,7 +1681,7 @@ namespace FR_Operator
             }
             //Driver.CheckSubTotal();
             LogHandle.ol("добавляем суммы чека");
-
+            Driver.StringForPrinting = "";
             Driver.RoundingSumm = (int)Math.Round((itemsSumm - doc.TotalSum) * 100);
             if (itemsSumm - doc.TotalSum > 1)
             {

@@ -93,9 +93,8 @@
   <PropertyGroup />
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="Atol.Drivers10.Fptr, Version=10.10.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\@ware\Atol\10.10.8.0\wrappers\csharp\Atol.Drivers10.Fptr.dll</HintPath>
+    <Reference Include="Atol.Drivers10.Fptr">
+      <HintPath>..\..\..\..\..\..\..\Documents\_Aтло\10.10.8.0\wrappers\csharp\Atol.Drivers10.Fptr.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
@@ -270,7 +269,7 @@
     <COMReference Include="DrvFRLib">
       <Guid>{332C8050-469C-4B4D-A192-68CD3CB252BA}</Guid>
       <VersionMajor>5</VersionMajor>
-      <VersionMinor>17</VersionMinor>
+      <VersionMinor>21</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>

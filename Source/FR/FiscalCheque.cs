@@ -1282,7 +1282,7 @@ namespace FR_Operator
             {
                 if (!string.IsNullOrEmpty(_cashier))
                 {
-                    try { f = new FTag(FTAG_CASHIER_NAME, _emailPhone, true); } catch { }
+                    try { f = new FTag(FTAG_CASHIER_NAME, _cashier, true); } catch { }
                     if (f != null && f.TagNumber > 0)           // сделать доп. обработку при формировании тегов
                         l.Add(f);
                 }

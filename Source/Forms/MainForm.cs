@@ -1445,7 +1445,17 @@ namespace FR_Operator
             {"Джон Смит",           "",           "02.03.1990","554",    "32",        "0304 827391",     "" },
         };
 
-
+        public static readonly string[,] SAMPLE_CASHIERS = new string[,]
+        {
+            {"Иванов", "112233445573"},
+            {"Петров", "012345678943"},
+            {"Сидоров", "002244668886"},
+            {"Семенов", "222222222260"},
+            {"Иванова", "998877665518"},
+            {"Петрова", "555555555540"},
+            {"Сидорова", "161718191185"},
+            {"Семенова", "888888888820"},
+        };
 
         // переключение предмета расчета в режим редактирования
         private void ChangeCheckboxItemAmendSelector(object sender, EventArgs e)
@@ -3768,6 +3778,8 @@ namespace FR_Operator
                         }
                         cheque.Sno = sno;
                         cheque.PropertiesData = i.ToString();
+                        cheque.Cashier = SAMPLE_CASHIERS[i % 8, 0];
+                        cheque.CashierInn = SAMPLE_CASHIERS[i % 8, 1];
 
                         if (i % 4 == 0)
                         {
@@ -4271,6 +4283,14 @@ namespace FR_Operator
                                 {
                                     sb.AppendLine("Расходится адрес покупателя");
                                 }
+                                if(ogigChq.Cashier!= perfChq.Cheque.Cashier)
+                                {
+                                    sb.AppendLine("Расходится кассир");
+                                }
+                                if (ogigChq.CashierInn != perfChq.Cheque.CashierInn)
+                                {
+                                    sb.AppendLine("Расходится ИНН кассира");
+                                }
                             }
                             
                             for (int k = 0; k < ogigChq.Items.Count && k < perfChq.Cheque.Items.Count; k++)
@@ -4530,6 +4550,14 @@ namespace FR_Operator
                                         if (ogigChq.BuyerInformationBuyerAddress != perfChq.Cheque.BuyerInformationBuyerAddress && ffd == 4)
                                         {
                                             sb.AppendLine("Расходится адрес покупателя");
+                                        }
+                                        if (ogigChq.Cashier != perfChq.Cheque.Cashier)
+                                        {
+                                            sb.AppendLine("Расходится кассир");
+                                        }
+                                        if (ogigChq.CashierInn != perfChq.Cheque.CashierInn)
+                                        {
+                                            sb.AppendLine("Расходится ИНН кассира");
                                         }
                                     }
 

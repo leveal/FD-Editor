@@ -85,10 +85,15 @@ namespace FR_Operator
                 return;
 
             bool notReaded = KKMInfoTransmitter[FR_SERIAL_KEY] == "";
+            fptr.setParam(Constants.LIBFPTR_PARAM_DATA_TYPE, Constants.LIBFPTR_DT_RECEIPT_STATE);
+            fptr.queryData();
+            _checkOpened = fptr.getParamInt(Constants.LIBFPTR_PARAM_RECEIPT_TYPE) != Constants.LIBFPTR_RT_CLOSED;
+
             fptr.setParam(Constants.LIBFPTR_PARAM_DATA_TYPE, Constants.LIBFPTR_DT_STATUS);
             fptr.queryData();
             uint mode = fptr.getParamInt(Constants.LIBFPTR_PARAM_MODE);
             KKMInfoTransmitter[FR_STATUS_MODE_KEY]=mode.ToString();
+
             uint shiftState = fptr.getParamInt(Constants.LIBFPTR_PARAM_SHIFT_STATE);
             string shift = "";
             if (shiftState == Constants.LIBFPTR_SS_CLOSED)
@@ -107,9 +112,11 @@ namespace FR_Operator
                 _shiftState = FR_SHIFT_EXPIRED;
             }
             KKMInfoTransmitter[FR_SHIFT_STATE_KEY] = shift;
+
             string fr_time = fptr.getParamDateTime(Constants.LIBFPTR_PARAM_DATE_TIME).ToString(DEFAULT_DT_FORMAT);
             LogHandle.ol("FR time " + fr_time);
             KKMInfoTransmitter[FR_TIME_KEY] = fr_time;
+
             if (notReaded)
             {
                 KKMInfoTransmitter[FR_MODEL_KEY] = fptr.getParamString(Constants.LIBFPTR_PARAM_MODEL_NAME);
@@ -303,7 +310,7 @@ namespace FR_Operator
                 }
                 else
                 {
-                    connectionParams = "Unknown mb bluetooth";
+                    connectionParams = "Другое";
                 }
                 RezultMsg(SUCCESS_MSG);
                 return connectionParams;
@@ -412,6 +419,11 @@ namespace FR_Operator
             }
             if(_shiftState==FR_SHIFT_CLOSED)
                 OpenShift();
+            if (_checkOpened)
+            {
+                LogHandle.ol("Обнаружен открытый документ перед открытием чека");
+                fptr.cancelReceipt();
+            }
 
             if (doc.Cashier != DEFAULT_CASHIER)
             {
@@ -694,14 +706,15 @@ namespace FR_Operator
                         if(AppSettings.AutoUnit120SetZero) fptr.setParam(FTAG_ITEM_UNIT_MEASURE_120, 0);
                     }
                 }
-                if (!string.IsNullOrEmpty(item.Code105)&&_ffdVer< FR_FFD120) // 1162
+                /*if (!string.IsNullOrEmpty(item.Code105)&&_ffdVer< FR_FFD120) // 1162
                 {
                     fptr.setParam(FTAG_ITEM_PRODUCT_CODE, Encoding.ASCII.GetBytes(item.Code105));
                 }// добавить 1163 для ФФД 1.2
                 else
                 {
-                    fptr.setParam(1163, Encoding.ASCII.GetBytes(item.Code105));
-                }
+                    //fptr.setParam(1163, Encoding.ASCII.GetBytes(item.Code105));
+                    // тут переделать по фэншую
+                }*/
                 if (!string.IsNullOrEmpty(item.ProviderInn))
                 {
                     fptr.setParam(FTAG_ITEM_PROVIDER_INN, item.ProviderInn);

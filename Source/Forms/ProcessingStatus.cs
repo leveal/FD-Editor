@@ -107,13 +107,13 @@ namespace FR_Operator
         {
             if (sender == comboBox_dynPause)
             {
-                if(comboBox_dynPause.SelectedIndex == 0|| comboBox_dynPause.SelectedIndex == 1)
+                if(comboBox_dynPause.SelectedIndex == 0)
                 {
                     FormOfdExport.dynamicPause = 0;
                 }
                 else
                 {
-                    FormOfdExport.dynamicPause = (int)(Math.Pow(2, comboBox_dynPause.SelectedIndex - 1));
+                    FormOfdExport.dynamicPause = (int)(Math.Pow(2, comboBox_dynPause.SelectedIndex - 1)+0.01);
                 }
             }
         }

@@ -174,6 +174,14 @@ namespace FR_Operator
             {
                 listBox_shtrihWarns.Items.Add(warn.ToString());
             }
+            if (DefaultFormCode==3)
+            {
+                comboBox_defaultRootTagValue.SelectedIndex = 1;
+            }
+            else if (DefaultFormCode == 31)
+            {
+                comboBox_defaultRootTagValue.SelectedIndex = 2;
+            }
             _skipProcessing = false;
         }
 
@@ -1960,7 +1968,7 @@ namespace FR_Operator
                         DialogResult dialogResult = MessageBox.Show("Названий тегов распознано: " + fnsJsonRulesStructured.Count 
                             + Environment.NewLine+"Правил до замены: " + FTag.structuredTagNames.Count,
                             "Заменить правила?", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.OK)
+                        if (dialogResult == DialogResult.Yes)
                         {
                             foreach (string tok in fnsJsonRulesStructured.Keys)
                             {

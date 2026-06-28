@@ -467,8 +467,29 @@ namespace FR_Operator
 
         public static bool breakOperation = false; 
         bool skip_handle_sign = false;
+        private bool peformDoubleClickFuse = false;
         private void EventHandler(object sender, EventArgs e)
         {
+            string extInf = string.Empty;
+            if(sender == null)
+            {
+                extInf = "sender-null";
+            }
+            else if(sender is CheckBox)
+            {
+                extInf = (sender as CheckBox).Name +".Checked="+(sender as CheckBox).Checked.ToString();
+            }
+            else if(sender is Control)
+            {
+                extInf = (sender as Control).Name + "." + (sender as Control).Text;
+            }
+            else
+            {
+                extInf = sender.ToString();
+            }
+            // отлавливаем двойную отработку выполнения
+            LogHandle.ol("FormOfdExport.EventHandler."+extInf +"; skipHandle="+skip_handle_sign);
+
             if (skip_handle_sign)
             {
                 return;
@@ -701,28 +722,33 @@ namespace FR_Operator
                 _pointer_correctionDate = comboBox_correctionDate.SelectedIndex;
                 if (_pointer_correctionDate > 0)
                 {
-                    int i = 0;
-                    for (i = _startIndex; i < _endIndex && i <= data.GetUpperBound(0); i++)
+                    try
                     {
-                        if (data[i, _pointer_correctionDate] is null)
+                        int i = 0;
+                        for (i = _startIndex; i < _endIndex && i <= data.GetUpperBound(0); i++)
                         {
-                            AddMessage("Ошибка! Строка: " + i + "  - не заполнена дата коррекции");
-                            break;
-                        }
-                        if (data[i, _pointer_correctionDate] is DateTime)
-                        {
-                            continue;
-                        }
-                        if (!DateTime.TryParseExact(data[i, _pointer_correctionDate].ToString(),
-                            "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateValue))
-                        {
-                            AddMessage("Ошибка! Строка: " + i + "  - не распознана дата. Формат даты должен соответсвовать дд.ММ.гггг");
-                            break;
+                            if (data[i, _pointer_correctionDate] is null)
+                            {
+                                AddMessage("Ошибка! Строка: " + i + "  - не заполнена дата коррекции");
+                                break;
+                            }
+                            if (data[i, _pointer_correctionDate] is DateTime)
+                            {
+                                continue;
+                            }
+                            if (!DateTime.TryParseExact(data[i, _pointer_correctionDate].ToString(),
+                                "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dateValue))
+                            {
+                                AddMessage("Ошибка! Строка: " + i + "  - не распознана дата. Формат даты должен соответсвовать дд.ММ.гггг");
+                                break;
+                            }
                         }
                     }
-
+                    catch (Exception exc)
+                    {
+                        AddMessage("EventHandler(sender = comboBox_correctionDate) " + exc.Message);
+                    }
                 }
-
             }
             else if (sender == comboBox_correctionType)
             {
@@ -1083,7 +1109,7 @@ namespace FR_Operator
             }
             else if (sender == comboBox_itemsUnit120Default)
             {
-                int t = comboBox_itemsUnit120.SelectedIndex;
+                int t = comboBox_itemsUnit120Default.SelectedIndex;
                 if (t == 0)
                 {
                     _itemsUnit120Default = 0;
@@ -1309,41 +1335,6 @@ namespace FR_Operator
                                     dataGridView_taxChooser.Rows.Add(s);
                                 }
                             }
-                            /*if (t > 0 && t <= 7)
-                            {
-                                if (t == 1)
-                                {
-                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "1 - Предоплата 100%");
-                                }
-                                else if (t == 2)
-                                {
-                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "2 - Частичная предоплата");
-                                }
-                                else if (t == 3)
-                                {
-                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "3 - Аванс");
-                                }
-                                else if (t == 4)
-                                {
-                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "4 - Полный расчет");
-                                }
-                                else if (t == 5)
-                                {
-                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "5 - Частичный расчет и кредит");
-                                }
-                                else if (t == 6)
-                                {
-                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "6 - Передача в кредит");
-                                }
-                                else if (t == 7)
-                                {
-                                    dataGridView_itemsPaymentTypeMap.Rows.Add(s, "7 - Оплата кредита");
-                                }
-                            }
-                            else
-                            {
-                                dataGridView_itemsPaymentTypeMap.Rows.Add(s);
-                            }*/
                         }
                     }
                 }
@@ -1819,6 +1810,12 @@ namespace FR_Operator
             }
             else if (sender == button_performCorrections)
             {
+                if (checkBox_trigerFuse.Checked)
+                {
+                    AddMessage("Возможно произошло повторное нажатие на выполнение, разблокируйте запуск, рекомендуется повторить проверку");
+                    return;
+                }
+                checkBox_trigerFuse.Checked = true;
                 breakOperation = false;
                 int errorsAllowed = 10;
                 int.TryParse(textBox_errorsAllowed.Text, out errorsAllowed);
@@ -1859,8 +1856,6 @@ namespace FR_Operator
 
                 logFile = "OfdExport_log_" + DateTime.Now.ToString("yyyy-MM-dd_HHmm")+".txt";
 
-
-
                 fiscalPrinter.OpenShift();
                 bool checkOut = ProcessingExcelReport(fiscalPrinter, 5, errorsAllowed, comboBox_pauseAfterCheque.SelectedIndex, closeShiftEvery);
                 if (checkOut)
@@ -1877,6 +1872,13 @@ namespace FR_Operator
                 }
                 AddReportLogMsg(_correctionDescriber);
                 logFile = string.Empty;
+            }
+            else if(sender == checkBox_trigerFuse)
+            {
+                if (!checkBox_trigerFuse.Checked)
+                {
+                    AddMessage("Разблокирован повторынй запуск задания, рекомендуется повторить проверку");
+                }
             }
             else if (sender == checkBox_dontPrint)
             {
@@ -1910,7 +1912,7 @@ namespace FR_Operator
                     _cashierInnDefault = string.Empty;
                     textBox_cashierInnDefault.ForeColor = Color.Red;
                 }
-                
+
             }
             else if (sender == comboBox_selectedSno)
             {
@@ -2233,6 +2235,7 @@ namespace FR_Operator
                     checkBox_num_start_locker.BackgroundImage = Resources.padlock_uncheked;
                 }
             }
+
         }
 
         void MapPresetts()
@@ -2452,12 +2455,12 @@ namespace FR_Operator
                         AddMessage("Указатель на НДС 7/107 выходит за диапазон таблицы");
                         errorSettings = true;
                     }
-                    if (_pointer_retailAddress > cols)
+                    if (_pointer_retailAddress > cols + 1)
                     {
                         AddMessage("Указатель адрес расчетов выходит за диапазон таблицы");
                         errorSettings = true;
                     }
-                    if (_pointer_retailPlace > cols)
+                    if (_pointer_retailPlace > cols + 1)
                     {
                         AddMessage("Указатель места расчетов выходит за диапазон таблицы");
                         errorSettings = true;
@@ -2551,26 +2554,26 @@ namespace FR_Operator
                 FiscalCheque check = new FiscalCheque();
                 MassActionReporter reporter = new MassActionReporter(ref data);
 
-                for (int i = _startIndex; i <= stop; i++)
+                for (int lineNumber = _startIndex; lineNumber <= stop; lineNumber++)
                 {
                     
                     if (breakOperation)
                     {
-                        AddMessage("Обработка прервана пользователем на строке " + (i - 1));
+                        AddMessage("Обработка прервана пользователем на строке " + (lineNumber - 1));
                         break;
                     }
 
                     if (errorsOccured > errorsAllowed)
                     {
-                        AddMessage("Превышен уровень ошибок обработка прервана на строке "+(i-1));
+                        AddMessage("Превышен уровень ошибок обработка прервана на строке "+(lineNumber-1));
                         break;
                     }
 
                     // статистика и расчет времени
-                    if (checkesPerformed >= 5 && i % statsOutOnLines == 0 && i - _startIndex > 0)
+                    if (checkesPerformed >= 5 && lineNumber % statsOutOnLines == 0 && lineNumber - _startIndex > 0)
                     {
                         double secondsPassed = (DateTime.Now - startDt).TotalSeconds;
-                        double secondsLeft = Math.Round((stop - i) * secondsPassed / (i - _startIndex));
+                        double secondsLeft = Math.Round((stop - lineNumber) * secondsPassed / (lineNumber - _startIndex));
                         int minsLeft = ((int)(secondsLeft / 60)) % 60;
                         int hoursLeft = ((int)(secondsLeft / 3600)) % 24;
                         int daysLeft = ((int)(secondsLeft / 3600 / 24));
@@ -2581,7 +2584,7 @@ namespace FR_Operator
                         timeLeft += secondsLeft % 60 + " сек";
 
                         // тут  вывести информацию о корректировке
-                        string statistic = "Строка " + i 
+                        string statistic = "Строка " + lineNumber 
                             + Environment.NewLine + "Оформлено чеков " + checkesPerformed
                             + Environment.NewLine + "Ошибок " + errorsOccured
                             + Environment.NewLine + "Оформлено чеков " + checkesPerformed
@@ -2600,7 +2603,7 @@ namespace FR_Operator
 
                     }
                     string subExtErr = "";
-                    AddReportLogMsg("Строка " + i);
+                    AddReportLogMsg("Строка " + lineNumber);
                     try
                     {
                         //работа с чеками
@@ -2608,7 +2611,7 @@ namespace FR_Operator
                         {
                             check = new FiscalCheque();
                         }
-                        if(_pointer_checkId == 0 || data[i, _pointer_checkId].ToString() != lastCheckId)
+                        if(_pointer_checkId == 0 || data[lineNumber, _pointer_checkId].ToString() != lastCheckId)
                         {
                             // каждая строка новый чек или изменился ид.чека - пробивааем чек
                             AddReportLogMsg("Признак нового чека, закрываем накопления предыдущих строк");
@@ -2625,7 +2628,7 @@ namespace FR_Operator
 
                                 int lastFdNumber = fr.LastFd;
                                 AddReportLogMsg("\t" + check.ToString(FiscalCheque.SHORT_INFO));
-                                reporter.ExcelExtraLine((i - 1).ToString());//отдельный лог
+                                reporter.ExcelExtraLine((lineNumber - 1).ToString());//отдельный лог
                                 
                                 bool rezultPerfoming = fr.PerformFD(check);
                                 if (rezultPerfoming)
@@ -2637,7 +2640,7 @@ namespace FR_Operator
                                 else
                                 {
                                     MassActionReporter.AppendCorrFd(check, false);
-                                    errRows.Add(i-1);
+                                    errRows.Add(lineNumber-1);
                                     errorsOccured++;
                                     fr.ReadDeviceCondition();
                                     if (fr.LastFd != lastFdNumber)
@@ -2688,7 +2691,7 @@ namespace FR_Operator
                                         // пауза для отправки чека в ОФД
                                         Thread.Sleep(dynamicPause*1000);
                                     }
-                                    if (closeShiftEvery > 0 && checkesPerformed % closeShiftEvery == 0)
+                                    if (closeShiftEvery > 0 && checkesPerformed % closeShiftEvery == 0 && checkesPerformed >= closeShiftEvery)
                                     {
                                         fr.CloseShift();
                                         fr.OpenShift();
@@ -2709,9 +2712,9 @@ namespace FR_Operator
                         subExtErr = "метка json ";
                         if (_pointer_jsonFilename > 0)
                         {
-                            if(data[i, _pointer_jsonFilename] != null)
+                            if(data[lineNumber, _pointer_jsonFilename] != null)
                             {
-                                object o = data[i, _pointer_jsonFilename];
+                                object o = data[lineNumber, _pointer_jsonFilename];
                                 if(o is float || o is double || o is decimal)
                                 {
                                     double d = (double)o;
@@ -2719,7 +2722,7 @@ namespace FR_Operator
                                 }
                                 else
                                 {
-                                    check.AdditionalFdPropertie = data[i, _pointer_jsonFilename].ToString();
+                                    check.AdditionalFdPropertie = data[lineNumber, _pointer_jsonFilename].ToString();
                                 }
                                     
                             }
@@ -2730,12 +2733,12 @@ namespace FR_Operator
                         {
                             if (_allowEmptyPropertyData)
                             {
-                                if(data[i, _pointer_PropiertyData]!=null&& data[i, _pointer_PropiertyData].ToString()!="")
-                                    check.PropertiesData = data[i, _pointer_PropiertyData].ToString();
+                                if(data[lineNumber, _pointer_PropiertyData]!=null&& data[lineNumber, _pointer_PropiertyData].ToString()!="")
+                                    check.PropertiesData = data[lineNumber, _pointer_PropiertyData].ToString();
                             }
                             else
                             {
-                                check.PropertiesData = data[i, _pointer_PropiertyData].ToString();
+                                check.PropertiesData = data[lineNumber, _pointer_PropiertyData].ToString();
                             }
                         }
                         subExtErr = "СНО";
@@ -2745,7 +2748,7 @@ namespace FR_Operator
                         }
                         else
                         {
-                            check.Sno = _snoMap[data[i, _pointer_snoM4].ToString()];
+                            check.Sno = _snoMap[data[lineNumber, _pointer_snoM4].ToString()];
                         }
                         subExtErr = "Emal|Phone";
                         if (_pointer_emailPhone == 0)
@@ -2757,9 +2760,9 @@ namespace FR_Operator
                         }
                         else // emailPhone из таблицы
                         {
-                            if (data[i, _pointer_emailPhone] != null)
+                            if (data[lineNumber, _pointer_emailPhone] != null)
                             {
-                                check.EmailPhone = data[i, _pointer_emailPhone].ToString();
+                                check.EmailPhone = data[lineNumber, _pointer_emailPhone].ToString();
                             }
                         }
                         subExtErr = "Адрес расчетов";
@@ -2774,9 +2777,9 @@ namespace FR_Operator
                             }
                             else if(_pointer_retailAddress > 1)
                             {
-                                if (data[i, _pointer_retailAddress - 1] != null)
+                                if (data[lineNumber, _pointer_retailAddress - 1] != null)
                                 {
-                                    check.RetailAddress = data[i, _pointer_retailAddress - 1].ToString();
+                                    check.RetailAddress = data[lineNumber, _pointer_retailAddress - 1].ToString();
                                 }
                             }
                         }
@@ -2792,9 +2795,9 @@ namespace FR_Operator
                             }
                             else if (_pointer_retailPlace > 1)
                             {
-                                if (data[i, _pointer_retailPlace - 1] != null)
+                                if (data[lineNumber, _pointer_retailPlace - 1] != null)
                                 {
-                                    check.RetailPlace = data[i, _pointer_retailPlace - 1].ToString();
+                                    check.RetailPlace = data[lineNumber, _pointer_retailPlace - 1].ToString();
                                 }
                             }
                         }
@@ -2806,7 +2809,7 @@ namespace FR_Operator
                         }
                         else if (_pointer_cashier > 0)
                         {
-                            check.Cashier = data[i, _pointer_cashier].ToString();
+                            check.Cashier = data[lineNumber, _pointer_cashier].ToString();
                         }
                         subExtErr = "Кассир INN";
                         if (_pointer_cashierInn == 0)
@@ -2815,7 +2818,7 @@ namespace FR_Operator
                         }
                         else
                         {
-                            check.CashierInn = data[i, _pointer_cashierInn].ToString();
+                            check.CashierInn = data[lineNumber, _pointer_cashierInn].ToString();
                         }
 
                         subExtErr = "Признак расчета";
@@ -2825,9 +2828,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if (data[i, _pointer_operationTypeM5 - 4] != null)
+                            if (data[lineNumber, _pointer_operationTypeM5 - 4] != null)
                             {
-                                string keyOperType = data[i, _pointer_operationTypeM5 - 4].ToString();
+                                string keyOperType = data[lineNumber, _pointer_operationTypeM5 - 4].ToString();
                                 if (_operationTypesMap.ContainsKey(keyOperType))
                                 { check.CalculationSign = _operationTypesMap[keyOperType]; }
                                 else
@@ -2853,9 +2856,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if (data[i, _pointer_documentTypeM2 - 1] != null)
+                            if (data[lineNumber, _pointer_documentTypeM2 - 1] != null)
                             {
-                                string keyDocType = data[i, _pointer_documentTypeM2 - 1].ToString();
+                                string keyDocType = data[lineNumber, _pointer_documentTypeM2 - 1].ToString();
                                 if (_docTypeMap.ContainsKey(keyDocType))
                                 { check.Document = _docTypeMap[keyDocType]; }
                                 else
@@ -2880,13 +2883,13 @@ namespace FR_Operator
                             }
                             else
                             {
-                                if (data[i, _pointer_correctionDate] is DateTime)
+                                if (data[lineNumber, _pointer_correctionDate] is DateTime)
                                 {
-                                    check.CorrectionDocumentDate = (DateTime)(data[i, _pointer_correctionDate]);
+                                    check.CorrectionDocumentDate = (DateTime)(data[lineNumber, _pointer_correctionDate]);
                                 }
                                 else
                                 {
-                                    check.CorrectionDocumentDate = DateTime.ParseExact(data[i, _pointer_correctionDate].ToString(), _dtFormat, CultureInfo.InvariantCulture);
+                                    check.CorrectionDocumentDate = DateTime.ParseExact(data[lineNumber, _pointer_correctionDate].ToString(), _dtFormat, CultureInfo.InvariantCulture);
                                 }
                             }
                             subExtErr = "Тип коррекции";
@@ -2896,7 +2899,7 @@ namespace FR_Operator
                             }
                             else
                             {
-                                if (data[i, _pointer_correctionTypeM1].ToString() == "1")
+                                if (data[lineNumber, _pointer_correctionTypeM1].ToString() == "1")
                                 {
                                     check.CorrectionTypeFtag = 1;
                                 }
@@ -2911,7 +2914,7 @@ namespace FR_Operator
                             }
                             else
                             {
-                                check.CorrectionOrderNumber = data[i, _pointer_correctionOrderNumber].ToString();
+                                check.CorrectionOrderNumber = data[lineNumber, _pointer_correctionOrderNumber].ToString();
                             }
                         }
 
@@ -2934,11 +2937,11 @@ namespace FR_Operator
                         }
                         else
                         {
-                            itemsName = data[i, _pointer_itemsName].ToString(); ;
+                            itemsName = data[lineNumber, _pointer_itemsName].ToString(); ;
                         }
                         if (_pointer_itemsQuantity > 0)
                         {
-                            object o = data[i, _pointer_itemsQuantity];
+                            object o = data[lineNumber, _pointer_itemsQuantity];
                             if(o is double || o is float || o is int || o is uint)
                             {
                                 itemsQuantity = (double)o;
@@ -2950,7 +2953,7 @@ namespace FR_Operator
 
                         }
                         subExtErr = "Предмет расчета: сумма";
-                        object itSumOb = data[i, _pointer_itemsSum];
+                        object itSumOb = data[lineNumber, _pointer_itemsSum];
                         if(itSumOb is double || itSumOb is int || itSumOb is uint)
                         {
                             itemsSum = Math.Round((double)itSumOb,2);
@@ -2966,7 +2969,7 @@ namespace FR_Operator
                         }
                         else
                         {
-                            object ipObj = data[i, _pointer_itemsPrice];
+                            object ipObj = data[lineNumber, _pointer_itemsPrice];
                             if (ipObj is double)
                                 itemsPrice = Math.Round((double)(ipObj),2);
                             else
@@ -2981,11 +2984,11 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(data[i, _pointer_itemsPaymentTypeSignM7] == null)
+                            if(data[lineNumber, _pointer_itemsPaymentTypeSignM7] == null)
                             {
                                 throw new Exception("Отсутвует знаение в таблице");
                             }
-                            string itemsPaymentTypeKey = data[i, _pointer_itemsPaymentTypeSignM7].ToString();
+                            string itemsPaymentTypeKey = data[lineNumber, _pointer_itemsPaymentTypeSignM7].ToString();
                             if (_itemsPaymentTypeMap.ContainsKey(itemsPaymentTypeKey))
                             { itemsPaymentType = _itemsPaymentTypeMap[itemsPaymentTypeKey]; }
                             else {
@@ -3000,11 +3003,11 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(data[i, _pointer_itemsProductTypeM33] == null)
+                            if(data[lineNumber, _pointer_itemsProductTypeM33] == null)
                             {
 
                             }
-                            string itemsProductTypeKey = data[i, _pointer_itemsProductTypeM33].ToString();
+                            string itemsProductTypeKey = data[lineNumber, _pointer_itemsProductTypeM33].ToString();
                             if (_itemsProductTypeMap.ContainsKey(itemsProductTypeKey))
                             { itemsPproductType = _itemsProductTypeMap[itemsProductTypeKey]; }
                             else
@@ -3028,7 +3031,7 @@ namespace FR_Operator
                             {
                                 itemsNdsRate = int.Parse(data[i, _pointer_itemsNdsRateM12].ToString());
                             }*/
-                            itemsNdsRate = _itemsNdsRateMap[data[i, _pointer_itemsNdsRateM12].ToString()];
+                            itemsNdsRate = _itemsNdsRateMap[data[lineNumber, _pointer_itemsNdsRateM12].ToString()];
                         }
                         subExtErr = "Предмет расчета";
                         ConsumptionItem item = new ConsumptionItem(itemsName, itemsPrice, itemsQuantity, itemsSum, itemsPproductType, itemsPaymentType, itemsNdsRate);
@@ -3041,7 +3044,7 @@ namespace FR_Operator
                         {
                             if (_pointer_itemsUnit120 > 0)
                             {
-                                 item.Unit120 = int.Parse(data[i, _pointer_itemsUnit120].ToString());
+                                 item.Unit120 = int.Parse(data[lineNumber, _pointer_itemsUnit120].ToString());
                             }
                         }
                         // agents
@@ -3058,9 +3061,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if (_pointer_items_agent_1222 > 0 && data[i, _pointer_items_agent_1222] != null)
+                            if (_pointer_items_agent_1222 > 0 && data[lineNumber, _pointer_items_agent_1222] != null)
                             {
-                                if(int.TryParse((data[i, _pointer_items_agent_1222]).ToString(), out int t))
+                                if(int.TryParse((data[lineNumber, _pointer_items_agent_1222]).ToString(), out int t))
                                 {
                                     item.PaymentAgentByProductType = t;
                                 }
@@ -3076,9 +3079,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsPaymentAgentDataTransferOperatorInn_1016>0 && data[i, _pointer_itemsPaymentAgentDataTransferOperatorInn_1016] != null)
+                            if(_pointer_itemsPaymentAgentDataTransferOperatorInn_1016>0 && data[lineNumber, _pointer_itemsPaymentAgentDataTransferOperatorInn_1016] != null)
                             {
-                                item.TransferOperatorInn = data[i, _pointer_itemsPaymentAgentDataTransferOperatorInn_1016].ToString();
+                                item.TransferOperatorInn = data[lineNumber, _pointer_itemsPaymentAgentDataTransferOperatorInn_1016].ToString();
                             }
                         }
                         subExtErr = "item.TransferOperatorPhone";
@@ -3091,9 +3094,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if (_pointer_itemsPaymentAgentDataTransferOperatorPhone_1075 > 0 && data[i, _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075] != null)
+                            if (_pointer_itemsPaymentAgentDataTransferOperatorPhone_1075 > 0 && data[lineNumber, _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075] != null)
                             {
-                                item.TransferOperatorPhone = data[i, _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075].ToString();
+                                item.TransferOperatorPhone = data[lineNumber, _pointer_itemsPaymentAgentDataTransferOperatorPhone_1075].ToString();
                             }
                         }
 
@@ -3107,9 +3110,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if (_pointer_itemsPaymentAgentDataTransferOperatorAddress_1005 > 0 && data[i, _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005]!=null)
+                            if (_pointer_itemsPaymentAgentDataTransferOperatorAddress_1005 > 0 && data[lineNumber, _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005]!=null)
                             {
-                                item.TransferOperatorAddress = data[i, _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005].ToString();
+                                item.TransferOperatorAddress = data[lineNumber, _pointer_itemsPaymentAgentDataTransferOperatorAddress_1005].ToString();
                             }
                         }
 
@@ -3123,9 +3126,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsPaymentAgentDataTransferOperatorName_1026 > 0 && data[i, _pointer_itemsPaymentAgentDataTransferOperatorName_1026] != null)
+                            if(_pointer_itemsPaymentAgentDataTransferOperatorName_1026 > 0 && data[lineNumber, _pointer_itemsPaymentAgentDataTransferOperatorName_1026] != null)
                             {
-                                item.TransferOperatorName = data[i, _pointer_itemsPaymentAgentDataTransferOperatorName_1026].ToString();
+                                item.TransferOperatorName = data[lineNumber, _pointer_itemsPaymentAgentDataTransferOperatorName_1026].ToString();
                             }
                         }
 
@@ -3139,9 +3142,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074>0 && data[i, _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074] != null)
+                            if(_pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074>0 && data[lineNumber, _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074] != null)
                             {
-                                item.PaymentOperatorPhone = data[i, _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074].ToString();
+                                item.PaymentOperatorPhone = data[lineNumber, _pointer_itemsPaymentAgentDataPaymentOperatorPhone_1074].ToString();
                             }
                         }
 
@@ -3155,9 +3158,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044 > 0 && data[i, _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044] != null)
+                            if(_pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044 > 0 && data[lineNumber, _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044] != null)
                             {
-                                item.PaymentAgentOperation = data[i, _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044].ToString();
+                                item.PaymentAgentOperation = data[lineNumber, _pointer_itemsPaymentAgentDataPpaymentAgentOperation_1044].ToString();
                             }
                         }
 
@@ -3171,9 +3174,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsPaymentAgentDataPaymentAgentPhone_1073>0 && data[i, _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073] != null)
+                            if(_pointer_itemsPaymentAgentDataPaymentAgentPhone_1073>0 && data[lineNumber, _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073] != null)
                             {
-                                item.PaymentAgentPhone = data[i, _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073].ToString();
+                                item.PaymentAgentPhone = data[lineNumber, _pointer_itemsPaymentAgentDataPaymentAgentPhone_1073].ToString();
                             }
                         }
 
@@ -3187,9 +3190,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsProviderInn_1226>0 && data[i, _pointer_itemsProviderInn_1226] != null)
+                            if(_pointer_itemsProviderInn_1226>0 && data[lineNumber, _pointer_itemsProviderInn_1226] != null)
                             {
-                                item.ProviderInn = data[i, _pointer_itemsProviderInn_1226].ToString();
+                                item.ProviderInn = data[lineNumber, _pointer_itemsProviderInn_1226].ToString();
                             }
                         }
 
@@ -3203,9 +3206,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsProviderDataProviderName_1225>0 && data[i, _pointer_itemsProviderDataProviderName_1225] != null)
+                            if(_pointer_itemsProviderDataProviderName_1225>0 && data[lineNumber, _pointer_itemsProviderDataProviderName_1225] != null)
                             {
-                                item.ProviderName = data[i, _pointer_itemsProviderDataProviderName_1225].ToString();
+                                item.ProviderName = data[lineNumber, _pointer_itemsProviderDataProviderName_1225].ToString();
                             }
                         }
 
@@ -3219,9 +3222,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsProviderDataProviderPhone_1171>0 && data[i, _pointer_itemsProviderDataProviderPhone_1171] != null)
+                            if(_pointer_itemsProviderDataProviderPhone_1171>0 && data[lineNumber, _pointer_itemsProviderDataProviderPhone_1171] != null)
                             {
-                                item.ProviderPhone = data[i, _pointer_itemsProviderDataProviderPhone_1171].ToString();
+                                item.ProviderPhone = data[lineNumber, _pointer_itemsProviderDataProviderPhone_1171].ToString();
                             }
                         }
 
@@ -3235,9 +3238,9 @@ namespace FR_Operator
                         }
                         else
                         {
-                            if(_pointer_itemsCustomEntryNum_1231>0 && data[i, _pointer_itemsCustomEntryNum_1231] != null)
+                            if(_pointer_itemsCustomEntryNum_1231>0 && data[lineNumber, _pointer_itemsCustomEntryNum_1231] != null)
                             {
-                                item.CustomEntryNum = data[i, _pointer_itemsCustomEntryNum_1231].ToString();
+                                item.CustomEntryNum = data[lineNumber, _pointer_itemsCustomEntryNum_1231].ToString();
                             }
                         }
 
@@ -3250,7 +3253,7 @@ namespace FR_Operator
 
                         if (_pointer_checkPaidCash > 0)
                         {
-                            object cashObj = data[i, _pointer_checkPaidCash] == null ? 0.0 : data[i, _pointer_checkPaidCash];
+                            object cashObj = data[lineNumber, _pointer_checkPaidCash] == null ? 0.0 : data[lineNumber, _pointer_checkPaidCash];
                             if(cashObj is double || cashObj is float || cashObj is int || cashObj is uint)
                             {
                                 check.Cash = Math.Round((double)cashObj, 2);
@@ -3262,7 +3265,7 @@ namespace FR_Operator
                         }
                         if (_pointer_checkPaidEcash > 0)
                         {
-                            object ecashObj = data[i, _pointer_checkPaidEcash] == null ? 0.0 : data[i, _pointer_checkPaidEcash];
+                            object ecashObj = data[lineNumber, _pointer_checkPaidEcash] == null ? 0.0 : data[lineNumber, _pointer_checkPaidEcash];
                             if (ecashObj is double || ecashObj is float || ecashObj is int || ecashObj is uint)
                             {
                                 check.ECash = Math.Round((double)ecashObj, 2);
@@ -3274,7 +3277,7 @@ namespace FR_Operator
                         }
                         if (_pointer_checkPaidPrepaid > 0)
                         {
-                            object PrepObj = data[i, _pointer_checkPaidPrepaid] == null ? 0.0 : data[i, _pointer_checkPaidPrepaid];
+                            object PrepObj = data[lineNumber, _pointer_checkPaidPrepaid] == null ? 0.0 : data[lineNumber, _pointer_checkPaidPrepaid];
                             if (PrepObj is double || PrepObj is float || PrepObj is int || PrepObj is uint)
                             {
                                 check.Prepaid = Math.Round((double)PrepObj, 2);
@@ -3286,7 +3289,7 @@ namespace FR_Operator
                         }
                         if (_pointer_checkPaidCredit > 0)
                         {
-                            object credObj = data[i, _pointer_checkPaidCredit] == null ? 0.0 : data[i, _pointer_checkPaidCredit];
+                            object credObj = data[lineNumber, _pointer_checkPaidCredit] == null ? 0.0 : data[lineNumber, _pointer_checkPaidCredit];
                             if (credObj is double || credObj is float || credObj is int || credObj is uint)
                             {
                                 check.Credit = Math.Round((double)credObj, 2);
@@ -3298,7 +3301,7 @@ namespace FR_Operator
                         }
                         if (_pointer_checkPaidProvision > 0)
                         {
-                            object otherObj = data[i, _pointer_checkPaidProvision] == null ? 0.0 : data[i, _pointer_checkPaidProvision];
+                            object otherObj = data[lineNumber, _pointer_checkPaidProvision] == null ? 0.0 : data[lineNumber, _pointer_checkPaidProvision];
                             if (otherObj is double || otherObj is float || otherObj is int || otherObj is uint)
                             {
                                 check.Provision = Math.Round((double)otherObj, 2);
@@ -3314,62 +3317,62 @@ namespace FR_Operator
                             subExtErr = "НДС 20 чека";
                             if (_pointer_checkTax_20 > 0)
                             {
-                                check.Nds20 = Math.Round(double.Parse(data[i, _pointer_checkTax_20].ToString()), 2);
+                                check.Nds20 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_20].ToString()), 2);
                             }
                             subExtErr = "НДС 10 чека";
                             if (_pointer_checkTax_10 > 0)
                             {
-                                check.Nds10 = Math.Round(double.Parse(data[i, _pointer_checkTax_10].ToString()), 2);
+                                check.Nds10 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_10].ToString()), 2);
                             }
                             subExtErr = "НДС 20|120 чека";
                             if (_pointer_checkTax_20120 > 0)
                             {
-                                check.Nds20120 = Math.Round(double.Parse(data[i, _pointer_checkTax_20120].ToString()), 2);
+                                check.Nds20120 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_20120].ToString()), 2);
                             }
                             subExtErr = "НДС 10|110 чека";
                             if (_pointer_checkTax_10110 > 0)
                             {
-                                check.Nds10110 = Math.Round(double.Parse(data[i, _pointer_checkTax_10110].ToString()), 2);
+                                check.Nds10110 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_10110].ToString()), 2);
                             }
                             subExtErr = "НДС 0 чека";
                             if (_pointer_checkTax_0 > 0)
                             {
-                                check.Nds0 = Math.Round(double.Parse(data[i, _pointer_checkTax_0].ToString()), 2);
+                                check.Nds0 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_0].ToString()), 2);
                             }
                             subExtErr = "6E3 НДС  чека";
                             if (_pointer_checkTax_free > 0)
                             {
-                                check.NdsFree = Math.Round(double.Parse(data[i, _pointer_checkTax_free].ToString()), 2);
+                                check.NdsFree = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_free].ToString()), 2);
                             }
                             subExtErr = "НДС 5 чека";
                             if (_pointer_checkTax_5 > 0)
                             {
-                                check.Nds5 = Math.Round(double.Parse(data[i, _pointer_checkTax_5].ToString()), 2);
+                                check.Nds5 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_5].ToString()), 2);
                             }
                             subExtErr = "НДС 7 чека";
                             if (_pointer_checkTax_7 > 0)
                             {
-                                check.Nds7 = Math.Round(double.Parse(data[i, _pointer_checkTax_7].ToString()), 2);
+                                check.Nds7 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_7].ToString()), 2);
                             }
                             subExtErr = "НДС 5|105 чека";
                             if (_pointer_checkTax_5105 > 0)
                             {
-                                check.Nds5105 = Math.Round(double.Parse(data[i, _pointer_checkTax_5105].ToString()), 2);
+                                check.Nds5105 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_5105].ToString()), 2);
                             }
                             subExtErr = "НДС 7|107 чека";
                             if (_pointer_checkTax_7107 > 0)
                             {
-                                check.Nds7107 = Math.Round(double.Parse(data[i, _pointer_checkTax_7107].ToString()), 2);
+                                check.Nds7107 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_7107].ToString()), 2);
                             }
                             subExtErr = "НДС 22 чека";
                             if (_pointer_checkTax_22 > 0)
                             {
-                                check.Nds22 = Math.Round(double.Parse(data[i, _pointer_checkTax_22].ToString()), 2);
+                                check.Nds22 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_22].ToString()), 2);
                             }
                             subExtErr = "НДС 22|122 чека";
                             if (_pointer_checkTax_22122 > 0)
                             {
-                                check.Nds22122 = Math.Round(double.Parse(data[i, _pointer_checkTax_22122].ToString()), 2);
+                                check.Nds22122 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_22122].ToString()), 2);
                             }
                         }
 
@@ -3377,17 +3380,17 @@ namespace FR_Operator
                     }
                     catch (Exception exc)
                     {
-                        errRows.Add(i);
+                        errRows.Add(lineNumber);
                         if (subExtErr != "")
                             AddReportLogMsg(subExtErr,1);
-                        AddReportLogMsg("Строка: "+i+" \t"+exc.Message,1);
+                        AddReportLogMsg("Строка: "+lineNumber+" \t"+exc.Message,1);
                         LogHandle.ol(exc.StackTrace);
                         errorsOccured++;
                     }
                     fr.ReadDeviceCondition();
                     if (_pointer_checkId > 0)
-                    { lastCheckId = data[i, _pointer_checkId].ToString(); }
-                    reporter.ExcelLine(i);
+                    { lastCheckId = data[lineNumber, _pointer_checkId].ToString(); }
+                    reporter.ExcelLine(lineNumber);
                 }
                 if (check.Items.Count > 0)
                 {

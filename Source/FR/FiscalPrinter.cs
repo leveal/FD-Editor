@@ -387,6 +387,7 @@ namespace FR_Operator
         protected int _ffdVer = NONE;
         protected int _chosenSno = NONE;
         protected bool _dontPrint = false;
+        protected bool _checkOpened = false;
 
         public int FfdVer
         {
