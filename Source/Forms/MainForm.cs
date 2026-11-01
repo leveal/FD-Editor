@@ -27,12 +27,12 @@ namespace FR_Operator
             this.Icon = Resources.fd_editpr_16_2;
             Assembly assembly = Assembly.GetExecutingAssembly();
             System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fvi.FileVersion;
+            string version = fvi.FileVersion + (AppSettings.TorgBalanceBuild ? " vTB " : "");
             Version v = Assembly.GetExecutingAssembly().GetName().Version;
             DateTime compileDate = new DateTime((v.Build - 1) * TimeSpan.TicksPerDay + v.Revision * TimeSpan.TicksPerSecond * 2).AddYears(1999);
-            LogHandle.ol("Application_" + version);
+            LogHandle.ol("Application_" + version );
             LogHandle.ol((Environment.Is64BitProcess ? "64bit" : "32Bit")+ " depth");
-            TitleStr = "FD editor "+ version+ " [" + compileDate.ToString("dd.MM.yyyy] ") +  (Environment.Is64BitProcess ? "64bit":"32Bit");
+            TitleStr = "FD editor "+ version + " [" + compileDate.ToString("dd.MM.yyyy] ") +  (Environment.Is64BitProcess ? "64bit":"32Bit");
             Text = TitleStr;
             textBox_retailAddress.Enabled = AppSettings.OverideRetailAddress;
             textBox_retailPlace.Enabled = AppSettings.OverideRetailPlace;
@@ -69,6 +69,10 @@ namespace FR_Operator
             {
                 DrvFR shtrih = new DrvFR();
                 _shtrihDriverVersion = shtrih.DriverVersion;
+                if (!AppSettings.DriverCompatible(_shtrihDriverVersion))
+                {
+                    //conn_combo_brand.Items[conn_combo_brand.Items.IndexOf("Штрих")] = "Несовместим)";
+                }
             }
             catch { _shtrihDriverVersion = NO_DRIVER_FOUNDED; }
             LogHandle.ol("Штрих-м драйвер " + _shtrihDriverVersion);
@@ -3187,7 +3191,14 @@ namespace FR_Operator
             textBox_cheq_buyerInn.Text = fFDoc.BuyerInformationBuyerInn;
             textBox_cheque_correctionDescribtion.Text = fFDoc.CorrectionDocDescriber;
             textBox_cheque_orderNum.Text = fFDoc.CorrectionOrderNumber;
-            dateTimePicker_chequeCorrectionDate.Value = fFDoc.CorrectionDocumentDate;
+            if (fFDoc.CorrectionDocumentDate >= dateTimePicker_chequeCorrectionDate.MinDate && fFDoc.CorrectionDocumentDate <= dateTimePicker_chequeCorrectionDate.MaxDate)
+            {
+                dateTimePicker_chequeCorrectionDate.Value = fFDoc.CorrectionDocumentDate;
+            }
+            else
+            {
+                dateTimePicker_chequeCorrectionDate.Value = DateTime.Now;
+            }
             if (!checkBox_cheq_docType_locker.Checked)
             {
                 comboBox_cheq_docName.SelectedIndex = fFDoc.Document == FD_DOCUMENT_NAME_CHEQUE ? 0 : 1;

@@ -5,6 +5,7 @@ using System.Configuration;
 using System.IO;
 using System.Runtime;
 using System.Runtime.Remoting.Channels;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -162,6 +163,7 @@ namespace FR_Operator
             {
                 radioButton_shtrihRegRuleOld.Checked = true;
             }
+            checkBox_driverCompatibility.Checked = _checkCompatibility;
 
             foreach (var header in _jsonHeaders)
             {
@@ -323,6 +325,22 @@ namespace FR_Operator
         /*
          * Все настройки  Штрих|Poscenter
          */
+        public readonly static bool TorgBalanceBuild = false;
+        private static bool _checkCompatibility = true;
+        private static readonly string CHECK_COMPATIBILITY_DRV = "check_driver_compatibility=";
+        
+        public static bool DriverCompatible(string version)
+        {
+            if (TorgBalanceBuild && _checkCompatibility)
+            {
+                if( version.StartsWith("5.25.") ||
+                    version.StartsWith("5.26.") )
+                    return true;
+                return false;
+            }
+            return true;
+        }
+
         // печать информации о корректируемом ФД
         private const string SHTRIH_PRINT_PROPERTY_DATA_KEY ="Shtrih_Print_PropertyData=true";
         private static bool _shtrihPrintPropertyData = false;
@@ -801,6 +819,13 @@ namespace FR_Operator
                                 }
 
                             }
+                            else if (parameter.StartsWith(CHECK_COMPATIBILITY_DRV))
+                            {
+                                if (parameter.Substring(CHECK_COMPATIBILITY_DRV.Length).ToLower() == "true")
+                                    _checkCompatibility = true;
+                                else
+                                    _checkCompatibility = false;
+                            }
                         }
                     }
                     
@@ -933,7 +958,9 @@ namespace FR_Operator
             }
             sb.AppendLine(SHTRIH_REGISTER_ITEM + _shtrihRegisterItemMethod);
             sb.AppendLine(SHTRIH_CLOSE_CHECK_METHOD + _shtrihCloseCheckMethod);
-            foreach(var shtrihWarn in shtrihWarns)
+            sb.AppendLine(CHECK_COMPATIBILITY_DRV + _checkCompatibility);
+
+            foreach (var shtrihWarn in shtrihWarns)
             {
                 sb.AppendLine(shtrihWarn.ToString("save"));
             }
@@ -1295,6 +1322,10 @@ namespace FR_Operator
             else if (sender == checkBox_offLoggingJsonParcing)
             {
                 _jsonOffLog = checkBox_offLoggingJsonParcing.Checked;
+            }
+            else if (sender == checkBox_driverCompatibility)
+            {
+                _checkCompatibility = checkBox_driverCompatibility.Checked;
             }
             else if (sender == button_shtrih_warn_save || sender == button_shtrih_warn_delete)
             {

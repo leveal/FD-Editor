@@ -128,6 +128,12 @@
     <Compile Include="Forms\AppSettings.Designer.cs">
       <DependentUpon>AppSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormCashierChanger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCashierChanger.Designer.cs">
+      <DependentUpon>FormCashierChanger.cs</DependentUpon>
+    </Compile>
     <Compile Include="FR\AtolAdapter.cs" />
     <Compile Include="Forms\BuyerInformationWindow.cs">
       <SubType>Form</SubType>
@@ -203,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BuyerInformationWindow.resx">
       <DependentUpon>BuyerInformationWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormCashierChanger.resx">
+      <DependentUpon>FormCashierChanger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormItemExtendedEditor.resx">
       <DependentUpon>FormItemExtendedEditor.cs</DependentUpon>

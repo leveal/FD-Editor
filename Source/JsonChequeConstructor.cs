@@ -295,7 +295,9 @@ namespace FR_Operator
                 root.RebuildPrezentation();
                 
                 FnReadedDocument parsedJson = TranslateFtagsList(new byte[] { }, root.TagNumber, new List<FTag>() { root });
-                if (!parsedJson.Equals(FnReadedDocument.EmptyFD) && parsedJson.Cheque != null)
+                if (!parsedJson.Equals(FnReadedDocument.EmptyFD) && 
+                    !EmptyCheck(parsedJson.Cheque) // возможно стоит добавить настройки для этого
+                    )
                 {
                     if (
                         parsedJson.Cheque.DocumentNameFtagType == FTAG_FISCAL_DOCUMENT_TYPE_BSO ||
@@ -311,8 +313,10 @@ namespace FR_Operator
                     {
                         parsedJson.Cheque.PropertiesData = parsedJson.FiscalSign;
                     }
+                    return parsedJson;
                 }
-                return parsedJson;
+                LogHandle.ol("Разобранный документ пустой или неправильный");
+                return FnReadedDocument.EmptyFD;
 
             }
             catch(Exception exc)
@@ -381,15 +385,16 @@ namespace FR_Operator
                     if (!DateTime.TryParseExact(s, "dd/MM/yyyy HH:mm", prov, st, out dt))
                         if (!DateTime.TryParseExact(s, "dd-MM-yyyy HH:mm", prov, st, out dt))
                             if (!DateTime.TryParseExact(s, "dd.MM.yyyyTHH:mm", prov, st, out dt))
-                                if (!DateTime.TryParseExact(s, "dd.MM.yyyy HH:mm", prov, st, out dt))
-                                    if (!DateTime.TryParseExact(s, "dd.MM.yyyy", prov, st, out dt))
-                                        if (!DateTime.TryParseExact(s, "yyyy.MM.dd HH:mm", prov, st, out dt))
-                                            if (!DateTime.TryParseExact(s, "yyyy.MM.dd HH:mm:ss", prov, st, out dt))
-                                                if (!DateTime.TryParseExact(s, "yyyy/MM/dd HH:mm", prov, st, out dt))
-                                                    if (!DateTime.TryParseExact(s, "yyyy-MM-dd HH:mm", prov, st, out dt))
-                                                        if (!DateTime.TryParseExact(s, "yyyy-MM-dd HH:mm:ss", prov, st, out dt))
-                                                            if (!DateTime.TryParseExact(s, "O", prov, st, out dt))
-                                                                dt = jt.First.Value<DateTime>();
+                                if (!DateTime.TryParseExact(s, "dd.MM.yyyyTHH:mm:ss", prov, st, out dt))
+                                    if (!DateTime.TryParseExact(s, "dd.MM.yyyy HH:mm", prov, st, out dt))
+                                        if (!DateTime.TryParseExact(s, "dd.MM.yyyy", prov, st, out dt))
+                                            if (!DateTime.TryParseExact(s, "yyyy.MM.dd HH:mm", prov, st, out dt))
+                                                if (!DateTime.TryParseExact(s, "yyyy.MM.dd HH:mm:ss", prov, st, out dt))
+                                                    if (!DateTime.TryParseExact(s, "yyyy/MM/dd HH:mm", prov, st, out dt))
+                                                        if (!DateTime.TryParseExact(s, "yyyy-MM-dd HH:mm", prov, st, out dt))
+                                                            if (!DateTime.TryParseExact(s, "yyyy-MM-dd HH:mm:ss", prov, st, out dt))
+                                                                if (!DateTime.TryParseExact(s, "O", prov, st, out dt))
+                                                                    dt = jt.First.Value<DateTime>();
                 }
                 catch { }
                 if(dt.Year > 2017)

@@ -16,8 +16,16 @@ namespace FR_Operator
         {
             this._ui = ui;
             Driver = new DrvFR();
-            KKMInfoTransmitter[FR_CONNECTION_SETTINGS_KEY] = ConnectionReprezentation();
+            
             string drvVer = Driver.DriverVersion;
+            if (!AppSettings.DriverCompatible(drvVer))
+            {
+                Driver = null;
+                RezultMsg(DRIVER_NOT_COMPATIBLE);
+                return;
+            }
+
+            KKMInfoTransmitter[FR_CONNECTION_SETTINGS_KEY] = ConnectionReprezentation();
             if (drvVer != null && drvVer.Length > 0)
             {
                 var vers = drvVer.Split('.');
@@ -53,7 +61,6 @@ namespace FR_Operator
             {
                 Disconnect();
             }
-
             LogHandle.ol("Shtrih-ReleaseLib");
         }
 

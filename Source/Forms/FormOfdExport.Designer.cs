@@ -225,6 +225,7 @@
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.comboBox_checkTax20 = new System.Windows.Forms.ComboBox();
             this.tabPage_perform = new System.Windows.Forms.TabPage();
+            this.checkBox_trigerFuse = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.comboBox_jsonFilename = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -243,10 +244,17 @@
             this.textBox_perfomingInformation = new System.Windows.Forms.TextBox();
             this.button_performCorrections = new System.Windows.Forms.Button();
             this.button_checkOutEmulatorRun = new System.Windows.Forms.Button();
+            this.tabPage_postProcessing = new System.Windows.Forms.TabPage();
+            this.groupBox38 = new System.Windows.Forms.GroupBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.textBox_cashierToReplasePostProc = new System.Windows.Forms.TextBox();
+            this.comboBox_cashierToReplasePostProc = new System.Windows.Forms.ComboBox();
+            this.checkBox_closeShiftOnErrPostProc = new System.Windows.Forms.CheckBox();
+            this.button_performPostProduct = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
             this.button_openExcel = new System.Windows.Forms.Button();
             this.richTextBox_log = new System.Windows.Forms.RichTextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBox_trigerFuse = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_fd.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -304,6 +312,8 @@
             this.groupBox22.SuspendLayout();
             this.tabPage_perform.SuspendLayout();
             this.groupBox33.SuspendLayout();
+            this.tabPage_postProcessing.SuspendLayout();
+            this.groupBox38.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -318,12 +328,13 @@
             this.tabControl1.Controls.Add(this.tabPage_payment);
             this.tabControl1.Controls.Add(this.tabPage_taxes);
             this.tabControl1.Controls.Add(this.tabPage_perform);
+            this.tabControl1.Controls.Add(this.tabPage_postProcessing);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1096, 437);
+            this.tabControl1.Size = new System.Drawing.Size(1158, 437);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage_fd
@@ -345,7 +356,7 @@
             this.tabPage_fd.Location = new System.Drawing.Point(4, 25);
             this.tabPage_fd.Name = "tabPage_fd";
             this.tabPage_fd.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_fd.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_fd.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_fd.TabIndex = 0;
             this.tabPage_fd.Text = "Документ";
             this.tabPage_fd.UseVisualStyleBackColor = true;
@@ -795,7 +806,7 @@
             this.tabPage_ch_r.Controls.Add(this.groupBox18);
             this.tabPage_ch_r.Location = new System.Drawing.Point(4, 25);
             this.tabPage_ch_r.Name = "tabPage_ch_r";
-            this.tabPage_ch_r.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_ch_r.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_ch_r.TabIndex = 4;
             this.tabPage_ch_r.Text = "Реквизиты чека";
             this.tabPage_ch_r.UseVisualStyleBackColor = true;
@@ -1430,7 +1441,7 @@
             this.tabPage_cor_r.Location = new System.Drawing.Point(4, 25);
             this.tabPage_cor_r.Name = "tabPage_cor_r";
             this.tabPage_cor_r.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_cor_r.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_cor_r.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_cor_r.TabIndex = 1;
             this.tabPage_cor_r.Text = "Реквизиты коррекции";
             this.tabPage_cor_r.UseVisualStyleBackColor = true;
@@ -1649,9 +1660,12 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(10, 71);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(205, 13);
+            this.label11.Size = new System.Drawing.Size(209, 13);
             this.label11.TabIndex = 3;
-            this.label11.Text = "Формат даты для строковых значений";
+            this.label11.Text = "Формат даты для строковых значений*";
+            this.toolTip1.SetToolTip(this.label11, "yyyy - год\r\nMM - месяц\r\ndd - день\r\nHH - часы(24-х часовой формат)\r\nhh - часы(12ти" +
+        " часовой формат)\r\nmm - минута\r\nss - секунда\r\nподробнее в документации по .NET \r\n" +
+        "(Custom date and time format strings)");
             // 
             // label3
             // 
@@ -1753,7 +1767,7 @@
             this.tabPage_ci1.Controls.Add(this.groupBox_itemsName);
             this.tabPage_ci1.Location = new System.Drawing.Point(4, 25);
             this.tabPage_ci1.Name = "tabPage_ci1";
-            this.tabPage_ci1.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_ci1.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_ci1.TabIndex = 2;
             this.tabPage_ci1.Text = "Предмет расчета 1";
             this.tabPage_ci1.UseVisualStyleBackColor = true;
@@ -2498,7 +2512,7 @@
             this.tabPage_ci2.Controls.Add(this.groupBox12);
             this.tabPage_ci2.Location = new System.Drawing.Point(4, 25);
             this.tabPage_ci2.Name = "tabPage_ci2";
-            this.tabPage_ci2.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_ci2.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_ci2.TabIndex = 5;
             this.tabPage_ci2.Text = "Предмет расчета 2";
             this.tabPage_ci2.UseVisualStyleBackColor = true;
@@ -2882,7 +2896,7 @@
             this.tabPage_ci_ap.Controls.Add(this.groupBox35);
             this.tabPage_ci_ap.Location = new System.Drawing.Point(4, 25);
             this.tabPage_ci_ap.Name = "tabPage_ci_ap";
-            this.tabPage_ci_ap.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_ci_ap.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_ci_ap.TabIndex = 8;
             this.tabPage_ci_ap.Text = "Предмет расчета(агенты, поставщики)";
             this.tabPage_ci_ap.UseVisualStyleBackColor = true;
@@ -4134,7 +4148,7 @@
             this.tabPage_payment.Controls.Add(this.groupBox13);
             this.tabPage_payment.Location = new System.Drawing.Point(4, 25);
             this.tabPage_payment.Name = "tabPage_payment";
-            this.tabPage_payment.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_payment.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_payment.TabIndex = 3;
             this.tabPage_payment.Text = "Оплата";
             this.tabPage_payment.UseVisualStyleBackColor = true;
@@ -4556,7 +4570,7 @@
             this.tabPage_taxes.Controls.Add(this.groupBox_manualTax);
             this.tabPage_taxes.Location = new System.Drawing.Point(4, 25);
             this.tabPage_taxes.Name = "tabPage_taxes";
-            this.tabPage_taxes.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_taxes.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_taxes.TabIndex = 7;
             this.tabPage_taxes.Text = "Ручной ввод налогов";
             this.tabPage_taxes.UseVisualStyleBackColor = true;
@@ -5609,11 +5623,22 @@
             this.tabPage_perform.Controls.Add(this.button_checkOutEmulatorRun);
             this.tabPage_perform.Location = new System.Drawing.Point(4, 25);
             this.tabPage_perform.Name = "tabPage_perform";
-            this.tabPage_perform.Size = new System.Drawing.Size(1088, 408);
+            this.tabPage_perform.Size = new System.Drawing.Size(1150, 408);
             this.tabPage_perform.TabIndex = 6;
             this.tabPage_perform.Text = "Выполнение";
             this.tabPage_perform.UseVisualStyleBackColor = true;
             this.tabPage_perform.Click += new System.EventHandler(this.EventHandler);
+            // 
+            // checkBox_trigerFuse
+            // 
+            this.checkBox_trigerFuse.AutoSize = true;
+            this.checkBox_trigerFuse.Location = new System.Drawing.Point(183, 44);
+            this.checkBox_trigerFuse.Name = "checkBox_trigerFuse";
+            this.checkBox_trigerFuse.Size = new System.Drawing.Size(131, 17);
+            this.checkBox_trigerFuse.TabIndex = 18;
+            this.checkBox_trigerFuse.Text = "Блокировка запуска";
+            this.checkBox_trigerFuse.UseVisualStyleBackColor = true;
+            this.checkBox_trigerFuse.CheckedChanged += new System.EventHandler(this.EventHandler);
             // 
             // label14
             // 
@@ -5909,7 +5934,7 @@
             this.textBox_perfomingInformation.Multiline = true;
             this.textBox_perfomingInformation.Name = "textBox_perfomingInformation";
             this.textBox_perfomingInformation.ReadOnly = true;
-            this.textBox_perfomingInformation.Size = new System.Drawing.Size(1074, 265);
+            this.textBox_perfomingInformation.Size = new System.Drawing.Size(1136, 265);
             this.textBox_perfomingInformation.TabIndex = 2;
             // 
             // button_performCorrections
@@ -5933,6 +5958,154 @@
             this.button_checkOutEmulatorRun.UseVisualStyleBackColor = true;
             this.button_checkOutEmulatorRun.Click += new System.EventHandler(this.EventHandler);
             // 
+            // tabPage_postProcessing
+            // 
+            this.tabPage_postProcessing.Controls.Add(this.groupBox38);
+            this.tabPage_postProcessing.Controls.Add(this.checkBox_closeShiftOnErrPostProc);
+            this.tabPage_postProcessing.Controls.Add(this.button_performPostProduct);
+            this.tabPage_postProcessing.Controls.Add(this.label19);
+            this.tabPage_postProcessing.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_postProcessing.Name = "tabPage_postProcessing";
+            this.tabPage_postProcessing.Size = new System.Drawing.Size(1150, 408);
+            this.tabPage_postProcessing.TabIndex = 9;
+            this.tabPage_postProcessing.Text = "Постобработка";
+            this.tabPage_postProcessing.UseVisualStyleBackColor = true;
+            // 
+            // groupBox38
+            // 
+            this.groupBox38.Controls.Add(this.label48);
+            this.groupBox38.Controls.Add(this.textBox_cashierToReplasePostProc);
+            this.groupBox38.Controls.Add(this.comboBox_cashierToReplasePostProc);
+            this.groupBox38.Location = new System.Drawing.Point(8, 54);
+            this.groupBox38.Name = "groupBox38";
+            this.groupBox38.Size = new System.Drawing.Size(658, 51);
+            this.groupBox38.TabIndex = 6;
+            this.groupBox38.TabStop = false;
+            this.groupBox38.Text = "Замена кассира в перепроведении";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(297, 22);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(84, 13);
+            this.label48.TabIndex = 7;
+            this.label48.Text = "По умолчанию*";
+            this.toolTip1.SetToolTip(this.label48, "Для применения на всю выгрузку");
+            // 
+            // textBox_cashierToReplasePostProc
+            // 
+            this.textBox_cashierToReplasePostProc.Location = new System.Drawing.Point(383, 19);
+            this.textBox_cashierToReplasePostProc.Name = "textBox_cashierToReplasePostProc";
+            this.textBox_cashierToReplasePostProc.Size = new System.Drawing.Size(269, 20);
+            this.textBox_cashierToReplasePostProc.TabIndex = 6;
+            this.textBox_cashierToReplasePostProc.TextChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // comboBox_cashierToReplasePostProc
+            // 
+            this.comboBox_cashierToReplasePostProc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_cashierToReplasePostProc.FormattingEnabled = true;
+            this.comboBox_cashierToReplasePostProc.Items.AddRange(new object[] {
+            "По умолчанию",
+            "A - 1",
+            "B - 2",
+            "C - 3",
+            "D - 4",
+            "E - 5",
+            "F - 6",
+            "G - 7",
+            "H - 8",
+            "I - 9",
+            "J - 10",
+            "K - 11",
+            "L - 12",
+            "M - 13",
+            "N - 14",
+            "O - 15",
+            "P - 16",
+            "Q - 17",
+            "R - 18",
+            "S - 19",
+            "T - 20",
+            "U - 21",
+            "V - 22",
+            "W - 23",
+            "X - 24",
+            "Y - 25",
+            "Z - 26",
+            "AA - 27",
+            "AB - 28",
+            "AC - 29",
+            "AD - 30",
+            "AE - 31",
+            "AF - 32",
+            "AG - 33",
+            "AH - 34",
+            "AI - 35",
+            "AJ - 36",
+            "AK - 37",
+            "AL - 38",
+            "AM - 39",
+            "AN - 40",
+            "AO - 41",
+            "AP - 42",
+            "AQ - 43",
+            "AR - 44",
+            "AS - 45",
+            "AT - 46",
+            "AU - 47",
+            "AV - 48",
+            "AW - 49",
+            "AX - 50",
+            "AY - 51",
+            "AZ - 52",
+            "BA - 53",
+            "BB - 54",
+            "BC - 55",
+            "BD - 56",
+            "BE - 57",
+            "BF - 58",
+            "BG - 59",
+            "BH - 60"});
+            this.comboBox_cashierToReplasePostProc.Location = new System.Drawing.Point(6, 19);
+            this.comboBox_cashierToReplasePostProc.Name = "comboBox_cashierToReplasePostProc";
+            this.comboBox_cashierToReplasePostProc.Size = new System.Drawing.Size(273, 21);
+            this.comboBox_cashierToReplasePostProc.TabIndex = 5;
+            this.comboBox_cashierToReplasePostProc.SelectedIndexChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // checkBox_closeShiftOnErrPostProc
+            // 
+            this.checkBox_closeShiftOnErrPostProc.AutoSize = true;
+            this.checkBox_closeShiftOnErrPostProc.Location = new System.Drawing.Point(15, 31);
+            this.checkBox_closeShiftOnErrPostProc.Name = "checkBox_closeShiftOnErrPostProc";
+            this.checkBox_closeShiftOnErrPostProc.Size = new System.Drawing.Size(249, 17);
+            this.checkBox_closeShiftOnErrPostProc.TabIndex = 4;
+            this.checkBox_closeShiftOnErrPostProc.Text = "Закрывать и открывать смену при ошибках";
+            this.checkBox_closeShiftOnErrPostProc.UseVisualStyleBackColor = true;
+            this.checkBox_closeShiftOnErrPostProc.CheckedChanged += new System.EventHandler(this.EventHandler);
+            // 
+            // button_performPostProduct
+            // 
+            this.button_performPostProduct.Enabled = false;
+            this.button_performPostProduct.Location = new System.Drawing.Point(9, 359);
+            this.button_performPostProduct.Name = "button_performPostProduct";
+            this.button_performPostProduct.Size = new System.Drawing.Size(378, 36);
+            this.button_performPostProduct.TabIndex = 2;
+            this.button_performPostProduct.Text = "Выполнение корректировки с постобработткой";
+            this.button_performPostProduct.UseVisualStyleBackColor = true;
+            this.button_performPostProduct.Click += new System.EventHandler(this.EventHandler);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 5);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(1101, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Двойная обработка каждого чека, сначала производится обратная операция, при успех" +
+    "е прямая с измененными реквизитами, оформляются только чеки коррекции вне зависи" +
+    "мости от настройки первой вкладки";
+            // 
             // button_openExcel
             // 
             this.button_openExcel.Location = new System.Drawing.Point(19, 443);
@@ -5948,29 +6121,18 @@
             this.richTextBox_log.BackColor = System.Drawing.Color.White;
             this.richTextBox_log.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox_log.Dock = System.Windows.Forms.DockStyle.Right;
-            this.richTextBox_log.Location = new System.Drawing.Point(216, 437);
+            this.richTextBox_log.Location = new System.Drawing.Point(278, 437);
             this.richTextBox_log.Name = "richTextBox_log";
             this.richTextBox_log.ReadOnly = true;
             this.richTextBox_log.Size = new System.Drawing.Size(880, 92);
             this.richTextBox_log.TabIndex = 1;
             this.richTextBox_log.Text = "";
             // 
-            // checkBox_trigerFuse
-            // 
-            this.checkBox_trigerFuse.AutoSize = true;
-            this.checkBox_trigerFuse.Location = new System.Drawing.Point(183, 44);
-            this.checkBox_trigerFuse.Name = "checkBox_trigerFuse";
-            this.checkBox_trigerFuse.Size = new System.Drawing.Size(131, 17);
-            this.checkBox_trigerFuse.TabIndex = 18;
-            this.checkBox_trigerFuse.Text = "Блокировка запуска";
-            this.checkBox_trigerFuse.UseVisualStyleBackColor = true;
-            this.checkBox_trigerFuse.CheckedChanged += new System.EventHandler(this.EventHandler);
-            // 
             // FormOfdExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1096, 529);
+            this.ClientSize = new System.Drawing.Size(1158, 529);
             this.Controls.Add(this.richTextBox_log);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button_openExcel);
@@ -6057,6 +6219,10 @@
             this.tabPage_perform.PerformLayout();
             this.groupBox33.ResumeLayout(false);
             this.groupBox33.PerformLayout();
+            this.tabPage_postProcessing.ResumeLayout(false);
+            this.tabPage_postProcessing.PerformLayout();
+            this.groupBox38.ResumeLayout(false);
+            this.groupBox38.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -6281,5 +6447,13 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckBox checkBox_num_start_locker;
         private System.Windows.Forms.CheckBox checkBox_trigerFuse;
+        private System.Windows.Forms.TabPage tabPage_postProcessing;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBox_cashierToReplasePostProc;
+        private System.Windows.Forms.CheckBox checkBox_closeShiftOnErrPostProc;
+        private System.Windows.Forms.Button button_performPostProduct;
+        private System.Windows.Forms.GroupBox groupBox38;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox textBox_cashierToReplasePostProc;
     }
 }

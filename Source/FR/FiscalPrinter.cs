@@ -365,6 +365,7 @@ namespace FR_Operator
 
         public const string
             NO_DRIVER_FOUNDED = "Драйвер не найден",
+            DRIVER_NOT_COMPATIBLE = "Не совместимый драйвер",
             SUCCESS_MSG = "Ошибок нет",
             CONNECTION_ESTABLISHED = "Соединение установлено",
             CONNECTION_NOT_ESTABLISHED = "Соединение не установлено",
@@ -1481,6 +1482,8 @@ namespace FR_Operator
 
                     }
                 }
+                
+
                 if (doc.Cheque != null)
                 {
                     if (AppSettings.AppendFiscalSignAsPropertyData)
@@ -1507,6 +1510,23 @@ namespace FR_Operator
 
         BadData:
             return FnReadedDocument.EmptyFD;
+        }
+
+        public static bool EmptyCheck(FiscalCheque check)
+        {
+            if (check == null)
+                return true;
+            if (
+                check.Items.Count == 0 &&
+                check.TotalSum < 0.009 &&
+                check.Cash+check.ECash+check.Credit+check.Prepaid+check.Provision+          // оплата
+                    check.Nds20+check.Nds10+check.Nds20120+check.Nds10110+check.Nds0+check.NdsFree+  // НДС страрые
+                    check.Nds5+check.Nds7+check.Nds5105+check.Nds7107 +   // НДС 2025
+                    check.Nds22+check.Nds22122 < 0.009   // НДС 2026
+                    )
+                return true;
+
+            return false;
         }
     }
 }

@@ -692,11 +692,11 @@ namespace FR_Operator
             [1163] = FDataType.STLV,    // код товара ФФД 1.2   items.productCodeNew
             [1171] = FDataType.STRING,  // Телефон поставщика   items.providerData.providerPhone
             [1173] = FDataType.BYTE,    // Тип коррекции    correctionType
-            [1174] = FDataType.STLV,    // Основание для коррекции  сorrectionBase
+            [1174] = FDataType.STLV,    // Основание для коррекции  correctionBase
 
             [1177] = FDataType.STRING,  // Описание коррекции 
-            [1178] = FDataType.U32UT,   // Дата документа основания для коррекции   сorrectionBase.correctionDocumentDate
-            [1179] = FDataType.STRING,  // Номер документа основания для коррекции  сorrectionBase.correctionDocumentNumber
+            [1178] = FDataType.U32UT,   // Дата документа основания для коррекции   correctionBase.correctionDocumentDate
+            [1179] = FDataType.STRING,  // Номер документа основания для коррекции  correctionBase.correctionDocumentNumber
             [1183] = FDataType.VLN,     // Сумма расчетов без НДС   fiscalDriveSumReports.sellOper.taxFreeSum
             [1184] = FDataType.VLN,     // сумма коррекций без НДС
             [1187] = FDataType.STRING,  // место расчетов   retailPlace
@@ -945,8 +945,8 @@ namespace FR_Operator
             [1174] = "Основание коррекции",
 
             [1177] = "Описание коррекции(!!!устаревший тег!!! - проверьте актуальноть прошивки ККТ)",// устаревший тег
-            [1178] = "Дата документа основания для коррекции",//    сorrectionBase.correctionDocumentDate
-            [1179] = "Номер документа основания для коррекции",//   сorrectionBase.correctionDocumentNumber
+            [1178] = "Дата документа основания для коррекции",//    correctionBase.correctionDocumentDate
+            [1179] = "Номер документа основания для коррекции",//   correctionBase.correctionDocumentNumber
             [1183] = "Сумма расчетов без НДС",//    fiscalDriveSumReports.sellOper.taxFreeSum
             [1184] = "Сумма коррекций без НДС",// 
             [1187] = "Место расчетов",//    retailPlace
@@ -1141,7 +1141,7 @@ namespace FR_Operator
             [1163] = "productCodeNew",
             [1171] = "providerPhone",
             [1173] = "correctionType",
-            [1174] = "сorrectionBase",
+            [1174] = "correctionBase",
             [1178] = "correctionDocumentDate",
             [1179] = "correctionDocumentNumber",
             [1183] = "taxFreeSum",

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using CheckBox = System.Windows.Forms.CheckBox;
 
 namespace FR_Operator
@@ -328,6 +330,9 @@ namespace FR_Operator
             comboSet.Add(comboBox_jsonFilename);
             comboSet.Add(textBox_errorsAllowed);
             comboSet.Add(checkBox_closeShiftSign);
+            comboSet.Add(comboBox_cashierToReplasePostProc);
+            comboSet.Add(checkBox_closeShiftOnErrPostProc);
+
             MapPresetts();
         }
         bool _overrideAddressOriginal = false;
@@ -464,6 +469,11 @@ namespace FR_Operator
         string _itemsCustomEntryNum_1231_default = string.Empty;
 
         int _pointer_jsonFilename = 0;
+
+        bool _closeShiftOnErrPostProc = false;
+
+        int _pointer_cashierToReplasePostProc = 0;
+        string _cashierToReplasePostProcDefault = string.Empty;
 
         public static bool breakOperation = false; 
         bool skip_handle_sign = false;
@@ -658,7 +668,7 @@ namespace FR_Operator
                 {
                     int operationTypeIndex = _pointer_operationTypeM5 - 4;
                     List<string> op_types = new List<string>();
-                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i <= _endIndex; i++)
                     {
                         int errors = 0;
                         try
@@ -845,7 +855,7 @@ namespace FR_Operator
                 {
                     List<string> ips = new List<string>();
                     int errors = 0;
-                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i <= _endIndex; i++)
                     {
                         if (data[i, _pointer_itemsPaymentTypeSignM7] != null)
                         {
@@ -937,7 +947,7 @@ namespace FR_Operator
                 {
                     List<string> ipt = new List<string>();
                     int errors = 0;
-                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i <= _endIndex; i++)
                     {
                         if (data[i, _pointer_itemsProductTypeM33] != null)
                         {
@@ -1215,7 +1225,7 @@ namespace FR_Operator
                 {
                     List<string> ips = new List<string>();
                     int errors = 0;
-                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i < _endIndex; i++)
+                    for (int i = _startIndex; i <= data.GetUpperBound(0) && i <= _endIndex; i++)
                     {
                         if (data[i, _pointer_itemsNdsRateM12] != null)
                         {
@@ -1646,6 +1656,7 @@ namespace FR_Operator
                     if (fiscalPrinter != null && fiscalPrinter.IsConnected)
                     {
                         button_performCorrections.Enabled = checkOut;
+                        button_performPostProduct.Enabled = checkOut;
                     }
                     else
                     {
@@ -1820,7 +1831,7 @@ namespace FR_Operator
                 int errorsAllowed = 10;
                 int.TryParse(textBox_errorsAllowed.Text, out errorsAllowed);
                 if (data.GetUpperBound(0) > 30 && 
-                    !((fiscalPrinter is FrEmulator)&&(AppSettings.EmulatorDelay < 11))
+                    !((fiscalPrinter is FrEmulator)&&(AppSettings.EmulatorDelay < 33))
                     
                     )
                 {
@@ -1872,6 +1883,13 @@ namespace FR_Operator
                 }
                 AddReportLogMsg(_correctionDescriber);
                 logFile = string.Empty;
+            }
+            else if (sender == button_performPostProduct)
+            {
+                _postProcessingAppendix = true;
+                // запуск постобработки
+                EventHandler(button_performCorrections, e);
+                _postProcessingAppendix = false;
             }
             else if(sender == checkBox_trigerFuse)
             {
@@ -2235,7 +2253,20 @@ namespace FR_Operator
                     checkBox_num_start_locker.BackgroundImage = Resources.padlock_uncheked;
                 }
             }
-
+            else if (sender == checkBox_closeShiftOnErrPostProc)
+            {
+                _closeShiftOnErrPostProc = checkBox_closeShiftOnErrPostProc.Checked;
+            }
+            else if (sender == comboBox_cashierToReplasePostProc)
+            {
+                _pointer_cashierToReplasePostProc = comboBox_cashierToReplasePostProc.SelectedIndex;
+                AddMessage("_pointer_cashierToReplasePostProc = " + comboBox_cashierToReplasePostProc.SelectedIndex);
+            }
+            else if(sender == textBox_cashierToReplasePostProc)
+            {
+                _cashierToReplasePostProcDefault = textBox_cashierToReplasePostProc.Text;
+            }
+            
         }
 
         void MapPresetts()
@@ -2535,6 +2566,12 @@ namespace FR_Operator
                         AddMessage("Указатель метки json выходит за диапазон таблицы");
                         errorSettings = true;
                     }
+                    if (_pointer_cashierToReplasePostProc > cols)
+                    {
+                        AddMessage("Указатель на замену кассра выходит за диапазон таблицы");
+                        errorSettings = true;
+                    }
+                    
                 }
                 
                 if (errorSettings)
@@ -2627,15 +2664,21 @@ namespace FR_Operator
                                 check.TotalSum = paydSum;
 
                                 int lastFdNumber = fr.LastFd;
-                                AddReportLogMsg("\t" + check.ToString(FiscalCheque.SHORT_INFO));
-                                reporter.ExcelExtraLine((lineNumber - 1).ToString());//отдельный лог
+                                if (!_postProcessingAppendix)
+                                {
+                                    AddReportLogMsg("\t" + check.ToString(FiscalCheque.SHORT_INFO));
+                                    reporter.ExcelExtraLine((lineNumber - 1).ToString());//отдельный лог
+                                }
                                 
-                                bool rezultPerfoming = fr.PerformFD(check);
+                                bool rezultPerfoming = _postProcessingAppendix ? PostProcessingAppendix(ref fr, ref reporter, check, ref checkesPerformed, ref errorsOccured, lineNumber -1) : fr.PerformFD(check);
                                 if (rezultPerfoming)
                                 {
                                     AddReportLogMsg("\t\tOK");
-                                    MassActionReporter.AppendCorrFd(check, true);
-                                    checkesPerformed++;
+                                    if (!_postProcessingAppendix)
+                                    {
+                                        MassActionReporter.AppendCorrFd(check, true);
+                                        checkesPerformed++;
+                                    }
                                 }
                                 else
                                 {
@@ -3311,7 +3354,7 @@ namespace FR_Operator
                                 check.Provision = Math.Round(double.Parse(otherObj.ToString()), 2);
                             }
                         }
-
+                        subExtErr = "Налоги";
                         if (_manualTaxes)
                         {
                             subExtErr = "НДС 20 чека";
@@ -3375,6 +3418,18 @@ namespace FR_Operator
                                 check.Nds22122 = Math.Round(double.Parse(data[lineNumber, _pointer_checkTax_22122].ToString()), 2);
                             }
                         }
+                        subExtErr = "Замена кассира";
+                        if (_pointer_cashierToReplasePostProc == 0 && string.IsNullOrEmpty(_cashierToReplasePostProcDefault))
+                        {
+                            replacemets[FiscalPrinter.FTAG_CASHIER_NAME] = _cashierToReplasePostProcDefault;
+                        }
+                        else if(_pointer_cashierToReplasePostProc > 0)
+                        {
+                            if (data[lineNumber, _pointer_cashierToReplasePostProc] != null && data[lineNumber, _pointer_cashierToReplasePostProc] is string)
+                            {
+                                replacemets[FiscalPrinter.FTAG_CASHIER_NAME] = data[lineNumber, _pointer_cashierToReplasePostProc] as string;
+                            }
+                        }
 
 
                     }
@@ -3400,7 +3455,8 @@ namespace FR_Operator
                     // если в чеке оккругление компенсируем
                     check.TotalSum = paydSum;
                     fdSended++;
-                    if (!fr.PerformFD(check))
+                    bool rezultPerfoming = _postProcessingAppendix ? PostProcessingAppendix(ref fr, ref reporter, check, ref checkesPerformed, ref errorsOccured, stop) : fr.PerformFD(check);
+                    if (!rezultPerfoming)
                     { 
                         errorsOccured++;
                         errRows.Add(stop);
@@ -3410,10 +3466,14 @@ namespace FR_Operator
 
                     }
                     else 
-                    { 
-                        checkesPerformed++;
-                        MassActionReporter.AppendCorrFd(check, true);
-                        AddReportLogMsg("\t" + check.ToString(FiscalCheque.SHORT_INFO)+"\tOK");
+                    {
+                        if (!_postProcessingAppendix)
+                        {
+                            checkesPerformed++;
+                            MassActionReporter.AppendCorrFd(check, true);
+                            AddReportLogMsg("\t" + check.ToString(FiscalCheque.SHORT_INFO) + "\tOK");
+                        }
+                        
                     }
                     fr.ReadDeviceCondition();
                 }
@@ -3466,6 +3526,182 @@ namespace FR_Operator
             
 
             return rezult;
+        }
+
+        bool _postProcessingAppendix = false;
+        Dictionary<int, object> replacemets = new Dictionary<int, object>();
+        bool PostProcessingAppendix(ref FiscalPrinter fr, ref MassActionReporter reporter, FiscalCheque cheque, ref int checkesPerformed, ref int errorsOccured, int lineNumber)
+        {
+            // инвертируем признак расчета
+            int operationType = cheque.CalculationSign;
+            switch (operationType)
+            {
+                case FiscalPrinter.FD_CALCULATION_INCOME_LOC:
+                    cheque.CalculationSign = FiscalPrinter.FD_CALCULATION_BACK_INCOME_LOC;
+                    break;
+                case FiscalPrinter.FD_CALCULATION_BACK_INCOME_LOC:
+                    cheque.CalculationSign = FiscalPrinter.FD_CALCULATION_INCOME_LOC;
+                    break;
+                case FiscalPrinter.FD_CALCULATION_EXPENCE_LOC:
+                    cheque.CalculationSign = FiscalPrinter.FD_CALCULATION_BACK_EXPENCE_LOC;
+                    break;
+                case FiscalPrinter.FD_CALCULATION_BACK_EXPENCE_LOC:
+                    cheque.CalculationSign = FiscalPrinter.FD_CALCULATION_EXPENCE_LOC;
+                    break;
+                default:
+                    errorsOccured += 2;
+                    return true;
+                    //break;
+            }
+            // конвертируем чеки в коррекции
+            if (cheque.Document == FiscalPrinter.FD_DOCUMENT_NAME_CHEQUE)
+            {
+                cheque.Document = FiscalPrinter.FD_DOCUMENT_NAME_CORRECTION_CHEQUE;
+            }
+
+            // оформляем отмену
+            AddReportLogMsg("Отмена\t\t" + cheque.ToString(FiscalCheque.SHORT_INFO));
+            reporter.ExcelExtraLine((lineNumber - 1).ToString());//отдельный лог
+
+            int lastFdNumber = fr.LastFd;
+            bool rezultPerfoming = fr.PerformFD(cheque);
+            
+            if (rezultPerfoming)
+            {
+                AddReportLogMsg("\t\tOK");
+                MassActionReporter.AppendCorrFd(cheque, true);
+                checkesPerformed++;
+            }
+            else
+            {
+                MassActionReporter.AppendCorrFd(cheque, false);
+                errRows.Add(lineNumber - 1);
+                errorsOccured++;
+
+                fr.ReadDeviceCondition();
+                if (fr.LastFd != lastFdNumber)
+                {
+                    // номер чека изменился
+                    AddReportLogMsg("\tчек закрылся с ошибкой " + (FiscalPrinter.KKMInfoTransmitter.ContainsKey(FiscalPrinter.FR_LAST_ERROR_MSG_KEY) ? FiscalPrinter.KKMInfoTransmitter[FiscalPrinter.FR_LAST_ERROR_MSG_KEY] : "null"), 1);
+                    checkesPerformed++;
+                }
+                else
+                {
+                    int lastFdAfterError = fr.LastFd;
+                    // номер чека не изменился
+                    if (_closeShiftOnEroor)
+                    {
+                        fr.CloseShift();
+                        fr.OpenShift();
+                        fr.ReadDeviceCondition();
+                        if (lastFdAfterError == fr.LastFd)
+                        {
+                            AddReportLogMsg("\tЗакрытие и открытие смены не увеличило номер ФД", 1);
+                            errorsOccured += 2;
+                        }
+                        else
+                        {
+                            AddReportLogMsg("\tЗакрытие и открытие смены увеличило номер ФД", 1);
+                        }
+                        AddReportLogMsg("\t пытаемся пробить повторно");
+                        rezultPerfoming = fr.PerformFD(cheque);
+                        if (rezultPerfoming)
+                        {
+                            AddReportLogMsg("\t\t\tповторное оформление чека прошло без ошибок", 1);
+                            checkesPerformed++;
+                            MassActionReporter.AppendCorrFd(cheque, true);
+                        }
+                        else
+                        {
+                            AddReportLogMsg("\tчек закрылся с ошибкой " + (FiscalPrinter.KKMInfoTransmitter.ContainsKey(FiscalPrinter.FR_LAST_ERROR_MSG_KEY) ? FiscalPrinter.KKMInfoTransmitter[FiscalPrinter.FR_LAST_ERROR_MSG_KEY] : "null"), 1);
+                            errorsOccured++;
+                            MassActionReporter.AppendCorrFd(cheque, false);
+                        }
+                    }
+                }
+            }
+
+            // перепроводим измененный документ если оформилась отмена
+            if (rezultPerfoming)
+            {
+                // возвращаем признак расчета
+                cheque.CalculationSign = operationType;
+                // меняем кассира при наличии
+                if (replacemets.ContainsKey(FiscalPrinter.FTAG_CASHIER_NAME) && replacemets[FiscalPrinter.FTAG_CASHIER_NAME] != null && replacemets[FiscalPrinter.FTAG_CASHIER_NAME] is string)
+                {
+                    string newCashier = replacemets[FiscalPrinter.FTAG_CASHIER_NAME] as string;
+                    if (!string.IsNullOrEmpty(newCashier))
+                    {
+                        cheque.Cashier = newCashier;
+                    }
+                }
+                // оформляем отмену
+                AddReportLogMsg("Перепроведение\t" + cheque.ToString(FiscalCheque.SHORT_INFO));
+                reporter.ExcelExtraLine((lineNumber - 1).ToString());//отдельный лог
+                lastFdNumber = fr.LastFd;
+                rezultPerfoming = fr.PerformFD(cheque);
+
+                if (rezultPerfoming)
+                {
+                    AddReportLogMsg("\t\tOK");
+                    MassActionReporter.AppendCorrFd(cheque, true);
+                    checkesPerformed++;
+                }
+                else
+                {
+                    MassActionReporter.AppendCorrFd(cheque, false);
+                    errRows.Add(lineNumber - 1);
+                    errorsOccured++;
+
+                    fr.ReadDeviceCondition();
+                    if (fr.LastFd != lastFdNumber)
+                    {
+                        // номер чека изменился
+                        AddReportLogMsg("\tчек закрылся с ошибкой " + (FiscalPrinter.KKMInfoTransmitter.ContainsKey(FiscalPrinter.FR_LAST_ERROR_MSG_KEY) ? FiscalPrinter.KKMInfoTransmitter[FiscalPrinter.FR_LAST_ERROR_MSG_KEY] : "null"), 1);
+                        checkesPerformed++;
+                    }
+                    else
+                    {
+                        int lastFdAfterError = fr.LastFd;
+                        // номер чека не изменился
+                        if (_closeShiftOnEroor)
+                        {
+                            fr.CloseShift();
+                            fr.OpenShift();
+                            fr.ReadDeviceCondition();
+                            if (lastFdAfterError == fr.LastFd)
+                            {
+                                AddReportLogMsg("\tЗакрытие и открытие смены не увеличило номер ФД", 1);
+                                errorsOccured += 2;
+                            }
+                            else
+                            {
+                                AddReportLogMsg("\tЗакрытие и открытие смены увеличило номер ФД", 1);
+                            }
+                            AddReportLogMsg("\t пытаемся пробить повторно");
+                            rezultPerfoming = fr.PerformFD(cheque);
+                            if (rezultPerfoming)
+                            {
+                                AddReportLogMsg("\t\t\tповторное оформление чека прошло без ошибок", 1);
+                                checkesPerformed++;
+                                MassActionReporter.AppendCorrFd(cheque, true);
+                            }
+                            else
+                            {
+                                AddReportLogMsg("\tчек закрылся с ошибкой " + (FiscalPrinter.KKMInfoTransmitter.ContainsKey(FiscalPrinter.FR_LAST_ERROR_MSG_KEY) ? FiscalPrinter.KKMInfoTransmitter[FiscalPrinter.FR_LAST_ERROR_MSG_KEY] : "null"), 1);
+                                errorsOccured++;
+                                MassActionReporter.AppendCorrFd(cheque, false);
+                            }
+                        }
+                    }
+                }
+                // надо бы придумать какой-нибудь фокус чтобы не повторять куски кода при обработке ошибок
+            }
+            
+
+
+            replacemets.Clear();
+            return true;
         }
 
         static Form form = null;

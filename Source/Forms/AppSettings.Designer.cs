@@ -156,6 +156,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.checkBox_shtrihPrintPropertyData = new System.Windows.Forms.CheckBox();
             this.tabPage_atol = new System.Windows.Forms.TabPage();
+            this.checkBox_atolWarnEndLic17 = new System.Windows.Forms.CheckBox();
             this.checkBox_fillItemPaymetTypeDef = new System.Windows.Forms.CheckBox();
             this.textBox_atolFontForPrinting = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -179,7 +180,7 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkBox_atolWarnEndLic17 = new System.Windows.Forms.CheckBox();
+            this.checkBox_driverCompatibility = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_common.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -1205,6 +1206,7 @@
             // 
             // tabPage_shtrih
             // 
+            this.tabPage_shtrih.Controls.Add(this.checkBox_driverCompatibility);
             this.tabPage_shtrih.Controls.Add(this.tabControl2);
             this.tabPage_shtrih.Controls.Add(this.groupBox1);
             this.tabPage_shtrih.Controls.Add(this.groupBox_shtrihDeviceSettings);
@@ -1638,7 +1640,7 @@
             this.groupBox_shtrihDeviceSettings.Controls.Add(this.groupBox10);
             this.groupBox_shtrihDeviceSettings.Controls.Add(this.groupBox_taxSettings);
             this.groupBox_shtrihDeviceSettings.Enabled = false;
-            this.groupBox_shtrihDeviceSettings.Location = new System.Drawing.Point(486, 90);
+            this.groupBox_shtrihDeviceSettings.Location = new System.Drawing.Point(486, 57);
             this.groupBox_shtrihDeviceSettings.Name = "groupBox_shtrihDeviceSettings";
             this.groupBox_shtrihDeviceSettings.Size = new System.Drawing.Size(303, 152);
             this.groupBox_shtrihDeviceSettings.TabIndex = 7;
@@ -1797,6 +1799,19 @@
             this.tabPage_atol.TabIndex = 2;
             this.tabPage_atol.Text = "Атол";
             this.tabPage_atol.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_atolWarnEndLic17
+            // 
+            this.checkBox_atolWarnEndLic17.AutoSize = true;
+            this.checkBox_atolWarnEndLic17.Checked = true;
+            this.checkBox_atolWarnEndLic17.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_atolWarnEndLic17.Location = new System.Drawing.Point(16, 139);
+            this.checkBox_atolWarnEndLic17.Name = "checkBox_atolWarnEndLic17";
+            this.checkBox_atolWarnEndLic17.Size = new System.Drawing.Size(325, 17);
+            this.checkBox_atolWarnEndLic17.TabIndex = 10;
+            this.checkBox_atolWarnEndLic17.Text = "Предупреждать об отсутсвии или истекшей лицензии №17";
+            this.checkBox_atolWarnEndLic17.UseVisualStyleBackColor = true;
+            this.checkBox_atolWarnEndLic17.CheckedChanged += new System.EventHandler(this.ChangingSettings);
             // 
             // checkBox_fillItemPaymetTypeDef
             // 
@@ -2017,18 +2032,16 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Width = 70;
             // 
-            // checkBox_atolWarnEndLic17
+            // checkBox_driverCompatibility
             // 
-            this.checkBox_atolWarnEndLic17.AutoSize = true;
-            this.checkBox_atolWarnEndLic17.Checked = true;
-            this.checkBox_atolWarnEndLic17.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_atolWarnEndLic17.Location = new System.Drawing.Point(16, 139);
-            this.checkBox_atolWarnEndLic17.Name = "checkBox_atolWarnEndLic17";
-            this.checkBox_atolWarnEndLic17.Size = new System.Drawing.Size(325, 17);
-            this.checkBox_atolWarnEndLic17.TabIndex = 10;
-            this.checkBox_atolWarnEndLic17.Text = "Предупреждать об отсутсвии или истекшей лицензии №17";
-            this.checkBox_atolWarnEndLic17.UseVisualStyleBackColor = true;
-            this.checkBox_atolWarnEndLic17.CheckedChanged += new System.EventHandler(this.ChangingSettings);
+            this.checkBox_driverCompatibility.AutoSize = true;
+            this.checkBox_driverCompatibility.Location = new System.Drawing.Point(487, 215);
+            this.checkBox_driverCompatibility.Name = "checkBox_driverCompatibility";
+            this.checkBox_driverCompatibility.Size = new System.Drawing.Size(210, 30);
+            this.checkBox_driverCompatibility.TabIndex = 9;
+            this.checkBox_driverCompatibility.Text = "Проверка совместимости драйвера\r\nДля сборки Торговый Баланс М";
+            this.checkBox_driverCompatibility.UseVisualStyleBackColor = true;
+            this.checkBox_driverCompatibility.CheckedChanged += new System.EventHandler(this.ChangingSettings);
             // 
             // AppSettings
             // 
@@ -2249,5 +2262,6 @@
         private System.Windows.Forms.TextBox textBox_textBox_shtrih_warn_comment;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.CheckBox checkBox_atolWarnEndLic17;
+        private System.Windows.Forms.CheckBox checkBox_driverCompatibility;
     }
 }
